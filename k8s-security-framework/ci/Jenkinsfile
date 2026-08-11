@@ -1,0 +1,10 @@
+pipeline {
+    agent none
+    stages {
+        stage('Placeholder') {
+            steps {
+                echo 'TODO: implement Policy-as-Code pipeline'
+            }
+        }
+    }
+}

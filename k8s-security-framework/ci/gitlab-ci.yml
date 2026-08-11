@@ -1,0 +1,6 @@
+# Policy-as-Code stages will be added here.
+stages:
+  - validate
+  - test
+  - integration
+  - report
