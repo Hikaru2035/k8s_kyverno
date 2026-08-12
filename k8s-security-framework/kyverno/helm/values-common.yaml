@@ -1,0 +1,26 @@
+crds:
+  install: true
+
+config:
+  excludeGroups:
+    - system:nodes
+  generateSuccessEvents: false
+
+admissionController:
+  serviceMonitor:
+    enabled: false
+
+backgroundController:
+  enabled: true
+  serviceMonitor:
+    enabled: false
+
+cleanupController:
+  enabled: true
+  serviceMonitor:
+    enabled: false
+
+reportsController:
+  enabled: true
+  serviceMonitor:
+    enabled: false

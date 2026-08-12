@@ -30,35 +30,37 @@ platform:
 networking:
   cni:
     name: calico
-    version: "3.32.1"
+    version: "3.28.0"
 
 package_management:
   helm:
-    version: "4.2.3"
+    version: "TBD"
 
 policy_engine:
   kyverno:
-    version: "1.18.2"
+    version: "TBD"
   kyverno_cli:
-    version: "1.18.2"
+    version: "TBD"
 
 image_security:
   harbor:
-    version: "2.15.1"
+    version: "TBD"
   cosign:
-    version: "3.1.3"
+    version: "TBD"
 
 testing:
   kind:
-    version: "0.32.0"
+    version: "TBD"
 
 monitoring:
   prometheus:
-    version: "3.13.2"
+    version: "TBD"
   grafana:
-    version: "13.1.3"
+    version: "TBD"
 
 cluster:
+  type: multi-node
+
   node_network: "192.168.101.0/24"
   pod_cidr: "10.244.0.0/16"
   service_cidr: "10.96.0.0/12"
@@ -69,9 +71,9 @@ cluster:
       ip: "192.168.101.80"
 
     worker_01:
-      hostname: worker-01
+      hostname: worker-node-1
       ip: "192.168.101.81"
 
     worker_02:
-      hostname: worker-02
+      hostname: worker-node-2
       ip: "192.168.101.82"
