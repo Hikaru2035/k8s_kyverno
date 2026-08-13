@@ -34,11 +34,12 @@ networking:
 
 package_management:
   helm:
-    version: "TBD"
+    version: "4.2.3"
 
 policy_engine:
   kyverno:
-    version: "TBD"
+    version: "1.18.2"
+    chart_version: "3.8.2"
   kyverno_cli:
     version: "TBD"
 

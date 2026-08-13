@@ -1,2 +1,65 @@
-# Development overrides: prefer Audit during initial rollout.
-{}
+# Development profile
+# Goal: functional Kyverno installation with low resource cost and fast iteration.
+# Not an HA profile.
+config:
+  preserve: true
+
+features:
+  backgroundScan:
+    enabled: true
+    backgroundScanWorkers: 2
+    backgroundScanInterval: 15m
+
+admissionController:
+  replicas: 1
+  apiPriorityAndFairness: false
+  container:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 500m
+        memory: 384Mi
+  serviceMonitor:
+    enabled: false
+
+backgroundController:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
+  serviceMonitor:
+    enabled: false
+
+cleanupController:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+  serviceMonitor:
+    enabled: false
+
+reportsController:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
+  serviceMonitor:
+    enabled: false
+
+crds:
+  migration:
+    enabled: false
