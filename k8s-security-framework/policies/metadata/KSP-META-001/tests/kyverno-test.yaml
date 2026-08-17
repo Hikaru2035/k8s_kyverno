@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-meta-001-require-app-label
+policies:
+  - ../KSP-META-001-require-app-label.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-app-label
+    rule: require-app-label
+    kind: Deployment
+    resources:
+      - meta-001-positive
+    result: pass
+  - policy: require-app-label
+    rule: require-app-label
+    kind: Deployment
+    resources:
+      - meta-001-negative
+    result: fail
+  - policy: require-app-label
+    rule: require-app-label
+    kind: CronJob
+    resources:
+      - meta-001-boundary
+    result: pass
+  - policy: require-app-label
+    rule: require-app-label
+    kind: Deployment
+    resources:
+      - ksp-meta-001-exception
+    result: skip

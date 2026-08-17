@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-pod-010-exception
+  namespace: policy-test
+spec:
+  securityContext:
+    seccompProfile:
+      type: Unconfined
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0

@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: require-cpu-request-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: require-cpu-request
+      ruleNames:
+        - require-cpu-request
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-res-001-exception
+          namespaces:
+            - policy-test

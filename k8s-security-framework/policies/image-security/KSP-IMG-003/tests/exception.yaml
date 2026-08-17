@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: require-image-digest-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: require-image-digest
+      ruleNames:
+        - require-image-digest
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-img-003-exception
+          namespaces:
+            - policy-test

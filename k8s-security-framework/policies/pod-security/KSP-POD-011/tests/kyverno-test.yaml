@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-011-require-read-only-root-filesystem
+policies:
+  - ../KSP-POD-011-require-read-only-root-filesystem.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-read-only-root-filesystem
+    rule: require-read-only-root-filesystem
+    kind: Pod
+    resources:
+      - pod-011-positive
+    result: pass
+  - policy: require-read-only-root-filesystem
+    rule: require-read-only-root-filesystem
+    kind: Pod
+    resources:
+      - pod-011-negative
+    result: fail
+  - policy: require-read-only-root-filesystem
+    rule: require-read-only-root-filesystem
+    kind: Pod
+    resources:
+      - pod-011-boundary-init
+    result: pass
+  - policy: require-read-only-root-filesystem
+    rule: require-read-only-root-filesystem
+    kind: Pod
+    resources:
+      - ksp-pod-011-exception
+    result: skip

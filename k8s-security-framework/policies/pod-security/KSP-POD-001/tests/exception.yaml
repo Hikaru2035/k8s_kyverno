@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: require-run-as-non-root-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: require-run-as-non-root
+      ruleNames:
+        - require-run-as-non-root
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-pod-001-exception
+          namespaces:
+            - policy-test

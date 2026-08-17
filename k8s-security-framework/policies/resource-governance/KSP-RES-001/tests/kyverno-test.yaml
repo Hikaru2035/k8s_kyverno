@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-res-001-require-cpu-request
+policies:
+  - ../KSP-RES-001-require-cpu-request.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-cpu-request
+    rule: require-cpu-request
+    kind: Pod
+    resources:
+      - res-001-positive
+    result: pass
+  - policy: require-cpu-request
+    rule: require-cpu-request
+    kind: Pod
+    resources:
+      - res-001-negative
+    result: fail
+  - policy: require-cpu-request
+    rule: require-cpu-request
+    kind: Pod
+    resources:
+      - res-001-boundary-init
+    result: pass
+  - policy: require-cpu-request
+    rule: require-cpu-request
+    kind: Pod
+    resources:
+      - ksp-res-001-exception
+    result: skip

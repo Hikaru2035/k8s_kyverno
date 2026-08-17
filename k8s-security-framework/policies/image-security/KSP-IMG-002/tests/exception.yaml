@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: approved-registry-allowlist-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: approved-registry-allowlist
+      ruleNames:
+        - approved-registry-allowlist
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-img-002-exception
+          namespaces:
+            - policy-test

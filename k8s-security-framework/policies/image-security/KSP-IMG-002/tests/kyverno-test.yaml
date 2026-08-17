@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-img-002-approved-registry-allowlist
+policies:
+  - ../KSP-IMG-002-approved-registry-allowlist.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: approved-registry-allowlist
+    rule: approved-registry-allowlist
+    kind: Pod
+    resources:
+      - img-002-positive
+    result: skip
+  - policy: approved-registry-allowlist
+    rule: approved-registry-allowlist
+    kind: Pod
+    resources:
+      - img-002-negative
+    result: fail
+  - policy: approved-registry-allowlist
+    rule: approved-registry-allowlist
+    kind: Pod
+    resources:
+      - img-002-boundary
+    result: skip
+  - policy: approved-registry-allowlist
+    rule: approved-registry-allowlist
+    kind: Pod
+    resources:
+      - ksp-img-002-exception
+    result: skip

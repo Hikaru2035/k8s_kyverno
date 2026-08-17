@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-013-disallow-run-as-user-zero
+policies:
+  - ../KSP-POD-013-disallow-run-as-user-zero.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: disallow-run-as-user-zero
+    rule: disallow-run-as-user-zero
+    kind: Pod
+    resources:
+      - pod-013-positive
+    result: pass
+  - policy: disallow-run-as-user-zero
+    rule: disallow-run-as-user-zero
+    kind: Pod
+    resources:
+      - pod-013-negative
+    result: fail
+  - policy: disallow-run-as-user-zero
+    rule: disallow-run-as-user-zero
+    kind: Pod
+    resources:
+      - pod-013-boundary-unset
+    result: pass
+  - policy: disallow-run-as-user-zero
+    rule: disallow-run-as-user-zero
+    kind: Pod
+    resources:
+      - ksp-pod-013-exception
+    result: skip

@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-res-003-require-cpu-limit
+policies:
+  - ../KSP-RES-003-require-cpu-limit.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-cpu-limit
+    rule: require-cpu-limit
+    kind: Pod
+    resources:
+      - res-003-positive
+    result: pass
+  - policy: require-cpu-limit
+    rule: require-cpu-limit
+    kind: Pod
+    resources:
+      - res-003-negative
+    result: fail
+  - policy: require-cpu-limit
+    rule: require-cpu-limit
+    kind: Pod
+    resources:
+      - res-003-boundary-init
+    result: pass
+  - policy: require-cpu-limit
+    rule: require-cpu-limit
+    kind: Pod
+    resources:
+      - ksp-res-003-exception
+    result: skip

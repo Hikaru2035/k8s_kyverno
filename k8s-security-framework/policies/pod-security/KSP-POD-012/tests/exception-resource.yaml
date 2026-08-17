@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: security-test
+  labels:
+    policies.ksp.io/mutate-default-security-context: enabled
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-pod-012-exception
+  namespace: security-test
+spec:
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0

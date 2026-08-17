@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: disallow-privileged-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: disallow-privileged
+      ruleNames:
+        - disallow-privileged
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-pod-002-exception
+          namespaces:
+            - policy-test

@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: verify-signed-images-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: verify-signed-images
+      ruleNames:
+        - verify-signed-images
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-img-004-exception
+          namespaces:
+            - policy-test

@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-img-004-verify-signed-images
+policies:
+  - ../KSP-IMG-004-verify-signed-images.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: verify-signed-images
+    rule: verify-signed-images
+    kind: Pod
+    resources:
+      - img-004-positive-out-of-scope
+    result: skip
+  - policy: verify-signed-images
+    rule: verify-signed-images
+    kind: Pod
+    resources:
+      - img-004-negative-unsigned
+    result: fail
+  - policy: verify-signed-images
+    rule: verify-signed-images
+    kind: Pod
+    resources:
+      - img-004-boundary-out-of-scope
+    result: skip
+  - policy: verify-signed-images
+    rule: verify-signed-images
+    kind: Pod
+    resources:
+      - ksp-img-004-exception
+    result: skip

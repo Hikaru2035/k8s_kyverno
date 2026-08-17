@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: restrict-added-capabilities-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: restrict-added-capabilities
+      ruleNames:
+        - restrict-added-capabilities
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-pod-009-exception
+          namespaces:
+            - policy-test

@@ -1,0 +1,40 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-res-006-generate-limit-range
+policies:
+  - ../KSP-RES-006-generate-limit-range.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: generate-limit-range
+    rule: generate-limit-range
+    kind: Namespace
+    resources:
+      - res-006-positive
+    generatedResource: positive-generated.yaml
+    result: pass
+  - policy: generate-limit-range
+    rule: generate-limit-range
+    kind: Namespace
+    resources:
+      - res-006-negative
+    result: skip
+  - policy: generate-limit-range
+    rule: generate-limit-range
+    kind: Namespace
+    resources:
+      - res-006-boundary
+    generatedResource: boundary-generated.yaml
+    result: pass
+  - policy: generate-limit-range
+    rule: generate-limit-range
+    kind: Namespace
+    resources:
+      - ksp-res-006-exception
+    result: skip

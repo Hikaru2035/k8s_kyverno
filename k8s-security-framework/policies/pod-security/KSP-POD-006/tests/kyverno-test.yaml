@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-006-disallow-host-ipc
+policies:
+  - ../KSP-POD-006-disallow-host-ipc.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: disallow-host-ipc
+    rule: disallow-host-ipc
+    kind: Pod
+    resources:
+      - pod-006-positive
+    result: pass
+  - policy: disallow-host-ipc
+    rule: disallow-host-ipc
+    kind: Pod
+    resources:
+      - pod-006-negative
+    result: fail
+  - policy: disallow-host-ipc
+    rule: disallow-host-ipc
+    kind: Pod
+    resources:
+      - pod-006-boundary-unset
+    result: pass
+  - policy: disallow-host-ipc
+    rule: disallow-host-ipc
+    kind: Pod
+    resources:
+      - ksp-pod-006-exception
+    result: skip

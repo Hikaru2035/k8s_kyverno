@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: res-005-positive
+  labels:
+    policies.ksp.io/generate-resource-governance: enabled

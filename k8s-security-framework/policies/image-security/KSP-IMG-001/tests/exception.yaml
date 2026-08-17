@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: disallow-latest-tag-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: disallow-latest-tag
+      ruleNames:
+        - disallow-latest-tag
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-img-001-exception
+          namespaces:
+            - policy-test

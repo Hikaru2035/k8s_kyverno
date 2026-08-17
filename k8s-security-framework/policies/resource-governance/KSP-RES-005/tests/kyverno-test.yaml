@@ -1,0 +1,40 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-res-005-generate-resource-quota
+policies:
+  - ../KSP-RES-005-generate-resource-quota.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: generate-resource-quota
+    rule: generate-resource-quota
+    kind: Namespace
+    resources:
+      - res-005-positive
+    generatedResource: positive-generated.yaml
+    result: pass
+  - policy: generate-resource-quota
+    rule: generate-resource-quota
+    kind: Namespace
+    resources:
+      - res-005-negative
+    result: skip
+  - policy: generate-resource-quota
+    rule: generate-resource-quota
+    kind: Namespace
+    resources:
+      - res-005-boundary
+    generatedResource: boundary-generated.yaml
+    result: pass
+  - policy: generate-resource-quota
+    rule: generate-resource-quota
+    kind: Namespace
+    resources:
+      - ksp-res-005-exception
+    result: skip

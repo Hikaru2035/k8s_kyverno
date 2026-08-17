@@ -1,0 +1,31 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-meta-004-add-default-labels
+policies:
+  - ../KSP-META-004-add-default-labels.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+results:
+  - policy: add-default-labels
+    rule: add-default-labels
+    kind: Deployment
+    resources:
+      - meta-004-positive
+    patchedResource: positive-patched.yaml
+    result: pass
+  - policy: add-default-labels
+    rule: add-default-labels
+    kind: Deployment
+    resources:
+      - meta-004-negative-pod
+    result: skip
+  - policy: add-default-labels
+    rule: add-default-labels
+    kind: Deployment
+    resources:
+      - meta-004-boundary
+    patchedResource: boundary-patched.yaml
+    result: pass

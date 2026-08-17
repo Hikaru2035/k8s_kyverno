@@ -1,0 +1,39 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-img-001-disallow-latest-tag
+policies:
+  - ../KSP-IMG-001-disallow-latest-tag.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: disallow-latest-tag
+    rule: disallow-latest-tag
+    kind: Pod
+    resources:
+      - img-001-positive
+    result: skip
+  - policy: disallow-latest-tag
+    rule: disallow-latest-tag
+    kind: Pod
+    resources:
+      - img-001-negative-latest
+      - img-001-negative-untagged
+    result: fail
+  - policy: disallow-latest-tag
+    rule: disallow-latest-tag
+    kind: Pod
+    resources:
+      - img-001-boundary-digest
+    result: skip
+  - policy: disallow-latest-tag
+    rule: disallow-latest-tag
+    kind: Pod
+    resources:
+      - ksp-img-001-exception
+    result: skip

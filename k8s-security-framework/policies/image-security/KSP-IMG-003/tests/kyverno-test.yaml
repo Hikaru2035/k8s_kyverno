@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-img-003-require-image-digest
+policies:
+  - ../KSP-IMG-003-require-image-digest.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-image-digest
+    rule: require-image-digest
+    kind: Pod
+    resources:
+      - img-003-positive
+    result: skip
+  - policy: require-image-digest
+    rule: require-image-digest
+    kind: Pod
+    resources:
+      - img-003-negative
+    result: fail
+  - policy: require-image-digest
+    rule: require-image-digest
+    kind: Pod
+    resources:
+      - img-003-boundary-uppercase
+    result: skip
+  - policy: require-image-digest
+    rule: require-image-digest
+    kind: Pod
+    resources:
+      - ksp-img-003-exception
+    result: skip

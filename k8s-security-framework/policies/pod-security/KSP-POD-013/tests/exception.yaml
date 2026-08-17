@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: disallow-run-as-user-zero-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: disallow-run-as-user-zero
+      ruleNames:
+        - disallow-run-as-user-zero
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-pod-013-exception
+          namespaces:
+            - policy-test

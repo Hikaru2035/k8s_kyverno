@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-001-require-run-as-non-root
+policies:
+  - ../KSP-POD-001-require-run-as-non-root.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-run-as-non-root
+    rule: require-run-as-non-root
+    kind: Pod
+    resources:
+      - pod-001-positive
+    result: pass
+  - policy: require-run-as-non-root
+    rule: require-run-as-non-root
+    kind: Pod
+    resources:
+      - pod-001-negative
+    result: fail
+  - policy: require-run-as-non-root
+    rule: require-run-as-non-root
+    kind: Pod
+    resources:
+      - pod-001-boundary-containers
+    result: pass
+  - policy: require-run-as-non-root
+    rule: require-run-as-non-root
+    kind: Pod
+    resources:
+      - ksp-pod-001-exception
+    result: skip

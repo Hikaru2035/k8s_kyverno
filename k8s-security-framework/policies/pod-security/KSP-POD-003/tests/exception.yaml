@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: disallow-privilege-escalation-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: disallow-privilege-escalation
+      ruleNames:
+        - disallow-privilege-escalation
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-pod-003-exception
+          namespaces:
+            - policy-test

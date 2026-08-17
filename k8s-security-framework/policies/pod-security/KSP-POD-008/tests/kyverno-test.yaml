@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-008-drop-all-capabilities
+policies:
+  - ../KSP-POD-008-drop-all-capabilities.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: drop-all-capabilities
+    rule: drop-all-capabilities
+    kind: Pod
+    resources:
+      - pod-008-positive
+    result: pass
+  - policy: drop-all-capabilities
+    rule: drop-all-capabilities
+    kind: Pod
+    resources:
+      - pod-008-negative
+    result: fail
+  - policy: drop-all-capabilities
+    rule: drop-all-capabilities
+    kind: Pod
+    resources:
+      - pod-008-boundary-init
+    result: pass
+  - policy: drop-all-capabilities
+    rule: drop-all-capabilities
+    kind: Pod
+    resources:
+      - ksp-pod-008-exception
+    result: skip

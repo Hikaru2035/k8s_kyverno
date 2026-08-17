@@ -1,0 +1,40 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-net-001-generate-default-deny-network-policy
+policies:
+  - ../KSP-NET-001-generate-default-deny-network-policy.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: generate-default-deny-network-policy
+    rule: generate-default-deny-network-policy
+    kind: Namespace
+    resources:
+      - net-001-positive
+    generatedResource: positive-generated.yaml
+    result: pass
+  - policy: generate-default-deny-network-policy
+    rule: generate-default-deny-network-policy
+    kind: Namespace
+    resources:
+      - net-001-negative
+    result: skip
+  - policy: generate-default-deny-network-policy
+    rule: generate-default-deny-network-policy
+    kind: Namespace
+    resources:
+      - net-001-boundary
+    generatedResource: boundary-generated.yaml
+    result: pass
+  - policy: generate-default-deny-network-policy
+    rule: generate-default-deny-network-policy
+    kind: Namespace
+    resources:
+      - ksp-net-001-exception
+    result: skip

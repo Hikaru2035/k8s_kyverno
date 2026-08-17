@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: restrict-host-ports-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: restrict-host-ports
+      ruleNames:
+        - restrict-host-ports
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-pod-014-exception
+          namespaces:
+            - policy-test

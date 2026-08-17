@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-003-disallow-privilege-escalation
+policies:
+  - ../KSP-POD-003-disallow-privilege-escalation.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: disallow-privilege-escalation
+    rule: disallow-privilege-escalation
+    kind: Pod
+    resources:
+      - pod-003-positive
+    result: pass
+  - policy: disallow-privilege-escalation
+    rule: disallow-privilege-escalation
+    kind: Pod
+    resources:
+      - pod-003-negative
+    result: fail
+  - policy: disallow-privilege-escalation
+    rule: disallow-privilege-escalation
+    kind: Pod
+    resources:
+      - pod-003-boundary-init
+    result: pass
+  - policy: disallow-privilege-escalation
+    rule: disallow-privilege-escalation
+    kind: Pod
+    resources:
+      - ksp-pod-003-exception
+    result: skip

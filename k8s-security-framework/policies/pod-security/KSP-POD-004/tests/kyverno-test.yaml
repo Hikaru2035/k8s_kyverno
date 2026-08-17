@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-004-disallow-host-network
+policies:
+  - ../KSP-POD-004-disallow-host-network.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: disallow-host-network
+    rule: disallow-host-network
+    kind: Pod
+    resources:
+      - pod-004-positive
+    result: pass
+  - policy: disallow-host-network
+    rule: disallow-host-network
+    kind: Pod
+    resources:
+      - pod-004-negative
+    result: fail
+  - policy: disallow-host-network
+    rule: disallow-host-network
+    kind: Pod
+    resources:
+      - pod-004-boundary-unset
+    result: pass
+  - policy: disallow-host-network
+    rule: disallow-host-network
+    kind: Pod
+    resources:
+      - ksp-pod-004-exception
+    result: skip

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meta-003-positive
+  namespace: policy-test
+  labels:
+    policies.ksp.io/environment: dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: demo-api
+  template:
+    metadata:
+      labels:
+        policies.ksp.io/environment: dev
+        app.kubernetes.io/name: demo-api
+    spec:
+      containers:
+        - name: demo-api
+          image: harbor.example.com/demo-api:1.0.0

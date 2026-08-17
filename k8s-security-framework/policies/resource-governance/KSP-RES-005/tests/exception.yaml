@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: generate-resource-quota-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: generate-resource-quota
+      ruleNames:
+        - generate-resource-quota
+  match:
+    any:
+      - resources:
+          kinds:
+            - Namespace
+          names:
+            - ksp-res-005-exception
+          namespaces:
+            - policy-test

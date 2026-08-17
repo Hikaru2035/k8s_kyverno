@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-010-require-seccomp
+policies:
+  - ../KSP-POD-010-require-seccomp.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-seccomp
+    rule: require-seccomp
+    kind: Pod
+    resources:
+      - pod-010-positive
+    result: pass
+  - policy: require-seccomp
+    rule: require-seccomp
+    kind: Pod
+    resources:
+      - pod-010-negative
+    result: fail
+  - policy: require-seccomp
+    rule: require-seccomp
+    kind: Pod
+    resources:
+      - pod-010-boundary-localhost
+    result: pass
+  - policy: require-seccomp
+    rule: require-seccomp
+    kind: Pod
+    resources:
+      - ksp-pod-010-exception
+    result: skip

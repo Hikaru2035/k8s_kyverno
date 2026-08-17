@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-009-restrict-added-capabilities
+policies:
+  - ../KSP-POD-009-restrict-added-capabilities.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: restrict-added-capabilities
+    rule: restrict-added-capabilities
+    kind: Pod
+    resources:
+      - pod-009-positive
+    result: pass
+  - policy: restrict-added-capabilities
+    rule: restrict-added-capabilities
+    kind: Pod
+    resources:
+      - pod-009-negative
+    result: fail
+  - policy: restrict-added-capabilities
+    rule: restrict-added-capabilities
+    kind: Pod
+    resources:
+      - pod-009-boundary-no-add
+    result: pass
+  - policy: restrict-added-capabilities
+    rule: restrict-added-capabilities
+    kind: Pod
+    resources:
+      - ksp-pod-009-exception
+    result: skip

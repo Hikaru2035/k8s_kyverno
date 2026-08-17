@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-007-restrict-host-path
+policies:
+  - ../KSP-POD-007-restrict-host-path.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: restrict-host-path
+    rule: restrict-host-path
+    kind: Pod
+    resources:
+      - pod-007-positive
+    result: pass
+  - policy: restrict-host-path
+    rule: restrict-host-path
+    kind: Pod
+    resources:
+      - pod-007-negative
+    result: fail
+  - policy: restrict-host-path
+    rule: restrict-host-path
+    kind: Pod
+    resources:
+      - pod-007-boundary-no-volumes
+    result: pass
+  - policy: restrict-host-path
+    rule: restrict-host-path
+    kind: Pod
+    resources:
+      - ksp-pod-007-exception
+    result: skip

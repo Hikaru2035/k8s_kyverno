@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: require-memory-request-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: require-memory-request
+      ruleNames:
+        - require-memory-request
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-res-002-exception
+          namespaces:
+            - policy-test

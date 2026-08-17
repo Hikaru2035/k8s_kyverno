@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: generate-default-deny-network-policy-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: generate-default-deny-network-policy
+      ruleNames:
+        - generate-default-deny-network-policy
+  match:
+    any:
+      - resources:
+          kinds:
+            - Namespace
+          names:
+            - ksp-net-001-exception
+          namespaces:
+            - policy-test

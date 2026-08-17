@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-002-disallow-privileged
+policies:
+  - ../KSP-POD-002-disallow-privileged.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: disallow-privileged
+    rule: disallow-privileged
+    kind: Pod
+    resources:
+      - pod-002-positive
+    result: pass
+  - policy: disallow-privileged
+    rule: disallow-privileged
+    kind: Pod
+    resources:
+      - pod-002-negative
+    result: fail
+  - policy: disallow-privileged
+    rule: disallow-privileged
+    kind: Pod
+    resources:
+      - pod-002-boundary-omitted
+    result: pass
+  - policy: disallow-privileged
+    rule: disallow-privileged
+    kind: Pod
+    resources:
+      - ksp-pod-002-exception
+    result: skip

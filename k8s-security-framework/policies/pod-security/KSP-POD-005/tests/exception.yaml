@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: disallow-host-pid-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: disallow-host-pid
+      ruleNames:
+        - disallow-host-pid
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-pod-005-exception
+          namespaces:
+            - policy-test

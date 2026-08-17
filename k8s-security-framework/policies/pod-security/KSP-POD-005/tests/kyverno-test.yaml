@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-005-disallow-host-pid
+policies:
+  - ../KSP-POD-005-disallow-host-pid.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: disallow-host-pid
+    rule: disallow-host-pid
+    kind: Pod
+    resources:
+      - pod-005-positive
+    result: pass
+  - policy: disallow-host-pid
+    rule: disallow-host-pid
+    kind: Pod
+    resources:
+      - pod-005-negative
+    result: fail
+  - policy: disallow-host-pid
+    rule: disallow-host-pid
+    kind: Pod
+    resources:
+      - pod-005-boundary-unset
+    result: pass
+  - policy: disallow-host-pid
+    rule: disallow-host-pid
+    kind: Pod
+    resources:
+      - ksp-pod-005-exception
+    result: skip

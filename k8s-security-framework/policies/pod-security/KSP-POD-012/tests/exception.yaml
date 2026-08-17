@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: add-default-security-context-exception
+  namespace: security-test
+spec:
+  exceptions:
+    - policyName: add-default-security-context
+      ruleNames:
+        - add-default-security-context
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-pod-012-exception
+          namespaces:
+            - security-test

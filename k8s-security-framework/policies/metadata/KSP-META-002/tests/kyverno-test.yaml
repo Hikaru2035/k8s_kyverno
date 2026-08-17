@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-meta-002-require-owner-label
+policies:
+  - ../KSP-META-002-require-owner-label.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-owner-label
+    rule: require-owner-label
+    kind: Deployment
+    resources:
+      - meta-002-positive
+    result: pass
+  - policy: require-owner-label
+    rule: require-owner-label
+    kind: Deployment
+    resources:
+      - meta-002-negative
+    result: fail
+  - policy: require-owner-label
+    rule: require-owner-label
+    kind: StatefulSet
+    resources:
+      - meta-002-boundary
+    result: pass
+  - policy: require-owner-label
+    rule: require-owner-label
+    kind: Deployment
+    resources:
+      - ksp-meta-002-exception
+    result: skip

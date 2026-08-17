@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-res-002-require-memory-request
+policies:
+  - ../KSP-RES-002-require-memory-request.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-memory-request
+    rule: require-memory-request
+    kind: Pod
+    resources:
+      - res-002-positive
+    result: pass
+  - policy: require-memory-request
+    rule: require-memory-request
+    kind: Pod
+    resources:
+      - res-002-negative
+    result: fail
+  - policy: require-memory-request
+    rule: require-memory-request
+    kind: Pod
+    resources:
+      - res-002-boundary-init
+    result: pass
+  - policy: require-memory-request
+    rule: require-memory-request
+    kind: Pod
+    resources:
+      - ksp-res-002-exception
+    result: skip

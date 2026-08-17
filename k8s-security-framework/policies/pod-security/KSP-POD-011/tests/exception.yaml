@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: require-read-only-root-filesystem-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: require-read-only-root-filesystem
+      ruleNames:
+        - require-read-only-root-filesystem
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - ksp-pod-011-exception
+          namespaces:
+            - policy-test

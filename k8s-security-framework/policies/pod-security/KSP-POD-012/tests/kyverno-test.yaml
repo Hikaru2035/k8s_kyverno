@@ -1,0 +1,40 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-012-add-default-security-context
+policies:
+  - ../KSP-POD-012-add-default-security-context.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: add-default-security-context
+    rule: add-default-security-context
+    kind: Pod
+    resources:
+      - pod-012-positive
+    patchedResource: positive-patched.yaml
+    result: pass
+  - policy: add-default-security-context
+    rule: add-default-security-context
+    kind: Pod
+    resources:
+      - pod-012-negative
+    result: skip
+  - policy: add-default-security-context
+    rule: add-default-security-context
+    kind: Pod
+    resources:
+      - pod-012-boundary-existing
+    patchedResource: boundary-patched.yaml
+    result: pass
+  - policy: add-default-security-context
+    rule: add-default-security-context
+    kind: Pod
+    resources:
+      - ksp-pod-012-exception
+    result: skip

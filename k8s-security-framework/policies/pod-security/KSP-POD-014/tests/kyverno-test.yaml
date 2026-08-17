@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-014-restrict-host-ports
+policies:
+  - ../KSP-POD-014-restrict-host-ports.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: restrict-host-ports
+    rule: restrict-host-ports
+    kind: Pod
+    resources:
+      - pod-014-positive
+    result: pass
+  - policy: restrict-host-ports
+    rule: restrict-host-ports
+    kind: Pod
+    resources:
+      - pod-014-negative
+    result: fail
+  - policy: restrict-host-ports
+    rule: restrict-host-ports
+    kind: Pod
+    resources:
+      - pod-014-boundary-no-ports
+    result: pass
+  - policy: restrict-host-ports
+    rule: restrict-host-ports
+    kind: Pod
+    resources:
+      - ksp-pod-014-exception
+    result: skip

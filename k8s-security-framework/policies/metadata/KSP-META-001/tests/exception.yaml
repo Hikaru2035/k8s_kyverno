@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: require-app-label-exception
+  namespace: policy-test
+spec:
+  exceptions:
+    - policyName: require-app-label
+      ruleNames:
+        - require-app-label
+  match:
+    any:
+      - resources:
+          kinds:
+            - Deployment
+          names:
+            - ksp-meta-001-exception
+          namespaces:
+            - policy-test

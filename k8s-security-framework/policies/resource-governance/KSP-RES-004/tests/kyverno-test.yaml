@@ -1,0 +1,38 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-res-004-require-memory-limit
+policies:
+  - ../KSP-RES-004-require-memory-limit.yaml
+resources:
+  - positive.yaml
+  - negative.yaml
+  - boundary.yaml
+  - exception-resource.yaml
+exceptions:
+  - exception.yaml
+results:
+  - policy: require-memory-limit
+    rule: require-memory-limit
+    kind: Pod
+    resources:
+      - res-004-positive
+    result: pass
+  - policy: require-memory-limit
+    rule: require-memory-limit
+    kind: Pod
+    resources:
+      - res-004-negative
+    result: fail
+  - policy: require-memory-limit
+    rule: require-memory-limit
+    kind: Pod
+    resources:
+      - res-004-boundary-init
+    result: pass
+  - policy: require-memory-limit
+    rule: require-memory-limit
+    kind: Pod
+    resources:
+      - ksp-res-004-exception
+    result: skip
