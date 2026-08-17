@@ -1,2 +1,8 @@
 .charts/
+artifacts/policies/
 
+environments/
+
+image-security/cosign/*.pub
+
+docs/reports/weekly_report

@@ -1,0 +1,40 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-run-as-user-zero
+  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-pod-013}
+  annotations:
+    policies.kyverno.io/title: Disallow Run As User 0
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Rejects explicit UID zero at Pod or container level.
+    policies.ksp.io/profiles: restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+spec:
+  background: true
+  emitWarning: true
+  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
+  rules:
+    - name: disallow-run-as-user-zero
+      match: {any: [{resources: {kinds: [Pod]}}]}
+      validate:
+        failureAction: Audit
+        allowExistingViolations: true
+        message: runAsUser must be greater than zero when explicitly configured.
+        pattern:
+          spec:
+            =(securityContext):
+              =(runAsUser): ">0"
+            containers:
+              - =(securityContext):
+                  =(runAsUser): ">0"
+            =(initContainers):
+              - =(securityContext):
+                  =(runAsUser): ">0"
+            =(ephemeralContainers):
+              - =(securityContext):
+                  =(runAsUser): ">0"

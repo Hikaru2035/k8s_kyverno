@@ -1,0 +1,31 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-memory-limit
+  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-res-004}
+  annotations:
+    policies.kyverno.io/title: Require Memory Limit
+    policies.kyverno.io/category: KSP Resource Governance
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Requires a memory limit on regular and init containers.
+    policies.ksp.io/profiles: standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+spec:
+  background: true
+  emitWarning: true
+  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
+  rules:
+    - name: require-memory-limit
+      match: {any: [{resources: {kinds: [Pod]}}]}
+      validate:
+        failureAction: Audit
+        allowExistingViolations: true
+        message: Set resources.limits.memory on every regular and init container.
+        pattern:
+          spec:
+            containers: [{resources: {limits: {memory: "?*"}}}]
+            =(initContainers): [{resources: {limits: {memory: "?*"}}}]

@@ -40,8 +40,8 @@ admissionController:
         memory: 768Mi
   serviceMonitor:
     enabled: false
-    interval: 30s
-    scrapeTimeout: 25s
+    #interval: 30s
+    #scrapeTimeout: 25s
 
 backgroundController:
   replicas: 2

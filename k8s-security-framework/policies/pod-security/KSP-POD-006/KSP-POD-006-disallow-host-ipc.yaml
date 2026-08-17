@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-host-ipc
+  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-pod-006}
+  annotations:
+    policies.kyverno.io/title: Disallow Host IPC
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Prevents Pods from sharing the host IPC namespace.
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+spec:
+  background: true
+  emitWarning: true
+  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
+  rules:
+    - name: disallow-host-ipc
+      match: {any: [{resources: {kinds: [Pod]}}]}
+      validate:
+        failureAction: Audit
+        allowExistingViolations: true
+        message: spec.hostIPC must be unset or false.
+        pattern: {spec: {=(hostIPC): false}}

@@ -1,0 +1,45 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-run-as-non-root
+  labels: &labels
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-001
+  annotations:
+    policies.kyverno.io/title: Require Run As Non-Root
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Requires Pod or container runAsNonRoot=true.
+    policies.ksp.io/profiles: standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+spec:
+  background: true
+  emitWarning: true
+  webhookConfiguration: &webhook
+    failurePolicy: Fail
+    timeoutSeconds: 10
+  rules:
+    - name: require-run-as-non-root
+      match: &pods
+        any:
+          - resources:
+              kinds: [Pod]
+      validate:
+        failureAction: Audit
+        allowExistingViolations: true
+        message: Set Pod runAsNonRoot=true or set it on every container.
+        anyPattern:
+          - spec:
+              securityContext:
+                runAsNonRoot: true
+          - spec:
+              containers:
+                - securityContext: {runAsNonRoot: true}
+              =(initContainers):
+                - securityContext: {runAsNonRoot: true}
+              =(ephemeralContainers):
+                - securityContext: {runAsNonRoot: true}

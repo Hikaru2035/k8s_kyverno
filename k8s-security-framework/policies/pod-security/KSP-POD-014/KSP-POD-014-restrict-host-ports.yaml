@@ -1,0 +1,38 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-host-ports
+  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-pod-014}
+  annotations:
+    policies.kyverno.io/title: Restrict Host Ports
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Rejects hostPort usage across all container types.
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+spec:
+  background: true
+  emitWarning: true
+  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
+  rules:
+    - name: restrict-host-ports
+      match: {any: [{resources: {kinds: [Pod]}}]}
+      validate:
+        failureAction: Audit
+        allowExistingViolations: true
+        message: hostPort is prohibited; use a Service or approved ingress.
+        pattern:
+          spec:
+            containers:
+              - =(ports):
+                  - X(hostPort): "null"
+            =(initContainers):
+              - =(ports):
+                  - X(hostPort): "null"
+            =(ephemeralContainers):
+              - =(ports):
+                  - X(hostPort): "null"

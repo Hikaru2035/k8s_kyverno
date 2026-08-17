@@ -1,0 +1,46 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-default-deny-network-policy
+  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-net-001}
+  annotations:
+    policies.kyverno.io/title: Generate Default Deny NetworkPolicy
+    policies.kyverno.io/category: KSP Network Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Namespace,NetworkPolicy
+    policies.kyverno.io/description: Generates synchronized default-deny ingress and egress policies for opted-in namespaces.
+    policies.ksp.io/parameter: Add DNS and application-specific allow policies before enabling workloads.
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/dev-mode: Generate
+    policies.ksp.io/staging-mode: Generate
+    policies.ksp.io/prod-mode: Generate
+    policies.ksp.io/exception: controlled
+spec:
+  background: true
+  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
+  rules:
+    - name: generate-default-deny-network-policy
+      match:
+        any:
+          - resources:
+              kinds: [Namespace]
+              selector:
+                matchLabels:
+                  policies.ksp.io/generate-network-baseline: enabled
+      generate:
+        apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        name: default-deny-ingress-egress
+        namespace: "{{ request.object.metadata.name }}"
+        synchronize: true
+        generateExisting: true
+        data:
+          metadata:
+            labels:
+              app.kubernetes.io/managed-by: kyverno
+              policies.ksp.io/generated-by: ksp-net-001
+          spec:
+            podSelector: {}
+            policyTypes: [Ingress, Egress]
+            ingress: []
+            egress: []

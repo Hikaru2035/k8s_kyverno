@@ -1,0 +1,35 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-privileged
+  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-pod-002}
+  annotations:
+    policies.kyverno.io/title: Disallow Privileged
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: critical
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Blocks privileged regular, init, and ephemeral containers.
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Enforce
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+spec:
+  background: true
+  emitWarning: true
+  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
+  rules:
+    - name: disallow-privileged
+      match: {any: [{resources: {kinds: [Pod]}}]}
+      validate:
+        failureAction: Audit
+        allowExistingViolations: true
+        message: privileged=true is prohibited for every container type.
+        pattern:
+          spec:
+            containers:
+              - =(securityContext): {=(privileged): false}
+            =(initContainers):
+              - =(securityContext): {=(privileged): false}
+            =(ephemeralContainers):
+              - =(securityContext): {=(privileged): false}

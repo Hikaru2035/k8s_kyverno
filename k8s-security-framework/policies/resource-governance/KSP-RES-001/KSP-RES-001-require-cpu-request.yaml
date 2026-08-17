@@ -1,0 +1,31 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-cpu-request
+  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-res-001}
+  annotations:
+    policies.kyverno.io/title: Require CPU Request
+    policies.kyverno.io/category: KSP Resource Governance
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Requires a CPU request on regular and init containers.
+    policies.ksp.io/profiles: standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+spec:
+  background: true
+  emitWarning: true
+  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
+  rules:
+    - name: require-cpu-request
+      match: {any: [{resources: {kinds: [Pod]}}]}
+      validate:
+        failureAction: Audit
+        allowExistingViolations: true
+        message: Set resources.requests.cpu on every regular and init container.
+        pattern:
+          spec:
+            containers: [{resources: {requests: {cpu: "?*"}}}]
+            =(initContainers): [{resources: {requests: {cpu: "?*"}}}]
