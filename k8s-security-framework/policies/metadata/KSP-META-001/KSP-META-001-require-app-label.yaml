@@ -1,34 +1,50 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: require-app-label
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-meta-001}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-meta-001
   annotations:
     policies.kyverno.io/title: Require App Label
     policies.kyverno.io/category: KSP Metadata
     policies.kyverno.io/severity: low
     policies.kyverno.io/subject: Workload
-    policies.kyverno.io/description: Requires the Kubernetes recommended application name label.
+    policies.kyverno.io/description: Requires the Kubernetes recommended application
+      name label.
     policies.ksp.io/profiles: baseline,standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: limited
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: require-app-label
-      match: &workloads
-        any:
-          - resources:
-              kinds: [Deployment, StatefulSet, DaemonSet, Job, CronJob]
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
-        pattern:
-          metadata:
-            labels:
-              app.kubernetes.io/name: "?*"
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - apps
+      - batch
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - deployments
+      - statefulsets
+      - daemonsets
+      - jobs
+      - cronjobs
+  validations:
+  - expression: object.metadata.?labels['app.kubernetes.io/name'].orValue('') != ''
+    message: Add metadata.labels.app.kubernetes.io/name with a meaningful application
+      name.
+

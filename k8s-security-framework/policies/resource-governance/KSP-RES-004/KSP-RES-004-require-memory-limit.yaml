@@ -1,8 +1,10 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: require-memory-limit
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-res-004}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-res-004
   annotations:
     policies.kyverno.io/title: Require Memory Limit
     policies.kyverno.io/category: KSP Resource Governance
@@ -15,17 +17,28 @@ metadata:
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: controlled
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: require-memory-limit
-      match: {any: [{resources: {kinds: [Pod]}}]}
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: Set resources.limits.memory on every regular and init container.
-        pattern:
-          spec:
-            containers: [{resources: {limits: {memory: "?*"}}}]
-            =(initContainers): [{resources: {limits: {memory: "?*"}}}]
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  validations:
+  - expression: (object.spec.containers + object.spec.?initContainers.orValue([])).all(c,
+      c.?resources.limits.memory.orValue('') != '')
+    message: Set resources.limits.memory on every regular and init container.
+

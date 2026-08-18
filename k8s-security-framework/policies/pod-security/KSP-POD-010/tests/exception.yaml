@@ -1,19 +1,14 @@
-apiVersion: kyverno.io/v2
+apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
   name: require-seccomp-exception
   namespace: policy-test
 spec:
-  exceptions:
-    - policyName: require-seccomp
-      ruleNames:
-        - require-seccomp
-  match:
-    any:
-      - resources:
-          kinds:
-            - Pod
-          names:
-            - ksp-pod-010-exception
-          namespaces:
-            - policy-test
+  policyRefs:
+  - name: require-seccomp
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name == 'ksp-pod-010-exception' && object.metadata.namespace
+      == 'policy-test'
+

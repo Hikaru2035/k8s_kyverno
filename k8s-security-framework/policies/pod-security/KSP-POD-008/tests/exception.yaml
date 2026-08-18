@@ -1,19 +1,14 @@
-apiVersion: kyverno.io/v2
+apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
   name: drop-all-capabilities-exception
   namespace: policy-test
 spec:
-  exceptions:
-    - policyName: drop-all-capabilities
-      ruleNames:
-        - drop-all-capabilities
-  match:
-    any:
-      - resources:
-          kinds:
-            - Pod
-          names:
-            - ksp-pod-008-exception
-          namespaces:
-            - policy-test
+  policyRefs:
+  - name: drop-all-capabilities
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name == 'ksp-pod-008-exception' && object.metadata.namespace
+      == 'policy-test'
+

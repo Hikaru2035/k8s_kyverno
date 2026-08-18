@@ -1,19 +1,14 @@
-apiVersion: kyverno.io/v2
+apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
   name: restrict-host-path-exception
   namespace: policy-test
 spec:
-  exceptions:
-    - policyName: restrict-host-path
-      ruleNames:
-        - restrict-host-path
-  match:
-    any:
-      - resources:
-          kinds:
-            - Pod
-          names:
-            - ksp-pod-007-exception
-          namespaces:
-            - policy-test
+  policyRefs:
+  - name: restrict-host-path
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name == 'ksp-pod-007-exception' && object.metadata.namespace
+      == 'policy-test'
+

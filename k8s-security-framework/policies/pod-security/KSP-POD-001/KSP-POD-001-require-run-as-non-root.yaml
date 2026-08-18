@@ -1,8 +1,8 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: require-run-as-non-root
-  labels: &labels
+  labels:
     app.kubernetes.io/managed-by: kyverno
     policies.ksp.io/id: ksp-pod-001
   annotations:
@@ -17,29 +17,29 @@ metadata:
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: controlled
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: &webhook
-    failurePolicy: Fail
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
     timeoutSeconds: 10
-  rules:
-    - name: require-run-as-non-root
-      match: &pods
-        any:
-          - resources:
-              kinds: [Pod]
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: Set Pod runAsNonRoot=true or set it on every container.
-        anyPattern:
-          - spec:
-              securityContext:
-                runAsNonRoot: true
-          - spec:
-              containers:
-                - securityContext: {runAsNonRoot: true}
-              =(initContainers):
-                - securityContext: {runAsNonRoot: true}
-              =(ephemeralContainers):
-                - securityContext: {runAsNonRoot: true}
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  validations:
+  - expression: object.spec.?securityContext.runAsNonRoot.orValue(false) || (object.spec.containers
+      + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])).all(c,
+      c.?securityContext.runAsNonRoot.orValue(false))
+    message: Set Pod runAsNonRoot=true or set it on every container.
+

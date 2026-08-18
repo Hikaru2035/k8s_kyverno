@@ -1,8 +1,10 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: restrict-host-ports
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-pod-014}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-014
   annotations:
     policies.kyverno.io/title: Restrict Host Ports
     policies.kyverno.io/category: KSP Pod Security
@@ -15,24 +17,29 @@ metadata:
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: controlled
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: restrict-host-ports
-      match: {any: [{resources: {kinds: [Pod]}}]}
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: hostPort is prohibited; use a Service or approved ingress.
-        pattern:
-          spec:
-            containers:
-              - =(ports):
-                  - X(hostPort): "null"
-            =(initContainers):
-              - =(ports):
-                  - X(hostPort): "null"
-            =(ephemeralContainers):
-              - =(ports):
-                  - X(hostPort): "null"
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  validations:
+  - expression: (((object.spec.containers + object.spec.?initContainers.orValue([])
+      + object.spec.?ephemeralContainers.orValue([])))).all(c, c.?ports.orValue([]).all(p,
+      !has(p.hostPort)))
+    message: hostPort is prohibited; use a Service or approved ingress.
+

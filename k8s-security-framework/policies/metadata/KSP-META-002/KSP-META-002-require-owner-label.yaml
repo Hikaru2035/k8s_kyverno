@@ -1,8 +1,10 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: require-owner-label
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-meta-002}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-meta-002
   annotations:
     policies.kyverno.io/title: Require Owner Label
     policies.kyverno.io/category: KSP Metadata
@@ -15,20 +17,32 @@ metadata:
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: limited
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: require-owner-label
-      match:
-        any:
-          - resources:
-              kinds: [Deployment, StatefulSet, DaemonSet, Job, CronJob]
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
-        pattern:
-          metadata:
-            labels:
-              policies.ksp.io/owner: "?*"
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - apps
+      - batch
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - deployments
+      - statefulsets
+      - daemonsets
+      - jobs
+      - cronjobs
+  validations:
+  - expression: object.metadata.?labels['policies.ksp.io/owner'].orValue('') != ''
+    message: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+

@@ -1,42 +1,48 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: approved-registry-allowlist
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-img-002}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-img-002
   annotations:
     policies.kyverno.io/title: Approved Registry Allowlist
     policies.kyverno.io/category: KSP Image Security
     policies.kyverno.io/severity: critical
     policies.kyverno.io/subject: Pod
-    policies.kyverno.io/description: Allows project Harbor and explicitly approved bootstrap registries.
-    policies.ksp.io/parameter: Replace harbor.example.com with the production Harbor FQDN before Enforce.
+    policies.kyverno.io/description: Allows project Harbor and explicitly approved
+      bootstrap registries.
+    policies.ksp.io/parameter: Replace harbor.example.com with the production Harbor
+      FQDN before Enforce.
     policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: controlled
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: approved-registry-allowlist
-      match: {any: [{resources: {kinds: [Pod]}}]}
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: Images must come from the approved Harbor, Kubernetes, or Kyverno registry.
-        foreach:
-          - list: request.object.spec.[containers, initContainers, ephemeralContainers][]
-            deny:
-              conditions:
-                all:
-                  - key: "{{ element.image }}"
-                    operator: NotMatches
-                    value: harbor.example.com/*
-                  - key: "{{ element.image }}"
-                    operator: NotMatches
-                    value: registry.k8s.io/*
-                  - key: "{{ element.image }}"
-                    operator: NotMatches
-                    value: reg.kyverno.io/*
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  validations:
+  - expression: (((object.spec.containers + object.spec.?initContainers.orValue([])
+      + object.spec.?ephemeralContainers.orValue([])))).all(c, c.image.startsWith('harbor.example.com/')
+      || c.image.startsWith('registry.k8s.io/') || c.image.startsWith('reg.kyverno.io/'))
+    message: Images must come from the approved Harbor, Kubernetes, or Kyverno registry.
+

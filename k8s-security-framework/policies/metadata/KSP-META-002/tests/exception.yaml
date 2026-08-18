@@ -1,19 +1,14 @@
-apiVersion: kyverno.io/v2
+apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
   name: require-owner-label-exception
   namespace: policy-test
 spec:
-  exceptions:
-    - policyName: require-owner-label
-      ruleNames:
-        - require-owner-label
-  match:
-    any:
-      - resources:
-          kinds:
-            - Deployment
-          names:
-            - ksp-meta-002-exception
-          namespaces:
-            - policy-test
+  policyRefs:
+  - name: require-owner-label
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name == 'ksp-meta-002-exception' && object.metadata.namespace
+      == 'policy-test'
+

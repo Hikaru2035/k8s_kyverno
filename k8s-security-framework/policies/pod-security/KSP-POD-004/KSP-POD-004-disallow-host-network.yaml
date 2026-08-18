@@ -1,8 +1,10 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: disallow-host-network
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-pod-004}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-004
   annotations:
     policies.kyverno.io/title: Disallow Host Network
     policies.kyverno.io/category: KSP Pod Security
@@ -15,14 +17,27 @@ metadata:
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: controlled
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: disallow-host-network
-      match: {any: [{resources: {kinds: [Pod]}}]}
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: spec.hostNetwork must be unset or false.
-        pattern: {spec: {=(hostNetwork): false}}
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  validations:
+  - expression: '!object.spec.?hostNetwork.orValue(false)'
+    message: spec.hostNetwork must be unset or false.
+

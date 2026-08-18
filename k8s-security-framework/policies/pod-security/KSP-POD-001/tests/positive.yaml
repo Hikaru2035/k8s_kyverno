@@ -8,4 +8,4 @@ spec:
     runAsNonRoot: true
   containers:
     - name: demo-api
-      image: harbor.example.com/demo-api:1.0.0
+      image: nginx:1.27

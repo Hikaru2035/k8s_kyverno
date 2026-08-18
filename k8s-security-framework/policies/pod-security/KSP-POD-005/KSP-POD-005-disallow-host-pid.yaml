@@ -1,8 +1,10 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: disallow-host-pid
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-pod-005}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-005
   annotations:
     policies.kyverno.io/title: Disallow Host PID
     policies.kyverno.io/category: KSP Pod Security
@@ -15,14 +17,27 @@ metadata:
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: controlled
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: disallow-host-pid
-      match: {any: [{resources: {kinds: [Pod]}}]}
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: spec.hostPID must be unset or false.
-        pattern: {spec: {=(hostPID): false}}
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  validations:
+  - expression: '!object.spec.?hostPID.orValue(false)'
+    message: spec.hostPID must be unset or false.
+

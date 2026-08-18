@@ -1,19 +1,14 @@
-apiVersion: kyverno.io/v2
+apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
   name: require-cpu-limit-exception
   namespace: policy-test
 spec:
-  exceptions:
-    - policyName: require-cpu-limit
-      ruleNames:
-        - require-cpu-limit
-  match:
-    any:
-      - resources:
-          kinds:
-            - Pod
-          names:
-            - ksp-res-003-exception
-          namespaces:
-            - policy-test
+  policyRefs:
+  - name: require-cpu-limit
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name == 'ksp-res-003-exception' && object.metadata.namespace
+      == 'policy-test'
+

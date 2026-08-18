@@ -1,31 +1,44 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: restrict-host-path
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-pod-007}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-007
   annotations:
     policies.kyverno.io/title: Restrict HostPath
     policies.kyverno.io/category: KSP Pod Security
     policies.kyverno.io/severity: critical
     policies.kyverno.io/subject: Pod,Volume
-    policies.kyverno.io/description: Rejects hostPath volumes; exceptions require explicit review.
+    policies.kyverno.io/description: Rejects hostPath volumes; exceptions require
+      explicit review.
     policies.ksp.io/profiles: baseline,standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Enforce
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: controlled
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: restrict-host-path
-      match: {any: [{resources: {kinds: [Pod]}}]}
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: hostPath volumes are prohibited; use a managed volume or approved exception.
-        pattern:
-          spec:
-            =(volumes):
-              - X(hostPath): "null"
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  validations:
+  - expression: object.spec.?volumes.orValue([]).all(v, !has(v.hostPath))
+    message: hostPath volumes are prohibited; use a managed volume or approved exception.
+

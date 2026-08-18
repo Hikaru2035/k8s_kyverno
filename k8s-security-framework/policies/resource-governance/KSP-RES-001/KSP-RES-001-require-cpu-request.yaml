@@ -1,8 +1,10 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
 metadata:
   name: require-cpu-request
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-res-001}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-res-001
   annotations:
     policies.kyverno.io/title: Require CPU Request
     policies.kyverno.io/category: KSP Resource Governance
@@ -15,17 +17,28 @@ metadata:
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: controlled
 spec:
-  background: true
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: require-cpu-request
-      match: {any: [{resources: {kinds: [Pod]}}]}
-      validate:
-        failureAction: Audit
-        allowExistingViolations: true
-        message: Set resources.requests.cpu on every regular and init container.
-        pattern:
-          spec:
-            containers: [{resources: {requests: {cpu: "?*"}}}]
-            =(initContainers): [{resources: {requests: {cpu: "?*"}}}]
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  validations:
+  - expression: (object.spec.containers + object.spec.?initContainers.orValue([])).all(c,
+      c.?resources.requests.cpu.orValue('') != '')
+    message: Set resources.requests.cpu on every regular and init container.
+
