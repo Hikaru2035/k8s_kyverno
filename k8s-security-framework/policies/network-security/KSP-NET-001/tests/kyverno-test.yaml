@@ -3,38 +3,88 @@ kind: Test
 metadata:
   name: ksp-net-001-generate-default-deny-network-policy
 policies:
-  - ../KSP-NET-001-generate-default-deny-network-policy.yaml
+- ../KSP-NET-001-generate-default-deny-network-policy.yaml
 resources:
-  - positive.yaml
-  - negative.yaml
-  - boundary.yaml
-  - exception-resource.yaml
+- boundary-opted-in-development-namespace.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-namespace-without-network-opt-in.yaml
+- negative-opt-in-disabled.yaml
+- negative-opt-in-empty.yaml
+- negative-unrelated-label-only.yaml
+- positive-namespace-opted-in-network-baseline.yaml
+- positive-opt-in-with-additional-labels.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
 exceptions:
-  - exception.yaml
+- exception-policy-for-specific-resources.yaml
 results:
-  - policy: generate-default-deny-network-policy
-    rule: generate-default-deny-network-policy
-    kind: Namespace
-    resources:
-      - net-001-positive
-    generatedResource: positive-generated.yaml
-    result: pass
-  - policy: generate-default-deny-network-policy
-    rule: generate-default-deny-network-policy
-    kind: Namespace
-    resources:
-      - net-001-negative
-    result: skip
-  - policy: generate-default-deny-network-policy
-    rule: generate-default-deny-network-policy
-    kind: Namespace
-    resources:
-      - net-001-boundary
-    generatedResource: boundary-generated.yaml
-    result: pass
-  - policy: generate-default-deny-network-policy
-    rule: generate-default-deny-network-policy
-    kind: Namespace
-    resources:
-      - ksp-net-001-exception
-    result: skip
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - net-001-boundary
+  generatedResource: boundary-opted-in-development-namespace-generated.yaml
+  result: pass
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - ksp-net-001-exception
+  result: skip
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - net-001-negative
+  result: skip
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - ksp-net-001-negative-opt-in-disabled
+  result: skip
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - ksp-net-001-negative-opt-in-empty
+  result: skip
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - ksp-net-001-unrelated-label
+  result: skip
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - net-001-positive
+  generatedResource: positive-namespace-opted-in-network-baseline-generated.yaml
+  result: pass
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - ksp-net-001-positive-opt-in-with-additional-labels
+  generatedResource: positive-opt-in-with-additional-labels-generated.yaml
+  result: pass
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - net-001-boundary-additional-boundary-pass
+  generatedResource: boundary-pass-additional-edge-case-generated.yaml
+  result: pass
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - net-001-negative-additional-boundary-fail
+  result: skip
+- policy: generate-default-deny-network-policy
+  rule: generate-default-deny-network-policy
+  kind: Namespace
+  resources:
+  - ksp-net-001-exception-secondary
+  result: skip

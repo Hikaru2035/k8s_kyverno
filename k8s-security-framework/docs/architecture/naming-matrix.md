@@ -1,40 +1,5 @@
 # Version Matrix & Naming Convention
 
-## 1. Purpose
-This document is the single source of truth for:
-- Technology versions.
-- Kubernetes resource naming.
-- Policy naming.
-- Test naming.
-- Report naming.
-- Environment naming.
-- Framework versioning.
-
----
-
-# 2. Technology Version Matrix
-| Component | Version | Status | Notes |
-|---|---|---|---|
-| Ubuntu Server | TBD | Planned | Kubernetes nodes |
-| Kubernetes | TBD | Planned | Cluster version |
-| kubeadm | TBD | Planned | Same Kubernetes minor version |
-| kubelet | TBD | Planned | Same Kubernetes minor version |
-| kubectl | TBD | Planned | Compatible with cluster |
-| containerd | TBD | Planned | Container runtime |
-| Calico | TBD | Planned | CNI / NetworkPolicy |
-| Helm | TBD | Planned | Package manager |
-| Kyverno | TBD | Planned | Policy engine |
-| Kyverno CLI | TBD | Planned | Policy testing |
-| Kind | TBD | Planned | CI integration cluster |
-| Harbor | TBD | Planned | Private registry |
-| Cosign | TBD | Planned | Image signing |
-| Prometheus | TBD | Planned | Metrics |
-| Grafana | TBD | Planned | Monitoring |
-
-Không sử dụng `latest`. Version phải được pin trước khi framework được release.
-
----
-
 # 4. Node Naming
 Format:
 
@@ -138,13 +103,6 @@ Mỗi policy có một thư mục riêng:
 policies/<POLICY-ID>/tests/
 
 Example: policies/KSP-POD-001/tests
-
-Bao gồm:
-kyverno-test.yaml
-positive.yaml
-negative.yaml
-boundary.yaml
-exception.yaml (optional)
 
 ---
 

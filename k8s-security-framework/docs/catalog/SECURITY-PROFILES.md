@@ -72,11 +72,3 @@ Critical policy luôn dùng `failurePolicy: Fail` ở production. Enforce chỉ 
 ## 5. Profile selection
 
 Profile được chọn ở `environments/<environment>/parameters.env`. Một cluster/environment có default profile; namespace có thể yêu cầu profile cao hơn, không được hạ thấp profile nếu không có exception được phê duyệt.
-
-## 6. Acceptance criteria
-
-- Đủ đúng 29 Policy ID trong ma trận, không ID lạ hoặc trùng.
-- Baseline/Standard/Restricted lần lượt chứa 10/22/29 policy.
-- Render Restricted là superset của Standard; Standard là superset của Baseline.
-- Không có critical production policy ở Audit sau khi promotion đã được phê duyệt.
-- Restricted production không render KSP-IMG-004 nếu thiếu trust anchor thật.

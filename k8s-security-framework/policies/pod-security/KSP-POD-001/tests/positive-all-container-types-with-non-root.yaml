@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-001-positive-all-container-types
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        runAsNonRoot: true
+  initContainers:
+    - name: init
+      image: harbor.example.com/init:1.0.0
+      securityContext:
+        runAsNonRoot: true
+  ephemeralContainers:
+    - name: debugger
+      image: harbor.example.com/debugger:1.0.0
+      command: ["sh"]
+      securityContext:
+        runAsNonRoot: true

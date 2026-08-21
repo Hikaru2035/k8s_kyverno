@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-012-positive
+  namespace: p012-positive-opted-in-pod-missing-security-defaults
+spec:
+  containers:
+  - name: demo-api
+    image: harbor.example.com/demo-api:1.0.0
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop:
+        - ALL
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault

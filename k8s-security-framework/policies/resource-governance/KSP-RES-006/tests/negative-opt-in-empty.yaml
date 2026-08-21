@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ksp-res-006-negative-opt-in-empty
+  labels:
+    policies.ksp.io/generate-resource-governance: ""
+    policies.ksp.io/environment: staging

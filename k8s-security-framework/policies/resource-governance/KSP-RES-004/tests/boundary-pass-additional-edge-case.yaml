@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: res-004-boundary-init-additional-boundary-pass
+  namespace: policy-test
+spec:
+  containers:
+  - name: demo-api
+    image: harbor.example.com/demo-api:1.0.0
+    resources:
+      limits:
+        memory: 512Mi
+  initContainers:
+  - name: init
+    image: harbor.example.com/demo-api:1.0.0
+    resources:
+      limits:
+        memory: 256Mi

@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: ksp-net-001-exception
-  labels:
-    policies.ksp.io/generate-resource-governance: enabled
-    policies.ksp.io/generate-network-baseline: enabled

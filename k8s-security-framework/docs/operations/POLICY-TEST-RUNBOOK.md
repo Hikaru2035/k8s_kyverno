@@ -36,6 +36,17 @@ kyverno version
 kyverno test policies
 ```
 
+Run the reproducible regression wrapper to create JSON evidence containing the
+verbatim CLI version, Git revision, command, complete output, and exit code:
+
+```bash
+KYVERNO_BIN=/path/to/kyverno tests/policies/run-policy-regression.py
+```
+
+The report is written to
+`artifacts/policy-tests/kyverno-policy-regression-<date>.json`. The wrapper does
+not enable `--registry`, so image references in unit fixtures are not pulled.
+
 Expected outcome:
 
 - PASS means every `kyverno-test.yaml` expected result matched the policy behavior.
@@ -94,3 +105,7 @@ A fail record must include:
 - Expected result from `kyverno-test.yaml`.
 - Actual CLI output.
 - Remediation owner and follow-up ticket.
+
+The JSON regression report stores the full, unmodified command transcript in
+the top-level `evidence` field. Consumers must parse the JSON string before
+comparing it with terminal output because JSON escapes newlines and quotes.

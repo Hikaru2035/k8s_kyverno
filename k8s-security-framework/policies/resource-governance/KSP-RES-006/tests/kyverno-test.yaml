@@ -3,38 +3,88 @@ kind: Test
 metadata:
   name: ksp-res-006-generate-limit-range
 policies:
-  - ../KSP-RES-006-generate-limit-range.yaml
+- ../KSP-RES-006-generate-limit-range.yaml
 resources:
-  - positive.yaml
-  - negative.yaml
-  - boundary.yaml
-  - exception-resource.yaml
+- boundary-opted-in-development-namespace.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-namespace-without-resource-opt-in.yaml
+- negative-opt-in-disabled.yaml
+- negative-opt-in-empty.yaml
+- negative-unrelated-label-only.yaml
+- positive-namespace-opted-in-limit-range.yaml
+- positive-opt-in-with-additional-labels.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
 exceptions:
-  - exception.yaml
+- exception-policy-for-specific-resources.yaml
 results:
-  - policy: generate-limit-range
-    rule: generate-limit-range
-    kind: Namespace
-    resources:
-      - res-006-positive
-    generatedResource: positive-generated.yaml
-    result: pass
-  - policy: generate-limit-range
-    rule: generate-limit-range
-    kind: Namespace
-    resources:
-      - res-006-negative
-    result: skip
-  - policy: generate-limit-range
-    rule: generate-limit-range
-    kind: Namespace
-    resources:
-      - res-006-boundary
-    generatedResource: boundary-generated.yaml
-    result: pass
-  - policy: generate-limit-range
-    rule: generate-limit-range
-    kind: Namespace
-    resources:
-      - ksp-res-006-exception
-    result: skip
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - res-006-boundary
+  generatedResource: boundary-opted-in-development-namespace-generated.yaml
+  result: pass
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - ksp-res-006-exception
+  result: skip
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - res-006-negative
+  result: skip
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - ksp-res-006-negative-opt-in-disabled
+  result: skip
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - ksp-res-006-negative-opt-in-empty
+  result: skip
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - ksp-res-006-unrelated-label
+  result: skip
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - res-006-positive
+  generatedResource: positive-namespace-opted-in-limit-range-generated.yaml
+  result: pass
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - ksp-res-006-positive-opt-in-with-additional-labels
+  generatedResource: positive-opt-in-with-additional-labels-generated.yaml
+  result: pass
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - res-006-boundary-additional-boundary-pass
+  generatedResource: boundary-pass-additional-edge-case-generated.yaml
+  result: pass
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - res-006-negative-additional-boundary-fail
+  result: skip
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - ksp-res-006-exception-secondary
+  result: skip

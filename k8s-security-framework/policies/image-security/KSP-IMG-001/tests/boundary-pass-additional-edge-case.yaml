@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: img-001-boundary-digest-additional-boundary-pass
+  namespace: policy-test
+spec:
+  containers:
+  - name: demo-api
+    image: harbor.example.com/demo-api@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

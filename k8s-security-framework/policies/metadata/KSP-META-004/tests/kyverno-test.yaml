@@ -3,29 +3,84 @@ kind: Test
 metadata:
   name: ksp-meta-004-add-default-labels
 policies:
-  - ../KSP-META-004-add-default-labels.yaml
+- ../KSP-META-004-add-default-labels.yaml
 resources:
-  - positive.yaml
-  - negative.yaml
-  - boundary.yaml
+- boundary-deployment-preserve-managed-by-label.yaml
+- boundary-existing-managed-by-and-governed-labels.yaml
+- negative-pod-out-of-mutation-scope.yaml
+- positive-cronjob-missing-default-labels.yaml
+- positive-daemonset-missing-default-labels.yaml
+- positive-deployment-missing-default-labels.yaml
+- positive-job-missing-default-labels.yaml
+- positive-statefulset-missing-default-labels.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
 results:
-  - policy: add-default-labels
-    rule: add-default-labels
-    kind: Deployment
-    resources:
-      - meta-004-positive
-    patchedResource: positive-patched.yaml
-    result: pass
-  - policy: add-default-labels
-    rule: add-default-labels
-    kind: Deployment
-    resources:
-      - meta-004-negative-pod
-    result: skip
-  - policy: add-default-labels
-    rule: add-default-labels
-    kind: Deployment
-    resources:
-      - meta-004-boundary
-    patchedResource: boundary-patched.yaml
-    result: pass
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: Deployment
+  resources:
+  - meta-004-boundary
+  patchedResources: boundary-deployment-preserve-managed-by-label-patched.yaml
+  result: pass
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: Deployment
+  resources:
+  - meta-004-boundary-existing
+  patchedResources: boundary-existing-managed-by-and-governed-labels-patched.yaml
+  result: pass
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: CronJob
+  resources:
+  - meta-004-positive-cronjob
+  patchedResources: positive-cronjob-missing-default-labels-patched.yaml
+  result: pass
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: DaemonSet
+  resources:
+  - meta-004-positive-daemonset
+  patchedResources: positive-daemonset-missing-default-labels-patched.yaml
+  result: pass
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: Deployment
+  resources:
+  - meta-004-positive
+  patchedResources: positive-deployment-missing-default-labels-patched.yaml
+  result: pass
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: Job
+  resources:
+  - meta-004-positive-job
+  patchedResources: positive-job-missing-default-labels-patched.yaml
+  result: pass
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: StatefulSet
+  resources:
+  - meta-004-positive-statefulset
+  patchedResources: positive-statefulset-missing-default-labels-patched.yaml
+  result: pass
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: Deployment
+  resources:
+  - meta-004-boundary-additional-boundary-pass
+  patchedResources: boundary-pass-additional-edge-case-patched.yaml
+  result: pass
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: Pod
+  resources:
+  - meta-004-negative-pod
+  result: skip
+- policy: add-default-labels
+  rule: add-default-labels
+  kind: Pod
+  resources:
+  - meta-004-boundary-out-of-scope-pod
+  result: skip

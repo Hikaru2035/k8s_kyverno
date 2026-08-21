@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: require-read-only-root-filesystem-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: require-read-only-root-filesystem
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-pod-011-exception', 'ksp-pod-011-exception-secondary',
+      'ksp-pod-011-exception-tertiary'] && object.metadata.namespace == 'policy-test'

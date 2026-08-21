@@ -1,0 +1,12 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: generate-default-deny-network-policy-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: generate-default-deny-network-policy
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-net-001-exception', 'ksp-net-001-exception-secondary']

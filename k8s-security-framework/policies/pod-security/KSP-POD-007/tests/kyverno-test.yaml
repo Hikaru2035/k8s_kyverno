@@ -3,36 +3,83 @@ kind: Test
 metadata:
   name: ksp-pod-007-restrict-host-path
 policies:
-  - ../KSP-POD-007-restrict-host-path.yaml
+- ../KSP-POD-007-restrict-host-path.yaml
 resources:
-  - positive.yaml
-  - negative.yaml
-  - boundary.yaml
-  - exception-resource.yaml
+- boundary-pod-without-volumes.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-host-path-volume.yaml
+- negative-hostpath-volume-first.yaml
+- negative-hostpath-volume-last.yaml
+- positive-empty-dir-volume.yaml
+- positive-multiple-non-hostpath-volumes.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
 exceptions:
-  - exception.yaml
+- exception-policy-for-specific-resources.yaml
 results:
-  - policy: restrict-host-path
-    rule: restrict-host-path
-    kind: Pod
-    resources:
-      - pod-007-positive
-    result: pass
-  - policy: restrict-host-path
-    rule: restrict-host-path
-    kind: Pod
-    resources:
-      - pod-007-negative
-    result: fail
-  - policy: restrict-host-path
-    rule: restrict-host-path
-    kind: Pod
-    resources:
-      - pod-007-boundary-no-volumes
-    result: pass
-  - policy: restrict-host-path
-    rule: restrict-host-path
-    kind: Pod
-    resources:
-      - ksp-pod-007-exception
-    result: skip
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-boundary-no-volumes
+  result: pass
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - ksp-pod-007-exception
+  result: skip
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - ksp-pod-007-exception-secondary
+  result: skip
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-negative
+  result: fail
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-negative-hostpath-first
+  result: fail
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-negative-hostpath-last
+  result: fail
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-positive
+  result: pass
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-positive-multiple-volumes
+  result: pass
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-boundary-no-volumes-additional-boundary-pass
+  result: pass
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-negative-hostpath-first-additional-boundary-fail
+  result: fail
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - ksp-pod-007-exception-tertiary
+  result: skip

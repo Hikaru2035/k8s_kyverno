@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: verify-signed-images-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: verify-signed-images
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-img-004-exception', 'ksp-img-004-exception-secondary']
+      && object.metadata.namespace == 'policy-test'

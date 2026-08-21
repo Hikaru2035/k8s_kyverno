@@ -210,7 +210,3 @@ Phase 2 chỉ hoàn thành khi:
 - SecurityContext test hoàn tất.
 - PSS Baseline/Restricted được document.
 - Có workload an toàn và workload vi phạm để dùng cho phase policy.
-
-## Phase 2 Exit Criteria
-
-Milestone: `M1 - Kubernetes Security Lab Ready`

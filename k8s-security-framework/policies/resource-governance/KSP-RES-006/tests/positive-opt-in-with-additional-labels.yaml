@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ksp-res-006-positive-opt-in-with-additional-labels
+  labels:
+    policies.ksp.io/generate-resource-governance: "enabled"
+    policies.ksp.io/environment: staging

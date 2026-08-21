@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: add-default-security-context-exception
+  namespace: security-test
+spec:
+  policyRefs:
+  - name: add-default-security-context
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-pod-012-exception', 'ksp-pod-012-exception-secondary']
+      && object.metadata.namespace == 'security-test'

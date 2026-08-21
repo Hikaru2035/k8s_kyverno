@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-pod-002-negative-ephemeral
+  namespace: policy-test
+spec:
+  containers:
+    - name: secure
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        privileged: false
+  ephemeralContainers:
+    - name: debugger
+      image: harbor.example.com/demo-api:1.0.0
+      command: ["sh"]
+      securityContext:
+        privileged: true

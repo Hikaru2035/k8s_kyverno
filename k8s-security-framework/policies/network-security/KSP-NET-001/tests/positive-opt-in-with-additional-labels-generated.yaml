@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress-egress
+  namespace: ksp-net-001-positive-opt-in-with-additional-labels
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/generated-by: ksp-net-001
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: []
+  egress: []

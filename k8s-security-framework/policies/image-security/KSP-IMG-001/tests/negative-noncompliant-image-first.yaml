@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-img-001-negative-image-first
+  namespace: policy-test
+spec:
+  containers:
+    - name: bad
+      image: harbor.example.com/demo-api:latest
+    - name: good
+      image: harbor.example.com/demo-api:1.0.0

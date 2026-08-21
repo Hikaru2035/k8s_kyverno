@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-res-004-positive-ephemeral-ignored
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0
+      resources:
+        limits:
+          memory: 512Mi
+  ephemeralContainers:
+    - name: debugger
+      image: harbor.example.com/demo-api:1.0.0
+      command: ["sh"]

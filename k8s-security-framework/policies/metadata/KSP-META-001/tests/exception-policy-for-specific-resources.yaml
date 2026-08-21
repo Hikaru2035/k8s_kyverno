@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: require-app-label-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: require-app-label
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-meta-001-exception', 'ksp-meta-001-exception-secondary',
+      'ksp-meta-001-exception-tertiary'] && object.metadata.namespace == 'policy-test'

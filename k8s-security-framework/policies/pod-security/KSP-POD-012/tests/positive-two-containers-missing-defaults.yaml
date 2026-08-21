@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: p012-positive-two-containers-missing-defaults
+  labels:
+    policies.ksp.io/mutate-default-security-context: enabled
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-012-positive-two-containers
+  namespace: p012-positive-two-containers-missing-defaults
+spec:
+  containers:
+  - name: demo-api
+    image: harbor.example.com/demo-api:1.0.0
+  - name: sidecar
+    image: harbor.example.com/demo-api:1.0.0

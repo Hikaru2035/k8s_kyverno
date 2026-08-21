@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ksp-net-001-positive-opt-in-with-additional-labels
+  labels:
+    policies.ksp.io/generate-network-baseline: "enabled"
+    policies.ksp.io/environment: staging

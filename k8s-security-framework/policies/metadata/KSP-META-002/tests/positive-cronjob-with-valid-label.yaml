@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ksp-meta-002-positive-cronjob
+  namespace: policy-test
+  labels:
+    policies.ksp.io/owner: "platform-team"
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: demo-api
+              image: harbor.example.com/demo-api:1.0.0
