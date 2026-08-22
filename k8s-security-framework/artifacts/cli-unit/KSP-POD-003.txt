@@ -1,0 +1,30 @@
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-003/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 14 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (14) [0m │ [40;32mPOLICY                       [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                     [0m │
+│──────────│───────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-boundary-init                                   │ Pass   │ Ok     │ success                                                                                      │
+│ 2        │ disallow-privilege-escalation │ exception │ v1/Pod/policy-test/ksp-pod-003-exception                                   │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privilege-escalation-exception │
+│ 3        │ disallow-privilege-escalation │ exception │ v1/Pod/policy-test/ksp-pod-003-exception-secondary                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privilege-escalation-exception │
+│ 4        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/ksp-pod-003-negative-ephemeral                          │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 5        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/ksp-pod-003-negative-init                               │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 6        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/ksp-pod-003-negative-first                              │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 7        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/ksp-pod-003-negative-last                               │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 8        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-negative                                        │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 9        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/ksp-pod-003-positive-all-types                          │ Pass   │ Ok     │ success                                                                                      │
+│ 10       │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-positive                                        │ Pass   │ Ok     │ success                                                                                      │
+│ 11       │ disallow-privilege-escalation │           │ v1/Pod/policy-test/ksp-pod-003-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                                      │
+│ 12       │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-boundary-init-additional-boundary-pass          │ Pass   │ Ok     │ success                                                                                      │
+│ 13       │ disallow-privilege-escalation │           │ v1/Pod/policy-test/ksp-pod-003-negative-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 14       │ disallow-privilege-escalation │ exception │ v1/Pod/policy-test/ksp-pod-003-exception-tertiary                          │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privilege-escalation-exception │
+│──────────│───────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 14 tests passed and 0 tests failed
+

@@ -1,0 +1,29 @@
+Loading test  ( k8s-security-framework/policies/image-security/KSP-IMG-003/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY              [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                        [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                            [0m │
+│──────────│──────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-image-digest │           │ v1/Pod/policy-test/img-003-boundary-uppercase                                    │ Pass   │ Ok     │ success                                                                             │
+│ 2        │ require-image-digest │ exception │ v1/Pod/policy-test/ksp-img-003-exception                                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-image-digest-exception │
+│ 3        │ require-image-digest │ exception │ v1/Pod/policy-test/ksp-img-003-exception-secondary                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-image-digest-exception │
+│ 4        │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-ephemeral-image                          │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 5        │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-init-image                               │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 6        │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-image-first                              │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 7        │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-image-last                               │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 8        │ require-image-digest │           │ v1/Pod/policy-test/img-003-negative                                              │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 9        │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-positive-two-images                               │ Pass   │ Ok     │ success                                                                             │
+│ 10       │ require-image-digest │           │ v1/Pod/policy-test/img-003-positive                                              │ Pass   │ Ok     │ success                                                                             │
+│ 11       │ require-image-digest │           │ v1/Pod/policy-test/img-003-boundary-uppercase-additional-boundary-pass           │ Pass   │ Ok     │ success                                                                             │
+│ 12       │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-ephemeral-image-additional-boundary-fail │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 13       │ require-image-digest │ exception │ v1/Pod/policy-test/ksp-img-003-exception-tertiary                                │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-image-digest-exception │
+│──────────│──────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 13 tests passed and 0 tests failed
+

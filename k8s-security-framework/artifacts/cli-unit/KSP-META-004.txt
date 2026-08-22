@@ -1,0 +1,27 @@
+Loading test  ( k8s-security-framework/policies/metadata/KSP-META-004/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 10 resources with 0 exceptions ...
+  Checking results ...
+
+│────│────────────────────│────────────────────│───────────────────────────────────────────────────────────────────────────│────────│─────────────────────│────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID[0m │ [40;32mPOLICY            [0m │ [40;32mRULE              [0m │ [40;32mRESOURCE                                                                 [0m │ [40;32mRESULT[0m │ [40;32mREASON             [0m │ [40;32mMESSAGE                                                                               [0m │
+│────│────────────────────│────────────────────│───────────────────────────────────────────────────────────────────────────│────────│─────────────────────│────────────────────────────────────────────────────────────────────────────────────────│
+│ 1  │ add-default-labels │ add-default-labels │ apps/v1/Deployment/policy-test/meta-004-boundary                          │ Pass   │ Ok                  │ mutated Deployment/meta-004-boundary in namespace policy-test                          │
+│ 2  │ add-default-labels │ add-default-labels │ apps/v1/Deployment/policy-test/meta-004-boundary-existing                 │ Fail   │ Want pass, got skip │ no patches applied                                                                     │
+│ 3  │ add-default-labels │ add-default-labels │ batch/v1/CronJob/policy-test/meta-004-positive-cronjob                    │ Pass   │ Ok                  │ mutated CronJob/meta-004-positive-cronjob in namespace policy-test                     │
+│ 4  │ add-default-labels │ add-default-labels │ apps/v1/DaemonSet/policy-test/meta-004-positive-daemonset                 │ Pass   │ Ok                  │ mutated DaemonSet/meta-004-positive-daemonset in namespace policy-test                 │
+│ 5  │ add-default-labels │ add-default-labels │ apps/v1/Deployment/policy-test/meta-004-positive                          │ Pass   │ Ok                  │ mutated Deployment/meta-004-positive in namespace policy-test                          │
+│ 6  │ add-default-labels │ add-default-labels │ batch/v1/Job/policy-test/meta-004-positive-job                            │ Pass   │ Ok                  │ mutated Job/meta-004-positive-job in namespace policy-test                             │
+│ 7  │ add-default-labels │ add-default-labels │ apps/v1/StatefulSet/policy-test/meta-004-positive-statefulset             │ Pass   │ Ok                  │ mutated StatefulSet/meta-004-positive-statefulset in namespace policy-test             │
+│ 8  │ add-default-labels │ add-default-labels │ apps/v1/Deployment/policy-test/meta-004-boundary-additional-boundary-pass │ Pass   │ Ok                  │ mutated Deployment/meta-004-boundary-additional-boundary-pass in namespace policy-test │
+│ 9  │ add-default-labels │ add-default-labels │ v1/Pod/policy-test/meta-004-negative-pod                                  │ Pass   │ Excluded            │ Excluded                                                                               │
+│ 10 │ add-default-labels │ add-default-labels │ v1/Pod/policy-test/meta-004-boundary-out-of-scope-pod                     │ Pass   │ Excluded            │ Excluded                                                                               │
+│────│────────────────────│────────────────────│───────────────────────────────────────────────────────────────────────────│────────│─────────────────────│────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 9 tests passed and 1 tests failed
+
+Error: 1 tests failed

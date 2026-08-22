@@ -1,0 +1,30 @@
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-009/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 14 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (14) [0m │ [40;32mPOLICY                     [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                   [0m │
+│──────────│─────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-boundary-no-add                                 │ Pass   │ Ok     │ success                                                                                    │
+│ 2        │ restrict-added-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-009-exception                                   │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-added-capabilities-exception │
+│ 3        │ restrict-added-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-009-exception-secondary                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-added-capabilities-exception │
+│ 4        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative                                        │ Pass   │ Ok     │ Only NET_BIND_SERVICE may be added as a Linux capability.                                  │
+│ 5        │ restrict-added-capabilities │           │ v1/Pod/policy-test/ksp-pod-009-negative-ephemeral                          │ Pass   │ Ok     │ Only NET_BIND_SERVICE may be added as a Linux capability.                                  │
+│ 6        │ restrict-added-capabilities │           │ v1/Pod/policy-test/ksp-pod-009-negative-init                               │ Pass   │ Ok     │ Only NET_BIND_SERVICE may be added as a Linux capability.                                  │
+│ 7        │ restrict-added-capabilities │           │ v1/Pod/policy-test/ksp-pod-009-negative-first                              │ Pass   │ Ok     │ Only NET_BIND_SERVICE may be added as a Linux capability.                                  │
+│ 8        │ restrict-added-capabilities │           │ v1/Pod/policy-test/ksp-pod-009-negative-last                               │ Pass   │ Ok     │ Only NET_BIND_SERVICE may be added as a Linux capability.                                  │
+│ 9        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-positive                                        │ Pass   │ Ok     │ success                                                                                    │
+│ 10       │ restrict-added-capabilities │           │ v1/Pod/policy-test/ksp-pod-009-positive-all-types                          │ Pass   │ Ok     │ success                                                                                    │
+│ 11       │ restrict-added-capabilities │           │ v1/Pod/policy-test/ksp-pod-009-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                                    │
+│ 12       │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-boundary-no-add-additional-boundary-pass        │ Pass   │ Ok     │ success                                                                                    │
+│ 13       │ restrict-added-capabilities │           │ v1/Pod/policy-test/ksp-pod-009-negative-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ Only NET_BIND_SERVICE may be added as a Linux capability.                                  │
+│ 14       │ restrict-added-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-009-exception-tertiary                          │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-added-capabilities-exception │
+│──────────│─────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 14 tests passed and 0 tests failed
+

@@ -1,0 +1,29 @@
+Loading test  ( k8s-security-framework/policies/resource-governance/KSP-RES-004/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY              [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                     [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                            [0m │
+│──────────│──────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-memory-limit │           │ v1/Pod/policy-test/res-004-boundary-init                                      │ Pass   │ Ok     │ success                                                                             │
+│ 2        │ require-memory-limit │ exception │ v1/Pod/policy-test/ksp-res-004-exception                                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-memory-limit-exception │
+│ 3        │ require-memory-limit │ exception │ v1/Pod/policy-test/ksp-res-004-exception-secondary                            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-memory-limit-exception │
+│ 4        │ require-memory-limit │           │ v1/Pod/policy-test/res-004-negative                                           │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│ 5        │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-negative-init-missing                          │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│ 6        │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-negative-missing-first                         │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│ 7        │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-negative-missing-last                          │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│ 8        │ require-memory-limit │           │ v1/Pod/policy-test/res-004-positive                                           │ Pass   │ Ok     │ success                                                                             │
+│ 9        │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-positive-ephemeral-ignored                     │ Pass   │ Ok     │ success                                                                             │
+│ 10       │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-positive-two-resource                          │ Pass   │ Ok     │ success                                                                             │
+│ 11       │ require-memory-limit │           │ v1/Pod/policy-test/res-004-boundary-init-additional-boundary-pass             │ Pass   │ Ok     │ success                                                                             │
+│ 12       │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-negative-init-missing-additional-boundary-fail │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│ 13       │ require-memory-limit │ exception │ v1/Pod/policy-test/ksp-res-004-exception-tertiary                             │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-memory-limit-exception │
+│──────────│──────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 13 tests passed and 0 tests failed
+

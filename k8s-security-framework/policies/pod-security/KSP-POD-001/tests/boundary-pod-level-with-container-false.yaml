@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-001-positive-pod-level-container-false
+  name: pod-001-boundary-pod-level-container-false
   namespace: policy-test
 spec:
   securityContext:

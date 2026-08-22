@@ -37,9 +37,10 @@ spec:
       - UPDATE
       resources:
       - pods
-  validations:
-  - expression: object.spec.?securityContext.runAsNonRoot.orValue(false) || (object.spec.containers
-      + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])).all(c,
-      c.?securityContext.runAsNonRoot.orValue(false))
-    message: Set Pod runAsNonRoot=true or set it on every container.
+  variables:
+    - name: allContainers
+      expression: object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])
 
+  validations:
+    - expression: (object.spec.?securityContext.?runAsNonRoot.orValue(false) == true && variables.allContainers.all(container, container.?securityContext.?runAsNonRoot.orValue(true) == true)) || variables.allContainers.all(container, container.?securityContext.?runAsNonRoot.orValue(false) == true)
+      message: Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container.

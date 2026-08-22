@@ -1,0 +1,34 @@
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-002/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+
+----------------------------------------------------------------------
+failed to load resources: k8s-security-framework/policies/pod-security/KSP-POD-002/tests/boundary-pass-additional-edge-case.yaml. 
+error: open k8s-security-framework/policies/pod-security/KSP-POD-002/tests/boundary-pass-additional-edge-case.yaml: no such file or directory
+----------------------------------------------------------------------
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY             [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                           [0m │
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-boundary-omitted                                │ Pass   │ Ok     │ success                                                                            │
+│ 2        │ disallow-privileged │           │ v1/Pod/policy-test/ksp-pod-002-positive-all-types                          │ Pass   │ Ok     │ success                                                                            │
+│ 3        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-positive                                        │ Pass   │ Ok     │ success                                                                            │
+│ 4        │ disallow-privileged │           │ v1/Pod/policy-test/ksp-pod-002-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                            │
+│ 5        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-negative                                        │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 6        │ disallow-privileged │           │ v1/Pod/policy-test/ksp-pod-002-negative-ephemeral                          │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 7        │ disallow-privileged │           │ v1/Pod/policy-test/ksp-pod-002-negative-init                               │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 8        │ disallow-privileged │           │ v1/Pod/policy-test/ksp-pod-002-negative-first                              │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 9        │ disallow-privileged │           │ v1/Pod/policy-test/ksp-pod-002-negative-last                               │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 10       │ disallow-privileged │           │ v1/Pod/policy-test/ksp-pod-002-negative-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 11       │ disallow-privileged │ exception │ v1/Pod/policy-test/ksp-pod-002-exception                                   │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privileged-exception │
+│ 12       │ disallow-privileged │ exception │ v1/Pod/policy-test/ksp-pod-002-exception-secondary                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privileged-exception │
+│ 13       │ disallow-privileged │ exception │ v1/Pod/policy-test/ksp-pod-002-exception-tertiary                          │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privileged-exception │
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 13 tests passed and 0 tests failed
+

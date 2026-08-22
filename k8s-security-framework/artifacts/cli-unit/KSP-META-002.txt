@@ -1,0 +1,31 @@
+Loading test  ( k8s-security-framework/policies/metadata/KSP-META-002/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 15 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY             [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                           [0m │
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-owner-label │           │ apps/v1/StatefulSet/policy-test/meta-002-boundary                          │ Pass   │ Ok     │ success                                                                            │
+│ 2        │ require-owner-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-002-exception                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-owner-label-exception │
+│ 3        │ require-owner-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-002-exception-secondary            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-owner-label-exception │
+│ 4        │ require-owner-label │           │ apps/v1/Deployment/policy-test/meta-002-negative                           │ Pass   │ Ok     │ Add metadata.labels.policies.ksp.io/owner with the accountable team slug.          │
+│ 5        │ require-owner-label │           │ apps/v1/Deployment/policy-test/ksp-meta-002-negative-empty                 │ Pass   │ Ok     │ Add metadata.labels.policies.ksp.io/owner with the accountable team slug.          │
+│ 6        │ require-owner-label │           │ batch/v1/Job/policy-test/ksp-meta-002-negative-job-missing                 │ Pass   │ Ok     │ Add metadata.labels.policies.ksp.io/owner with the accountable team slug.          │
+│ 7        │ require-owner-label │           │ batch/v1/CronJob/policy-test/ksp-meta-002-positive-cronjob                 │ Pass   │ Ok     │ success                                                                            │
+│ 8        │ require-owner-label │           │ apps/v1/DaemonSet/policy-test/ksp-meta-002-positive-daemonset              │ Pass   │ Ok     │ success                                                                            │
+│ 9        │ require-owner-label │           │ apps/v1/Deployment/policy-test/meta-002-positive                           │ Pass   │ Ok     │ success                                                                            │
+│ 10       │ require-owner-label │           │ apps/v1/Deployment/policy-test/ksp-meta-002-positive-deployment            │ Pass   │ Ok     │ success                                                                            │
+│ 11       │ require-owner-label │           │ batch/v1/Job/policy-test/ksp-meta-002-positive-job                         │ Pass   │ Ok     │ success                                                                            │
+│ 12       │ require-owner-label │           │ apps/v1/StatefulSet/policy-test/ksp-meta-002-positive-statefulset          │ Pass   │ Ok     │ success                                                                            │
+│ 13       │ require-owner-label │           │ apps/v1/StatefulSet/policy-test/meta-002-boundary-additional-boundary-pass │ Pass   │ Ok     │ success                                                                            │
+│ 14       │ require-owner-label │           │ apps/v1/Deployment/policy-test/meta-002-negative-additional-boundary-fail  │ Pass   │ Ok     │ Add metadata.labels.policies.ksp.io/owner with the accountable team slug.          │
+│ 15       │ require-owner-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-002-exception-tertiary             │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-owner-label-exception │
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 15 tests passed and 0 tests failed
+
