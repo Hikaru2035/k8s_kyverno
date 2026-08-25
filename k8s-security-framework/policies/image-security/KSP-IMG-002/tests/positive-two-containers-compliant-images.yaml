@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-img-002-positive-two-images
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: registry.k8s.io/pause:3.10
+    - name: sidecar
+      image: reg.kyverno.io/kyverno/kyverno:1.18.2

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ksp-meta-002-positive-daemonset
+  namespace: policy-test
+  labels:
+    policies.ksp.io/owner: "platform-team"
+spec:
+  selector:
+    matchLabels:
+      app: ksp-meta-002-positive-daemonset
+  template:
+    metadata:
+      labels:
+        app: ksp-meta-002-positive-daemonset
+    spec:
+      containers:
+        - name: demo-api
+          image: harbor.example.com/demo-api:1.0.0

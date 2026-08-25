@@ -1,6 +1,0 @@
-# Pin exact versions before installation; do not use `latest`.
-kubernetes: "TBD"
-kyverno: "TBD"
-helm: "TBD"
-kind: "TBD"
-cosign: "TBD"

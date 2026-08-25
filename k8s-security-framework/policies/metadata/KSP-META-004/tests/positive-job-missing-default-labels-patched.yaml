@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: meta-004-positive-job
+  namespace: policy-test
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/governed: 'true'
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: demo-api
+        image: harbor.example.com/demo-api:1.0.0

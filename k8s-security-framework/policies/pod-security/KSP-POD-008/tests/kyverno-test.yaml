@@ -1,0 +1,52 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-008-drop-all-capabilities
+policies:
+- ../KSP-POD-008-drop-all-capabilities.yaml
+resources:
+- boundary-init-container-drops-all.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-capabilities-drop-missing.yaml
+- negative-ephemeral-container-noncompliant.yaml
+- negative-init-container-noncompliant.yaml
+- negative-noncompliant-container-first.yaml
+- negative-noncompliant-container-last.yaml
+- positive-all-container-types-compliant.yaml
+- positive-drop-all-capabilities.yaml
+- positive-two-containers-compliant.yaml
+- boundary-fail-single-condition.yaml
+exceptions:
+- exception-policy-for-specific-resources.yaml
+
+results:
+- policy: drop-all-capabilities
+  rule: drop-all-capabilities
+  kind: Pod
+  resources:
+  - pod-008-boundary-init
+  - pod-008-positive-all-types
+  - pod-008-positive-one-container
+  - pod-008-positive-two-compliant
+  result: pass
+
+- policy: drop-all-capabilities
+  rule: drop-all-capabilities
+  kind: Pod
+  resources:
+  - pod-008-negative-missing-drop
+  - pod-008-negative-ephemeral
+  - pod-008-negative-init
+  - pod-008-negative-first
+  - pod-008-negative-last
+  - pod-008-boundary-ephemeral-additional-boundary-fail
+  result: fail
+
+- policy: drop-all-capabilities
+  rule: drop-all-capabilities
+  kind: Pod
+  resources:
+  - ksp-pod-008-exception
+  - ksp-pod-008-exception-secondary
+  - ksp-pod-008-exception-tertiary
+  result: skip

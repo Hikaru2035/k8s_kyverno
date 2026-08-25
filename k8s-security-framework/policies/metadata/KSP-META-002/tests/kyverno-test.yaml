@@ -1,0 +1,86 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-meta-002-require-owner-label
+policies:
+- ../KSP-META-002-require-owner-label.yaml
+resources:
+- boundary-statefulset-with-owner-label.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-deployment-missing-owner-label.yaml
+- negative-label-empty.yaml
+- negative-label-missing-on-job.yaml
+- positive-cronjob-with-valid-label.yaml
+- positive-daemonset-with-valid-label.yaml
+- positive-deployment-with-owner-label.yaml
+- positive-deployment-with-valid-label.yaml
+- positive-job-with-valid-label.yaml
+- positive-statefulset-with-valid-label.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
+exceptions:
+- exception-policy-for-specific-resources.yaml
+
+results:
+- policy: require-owner-label
+  rule: require-owner-label
+  kind: StatefulSet
+  resources:
+  - meta-002-boundary
+  - ksp-meta-002-positive-statefulset
+  - meta-002-boundary-additional-boundary-pass
+  result: pass
+
+- policy: require-owner-label
+  rule: require-owner-label
+  kind: Deployment
+  resources:
+  - meta-002-positive
+  - ksp-meta-002-positive-deployment
+  result: pass
+
+- policy: require-owner-label
+  rule: require-owner-label
+  kind: CronJob
+  resources:
+  - ksp-meta-002-positive-cronjob
+  result: pass
+
+- policy: require-owner-label
+  rule: require-owner-label
+  kind: DaemonSet
+  resources:
+  - ksp-meta-002-positive-daemonset
+  result: pass
+
+- policy: require-owner-label
+  rule: require-owner-label
+  kind: Job
+  resources:
+  - ksp-meta-002-positive-job
+  result: pass
+
+- policy: require-owner-label
+  rule: require-owner-label
+  kind: Deployment
+  resources:
+  - meta-002-negative
+  - ksp-meta-002-negative-empty
+  - meta-002-negative-additional-boundary-fail
+  result: fail
+
+- policy: require-owner-label
+  rule: require-owner-label
+  kind: Job
+  resources:
+  - ksp-meta-002-negative-job-missing
+  result: fail
+
+- policy: require-owner-label
+  rule: require-owner-label
+  kind: Deployment
+  resources:
+  - ksp-meta-002-exception
+  - ksp-meta-002-exception-secondary
+  - ksp-meta-002-exception-tertiary
+  result: skip

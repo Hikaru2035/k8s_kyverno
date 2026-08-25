@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: require-image-digest-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: require-image-digest
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-img-003-exception', 'ksp-img-003-exception-secondary',
+      'ksp-img-003-exception-tertiary'] && object.metadata.namespace == 'policy-test'

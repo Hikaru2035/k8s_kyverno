@@ -1,0 +1,53 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-img-002-approved-registry-allowlist
+policies:
+- ../KSP-IMG-002-approved-registry-allowlist.yaml
+resources:
+- boundary-approved-kyverno-registry.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-ephemeral-container-noncompliant-image.yaml
+- negative-init-container-noncompliant-image.yaml
+- negative-noncompliant-image-first.yaml
+- negative-noncompliant-image-last.yaml
+- negative-unapproved-docker-hub-registry.yaml
+- positive-approved-harbor-registry.yaml
+- positive-two-containers-compliant-images.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
+- boundary-registry-prefix-bypass.yaml
+exceptions:
+- exception-policy-for-specific-resources.yaml
+results:
+- policy: approved-registry-allowlist
+  rule: approved-registry-allowlist
+  kind: Pod
+  resources:
+  - img-002-boundary
+  - img-002-positive
+  - ksp-img-002-positive-two-images
+  - img-002-boundary-additional-boundary-pass
+  result: pass
+- policy: approved-registry-allowlist
+  rule: approved-registry-allowlist
+  kind: Pod
+  resources:
+  - ksp-img-002-exception
+  - ksp-img-002-exception-secondary
+  - ksp-img-002-exception-tertiary
+  result: skip
+- policy: approved-registry-allowlist
+  rule: approved-registry-allowlist
+  kind: Pod
+  resources:
+  - ksp-img-002-negative-ephemeral-image
+  - ksp-img-002-negative-init-image
+  - ksp-img-002-negative-image-first
+  - ksp-img-002-negative-image-last
+  - img-002-negative
+  - ksp-img-002-negative-ephemeral-image-additional-boundary-fail
+  - img-002-boundary-harbor-prefix-bypass
+  - img-002-boundary-kubernetes-prefix-bypass
+  - img-002-boundary-kyverno-prefix-bypass
+  result: fail

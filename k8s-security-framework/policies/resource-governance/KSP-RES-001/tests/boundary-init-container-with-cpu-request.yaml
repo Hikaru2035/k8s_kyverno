@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: res-001-boundary-init
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0
+      resources:
+        requests:
+          cpu: 100m
+  initContainers:
+    - name: init
+      image: harbor.example.com/demo-api:1.0.0
+      resources:
+        requests:
+          cpu: 50m

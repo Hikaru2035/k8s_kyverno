@@ -1,0 +1,29 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/resource-governance/KSP-RES-006/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────│──────────────────────│────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY              [0m │ [40;32mRULE                [0m │ [40;32mRESOURCE                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON  [0m │ [40;32mMESSAGE                      [0m │
+│──────────│──────────────────────│──────────────────────│────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ 1        │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 2        │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 3        │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 4        │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 5        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-negative                      │ Pass   │ Excluded │ Excluded                      │
+│ 6        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-opt-in-without-environment    │ Pass   │ Excluded │ Excluded                      │
+│ 7        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/ksp-res-006-unrelated-label           │ Pass   │ Excluded │ Excluded                      │
+│ 8        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-invalid-environment-prod      │ Pass   │ Excluded │ Excluded                      │
+│ 9        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-invalid-environment-uppercase │ Pass   │ Excluded │ Excluded                      │
+│ 10       │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-empty-environment             │ Pass   │ Excluded │ Excluded                      │
+│ 11       │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 12       │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/ksp-res-006-exception                 │ Pass   │ Excluded │ Excluded                      │
+│ 13       │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│──────────│──────────────────────│──────────────────────│────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+
+
+Test Summary: 13 tests passed and 0 tests failed
+

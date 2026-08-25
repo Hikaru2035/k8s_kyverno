@@ -1,0 +1,50 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-res-007-require-resource-governance-namespace-labels
+policies:
+- ../KSP-RES-007-require-resource-governance-namespace-labels.yaml
+resources:
+- positive-valid-governance-labels.yaml
+- negative-missing-governance-labels.yaml
+- boundary-governance-label-values.yaml
+- exception-resources.yaml
+exceptions:
+- exception-policy.yaml
+results:
+- policy: require-resource-governance-namespace-labels
+  rule: require-resource-governance-namespace-labels
+  kind: Namespace
+  resources:
+  - res-007-p01-dev-small
+  - res-007-p02-staging-medium
+  - res-007-p03-production-large
+  - res-007-p04-additional-labels
+  result: pass
+- policy: require-resource-governance-namespace-labels
+  rule: require-resource-governance-namespace-labels
+  kind: Namespace
+  resources:
+  - res-007-n01-missing-environment
+  - res-007-n02-missing-quota-class
+  - res-007-n03-missing-both
+  - res-007-b01-environment-prod
+  - res-007-b02-environment-uppercase
+  - res-007-b03-quota-uppercase
+  - res-007-b04-quota-empty
+  - res-007-b05-environment-empty
+  - ksp-res-007-exception-similar
+  result: fail
+- policy: require-resource-governance-namespace-labels
+  rule: require-resource-governance-namespace-labels
+  kind: Namespace
+  resources:
+  - res-007-b06-no-opt-in-with-labels
+  - res-007-b06-no-opt-in-no-labels
+  result: skip
+- policy: require-resource-governance-namespace-labels
+  rule: require-resource-governance-namespace-labels
+  kind: Namespace
+  resources:
+  - ksp-res-007-exception
+  result: skip

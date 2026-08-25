@@ -1,0 +1,26 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/metadata/KSP-META-004/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 10 resources with 0 exceptions ...
+  Checking results ...
+
+│────│────────────────────│────────────────────│───────────────────────────────────────────────────────────────────────────│────────│──────────│──────────│
+│ [40;32mID[0m │ [40;32mPOLICY            [0m │ [40;32mRULE              [0m │ [40;32mRESOURCE                                                                 [0m │ [40;32mRESULT[0m │ [40;32mREASON  [0m │ [40;32mMESSAGE [0m │
+│────│────────────────────│────────────────────│───────────────────────────────────────────────────────────────────────────│────────│──────────│──────────│
+│ 1  │ add-default-labels │                    │ apps/v1/Deployment/policy-test/meta-004-boundary                          │ Pass   │ Ok       │ success  │
+│ 2  │ add-default-labels │                    │ apps/v1/Deployment/policy-test/meta-004-boundary-existing                 │ Pass   │ Ok       │ success  │
+│ 3  │ add-default-labels │                    │ batch/v1/CronJob/policy-test/meta-004-positive-cronjob                    │ Pass   │ Ok       │ success  │
+│ 4  │ add-default-labels │                    │ apps/v1/DaemonSet/policy-test/meta-004-positive-daemonset                 │ Pass   │ Ok       │ success  │
+│ 5  │ add-default-labels │                    │ apps/v1/Deployment/policy-test/meta-004-positive                          │ Pass   │ Ok       │ success  │
+│ 6  │ add-default-labels │                    │ batch/v1/Job/policy-test/meta-004-positive-job                            │ Pass   │ Ok       │ success  │
+│ 7  │ add-default-labels │                    │ apps/v1/StatefulSet/policy-test/meta-004-positive-statefulset             │ Pass   │ Ok       │ success  │
+│ 8  │ add-default-labels │                    │ apps/v1/Deployment/policy-test/meta-004-boundary-additional-boundary-pass │ Pass   │ Ok       │ success  │
+│ 9  │ add-default-labels │ add-default-labels │ v1/Pod/policy-test/meta-004-negative-pod                                  │ Pass   │ Excluded │ Excluded │
+│ 10 │ add-default-labels │ add-default-labels │ v1/Pod/policy-test/meta-004-boundary-out-of-scope-pod                     │ Pass   │ Excluded │ Excluded │
+│────│────────────────────│────────────────────│───────────────────────────────────────────────────────────────────────────│────────│──────────│──────────│
+
+
+Test Summary: 10 tests passed and 0 tests failed
+

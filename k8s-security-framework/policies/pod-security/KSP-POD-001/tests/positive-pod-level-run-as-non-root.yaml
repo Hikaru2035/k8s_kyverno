@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-001-positive
+  namespace: policy-test
+spec:
+ # securityContext:
+ #   runAsNonRoot: true
+  containers:
+    - name: demo-api
+      image: nginx:1.27

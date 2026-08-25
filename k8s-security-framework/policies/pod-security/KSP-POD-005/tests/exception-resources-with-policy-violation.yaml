@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-pod-005-exception
+  namespace: policy-test
+spec:
+  hostPID: true
+  containers:
+  - name: demo-api
+    image: harbor.example.com/demo-api:1.0.0
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-pod-005-exception-secondary
+  namespace: policy-test
+spec:
+  hostPID: true
+  containers:
+  - name: demo-api
+    image: harbor.example.com/demo-api:1.0.0
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-pod-005-exception-tertiary
+  namespace: policy-test
+spec:
+  hostPID: true
+  containers:
+  - name: demo-api
+    image: harbor.example.com/demo-api:1.0.0

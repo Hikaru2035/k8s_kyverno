@@ -1,2 +1,94 @@
-# Staging overrides.
-{}
+# Staging profile
+# Goal: production-like admission topology and realistic failure/upgrade testing.
+# Admission controller uses 3 replicas because Kyverno's HA guidance requires
+# three admission replicas for a supported HA admission deployment.
+
+config:
+  preserve: true
+
+features:
+  backgroundScan:
+    enabled: true
+    backgroundScanWorkers: 4
+    backgroundScanInterval: 30m
+
+admissionController:
+  replicas: 3
+  apiPriorityAndFairness: true
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 2
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/component: admission-controller
+  container:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: "1"
+        memory: 768Mi
+  serviceMonitor:
+    enabled: false
+    #interval: 30s
+    #scrapeTimeout: 25s
+
+backgroundController:
+  replicas: 2
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 384Mi
+  serviceMonitor:
+    enabled: false
+
+cleanupController:
+  replicas: 2
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
+  serviceMonitor:
+    enabled: false
+
+reportsController:
+  replicas: 2
+  apiPriorityAndFairness: true
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 384Mi
+  serviceMonitor:
+    enabled: false
+
+crds:
+  migration:
+    enabled: false

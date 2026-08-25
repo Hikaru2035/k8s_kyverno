@@ -1,0 +1,49 @@
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: restrict-host-path
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-007
+  annotations:
+    policies.kyverno.io/title: Restrict HostPath
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: critical
+    policies.kyverno.io/subject: Pod,Volume
+    policies.kyverno.io/description: Restricts hostPath volumes to a minimal approved allowlist.
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Enforce
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+spec:
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  variables:
+  - name: allVolumes
+    expression: object.spec.?volumes.orValue([])
+
+  - name: allowedHostPaths
+    expression: '["/var/log", "/tmp"]'
+
+  validations:
+  - expression: variables.allVolumes.all(volume, !has(volume.hostPath) || volume.hostPath.path in variables.allowedHostPaths)
+    message: hostPath is restricted to the minimal approved allowlist.

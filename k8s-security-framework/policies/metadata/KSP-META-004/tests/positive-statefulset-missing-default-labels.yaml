@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: meta-004-positive-statefulset
+  namespace: policy-test
+spec:
+  selector:
+    matchLabels:
+      app: meta-004-positive-statefulset
+  template:
+    metadata:
+      labels:
+        app: meta-004-positive-statefulset
+    spec:
+      containers:
+        - name: demo-api
+          image: harbor.example.com/demo-api:1.0.0

@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: res-007-b01-environment-prod
+  labels:
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: prod
+    policies.ksp.io/quota-class: small
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: res-007-b02-environment-uppercase
+  labels:
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: DEV
+    policies.ksp.io/quota-class: small
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: res-007-b03-quota-uppercase
+  labels:
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: dev
+    policies.ksp.io/quota-class: Small
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: res-007-b04-quota-empty
+  labels:
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: dev
+    policies.ksp.io/quota-class: ""
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: res-007-b05-environment-empty
+  labels:
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: ""
+    policies.ksp.io/quota-class: small
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: res-007-b06-no-opt-in-with-labels
+  labels:
+    policies.ksp.io/environment: prod
+    policies.ksp.io/quota-class: Small
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: res-007-b06-no-opt-in-no-labels

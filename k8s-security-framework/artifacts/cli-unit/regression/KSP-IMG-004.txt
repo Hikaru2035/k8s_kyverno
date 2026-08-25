@@ -1,0 +1,28 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/image-security/KSP-IMG-004/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 11 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────│──────────────────────│─────────────────────────────────────────────────────────────────────────────────│────────│──────────────────────│────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (11) [0m │ [40;32mPOLICY              [0m │ [40;32mRULE                [0m │ [40;32mRESOURCE                                                                       [0m │ [40;32mRESULT[0m │ [40;32mREASON              [0m │ [40;32mMESSAGE                                                                                                                                                                       [0m │
+│──────────│──────────────────────│──────────────────────│─────────────────────────────────────────────────────────────────────────────────│────────│──────────────────────│────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ verify-signed-images │ verify-signed-images │ v1/Pod/policy-test/img-004-boundary-out-of-scope                                │ Fail   │ Want skip, got pass  │ success                                                                                                                                                                        │
+│ 2        │ verify-signed-images │ exception            │ v1/Pod/policy-test/ksp-img-004-exception                                        │ Pass   │ Ok                   │ rule is skipped due to policy exception:                                                                                                                                       │
+│ 3        │ verify-signed-images │ verify-signed-images │ v1/Pod/policy-test/img-004-positive-out-of-scope-images                         │ Fail   │ Want skip, got pass  │ success                                                                                                                                                                        │
+│ 4        │ verify-signed-images │ verify-signed-images │ v1/Pod/policy-test/img-004-positive-out-of-scope                                │ Fail   │ Want skip, got pass  │ success                                                                                                                                                                        │
+│ 5        │ verify-signed-images │ verify-signed-images │ v1/Pod/policy-test/img-004-boundary-out-of-scope-additional-boundary-pass       │ Fail   │ Want skip, got pass  │ success                                                                                                                                                                        │
+│ 6        │ verify-signed-images │ exception            │ v1/Pod/policy-test/ksp-img-004-exception-secondary                              │ Pass   │ Ok                   │ rule is skipped due to policy exception:                                                                                                                                       │
+│ 7        │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-ephemeral-unsigned                          │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com on 127.0.0.53:53: dial udp 127.0.0.53:53: socket: operation not permitted │
+│ 8        │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-init-unsigned                               │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com on 127.0.0.53:53: dial udp 127.0.0.53:53: socket: operation not permitted │
+│ 9        │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-two-unsigned                                │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com on 127.0.0.53:53: dial udp 127.0.0.53:53: socket: operation not permitted │
+│ 10       │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-unsigned                                    │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com on 127.0.0.53:53: dial udp 127.0.0.53:53: socket: operation not permitted │
+│ 11       │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-ephemeral-unsigned-additional-boundary-fail │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com on 127.0.0.53:53: dial udp 127.0.0.53:53: socket: operation not permitted │
+│──────────│──────────────────────│──────────────────────│─────────────────────────────────────────────────────────────────────────────────│────────│──────────────────────│────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 2 tests passed and 9 tests failed
+
+Error: 9 tests failed

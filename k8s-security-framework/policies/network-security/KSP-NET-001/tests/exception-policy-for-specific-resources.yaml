@@ -1,0 +1,12 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: generate-network-baseline-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: generate-network-baseline
+    kind: GeneratingPolicy
+  matchConditions:
+  - name: match-exempt-namespace
+    expression: object.metadata.name == 'ksp-net-001-exception'

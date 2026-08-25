@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-img-003-negative-ephemeral-image-additional-boundary-fail
+  namespace: policy-test
+spec:
+  containers:
+  - name: good
+    image: harbor.example.com/demo-api@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  ephemeralContainers:
+  - name: debugger
+    image: harbor.example.com/demo-api:1.0.0
+    command:
+    - sh

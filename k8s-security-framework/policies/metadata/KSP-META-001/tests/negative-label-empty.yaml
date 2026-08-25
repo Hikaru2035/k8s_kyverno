@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ksp-meta-001-negative-empty
+  namespace: policy-test
+  labels:
+    app.kubernetes.io/name: ""
+spec:
+  selector:
+    matchLabels:
+      app: ksp-meta-001-negative-empty
+  template:
+    metadata:
+      labels:
+        app: ksp-meta-001-negative-empty
+    spec:
+      containers:
+        - name: demo-api
+          image: harbor.example.com/demo-api:1.0.0

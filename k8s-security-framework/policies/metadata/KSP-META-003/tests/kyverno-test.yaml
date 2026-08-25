@@ -1,0 +1,78 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-meta-003-require-environment-label
+policies:
+- ../KSP-META-003-require-environment-label.yaml
+resources:
+- boundary-job-with-production-environment.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-deployment-with-invalid-prod-environment.yaml
+- negative-label-empty.yaml
+- negative-label-missing-on-job.yaml
+- positive-cronjob-with-valid-label.yaml
+- positive-daemonset-with-valid-label.yaml
+- positive-deployment-with-dev-environment.yaml
+- positive-deployment-with-valid-label.yaml
+- positive-job-with-valid-label.yaml
+- positive-statefulset-with-valid-label.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
+exceptions:
+- exception-policy-for-specific-resources.yaml
+results:
+- policy: require-environment-label
+  rule: require-environment-label
+  kind: Job
+  resources:
+  - meta-003-boundary
+  - ksp-meta-003-positive-job
+  - meta-003-boundary-additional-boundary-pass
+  result: pass
+- policy: require-environment-label
+  rule: require-environment-label
+  kind: Deployment
+  resources:
+  - ksp-meta-003-exception
+  - ksp-meta-003-exception-secondary
+  - ksp-meta-003-exception-tertiary
+  result: skip
+- policy: require-environment-label
+  rule: require-environment-label
+  kind: Deployment
+  resources:
+  - meta-003-negative
+  - ksp-meta-003-negative-empty
+  - meta-003-negative-additional-boundary-fail
+  result: fail
+- policy: require-environment-label
+  rule: require-environment-label
+  kind: Job
+  resources:
+  - ksp-meta-003-negative-job-missing
+  result: fail
+- policy: require-environment-label
+  rule: require-environment-label
+  kind: CronJob
+  resources:
+  - ksp-meta-003-positive-cronjob
+  result: pass
+- policy: require-environment-label
+  rule: require-environment-label
+  kind: DaemonSet
+  resources:
+  - ksp-meta-003-positive-daemonset
+  result: pass
+- policy: require-environment-label
+  rule: require-environment-label
+  kind: Deployment
+  resources:
+  - meta-003-positive
+  - ksp-meta-003-positive-deployment
+  result: pass
+- policy: require-environment-label
+  rule: require-environment-label
+  kind: StatefulSet
+  resources:
+  - ksp-meta-003-positive-statefulset
+  result: pass

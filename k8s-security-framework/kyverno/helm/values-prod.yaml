@@ -1,2 +1,100 @@
-# Production overrides: explicitly review failurePolicy and HA settings.
-{}
+# Production-candidate profile
+# Goal: resilient admission path, explicit resources, disruption protection,
+# and deterministic behavior suitable for a production-candidate PoC.
+#
+# NOTE:
+# - Resource values are initial sizing, not universal production sizing.
+# - Tune them using admission latency, request rate, CPU throttling, and memory.
+# - NetworkPolicy is intentionally not enabled here until API-server-to-webhook
+#   ingress rules are explicitly designed and tested; an incorrect policy could
+#   block the admission path.
+config:
+  preserve: true
+
+features:
+  backgroundScan:
+    enabled: true
+    backgroundScanWorkers: 8
+    backgroundScanInterval: 1h
+
+admissionController:
+  replicas: 3
+  apiPriorityAndFairness: true
+  revisionHistoryLimit: 5
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 2
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/component: admission-controller
+  container:
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: "2"
+        memory: 1Gi
+  serviceMonitor:
+    enabled: true
+    interval: 30s
+    scrapeTimeout: 25s
+
+backgroundController:
+  replicas: 2
+  revisionHistoryLimit: 5
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: "1"
+      memory: 512Mi
+  serviceMonitor:
+    enabled: true
+
+cleanupController:
+  replicas: 2
+  revisionHistoryLimit: 5
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+  serviceMonitor:
+    enabled: true
+
+reportsController:
+  replicas: 2
+  apiPriorityAndFairness: true
+  revisionHistoryLimit: 5
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: "1"
+      memory: 512Mi
+  serviceMonitor:
+    enabled: false
+    

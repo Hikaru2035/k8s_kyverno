@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-001-negative-ephemeral-container-false
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        runAsNonRoot: true
+  ephemeralContainers:
+    - name: debugger
+      image: harbor.example.com/debugger:1.0.0
+      command: ["sh"]
+      securityContext:
+        runAsNonRoot: false

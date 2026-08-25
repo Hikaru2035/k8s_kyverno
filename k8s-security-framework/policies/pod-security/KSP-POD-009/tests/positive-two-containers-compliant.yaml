@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-009-positive-two-compliant
+  namespace: policy-test
+spec:
+  containers:
+    - name: secure
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        capabilities:
+          add: [NET_BIND_SERVICE]
+    - name: sidecar
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        capabilities:
+          add: [NET_BIND_SERVICE]

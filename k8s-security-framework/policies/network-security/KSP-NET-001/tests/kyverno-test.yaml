@@ -1,0 +1,75 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-net-001-generate-network-baseline
+
+policies:
+- ../KSP-NET-001-generate-default-deny-network-policy.yaml
+
+resources:
+- positive-namespace-opted-in-network-baseline.yaml
+- positive-opt-in-with-additional-labels.yaml
+- negative-namespace-without-network-opt-in.yaml
+- negative-unrelated-label-only.yaml
+- negative-opt-in-disabled.yaml
+- negative-opt-in-empty.yaml
+- boundary-opt-in-wrong-case.yaml
+- boundary-fail-single-condition.yaml
+- boundary-pass-additional-edge-case.yaml
+- exception-resources-with-policy-violation.yaml
+
+exceptions:
+- exception-policy-for-specific-resources.yaml
+
+results:
+# P01: opt-in enabled generates both NetworkPolicies.
+- policy: generate-network-baseline
+  rule: generate-network-baseline
+  kind: Namespace
+  resources: [net-001-positive]
+  generatedResource: positive-namespace-opted-in-network-baseline-generated.yaml
+  result: pass
+
+# P02: additional labels do not affect generation.
+- policy: generate-network-baseline
+  rule: generate-network-baseline
+  kind: Namespace
+  resources: [ksp-net-001-positive-opt-in-with-additional-labels]
+  generatedResource: positive-opt-in-with-additional-labels-generated.yaml
+  result: pass
+
+# N01-N03 and B01-B03: non-exact opt-in values do not match.
+- policy: generate-network-baseline
+  rule: generate-network-baseline
+  kind: Namespace
+  resources:
+  - net-001-negative
+  - ksp-net-001-unrelated-label
+  - ksp-net-001-negative-opt-in-disabled
+  - ksp-net-001-negative-opt-in-empty
+  - net-001-boundary-wrong-case
+  - net-001-boundary-trailing-space
+  result: skip
+
+# B04: exact opt-in still generates with many unrelated labels.
+- policy: generate-network-baseline
+  rule: generate-network-baseline
+  kind: Namespace
+  resources: [net-001-boundary-additional-boundary-pass]
+  generatedResource: boundary-pass-additional-edge-case-generated.yaml
+  result: pass
+
+# E01: the exact PolicyException match suppresses generation.
+- policy: generate-network-baseline
+  rule: generate-network-baseline
+  kind: Namespace
+  resources: [ksp-net-001-exception]
+  result: skip
+
+# E02: a similar name does not broaden the exception match.
+- policy: generate-network-baseline
+  rule: generate-network-baseline
+  kind: Namespace
+  resources: [ksp-net-001-exception-similar]
+  generatedResource: exception-non-matching-namespace-generated.yaml
+  result: pass

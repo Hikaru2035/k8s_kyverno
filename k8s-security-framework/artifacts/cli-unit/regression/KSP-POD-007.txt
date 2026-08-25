@@ -1,0 +1,28 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/pod-security/KSP-POD-007/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 12 resources with 1 exception ...
+  Checking results ...
+
+│──────────│────────────────────│───────────│─────────────────────────────────────────────────────────────────────────│────────│────────│───────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (12) [0m │ [40;32mPOLICY            [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                               [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                          [0m │
+│──────────│────────────────────│───────────│─────────────────────────────────────────────────────────────────────────│────────│────────│───────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-positive-empty-dir-volume                    │ Pass   │ Ok     │ success                                                                           │
+│ 2        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-positive-multiple-volumes                    │ Pass   │ Ok     │ success                                                                           │
+│ 3        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-positive-hostpath-available                  │ Pass   │ Ok     │ success                                                                           │
+│ 4        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-boundary-no-volumes-additional-boundary-pass │ Pass   │ Ok     │ success                                                                           │
+│ 5        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-hostpath-restricted                 │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 6        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-hostpath-restricted-first           │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 7        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-hostpath-restricted-last            │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 8        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-hostpath-restricted-middle          │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 9        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-near-allowed-hostpath               │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 10       │ restrict-host-path │ exception │ v1/Pod/policy-test/ksp-pod-007-exception                                │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-path-exception │
+│ 11       │ restrict-host-path │ exception │ v1/Pod/policy-test/ksp-pod-007-exception-secondary                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-path-exception │
+│ 12       │ restrict-host-path │ exception │ v1/Pod/policy-test/ksp-pod-007-exception-tertiary                       │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-path-exception │
+│──────────│────────────────────│───────────│─────────────────────────────────────────────────────────────────────────│────────│────────│───────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 12 tests passed and 0 tests failed
+

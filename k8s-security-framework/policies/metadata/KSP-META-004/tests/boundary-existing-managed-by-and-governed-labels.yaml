@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meta-004-boundary-existing
+  namespace: policy-test
+  labels:
+    app.kubernetes.io/managed-by: "platform"
+    policies.ksp.io/governed: "false"
+spec:
+  selector:
+    matchLabels:
+      app: meta-004-boundary-existing
+  template:
+    metadata:
+      labels:
+        app: meta-004-boundary-existing
+    spec:
+      containers:
+        - name: demo-api
+          image: harbor.example.com/demo-api:1.0.0

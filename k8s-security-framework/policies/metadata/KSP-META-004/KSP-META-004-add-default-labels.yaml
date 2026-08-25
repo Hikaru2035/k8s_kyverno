@@ -1,0 +1,82 @@
+apiVersion: policies.kyverno.io/v1
+kind: MutatingPolicy
+metadata:
+  name: add-default-labels
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-meta-004
+  annotations:
+    policies.kyverno.io/title: Add Default Labels
+    policies.kyverno.io/category: KSP Metadata
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/subject: Workload
+    policies.kyverno.io/description: Adds only deterministic technical metadata and never invents owner identity.
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/dev-mode: Mutate
+    policies.ksp.io/staging-mode: Mutate
+    policies.ksp.io/prod-mode: Mutate
+    policies.ksp.io/exception: none
+spec:
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  evaluation:
+    admission:
+      enabled: true
+    mutateExisting:
+      enabled: false
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - apps
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - deployments
+      - statefulsets
+      - daemonsets
+
+    - apiGroups:
+      - batch
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - jobs
+      - cronjobs
+
+  mutations:
+  - patchType: ApplyConfiguration
+    applyConfiguration:
+      expression: |
+        object.metadata.?labels[
+          "app.kubernetes.io/managed-by"
+        ].orValue("") != "" ?
+          Object{} :
+          Object{
+            metadata: Object.metadata{
+              labels: {
+                "app.kubernetes.io/managed-by": "kyverno"
+              }
+            }
+          }
+
+  - patchType: ApplyConfiguration
+    applyConfiguration:
+      expression: |
+        object.metadata.?labels[
+          "policies.ksp.io/governed"
+        ].orValue("") != "" ?
+          Object{} :
+          Object{
+            metadata: Object.metadata{
+              labels: {
+                "policies.ksp.io/governed": "true"
+              }
+            }
+          }

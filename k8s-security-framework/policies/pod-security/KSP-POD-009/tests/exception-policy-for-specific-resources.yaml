@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: restrict-added-capabilities-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: restrict-added-capabilities
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-pod-009-exception', 'ksp-pod-009-exception-secondary',
+      'ksp-pod-009-exception-tertiary'] && object.metadata.namespace == 'policy-test'

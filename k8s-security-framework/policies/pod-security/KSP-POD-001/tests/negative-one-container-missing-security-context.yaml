@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-001-negative-one-container-missing-context
+  namespace: policy-test
+spec:
+  containers:
+    - name: secure
+      image: harbor.example.com/secure:1.0.0
+      securityContext:
+        runAsNonRoot: true
+    - name: unset
+      image: harbor.example.com/unset:1.0.0

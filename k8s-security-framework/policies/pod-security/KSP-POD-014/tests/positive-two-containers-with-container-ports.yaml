@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-014-positive-two-container-ports
+  namespace: policy-test
+spec:
+  containers:
+    - name: api
+      image: harbor.example.com/demo-api:1.0.0
+      ports:
+        - containerPort: 8080
+    - name: metrics
+      image: harbor.example.com/demo-api:1.0.0
+      ports:
+        - containerPort: 9090

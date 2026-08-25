@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-011-positive-all-types
+  namespace: policy-test
+spec:
+  containers:
+    - name: secure
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        readOnlyRootFilesystem: true
+  initContainers:
+    - name: init
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        readOnlyRootFilesystem: true
+  ephemeralContainers:
+    - name: debugger
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        readOnlyRootFilesystem: true
+      command: ["sh"]

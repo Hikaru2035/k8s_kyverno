@@ -1,0 +1,87 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-res-006-generate-limit-range
+
+policies:
+- ../KSP-RES-006-generate-limit-range.yaml
+
+resources:
+- positive-namespace-opted-in-limit-range.yaml
+- positive-staging-namespace.yaml
+- positive-production-namespace.yaml
+- positive-opt-in-with-additional-labels.yaml
+- negative-namespace-without-resource-opt-in.yaml
+- negative-opt-in-without-environment.yaml
+- negative-unrelated-label-only.yaml
+- boundary-invalid-environment-prod.yaml
+- boundary-invalid-environment-uppercase.yaml
+- boundary-empty-environment.yaml
+- boundary-pass-additional-edge-case.yaml
+- exception-resources-with-policy-violation.yaml
+
+exceptions:
+- exception-policy-for-specific-resources.yaml
+
+context: context.yaml
+
+results:
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources: [res-006-positive]
+  generatedResource: positive-namespace-opted-in-limit-range-generated.yaml
+  result: pass
+
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources: [res-006-positive-staging]
+  generatedResource: positive-staging-namespace-generated.yaml
+  result: pass
+
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources: [res-006-positive-production]
+  generatedResource: positive-production-namespace-generated.yaml
+  result: pass
+
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources: [ksp-res-006-positive-opt-in-with-additional-labels]
+  generatedResource: positive-opt-in-with-additional-labels-generated.yaml
+  result: pass
+
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources:
+  - res-006-negative
+  - res-006-opt-in-without-environment
+  - ksp-res-006-unrelated-label
+  - res-006-invalid-environment-prod
+  - res-006-invalid-environment-uppercase
+  - res-006-empty-environment
+  result: skip
+
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources: [res-006-boundary-additional-boundary-pass]
+  generatedResource: boundary-pass-additional-edge-case-generated.yaml
+  result: pass
+
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources: [ksp-res-006-exception]
+  result: skip
+
+- policy: generate-limit-range
+  rule: generate-limit-range
+  kind: Namespace
+  resources: [ksp-res-006-exception-similar]
+  generatedResource: exception-similar-namespace-generated.yaml
+  result: pass
