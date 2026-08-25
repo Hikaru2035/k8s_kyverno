@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: res-005-positive-staging-medium
+  labels:
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: staging
+    policies.ksp.io/quota-class: medium

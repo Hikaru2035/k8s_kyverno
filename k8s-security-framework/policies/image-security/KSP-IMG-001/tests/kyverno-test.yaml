@@ -1,0 +1,50 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-img-001-disallow-latest-tag
+policies:
+- ../KSP-IMG-001-disallow-latest-tag.yaml
+resources:
+- boundary-valid-sha256-digest.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-ephemeral-container-noncompliant-image.yaml
+- negative-init-container-noncompliant-image.yaml
+- negative-latest-and-untagged-images.yaml
+- negative-noncompliant-image-first.yaml
+- negative-noncompliant-image-last.yaml
+- positive-explicit-version-tag.yaml
+- positive-two-containers-compliant-images.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
+exceptions:
+- exception-policy-for-specific-resources.yaml
+results:
+- policy: disallow-latest-tag
+  rule: disallow-latest-tag
+  kind: Pod
+  resources:
+  - img-001-boundary-digest
+  - img-001-positive
+  - ksp-img-001-positive-two-images
+  - img-001-boundary-digest-additional-boundary-pass
+  result: pass
+- policy: disallow-latest-tag
+  rule: disallow-latest-tag
+  kind: Pod
+  resources:
+  - ksp-img-001-exception
+  - ksp-img-001-exception-secondary
+  - ksp-img-001-exception-tertiary
+  result: skip
+- policy: disallow-latest-tag
+  rule: disallow-latest-tag
+  kind: Pod
+  resources:
+  - ksp-img-001-negative-ephemeral-image
+  - ksp-img-001-negative-init-image
+  - img-001-negative-latest
+  - img-001-negative-untagged
+  - ksp-img-001-negative-image-first
+  - ksp-img-001-negative-image-last
+  - ksp-img-001-negative-ephemeral-image-additional-boundary-fail
+  result: fail

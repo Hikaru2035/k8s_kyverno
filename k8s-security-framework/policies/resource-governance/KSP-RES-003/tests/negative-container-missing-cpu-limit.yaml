@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: res-003-negative
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0

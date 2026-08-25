@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: meta-001-boundary
+  namespace: policy-test
+  labels:
+    app.kubernetes.io/name: demo-api
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+        app.kubernetes.io/name: demo-api
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: demo-api
+              image: harbor.example.com/demo-api:1.0.0

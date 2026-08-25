@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: disallow-host-pid-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: disallow-host-pid
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-pod-005-exception', 'ksp-pod-005-exception-secondary',
+      'ksp-pod-005-exception-tertiary'] && object.metadata.namespace == 'policy-test'

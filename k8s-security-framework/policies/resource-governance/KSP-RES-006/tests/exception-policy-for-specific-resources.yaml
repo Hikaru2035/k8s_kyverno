@@ -1,0 +1,12 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: generate-limit-range-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: generate-limit-range
+    kind: GeneratingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name == 'ksp-res-006-exception'

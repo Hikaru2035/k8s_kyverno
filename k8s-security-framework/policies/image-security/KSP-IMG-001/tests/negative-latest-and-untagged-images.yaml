@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: img-001-negative-latest
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:latest
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: img-001-negative-untagged
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: demo-api

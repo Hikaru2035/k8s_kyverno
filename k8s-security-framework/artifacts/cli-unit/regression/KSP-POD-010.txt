@@ -1,0 +1,31 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/pod-security/KSP-POD-010/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 15 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────│───────────│───────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY         [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                         [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                                   [0m │
+│──────────│─────────────────│───────────│───────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-boundary-localhost                                     │ Pass   │ Ok     │ success                                                                                                    │
+│ 2        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-positive                                               │ Pass   │ Ok     │ success                                                                                                    │
+│ 3        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-positive-pod-runtime-default                           │ Pass   │ Ok     │ success                                                                                                    │
+│ 4        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-positive-two-container-seccomp                         │ Pass   │ Ok     │ success                                                                                                    │
+│ 5        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-ephemeral-unconfined                          │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 6        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-init-unset                                    │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 7        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-unconfined-first                              │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 8        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative                                               │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 9        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-boundary-ephemeral-unconfined-additional-boundary-fail │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 10       │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-pod-default-regular-override                  │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 11       │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-pod-default-init-override                     │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 12       │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-pod-default-ephemeral-override                │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 13       │ require-seccomp │ exception │ v1/Pod/policy-test/ksp-pod-010-exception                                          │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-seccomp-exception                             │
+│ 14       │ require-seccomp │ exception │ v1/Pod/policy-test/ksp-pod-010-exception-secondary                                │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-seccomp-exception                             │
+│ 15       │ require-seccomp │ exception │ v1/Pod/policy-test/ksp-pod-010-exception-tertiary                                 │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-seccomp-exception                             │
+│──────────│─────────────────│───────────│───────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 15 tests passed and 0 tests failed
+

@@ -1,0 +1,36 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Context
+metadata:
+  name: ksp-res-006-test-context
+spec:
+  resources:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: ksp-limitrange-sizing
+      namespace: kyverno
+    data:
+      dev.defaultRequestCpu: "100m"
+      dev.defaultRequestMemory: "128Mi"
+      dev.defaultCpu: "500m"
+      dev.defaultMemory: "512Mi"
+      dev.minCpu: "25m"
+      dev.minMemory: "32Mi"
+      dev.maxCpu: "1"
+      dev.maxMemory: "1Gi"
+      staging.defaultRequestCpu: "200m"
+      staging.defaultRequestMemory: "256Mi"
+      staging.defaultCpu: "1"
+      staging.defaultMemory: "1Gi"
+      staging.minCpu: "50m"
+      staging.minMemory: "64Mi"
+      staging.maxCpu: "2"
+      staging.maxMemory: "2Gi"
+      production.defaultRequestCpu: "500m"
+      production.defaultRequestMemory: "512Mi"
+      production.defaultCpu: "1"
+      production.defaultMemory: "1Gi"
+      production.minCpu: "100m"
+      production.minMemory: "128Mi"
+      production.maxCpu: "4"
+      production.maxMemory: "4Gi"

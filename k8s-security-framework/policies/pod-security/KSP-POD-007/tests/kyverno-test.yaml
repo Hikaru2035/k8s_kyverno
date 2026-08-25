@@ -1,0 +1,50 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-007-restrict-host-path
+policies:
+- ../KSP-POD-007-restrict-host-path.yaml
+resources:
+- exception-resources-with-policy-violation.yaml
+- negative-host-path-volume.yaml
+- negative-hostpath-volume-first.yaml
+- negative-hostpath-volume-last.yaml
+- negative-hostpath-volume-middle.yaml
+- negative-near-allowed-hostpath.yaml
+- positive-empty-dir-volume.yaml
+- positive-hostpath-volume.yaml
+- positive-multiple-non-hostpath-volumes.yaml
+- boundary-pass-additional-edge-case.yaml
+exceptions:
+- exception-policy-for-specific-resources.yaml
+
+results:
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-positive-empty-dir-volume
+  - pod-007-positive-multiple-volumes
+  - pod-007-positive-hostpath-available
+  - pod-007-boundary-no-volumes-additional-boundary-pass
+  result: pass
+
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - pod-007-negative-hostpath-restricted
+  - pod-007-negative-hostpath-restricted-first
+  - pod-007-negative-hostpath-restricted-last
+  - pod-007-negative-hostpath-restricted-middle
+  - pod-007-negative-near-allowed-hostpath
+  result: fail
+
+- policy: restrict-host-path
+  rule: restrict-host-path
+  kind: Pod
+  resources:
+  - ksp-pod-007-exception
+  - ksp-pod-007-exception-secondary
+  - ksp-pod-007-exception-tertiary
+  result: skip

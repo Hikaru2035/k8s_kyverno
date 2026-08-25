@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-img-001-negative-ephemeral-image
+  namespace: policy-test
+spec:
+  containers:
+    - name: good
+      image: harbor.example.com/demo-api:1.0.0
+  ephemeralContainers:
+    - name: debugger
+      image: harbor.example.com/demo-api:latest
+      command: ["sh"]

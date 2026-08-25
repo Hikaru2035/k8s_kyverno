@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: require-memory-limit-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: require-memory-limit
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-res-004-exception', 'ksp-res-004-exception-secondary',
+      'ksp-res-004-exception-tertiary'] && object.metadata.namespace == 'policy-test'

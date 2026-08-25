@@ -1,0 +1,12 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: require-resource-governance-namespace-labels-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: require-resource-governance-namespace-labels
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: exact-exempt-namespace
+    expression: object.metadata.name == 'ksp-res-007-exception'

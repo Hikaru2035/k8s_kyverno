@@ -1,0 +1,66 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-pod-001-require-run-as-non-root
+policies:
+- ../KSP-POD-001-require-run-as-non-root.yaml
+resources:
+- boundary-container-level-run-as-non-root.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-container-non-root-false-first.yaml
+- negative-container-non-root-false-last.yaml
+- negative-ephemeral-container-non-root-false.yaml
+- negative-init-container-missing-non-root.yaml
+- negative-init-container-non-root-false.yaml
+- negative-one-container-missing-security-context.yaml
+- negative-pod-level-false.yaml
+- negative-run-as-non-root-unset.yaml
+- positive-all-container-types-with-non-root.yaml
+- positive-one-container-with-non-root.yaml
+- positive-pod-level-run-as-non-root.yaml
+- positive-pod-level-with-two-containers.yaml
+- positive-two-containers-with-non-root.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
+- boundary-pod-level-with-container-false.yaml
+exceptions:
+- exception-policy-for-specific-resources.yaml
+
+results:
+- isValidatingPolicy: true
+  policy: require-run-as-non-root
+  kind: Pod
+  resources:
+  - pod-001-boundary-containers
+  - pod-001-positive-all-container-types
+  - pod-001-positive-one-container-non-root
+  - pod-001-positive
+  - pod-001-positive-pod-level-two-containers
+  - pod-001-positive-two-containers-non-root
+  - pod-001-boundary-containers-additional-boundary-pass
+  result: pass
+
+- isValidatingPolicy: true
+  policy: require-run-as-non-root
+  kind: Pod
+  resources:
+  - pod-001-negative-false-first
+  - pod-001-negative-false-last
+  - pod-001-negative-ephemeral-container-false
+  - pod-001-negative-init-container-unset
+  - pod-001-negative-init-container-false
+  - pod-001-negative-one-container-missing-context
+  - pod-001-negative-pod-level-false
+  - pod-001-negative
+  - pod-001-boundary-false-first-additional-boundary-fail
+  - pod-001-boundary-pod-level-container-false
+  result: fail
+
+- isValidatingPolicy: true
+  policy: require-run-as-non-root
+  kind: Pod
+  resources:
+  - ksp-pod-001-exception
+  - ksp-pod-001-exception-secondary
+  - ksp-pod-001-exception-tertiary
+  result: skip

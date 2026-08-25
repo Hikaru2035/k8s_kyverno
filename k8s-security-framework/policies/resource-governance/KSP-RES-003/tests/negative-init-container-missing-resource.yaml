@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-res-003-negative-init-missing
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0
+      resources:
+        limits:
+          cpu: 500m
+  initContainers:
+    - name: init
+      image: harbor.example.com/demo-api:1.0.0

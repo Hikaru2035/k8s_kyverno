@@ -1,0 +1,788 @@
+Loading test  ( k8s-security-framework/policies/image-security/KSP-IMG-001/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 14 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (14) [0m │ [40;32mPOLICY             [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                        [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                 [0m │
+│──────────│─────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-boundary-digest                                       │ Pass   │ Ok     │ success                                                                                  │
+│ 2        │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-positive                                              │ Pass   │ Ok     │ success                                                                                  │
+│ 3        │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-positive-two-images                               │ Pass   │ Ok     │ success                                                                                  │
+│ 4        │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-boundary-digest-additional-boundary-pass              │ Pass   │ Ok     │ success                                                                                  │
+│ 5        │ disallow-latest-tag │ exception │ v1/Pod/policy-test/ksp-img-001-exception                                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-latest-tag-exception       │
+│ 6        │ disallow-latest-tag │ exception │ v1/Pod/policy-test/ksp-img-001-exception-secondary                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-latest-tag-exception       │
+│ 7        │ disallow-latest-tag │ exception │ v1/Pod/policy-test/ksp-img-001-exception-tertiary                                │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-latest-tag-exception       │
+│ 8        │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-ephemeral-image                          │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 9        │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-init-image                               │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 10       │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-negative-latest                                       │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 11       │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-negative-untagged                                     │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 12       │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-image-first                              │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 13       │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-image-last                               │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 14       │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-ephemeral-image-additional-boundary-fail │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│──────────│─────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/image-security/KSP-IMG-002/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 16 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (16) [0m │ [40;32mPOLICY                     [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                        [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                   [0m │
+│──────────│─────────────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ approved-registry-allowlist │           │ v1/Pod/policy-test/img-002-boundary                                              │ Pass   │ Ok     │ success                                                                                    │
+│ 2        │ approved-registry-allowlist │           │ v1/Pod/policy-test/img-002-positive                                              │ Pass   │ Ok     │ success                                                                                    │
+│ 3        │ approved-registry-allowlist │           │ v1/Pod/policy-test/ksp-img-002-positive-two-images                               │ Pass   │ Ok     │ success                                                                                    │
+│ 4        │ approved-registry-allowlist │           │ v1/Pod/policy-test/img-002-boundary-additional-boundary-pass                     │ Pass   │ Ok     │ success                                                                                    │
+│ 5        │ approved-registry-allowlist │ exception │ v1/Pod/policy-test/ksp-img-002-exception                                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/approved-registry-allowlist-exception │
+│ 6        │ approved-registry-allowlist │ exception │ v1/Pod/policy-test/ksp-img-002-exception-secondary                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/approved-registry-allowlist-exception │
+│ 7        │ approved-registry-allowlist │ exception │ v1/Pod/policy-test/ksp-img-002-exception-tertiary                                │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/approved-registry-allowlist-exception │
+│ 8        │ approved-registry-allowlist │           │ v1/Pod/policy-test/ksp-img-002-negative-ephemeral-image                          │ Pass   │ Ok     │ Images must come from the approved Harbor, Kubernetes, or Kyverno registry.                │
+│ 9        │ approved-registry-allowlist │           │ v1/Pod/policy-test/ksp-img-002-negative-init-image                               │ Pass   │ Ok     │ Images must come from the approved Harbor, Kubernetes, or Kyverno registry.                │
+│ 10       │ approved-registry-allowlist │           │ v1/Pod/policy-test/ksp-img-002-negative-image-first                              │ Pass   │ Ok     │ Images must come from the approved Harbor, Kubernetes, or Kyverno registry.                │
+│ 11       │ approved-registry-allowlist │           │ v1/Pod/policy-test/ksp-img-002-negative-image-last                               │ Pass   │ Ok     │ Images must come from the approved Harbor, Kubernetes, or Kyverno registry.                │
+│ 12       │ approved-registry-allowlist │           │ v1/Pod/policy-test/img-002-negative                                              │ Pass   │ Ok     │ Images must come from the approved Harbor, Kubernetes, or Kyverno registry.                │
+│ 13       │ approved-registry-allowlist │           │ v1/Pod/policy-test/ksp-img-002-negative-ephemeral-image-additional-boundary-fail │ Pass   │ Ok     │ Images must come from the approved Harbor, Kubernetes, or Kyverno registry.                │
+│ 14       │ approved-registry-allowlist │           │ v1/Pod/policy-test/img-002-boundary-harbor-prefix-bypass                         │ Pass   │ Ok     │ Images must come from the approved Harbor, Kubernetes, or Kyverno registry.                │
+│ 15       │ approved-registry-allowlist │           │ v1/Pod/policy-test/img-002-boundary-kubernetes-prefix-bypass                     │ Pass   │ Ok     │ Images must come from the approved Harbor, Kubernetes, or Kyverno registry.                │
+│ 16       │ approved-registry-allowlist │           │ v1/Pod/policy-test/img-002-boundary-kyverno-prefix-bypass                        │ Pass   │ Ok     │ Images must come from the approved Harbor, Kubernetes, or Kyverno registry.                │
+│──────────│─────────────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/image-security/KSP-IMG-003/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY              [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                        [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                            [0m │
+│──────────│──────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-image-digest │           │ v1/Pod/policy-test/img-003-boundary-uppercase                                    │ Pass   │ Ok     │ success                                                                             │
+│ 2        │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-positive-two-images                               │ Pass   │ Ok     │ success                                                                             │
+│ 3        │ require-image-digest │           │ v1/Pod/policy-test/img-003-positive                                              │ Pass   │ Ok     │ success                                                                             │
+│ 4        │ require-image-digest │           │ v1/Pod/policy-test/img-003-boundary-uppercase-additional-boundary-pass           │ Pass   │ Ok     │ success                                                                             │
+│ 5        │ require-image-digest │ exception │ v1/Pod/policy-test/ksp-img-003-exception                                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-image-digest-exception │
+│ 6        │ require-image-digest │ exception │ v1/Pod/policy-test/ksp-img-003-exception-secondary                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-image-digest-exception │
+│ 7        │ require-image-digest │ exception │ v1/Pod/policy-test/ksp-img-003-exception-tertiary                                │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-image-digest-exception │
+│ 8        │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-ephemeral-image                          │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 9        │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-init-image                               │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 10       │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-image-first                              │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 11       │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-image-last                               │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 12       │ require-image-digest │           │ v1/Pod/policy-test/img-003-negative                                              │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│ 13       │ require-image-digest │           │ v1/Pod/policy-test/ksp-img-003-negative-ephemeral-image-additional-boundary-fail │ Pass   │ Ok     │ Reference every image as image@sha256:<64-hex-digest>.                              │
+│──────────│──────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/image-security/KSP-IMG-004/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 11 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────│──────────────────────│─────────────────────────────────────────────────────────────────────────────────│────────│──────────────────────│─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (11) [0m │ [40;32mPOLICY              [0m │ [40;32mRULE                [0m │ [40;32mRESOURCE                                                                       [0m │ [40;32mRESULT[0m │ [40;32mREASON              [0m │ [40;32mMESSAGE                                                                                                                            [0m │
+│──────────│──────────────────────│──────────────────────│─────────────────────────────────────────────────────────────────────────────────│────────│──────────────────────│─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ verify-signed-images │ verify-signed-images │ v1/Pod/policy-test/img-004-boundary-out-of-scope                                │ Fail   │ Want skip, got pass  │ success                                                                                                                             │
+│ 2        │ verify-signed-images │ exception            │ v1/Pod/policy-test/ksp-img-004-exception                                        │ Pass   │ Ok                   │ rule is skipped due to policy exception:                                                                                            │
+│ 3        │ verify-signed-images │ verify-signed-images │ v1/Pod/policy-test/img-004-positive-out-of-scope-images                         │ Fail   │ Want skip, got pass  │ success                                                                                                                             │
+│ 4        │ verify-signed-images │ verify-signed-images │ v1/Pod/policy-test/img-004-positive-out-of-scope                                │ Fail   │ Want skip, got pass  │ success                                                                                                                             │
+│ 5        │ verify-signed-images │ verify-signed-images │ v1/Pod/policy-test/img-004-boundary-out-of-scope-additional-boundary-pass       │ Fail   │ Want skip, got pass  │ success                                                                                                                             │
+│ 6        │ verify-signed-images │ exception            │ v1/Pod/policy-test/ksp-img-004-exception-secondary                              │ Pass   │ Ok                   │ rule is skipped due to policy exception:                                                                                            │
+│ 7        │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-ephemeral-unsigned                          │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com on 127.0.0.53:53: no such host │
+│ 8        │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-init-unsigned                               │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com: i/o timeout                   │
+│ 9        │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-two-unsigned                                │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com: i/o timeout                   │
+│ 10       │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-unsigned                                    │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com: i/o timeout                   │
+│ 11       │ verify-signed-images │ evaluation           │ v1/Pod/policy-test/img-004-negative-ephemeral-unsigned-additional-boundary-fail │ Fail   │ Want fail, got error │ failed to evaluate policy: Get "https://harbor.example.com/v2/": dial tcp: lookup harbor.example.com: i/o timeout                   │
+│──────────│──────────────────────│──────────────────────│─────────────────────────────────────────────────────────────────────────────────│────────│──────────────────────│─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/metadata/KSP-META-001/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 15 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY           [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                 [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                         [0m │
+│──────────│───────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-app-label │           │ batch/v1/CronJob/policy-test/meta-001-boundary                            │ Pass   │ Ok     │ success                                                                          │
+│ 2        │ require-app-label │           │ batch/v1/CronJob/policy-test/ksp-meta-001-positive-cronjob                │ Pass   │ Ok     │ success                                                                          │
+│ 3        │ require-app-label │           │ batch/v1/CronJob/policy-test/meta-001-boundary-additional-boundary-pass   │ Pass   │ Ok     │ success                                                                          │
+│ 4        │ require-app-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-001-exception                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-app-label-exception │
+│ 5        │ require-app-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-001-exception-secondary           │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-app-label-exception │
+│ 6        │ require-app-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-001-exception-tertiary            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-app-label-exception │
+│ 7        │ require-app-label │           │ apps/v1/Deployment/policy-test/meta-001-negative                          │ Pass   │ Ok     │ Add metadata.labels.app.kubernetes.io/name with a meaningful application name.   │
+│ 8        │ require-app-label │           │ apps/v1/Deployment/policy-test/ksp-meta-001-negative-empty                │ Pass   │ Ok     │ Add metadata.labels.app.kubernetes.io/name with a meaningful application name.   │
+│ 9        │ require-app-label │           │ apps/v1/Deployment/policy-test/meta-001-negative-additional-boundary-fail │ Pass   │ Ok     │ Add metadata.labels.app.kubernetes.io/name with a meaningful application name.   │
+│ 10       │ require-app-label │           │ batch/v1/Job/policy-test/ksp-meta-001-negative-job-missing                │ Pass   │ Ok     │ Add metadata.labels.app.kubernetes.io/name with a meaningful application name.   │
+│ 11       │ require-app-label │           │ apps/v1/DaemonSet/policy-test/ksp-meta-001-positive-daemonset             │ Pass   │ Ok     │ success                                                                          │
+│ 12       │ require-app-label │           │ apps/v1/Deployment/policy-test/meta-001-positive                          │ Pass   │ Ok     │ success                                                                          │
+│ 13       │ require-app-label │           │ apps/v1/Deployment/policy-test/ksp-meta-001-positive-deployment           │ Pass   │ Ok     │ success                                                                          │
+│ 14       │ require-app-label │           │ batch/v1/Job/policy-test/ksp-meta-001-positive-job                        │ Pass   │ Ok     │ success                                                                          │
+│ 15       │ require-app-label │           │ apps/v1/StatefulSet/policy-test/ksp-meta-001-positive-statefulset         │ Pass   │ Ok     │ success                                                                          │
+│──────────│───────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/metadata/KSP-META-002/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 15 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY             [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                           [0m │
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-owner-label │           │ apps/v1/StatefulSet/policy-test/meta-002-boundary                          │ Pass   │ Ok     │ success                                                                            │
+│ 2        │ require-owner-label │           │ apps/v1/StatefulSet/policy-test/ksp-meta-002-positive-statefulset          │ Pass   │ Ok     │ success                                                                            │
+│ 3        │ require-owner-label │           │ apps/v1/StatefulSet/policy-test/meta-002-boundary-additional-boundary-pass │ Pass   │ Ok     │ success                                                                            │
+│ 4        │ require-owner-label │           │ apps/v1/Deployment/policy-test/meta-002-positive                           │ Pass   │ Ok     │ success                                                                            │
+│ 5        │ require-owner-label │           │ apps/v1/Deployment/policy-test/ksp-meta-002-positive-deployment            │ Pass   │ Ok     │ success                                                                            │
+│ 6        │ require-owner-label │           │ batch/v1/CronJob/policy-test/ksp-meta-002-positive-cronjob                 │ Pass   │ Ok     │ success                                                                            │
+│ 7        │ require-owner-label │           │ apps/v1/DaemonSet/policy-test/ksp-meta-002-positive-daemonset              │ Pass   │ Ok     │ success                                                                            │
+│ 8        │ require-owner-label │           │ batch/v1/Job/policy-test/ksp-meta-002-positive-job                         │ Pass   │ Ok     │ success                                                                            │
+│ 9        │ require-owner-label │           │ apps/v1/Deployment/policy-test/meta-002-negative                           │ Pass   │ Ok     │ Add metadata.labels.policies.ksp.io/owner with the accountable team slug.          │
+│ 10       │ require-owner-label │           │ apps/v1/Deployment/policy-test/ksp-meta-002-negative-empty                 │ Pass   │ Ok     │ Add metadata.labels.policies.ksp.io/owner with the accountable team slug.          │
+│ 11       │ require-owner-label │           │ apps/v1/Deployment/policy-test/meta-002-negative-additional-boundary-fail  │ Pass   │ Ok     │ Add metadata.labels.policies.ksp.io/owner with the accountable team slug.          │
+│ 12       │ require-owner-label │           │ batch/v1/Job/policy-test/ksp-meta-002-negative-job-missing                 │ Pass   │ Ok     │ Add metadata.labels.policies.ksp.io/owner with the accountable team slug.          │
+│ 13       │ require-owner-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-002-exception                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-owner-label-exception │
+│ 14       │ require-owner-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-002-exception-secondary            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-owner-label-exception │
+│ 15       │ require-owner-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-002-exception-tertiary             │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-owner-label-exception │
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/metadata/KSP-META-003/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 15 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY                   [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                 [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                 [0m │
+│──────────│───────────────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-environment-label │           │ batch/v1/Job/policy-test/meta-003-boundary                                │ Pass   │ Ok     │ success                                                                                  │
+│ 2        │ require-environment-label │           │ batch/v1/Job/policy-test/ksp-meta-003-positive-job                        │ Pass   │ Ok     │ success                                                                                  │
+│ 3        │ require-environment-label │           │ batch/v1/Job/policy-test/meta-003-boundary-additional-boundary-pass       │ Pass   │ Ok     │ success                                                                                  │
+│ 4        │ require-environment-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-003-exception                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-environment-label-exception │
+│ 5        │ require-environment-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-003-exception-secondary           │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-environment-label-exception │
+│ 6        │ require-environment-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-003-exception-tertiary            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-environment-label-exception │
+│ 7        │ require-environment-label │           │ apps/v1/Deployment/policy-test/meta-003-negative                          │ Pass   │ Ok     │ Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.          │
+│ 8        │ require-environment-label │           │ apps/v1/Deployment/policy-test/ksp-meta-003-negative-empty                │ Pass   │ Ok     │ Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.          │
+│ 9        │ require-environment-label │           │ apps/v1/Deployment/policy-test/meta-003-negative-additional-boundary-fail │ Pass   │ Ok     │ Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.          │
+│ 10       │ require-environment-label │           │ batch/v1/Job/policy-test/ksp-meta-003-negative-job-missing                │ Pass   │ Ok     │ Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.          │
+│ 11       │ require-environment-label │           │ batch/v1/CronJob/policy-test/ksp-meta-003-positive-cronjob                │ Pass   │ Ok     │ success                                                                                  │
+│ 12       │ require-environment-label │           │ apps/v1/DaemonSet/policy-test/ksp-meta-003-positive-daemonset             │ Pass   │ Ok     │ success                                                                                  │
+│ 13       │ require-environment-label │           │ apps/v1/Deployment/policy-test/meta-003-positive                          │ Pass   │ Ok     │ success                                                                                  │
+│ 14       │ require-environment-label │           │ apps/v1/Deployment/policy-test/ksp-meta-003-positive-deployment           │ Pass   │ Ok     │ success                                                                                  │
+│ 15       │ require-environment-label │           │ apps/v1/StatefulSet/policy-test/ksp-meta-003-positive-statefulset         │ Pass   │ Ok     │ success                                                                                  │
+│──────────│───────────────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/metadata/KSP-META-004/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 10 resources with 0 exceptions ...
+  Checking results ...
+
+│────│────────────────────│────────────────────│───────────────────────────────────────────────────────────────────────────│────────│──────────│──────────│
+│ [40;32mID[0m │ [40;32mPOLICY            [0m │ [40;32mRULE              [0m │ [40;32mRESOURCE                                                                 [0m │ [40;32mRESULT[0m │ [40;32mREASON  [0m │ [40;32mMESSAGE [0m │
+│────│────────────────────│────────────────────│───────────────────────────────────────────────────────────────────────────│────────│──────────│──────────│
+│ 1  │ add-default-labels │                    │ apps/v1/Deployment/policy-test/meta-004-boundary                          │ Pass   │ Ok       │ success  │
+│ 2  │ add-default-labels │                    │ apps/v1/Deployment/policy-test/meta-004-boundary-existing                 │ Pass   │ Ok       │ success  │
+│ 3  │ add-default-labels │                    │ batch/v1/CronJob/policy-test/meta-004-positive-cronjob                    │ Pass   │ Ok       │ success  │
+│ 4  │ add-default-labels │                    │ apps/v1/DaemonSet/policy-test/meta-004-positive-daemonset                 │ Pass   │ Ok       │ success  │
+│ 5  │ add-default-labels │                    │ apps/v1/Deployment/policy-test/meta-004-positive                          │ Pass   │ Ok       │ success  │
+│ 6  │ add-default-labels │                    │ batch/v1/Job/policy-test/meta-004-positive-job                            │ Pass   │ Ok       │ success  │
+│ 7  │ add-default-labels │                    │ apps/v1/StatefulSet/policy-test/meta-004-positive-statefulset             │ Pass   │ Ok       │ success  │
+│ 8  │ add-default-labels │                    │ apps/v1/Deployment/policy-test/meta-004-boundary-additional-boundary-pass │ Pass   │ Ok       │ success  │
+│ 9  │ add-default-labels │ add-default-labels │ v1/Pod/policy-test/meta-004-negative-pod                                  │ Pass   │ Excluded │ Excluded │
+│ 10 │ add-default-labels │ add-default-labels │ v1/Pod/policy-test/meta-004-boundary-out-of-scope-pod                     │ Pass   │ Excluded │ Excluded │
+│────│────────────────────│────────────────────│───────────────────────────────────────────────────────────────────────────│────────│──────────│──────────│
+
+Loading test  ( k8s-security-framework/policies/network-security/KSP-NET-001/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 11 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────────────│───────────────────────────│───────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY                   [0m │ [40;32mRULE                     [0m │ [40;32mRESOURCE                                                 [0m │ [40;32mRESULT[0m │ [40;32mREASON  [0m │ [40;32mMESSAGE                      [0m │
+│──────────│───────────────────────────│───────────────────────────│───────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ 1        │ generate-network-baseline │ generate-network-baseline │ /default-deny-ingress-egress                              │ Pass   │ Ok       │ policy evaluated successfully │
+│ 2        │ generate-network-baseline │ generate-network-baseline │ /allow-dns-egress                                         │ Pass   │ Ok       │ policy evaluated successfully │
+│ 3        │ generate-network-baseline │ generate-network-baseline │ /default-deny-ingress-egress                              │ Pass   │ Ok       │ policy evaluated successfully │
+│ 4        │ generate-network-baseline │ generate-network-baseline │ /allow-dns-egress                                         │ Pass   │ Ok       │ policy evaluated successfully │
+│ 5        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/net-001-negative                     │ Pass   │ Excluded │ Excluded                      │
+│ 6        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/ksp-net-001-unrelated-label          │ Pass   │ Excluded │ Excluded                      │
+│ 7        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/ksp-net-001-negative-opt-in-disabled │ Pass   │ Excluded │ Excluded                      │
+│ 8        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/ksp-net-001-negative-opt-in-empty    │ Pass   │ Excluded │ Excluded                      │
+│ 9        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/net-001-boundary-wrong-case          │ Pass   │ Excluded │ Excluded                      │
+│ 10       │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/net-001-boundary-trailing-space      │ Pass   │ Excluded │ Excluded                      │
+│ 11       │ generate-network-baseline │ generate-network-baseline │ /default-deny-ingress-egress                              │ Pass   │ Ok       │ policy evaluated successfully │
+│ 12       │ generate-network-baseline │ generate-network-baseline │ /allow-dns-egress                                         │ Pass   │ Ok       │ policy evaluated successfully │
+│ 13       │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/ksp-net-001-exception                │ Pass   │ Excluded │ Excluded                      │
+│ 14       │ generate-network-baseline │ generate-network-baseline │ /default-deny-ingress-egress                              │ Pass   │ Ok       │ policy evaluated successfully │
+│ 15       │ generate-network-baseline │ generate-network-baseline │ /allow-dns-egress                                         │ Pass   │ Ok       │ policy evaluated successfully │
+│──────────│───────────────────────────│───────────────────────────│───────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-001/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 20 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────────│───────────│──────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (20) [0m │ [40;32mPOLICY                 [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                                             [0m │
+│──────────│─────────────────────────│───────────│──────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-boundary-containers                           │ Pass   │ Ok     │ success                                                                                                              │
+│ 2        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive-all-container-types                  │ Pass   │ Ok     │ success                                                                                                              │
+│ 3        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive-one-container-non-root               │ Pass   │ Ok     │ success                                                                                                              │
+│ 4        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive                                      │ Pass   │ Ok     │ success                                                                                                              │
+│ 5        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive-pod-level-two-containers             │ Pass   │ Ok     │ success                                                                                                              │
+│ 6        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive-two-containers-non-root              │ Pass   │ Ok     │ success                                                                                                              │
+│ 7        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-boundary-containers-additional-boundary-pass  │ Pass   │ Ok     │ success                                                                                                              │
+│ 8        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-false-first                          │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 9        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-false-last                           │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 10       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-ephemeral-container-false            │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 11       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-init-container-unset                 │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 12       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-init-container-false                 │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 13       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-one-container-missing-context        │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 14       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-pod-level-false                      │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 15       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative                                      │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 16       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-boundary-false-first-additional-boundary-fail │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 17       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-boundary-pod-level-container-false            │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 18       │ require-run-as-non-root │ exception │ v1/Pod/policy-test/ksp-pod-001-exception                                 │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-run-as-non-root-exception                               │
+│ 19       │ require-run-as-non-root │ exception │ v1/Pod/policy-test/ksp-pod-001-exception-secondary                       │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-run-as-non-root-exception                               │
+│ 20       │ require-run-as-non-root │ exception │ v1/Pod/policy-test/ksp-pod-001-exception-tertiary                        │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-run-as-non-root-exception                               │
+│──────────│─────────────────────────│───────────│──────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-002/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY             [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                              [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                           [0m │
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-boundary-omitted                            │ Pass   │ Ok     │ success                                                                            │
+│ 2        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-positive-all-types                          │ Pass   │ Ok     │ success                                                                            │
+│ 3        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-positive-one-container                      │ Pass   │ Ok     │ success                                                                            │
+│ 4        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                            │
+│ 5        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-negative-one-container-privileged-true      │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 6        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-negative-ephemeral-container-noncompliant   │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 7        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-negative-init-container-noncompliant        │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 8        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-negative-first-container-privileged-true    │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 9        │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-negative-last-container-privileged-true     │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 10       │ disallow-privileged │           │ v1/Pod/policy-test/pod-002-boundary-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ privileged=true is prohibited for every container type.                            │
+│ 11       │ disallow-privileged │ exception │ v1/Pod/policy-test/ksp-pod-002-exception                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privileged-exception │
+│ 12       │ disallow-privileged │ exception │ v1/Pod/policy-test/ksp-pod-002-exception-secondary                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privileged-exception │
+│ 13       │ disallow-privileged │ exception │ v1/Pod/policy-test/ksp-pod-002-exception-tertiary                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privileged-exception │
+│──────────│─────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-003/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY                       [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                              [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                     [0m │
+│──────────│───────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-boundary-init-additional-boundary-pass      │ Pass   │ Ok     │ success                                                                                      │
+│ 2        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-positive-all-types                          │ Pass   │ Ok     │ success                                                                                      │
+│ 3        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-positive-one-container                      │ Pass   │ Ok     │ success                                                                                      │
+│ 4        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                                      │
+│ 5        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-negative-ephemeral                          │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 6        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-negative-init                               │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 7        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-negative-first                              │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 8        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-negative-last                               │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 9        │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-negative                                    │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 10       │ disallow-privilege-escalation │           │ v1/Pod/policy-test/pod-003-boundary-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ Set allowPrivilegeEscalation=false on every container.                                       │
+│ 11       │ disallow-privilege-escalation │ exception │ v1/Pod/policy-test/ksp-pod-003-exception                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privilege-escalation-exception │
+│ 12       │ disallow-privilege-escalation │ exception │ v1/Pod/policy-test/ksp-pod-003-exception-secondary                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privilege-escalation-exception │
+│ 13       │ disallow-privilege-escalation │ exception │ v1/Pod/policy-test/ksp-pod-003-exception-tertiary                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-privilege-escalation-exception │
+│──────────│───────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-004/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 8 resources with 1 exception ...
+  Checking results ...
+
+│────│───────────────────────│───────────│────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID[0m │ [40;32mPOLICY               [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                          [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                             [0m │
+│────│───────────────────────│───────────│────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────│
+│ 1  │ disallow-host-network │           │ v1/Pod/policy-test/pod-004-boundary-unset-additional-boundary-pass │ Pass   │ Ok     │ success                                                                              │
+│ 2  │ disallow-host-network │           │ v1/Pod/policy-test/pod-004-positive-false-two                      │ Pass   │ Ok     │ success                                                                              │
+│ 3  │ disallow-host-network │           │ v1/Pod/policy-test/pod-004-positive-unset-two                      │ Pass   │ Ok     │ success                                                                              │
+│ 4  │ disallow-host-network │           │ v1/Pod/policy-test/pod-004-negative-true-two                       │ Pass   │ Ok     │ spec.hostNetwork must be unset or false.                                             │
+│ 5  │ disallow-host-network │           │ v1/Pod/policy-test/pod-004-boundary-additional-boundary-fail       │ Pass   │ Ok     │ spec.hostNetwork must be unset or false.                                             │
+│ 6  │ disallow-host-network │ exception │ v1/Pod/policy-test/ksp-pod-004-exception                           │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-host-network-exception │
+│ 7  │ disallow-host-network │ exception │ v1/Pod/policy-test/ksp-pod-004-exception-secondary                 │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-host-network-exception │
+│ 8  │ disallow-host-network │ exception │ v1/Pod/policy-test/ksp-pod-004-exception-tertiary                  │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-host-network-exception │
+│────│───────────────────────│───────────│────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-005/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 9 resources with 1 exception ...
+  Checking results ...
+
+│────│───────────────────│───────────│────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID[0m │ [40;32mPOLICY           [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                          [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                         [0m │
+│────│───────────────────│───────────│────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ 1  │ disallow-host-pid │           │ v1/Pod/policy-test/pod-005-boundary-unset-additional-boundary-pass │ Pass   │ Ok     │ success                                                                          │
+│ 2  │ disallow-host-pid │           │ v1/Pod/policy-test/pod-005-positive-false-two                      │ Pass   │ Ok     │ success                                                                          │
+│ 3  │ disallow-host-pid │           │ v1/Pod/policy-test/pod-005-positive-unset-two                      │ Pass   │ Ok     │ success                                                                          │
+│ 4  │ disallow-host-pid │           │ v1/Pod/policy-test/pod-005-negative                                │ Pass   │ Ok     │ spec.hostPID must be unset or false.                                             │
+│ 5  │ disallow-host-pid │           │ v1/Pod/policy-test/pod-005-negative-true-two                       │ Pass   │ Ok     │ spec.hostPID must be unset or false.                                             │
+│ 6  │ disallow-host-pid │           │ v1/Pod/policy-test/pod-005-boundary-additional-boundary-fail       │ Pass   │ Ok     │ spec.hostPID must be unset or false.                                             │
+│ 7  │ disallow-host-pid │ exception │ v1/Pod/policy-test/ksp-pod-005-exception                           │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-host-pid-exception │
+│ 8  │ disallow-host-pid │ exception │ v1/Pod/policy-test/ksp-pod-005-exception-secondary                 │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-host-pid-exception │
+│ 9  │ disallow-host-pid │ exception │ v1/Pod/policy-test/ksp-pod-005-exception-tertiary                  │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-host-pid-exception │
+│────│───────────────────│───────────│────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-006/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 8 resources with 1 exception ...
+  Checking results ...
+
+│────│───────────────────│───────────│────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID[0m │ [40;32mPOLICY           [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                          [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                         [0m │
+│────│───────────────────│───────────│────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ 1  │ disallow-host-ipc │           │ v1/Pod/policy-test/pod-006-positive-false-two                      │ Pass   │ Ok     │ success                                                                          │
+│ 2  │ disallow-host-ipc │           │ v1/Pod/policy-test/pod-006-positive-unset-two                      │ Pass   │ Ok     │ success                                                                          │
+│ 3  │ disallow-host-ipc │           │ v1/Pod/policy-test/pod-006-boundary-unset-additional-boundary-pass │ Pass   │ Ok     │ success                                                                          │
+│ 4  │ disallow-host-ipc │           │ v1/Pod/policy-test/pod-006-negative-true-two                       │ Pass   │ Ok     │ spec.hostIPC must be unset or false.                                             │
+│ 5  │ disallow-host-ipc │           │ v1/Pod/policy-test/pod-006-boundary-additional-boundary-fail       │ Pass   │ Ok     │ spec.hostIPC must be unset or false.                                             │
+│ 6  │ disallow-host-ipc │ exception │ v1/Pod/policy-test/ksp-pod-006-exception                           │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-host-ipc-exception │
+│ 7  │ disallow-host-ipc │ exception │ v1/Pod/policy-test/ksp-pod-006-exception-secondary                 │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-host-ipc-exception │
+│ 8  │ disallow-host-ipc │ exception │ v1/Pod/policy-test/ksp-pod-006-exception-tertiary                  │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-host-ipc-exception │
+│────│───────────────────│───────────│────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-007/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 12 resources with 1 exception ...
+  Checking results ...
+
+│──────────│────────────────────│───────────│─────────────────────────────────────────────────────────────────────────│────────│────────│───────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (12) [0m │ [40;32mPOLICY            [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                               [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                          [0m │
+│──────────│────────────────────│───────────│─────────────────────────────────────────────────────────────────────────│────────│────────│───────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-positive-empty-dir-volume                    │ Pass   │ Ok     │ success                                                                           │
+│ 2        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-positive-multiple-volumes                    │ Pass   │ Ok     │ success                                                                           │
+│ 3        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-positive-hostpath-available                  │ Pass   │ Ok     │ success                                                                           │
+│ 4        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-boundary-no-volumes-additional-boundary-pass │ Pass   │ Ok     │ success                                                                           │
+│ 5        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-hostpath-restricted                 │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 6        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-hostpath-restricted-first           │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 7        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-hostpath-restricted-last            │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 8        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-hostpath-restricted-middle          │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 9        │ restrict-host-path │           │ v1/Pod/policy-test/pod-007-negative-near-allowed-hostpath               │ Pass   │ Ok     │ hostPath is restricted to the minimal approved allowlist.                         │
+│ 10       │ restrict-host-path │ exception │ v1/Pod/policy-test/ksp-pod-007-exception                                │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-path-exception │
+│ 11       │ restrict-host-path │ exception │ v1/Pod/policy-test/ksp-pod-007-exception-secondary                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-path-exception │
+│ 12       │ restrict-host-path │ exception │ v1/Pod/policy-test/ksp-pod-007-exception-tertiary                       │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-path-exception │
+│──────────│────────────────────│───────────│─────────────────────────────────────────────────────────────────────────│────────│────────│───────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-008/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (12) [0m │ [40;32mPOLICY               [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                              [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                             [0m │
+│──────────│───────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ drop-all-capabilities │           │ v1/Pod/policy-test/pod-008-boundary-init                               │ Pass   │ Ok     │ success                                                                              │
+│ 2        │ drop-all-capabilities │           │ v1/Pod/policy-test/pod-008-positive-all-types                          │ Pass   │ Ok     │ success                                                                              │
+│ 3        │ drop-all-capabilities │           │ v1/Pod/policy-test/pod-008-positive-one-container                      │ Pass   │ Ok     │ success                                                                              │
+│ 4        │ drop-all-capabilities │           │ v1/Pod/policy-test/pod-008-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                              │
+│ 5        │ drop-all-capabilities │           │ v1/Pod/policy-test/pod-008-negative-ephemeral                          │ Pass   │ Ok     │ Add capabilities.drop with ALL to every container.                                   │
+│ 6        │ drop-all-capabilities │           │ v1/Pod/policy-test/pod-008-negative-init                               │ Pass   │ Ok     │ Add capabilities.drop with ALL to every container.                                   │
+│ 7        │ drop-all-capabilities │           │ v1/Pod/policy-test/pod-008-negative-first                              │ Pass   │ Ok     │ Add capabilities.drop with ALL to every container.                                   │
+│ 8        │ drop-all-capabilities │           │ v1/Pod/policy-test/pod-008-negative-last                               │ Pass   │ Ok     │ Add capabilities.drop with ALL to every container.                                   │
+│ 9        │ drop-all-capabilities │           │ v1/Pod/policy-test/pod-008-boundary-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ Add capabilities.drop with ALL to every container.                                   │
+│ 10       │ drop-all-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-008-exception                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/drop-all-capabilities-exception │
+│ 11       │ drop-all-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-008-exception-secondary                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/drop-all-capabilities-exception │
+│ 12       │ drop-all-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-008-exception-tertiary                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/drop-all-capabilities-exception │
+│──────────│───────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-009/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY                     [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                              [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                   [0m │
+│──────────│─────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-positive-one-container                      │ Pass   │ Ok     │ success                                                                                    │
+│ 2        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-positive-all-types                          │ Pass   │ Ok     │ success                                                                                    │
+│ 3        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                                    │
+│ 4        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-boundary-no-add-additional-boundary-pass    │ Pass   │ Ok     │ success                                                                                    │
+│ 5        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-one-container                      │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 6        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-ephemeral                          │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 7        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-init                               │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 8        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-first                              │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 9        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-last                               │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 10       │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-boundary-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 11       │ restrict-added-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-009-exception                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-added-capabilities-exception │
+│ 12       │ restrict-added-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-009-exception-secondary                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-added-capabilities-exception │
+│ 13       │ restrict-added-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-009-exception-tertiary                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-added-capabilities-exception │
+│──────────│─────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-010/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 15 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────│───────────│───────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY         [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                         [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                                   [0m │
+│──────────│─────────────────│───────────│───────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-boundary-localhost                                     │ Pass   │ Ok     │ success                                                                                                    │
+│ 2        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-positive                                               │ Pass   │ Ok     │ success                                                                                                    │
+│ 3        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-positive-pod-runtime-default                           │ Pass   │ Ok     │ success                                                                                                    │
+│ 4        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-positive-two-container-seccomp                         │ Pass   │ Ok     │ success                                                                                                    │
+│ 5        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-ephemeral-unconfined                          │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 6        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-init-unset                                    │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 7        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-unconfined-first                              │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 8        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative                                               │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 9        │ require-seccomp │           │ v1/Pod/policy-test/pod-010-boundary-ephemeral-unconfined-additional-boundary-fail │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 10       │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-pod-default-regular-override                  │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 11       │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-pod-default-init-override                     │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 12       │ require-seccomp │           │ v1/Pod/policy-test/pod-010-negative-pod-default-ephemeral-override                │ Pass   │ Ok     │ Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. │
+│ 13       │ require-seccomp │ exception │ v1/Pod/policy-test/ksp-pod-010-exception                                          │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-seccomp-exception                             │
+│ 14       │ require-seccomp │ exception │ v1/Pod/policy-test/ksp-pod-010-exception-secondary                                │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-seccomp-exception                             │
+│ 15       │ require-seccomp │ exception │ v1/Pod/policy-test/ksp-pod-010-exception-tertiary                                 │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-seccomp-exception                             │
+│──────────│─────────────────│───────────│───────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-011/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY                           [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                              [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                         [0m │
+│──────────│───────────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-boundary-init                               │ Pass   │ Ok     │ success                                                                                          │
+│ 2        │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-positive-all-types                          │ Pass   │ Ok     │ success                                                                                          │
+│ 3        │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-positive                                    │ Pass   │ Ok     │ success                                                                                          │
+│ 4        │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                                          │
+│ 5        │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-negative-ephemeral                          │ Pass   │ Ok     │ Set readOnlyRootFilesystem=true and mount explicit writable volumes.                             │
+│ 6        │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-negative-init                               │ Pass   │ Ok     │ Set readOnlyRootFilesystem=true and mount explicit writable volumes.                             │
+│ 7        │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-negative-first                              │ Pass   │ Ok     │ Set readOnlyRootFilesystem=true and mount explicit writable volumes.                             │
+│ 8        │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-negative-last                               │ Pass   │ Ok     │ Set readOnlyRootFilesystem=true and mount explicit writable volumes.                             │
+│ 9        │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-negative                                    │ Pass   │ Ok     │ Set readOnlyRootFilesystem=true and mount explicit writable volumes.                             │
+│ 10       │ require-read-only-root-filesystem │           │ v1/Pod/policy-test/pod-011-boundary-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ Set readOnlyRootFilesystem=true and mount explicit writable volumes.                             │
+│ 11       │ require-read-only-root-filesystem │ exception │ v1/Pod/policy-test/ksp-pod-011-exception                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-read-only-root-filesystem-exception │
+│ 12       │ require-read-only-root-filesystem │ exception │ v1/Pod/policy-test/ksp-pod-011-exception-secondary                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-read-only-root-filesystem-exception │
+│ 13       │ require-read-only-root-filesystem │ exception │ v1/Pod/policy-test/ksp-pod-011-exception-tertiary                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-read-only-root-filesystem-exception │
+│──────────│───────────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-012/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 20 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────────────│──────────────────────────────│───────────────────────────────────────────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (11) [0m │ [40;32mPOLICY                      [0m │ [40;32mRULE                        [0m │ [40;32mRESOURCE                                                                                         [0m │ [40;32mRESULT[0m │ [40;32mREASON  [0m │ [40;32mMESSAGE                                                                                      [0m │
+│──────────│──────────────────────────────│──────────────────────────────│───────────────────────────────────────────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ add-default-security-context │                              │ v1/Pod/p012-boundary-pod-with-existing-security-defaults/pod-012-boundary-existing                │ Pass   │ Ok       │ success                                                                                       │
+│ 2        │ add-default-security-context │                              │ v1/Pod/p012-boundary-preserve-explicit-container-settings/pod-012-boundary-preserve-explicit      │ Pass   │ Ok       │ success                                                                                       │
+│ 3        │ add-default-security-context │                              │ v1/Pod/p012-positive-init-container-missing-defaults/pod-012-positive-init                        │ Pass   │ Ok       │ success                                                                                       │
+│ 4        │ add-default-security-context │                              │ v1/Pod/p012-positive-opted-in-pod-missing-security-defaults/pod-012-positive                      │ Pass   │ Ok       │ success                                                                                       │
+│ 5        │ add-default-security-context │                              │ v1/Pod/p012-positive-two-containers-missing-defaults/pod-012-positive-two-containers              │ Pass   │ Ok       │ success                                                                                       │
+│ 6        │ add-default-security-context │                              │ v1/Pod/p012-boundary-pass-additional-edge-case/pod-012-boundary-existing-additional-boundary-pass │ Pass   │ Ok       │ success                                                                                       │
+│ 7        │ add-default-security-context │                              │ v1/Pod/p012-partial-and-ephemeral/pod-012-partial-and-ephemeral                                   │ Pass   │ Ok       │ success                                                                                       │
+│ 8        │ add-default-security-context │                              │ v1/Pod/security-test/ksp-pod-012-exception-secondary                                              │ Pass   │ Ok       │ success                                                                                       │
+│ 9        │ add-default-security-context │ exception                    │ v1/Pod/security-test/ksp-pod-012-exception                                                        │ Pass   │ Ok       │ rule is skipped due to policy exception: security-test/add-default-security-context-exception │
+│ 10       │ add-default-security-context │ add-default-security-context │ v1/Pod/p012-negative-pod-in-namespace-without-opt-in/pod-012-negative                             │ Pass   │ Excluded │ Excluded                                                                                      │
+│ 11       │ add-default-security-context │ add-default-security-context │ v1/Pod/p012-boundary-fail-single-condition/pod-012-negative-additional-boundary-fail              │ Pass   │ Excluded │ Excluded                                                                                      │
+│──────────│──────────────────────────────│──────────────────────────────│───────────────────────────────────────────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-013/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 14 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (14) [0m │ [40;32mPOLICY                   [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                 [0m │
+│──────────│───────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/pod-013-boundary-unset                                  │ Pass   │ Ok     │ success                                                                                  │
+│ 2        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-positive-all-types                          │ Pass   │ Ok     │ success                                                                                  │
+│ 3        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/pod-013-positive                                        │ Pass   │ Ok     │ success                                                                                  │
+│ 4        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                                  │
+│ 5        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/pod-013-boundary-unset-additional-boundary-pass         │ Pass   │ Ok     │ success                                                                                  │
+│ 6        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-ephemeral                          │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 7        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-init                               │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 8        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-first                              │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 9        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-last                               │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 10       │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/pod-013-negative                                        │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 11       │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 12       │ disallow-run-as-user-zero │ exception │ v1/Pod/policy-test/ksp-pod-013-exception                                   │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-run-as-user-zero-exception │
+│ 13       │ disallow-run-as-user-zero │ exception │ v1/Pod/policy-test/ksp-pod-013-exception-secondary                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-run-as-user-zero-exception │
+│ 14       │ disallow-run-as-user-zero │ exception │ v1/Pod/policy-test/ksp-pod-013-exception-tertiary                          │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-run-as-user-zero-exception │
+│──────────│───────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/pod-security/KSP-POD-014/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────│───────────│─────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY             [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                       [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                           [0m │
+│──────────│─────────────────────│───────────│─────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-boundary-no-ports                                    │ Pass   │ Ok     │ success                                                                            │
+│ 2        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-positive                                             │ Pass   │ Ok     │ success                                                                            │
+│ 3        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-positive-two-container-ports                         │ Pass   │ Ok     │ success                                                                            │
+│ 4        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-boundary-no-ports-additional-boundary-pass           │ Pass   │ Ok     │ success                                                                            │
+│ 5        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative                                             │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 6        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-ephemeral-hostport                          │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 7        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-hostport-first                              │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 8        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-hostport-last                               │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 9        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-init-hostport                               │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 10       │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-ephemeral-hostport-additional-boundary-fail │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 11       │ restrict-host-ports │ exception │ v1/Pod/policy-test/ksp-pod-014-exception                                        │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-ports-exception │
+│ 12       │ restrict-host-ports │ exception │ v1/Pod/policy-test/ksp-pod-014-exception-secondary                              │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-ports-exception │
+│ 13       │ restrict-host-ports │ exception │ v1/Pod/policy-test/ksp-pod-014-exception-tertiary                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-ports-exception │
+│──────────│─────────────────────│───────────│─────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/resource-governance/KSP-RES-001/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY             [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                     [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                           [0m │
+│──────────│─────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-cpu-request │           │ v1/Pod/policy-test/res-001-boundary-init                                      │ Pass   │ Ok     │ success                                                                            │
+│ 2        │ require-cpu-request │           │ v1/Pod/policy-test/res-001-positive                                           │ Pass   │ Ok     │ success                                                                            │
+│ 3        │ require-cpu-request │           │ v1/Pod/policy-test/ksp-res-001-positive-ephemeral-ignored                     │ Pass   │ Ok     │ success                                                                            │
+│ 4        │ require-cpu-request │           │ v1/Pod/policy-test/ksp-res-001-positive-two-resource                          │ Pass   │ Ok     │ success                                                                            │
+│ 5        │ require-cpu-request │           │ v1/Pod/policy-test/res-001-boundary-init-additional-boundary-pass             │ Pass   │ Ok     │ success                                                                            │
+│ 6        │ require-cpu-request │           │ v1/Pod/policy-test/res-001-negative                                           │ Pass   │ Ok     │ Set resources.requests.cpu on every regular and init container.                    │
+│ 7        │ require-cpu-request │           │ v1/Pod/policy-test/ksp-res-001-negative-init-missing                          │ Pass   │ Ok     │ Set resources.requests.cpu on every regular and init container.                    │
+│ 8        │ require-cpu-request │           │ v1/Pod/policy-test/ksp-res-001-negative-missing-first                         │ Pass   │ Ok     │ Set resources.requests.cpu on every regular and init container.                    │
+│ 9        │ require-cpu-request │           │ v1/Pod/policy-test/ksp-res-001-negative-missing-last                          │ Pass   │ Ok     │ Set resources.requests.cpu on every regular and init container.                    │
+│ 10       │ require-cpu-request │           │ v1/Pod/policy-test/ksp-res-001-negative-init-missing-additional-boundary-fail │ Pass   │ Ok     │ Set resources.requests.cpu on every regular and init container.                    │
+│ 11       │ require-cpu-request │ exception │ v1/Pod/policy-test/ksp-res-001-exception                                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-cpu-request-exception │
+│ 12       │ require-cpu-request │ exception │ v1/Pod/policy-test/ksp-res-001-exception-secondary                            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-cpu-request-exception │
+│ 13       │ require-cpu-request │ exception │ v1/Pod/policy-test/ksp-res-001-exception-tertiary                             │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-cpu-request-exception │
+│──────────│─────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/resource-governance/KSP-RES-002/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│────────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│───────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY                [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                     [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                              [0m │
+│──────────│────────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│───────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-memory-request │           │ v1/Pod/policy-test/res-002-boundary-init                                      │ Pass   │ Ok     │ success                                                                               │
+│ 2        │ require-memory-request │           │ v1/Pod/policy-test/res-002-positive                                           │ Pass   │ Ok     │ success                                                                               │
+│ 3        │ require-memory-request │           │ v1/Pod/policy-test/ksp-res-002-positive-ephemeral-ignored                     │ Pass   │ Ok     │ success                                                                               │
+│ 4        │ require-memory-request │           │ v1/Pod/policy-test/ksp-res-002-positive-two-resource                          │ Pass   │ Ok     │ success                                                                               │
+│ 5        │ require-memory-request │           │ v1/Pod/policy-test/res-002-boundary-init-additional-boundary-pass             │ Pass   │ Ok     │ success                                                                               │
+│ 6        │ require-memory-request │ exception │ v1/Pod/policy-test/ksp-res-002-exception                                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-memory-request-exception │
+│ 7        │ require-memory-request │ exception │ v1/Pod/policy-test/ksp-res-002-exception-secondary                            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-memory-request-exception │
+│ 8        │ require-memory-request │ exception │ v1/Pod/policy-test/ksp-res-002-exception-tertiary                             │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-memory-request-exception │
+│ 9        │ require-memory-request │           │ v1/Pod/policy-test/res-002-negative                                           │ Pass   │ Ok     │ Set resources.requests.memory on every regular and init container.                    │
+│ 10       │ require-memory-request │           │ v1/Pod/policy-test/ksp-res-002-negative-init-missing                          │ Pass   │ Ok     │ Set resources.requests.memory on every regular and init container.                    │
+│ 11       │ require-memory-request │           │ v1/Pod/policy-test/ksp-res-002-negative-missing-first                         │ Pass   │ Ok     │ Set resources.requests.memory on every regular and init container.                    │
+│ 12       │ require-memory-request │           │ v1/Pod/policy-test/ksp-res-002-negative-missing-last                          │ Pass   │ Ok     │ Set resources.requests.memory on every regular and init container.                    │
+│ 13       │ require-memory-request │           │ v1/Pod/policy-test/ksp-res-002-negative-init-missing-additional-boundary-fail │ Pass   │ Ok     │ Set resources.requests.memory on every regular and init container.                    │
+│──────────│────────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│───────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/resource-governance/KSP-RES-003/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY           [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                     [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                         [0m │
+│──────────│───────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-cpu-limit │           │ v1/Pod/policy-test/res-003-boundary-init                                      │ Pass   │ Ok     │ success                                                                          │
+│ 2        │ require-cpu-limit │           │ v1/Pod/policy-test/res-003-positive                                           │ Pass   │ Ok     │ success                                                                          │
+│ 3        │ require-cpu-limit │           │ v1/Pod/policy-test/ksp-res-003-positive-ephemeral-ignored                     │ Pass   │ Ok     │ success                                                                          │
+│ 4        │ require-cpu-limit │           │ v1/Pod/policy-test/ksp-res-003-positive-two-resource                          │ Pass   │ Ok     │ success                                                                          │
+│ 5        │ require-cpu-limit │           │ v1/Pod/policy-test/res-003-boundary-init-additional-boundary-pass             │ Pass   │ Ok     │ success                                                                          │
+│ 6        │ require-cpu-limit │ exception │ v1/Pod/policy-test/ksp-res-003-exception                                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-cpu-limit-exception │
+│ 7        │ require-cpu-limit │ exception │ v1/Pod/policy-test/ksp-res-003-exception-secondary                            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-cpu-limit-exception │
+│ 8        │ require-cpu-limit │ exception │ v1/Pod/policy-test/ksp-res-003-exception-tertiary                             │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-cpu-limit-exception │
+│ 9        │ require-cpu-limit │           │ v1/Pod/policy-test/res-003-negative                                           │ Pass   │ Ok     │ Set resources.limits.cpu on every regular and init container.                    │
+│ 10       │ require-cpu-limit │           │ v1/Pod/policy-test/ksp-res-003-negative-init-missing                          │ Pass   │ Ok     │ Set resources.limits.cpu on every regular and init container.                    │
+│ 11       │ require-cpu-limit │           │ v1/Pod/policy-test/ksp-res-003-negative-missing-first                         │ Pass   │ Ok     │ Set resources.limits.cpu on every regular and init container.                    │
+│ 12       │ require-cpu-limit │           │ v1/Pod/policy-test/ksp-res-003-negative-missing-last                          │ Pass   │ Ok     │ Set resources.limits.cpu on every regular and init container.                    │
+│ 13       │ require-cpu-limit │           │ v1/Pod/policy-test/ksp-res-003-negative-init-missing-additional-boundary-fail │ Pass   │ Ok     │ Set resources.limits.cpu on every regular and init container.                    │
+│──────────│───────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/resource-governance/KSP-RES-004/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY              [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                     [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                            [0m │
+│──────────│──────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-memory-limit │           │ v1/Pod/policy-test/res-004-boundary-init                                      │ Pass   │ Ok     │ success                                                                             │
+│ 2        │ require-memory-limit │           │ v1/Pod/policy-test/res-004-positive                                           │ Pass   │ Ok     │ success                                                                             │
+│ 3        │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-positive-ephemeral-ignored                     │ Pass   │ Ok     │ success                                                                             │
+│ 4        │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-positive-two-resource                          │ Pass   │ Ok     │ success                                                                             │
+│ 5        │ require-memory-limit │           │ v1/Pod/policy-test/res-004-boundary-init-additional-boundary-pass             │ Pass   │ Ok     │ success                                                                             │
+│ 6        │ require-memory-limit │ exception │ v1/Pod/policy-test/ksp-res-004-exception                                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-memory-limit-exception │
+│ 7        │ require-memory-limit │ exception │ v1/Pod/policy-test/ksp-res-004-exception-secondary                            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-memory-limit-exception │
+│ 8        │ require-memory-limit │ exception │ v1/Pod/policy-test/ksp-res-004-exception-tertiary                             │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-memory-limit-exception │
+│ 9        │ require-memory-limit │           │ v1/Pod/policy-test/res-004-negative                                           │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│ 10       │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-negative-init-missing                          │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│ 11       │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-negative-missing-first                         │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│ 12       │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-negative-missing-last                          │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│ 13       │ require-memory-limit │           │ v1/Pod/policy-test/ksp-res-004-negative-init-missing-additional-boundary-fail │ Pass   │ Ok     │ Set resources.limits.memory on every regular and init container.                    │
+│──────────│──────────────────────│───────────│───────────────────────────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/resource-governance/KSP-RES-005/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 15 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────────│─────────────────────────│────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY                 [0m │ [40;32mRULE                   [0m │ [40;32mRESOURCE                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON  [0m │ [40;32mMESSAGE                      [0m │
+│──────────│─────────────────────────│─────────────────────────│────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ 1        │ generate-resource-quota │ generate-resource-quota │ /namespace-resource-quota                                  │ Pass   │ Ok       │ policy evaluated successfully │
+│ 2        │ generate-resource-quota │ generate-resource-quota │ /namespace-resource-quota                                  │ Pass   │ Ok       │ policy evaluated successfully │
+│ 3        │ generate-resource-quota │ generate-resource-quota │ /namespace-resource-quota                                  │ Pass   │ Ok       │ policy evaluated successfully │
+│ 4        │ generate-resource-quota │ generate-resource-quota │ /namespace-resource-quota                                  │ Pass   │ Ok       │ policy evaluated successfully │
+│ 5        │ generate-resource-quota │ generate-resource-quota │ v1/Namespace/default/res-005-negative                      │ Pass   │ Excluded │ Excluded                      │
+│ 6        │ generate-resource-quota │ generate-resource-quota │ v1/Namespace/default/res-005-opt-in-without-environment    │ Pass   │ Excluded │ Excluded                      │
+│ 7        │ generate-resource-quota │ generate-resource-quota │ v1/Namespace/default/res-005-opt-in-without-quota-class    │ Pass   │ Excluded │ Excluded                      │
+│ 8        │ generate-resource-quota │ generate-resource-quota │ v1/Namespace/default/ksp-res-005-unrelated-label           │ Pass   │ Excluded │ Excluded                      │
+│ 9        │ generate-resource-quota │ generate-resource-quota │ v1/Namespace/default/res-005-invalid-environment-prod      │ Pass   │ Excluded │ Excluded                      │
+│ 10       │ generate-resource-quota │ generate-resource-quota │ v1/Namespace/default/res-005-invalid-environment-uppercase │ Pass   │ Excluded │ Excluded                      │
+│ 11       │ generate-resource-quota │ generate-resource-quota │ v1/Namespace/default/res-005-invalid-quota-class-uppercase │ Pass   │ Excluded │ Excluded                      │
+│ 12       │ generate-resource-quota │ generate-resource-quota │ v1/Namespace/default/res-005-empty-quota-class             │ Pass   │ Excluded │ Excluded                      │
+│ 13       │ generate-resource-quota │ generate-resource-quota │ /namespace-resource-quota                                  │ Pass   │ Ok       │ policy evaluated successfully │
+│ 14       │ generate-resource-quota │ generate-resource-quota │ v1/Namespace/default/ksp-res-005-exception                 │ Pass   │ Excluded │ Excluded                      │
+│ 15       │ generate-resource-quota │ generate-resource-quota │ /namespace-resource-quota                                  │ Pass   │ Ok       │ policy evaluated successfully │
+│──────────│─────────────────────────│─────────────────────────│────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/resource-governance/KSP-RES-006/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────│──────────────────────│────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY              [0m │ [40;32mRULE                [0m │ [40;32mRESOURCE                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON  [0m │ [40;32mMESSAGE                      [0m │
+│──────────│──────────────────────│──────────────────────│────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ 1        │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 2        │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 3        │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 4        │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 5        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-negative                      │ Pass   │ Excluded │ Excluded                      │
+│ 6        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-opt-in-without-environment    │ Pass   │ Excluded │ Excluded                      │
+│ 7        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/ksp-res-006-unrelated-label           │ Pass   │ Excluded │ Excluded                      │
+│ 8        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-invalid-environment-prod      │ Pass   │ Excluded │ Excluded                      │
+│ 9        │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-invalid-environment-uppercase │ Pass   │ Excluded │ Excluded                      │
+│ 10       │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/res-006-empty-environment             │ Pass   │ Excluded │ Excluded                      │
+│ 11       │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│ 12       │ generate-limit-range │ generate-limit-range │ v1/Namespace/default/ksp-res-006-exception                 │ Pass   │ Excluded │ Excluded                      │
+│ 13       │ generate-limit-range │ generate-limit-range │ /container-resource-defaults                               │ Pass   │ Ok       │ policy evaluated successfully │
+│──────────│──────────────────────│──────────────────────│────────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+
+Loading test  ( k8s-security-framework/policies/resource-governance/KSP-RES-007/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 16 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────────────────────────────│───────────│────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (16) [0m │ [40;32mPOLICY                                      [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                              [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                                    [0m │
+│──────────│──────────────────────────────────────────────│───────────│────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-p01-dev-small             │ Pass   │ Ok     │ success                                                                                                     │
+│ 2        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-p02-staging-medium        │ Pass   │ Ok     │ success                                                                                                     │
+│ 3        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-p03-production-large      │ Pass   │ Ok     │ success                                                                                                     │
+│ 4        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-p04-additional-labels     │ Pass   │ Ok     │ success                                                                                                     │
+│ 5        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-n01-missing-environment   │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 6        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-n02-missing-quota-class   │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/quota-class to small, medium, or large.                        │
+│ 7        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-n03-missing-both          │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 8        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b01-environment-prod      │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 9        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b02-environment-uppercase │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 10       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b03-quota-uppercase       │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/quota-class to small, medium, or large.                        │
+│ 11       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b04-quota-empty           │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/quota-class to small, medium, or large.                        │
+│ 12       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b05-environment-empty     │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 13       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/ksp-res-007-exception-similar     │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 14       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b06-no-opt-in-with-labels │ Pass   │ Ok     │ skip                                                                                                        │
+│ 15       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b06-no-opt-in-no-labels   │ Pass   │ Ok     │ skip                                                                                                        │
+│ 16       │ require-resource-governance-namespace-labels │ exception │ v1/Namespace/default/ksp-res-007-exception             │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-resource-governance-namespace-labels-exception │
+│──────────│──────────────────────────────────────────────│───────────│────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 385 tests passed and 9 tests failed
+
+Error: 9 tests failed

@@ -1,0 +1,47 @@
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: require-owner-label
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-meta-002
+  annotations:
+    policies.kyverno.io/title: Require Owner Label
+    policies.kyverno.io/category: KSP Metadata
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Workload
+    policies.kyverno.io/description: Requires an accountable owner or team label.
+    policies.ksp.io/profiles: standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: limited
+spec:
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - apps
+      - batch
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - deployments
+      - statefulsets
+      - daemonsets
+      - jobs
+      - cronjobs
+  validations:
+  - expression: object.metadata.?labels['policies.ksp.io/owner'].orValue('') != ''
+    message: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.

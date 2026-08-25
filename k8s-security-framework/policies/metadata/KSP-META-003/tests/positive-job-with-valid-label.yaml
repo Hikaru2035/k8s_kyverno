@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ksp-meta-003-positive-job
+  namespace: policy-test
+  labels:
+    policies.ksp.io/environment: "staging"
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: demo-api
+          image: harbor.example.com/demo-api:1.0.0

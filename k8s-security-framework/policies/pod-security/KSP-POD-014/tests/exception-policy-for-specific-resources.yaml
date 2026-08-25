@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: restrict-host-ports-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: restrict-host-ports
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-pod-014-exception', 'ksp-pod-014-exception-secondary',
+      'ksp-pod-014-exception-tertiary'] && object.metadata.namespace == 'policy-test'

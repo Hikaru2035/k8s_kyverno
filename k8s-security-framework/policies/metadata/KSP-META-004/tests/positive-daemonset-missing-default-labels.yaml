@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: meta-004-positive-daemonset
+  namespace: policy-test
+spec:
+  selector:
+    matchLabels:
+      app: meta-004-positive-daemonset
+  template:
+    metadata:
+      labels:
+        app: meta-004-positive-daemonset
+    spec:
+      containers:
+        - name: demo-api
+          image: harbor.example.com/demo-api:1.0.0

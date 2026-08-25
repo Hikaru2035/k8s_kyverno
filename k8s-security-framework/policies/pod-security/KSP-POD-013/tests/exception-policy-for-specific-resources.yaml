@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: disallow-run-as-user-zero-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: disallow-run-as-user-zero
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-pod-013-exception', 'ksp-pod-013-exception-secondary',
+      'ksp-pod-013-exception-tertiary'] && object.metadata.namespace == 'policy-test'

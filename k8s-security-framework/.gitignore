@@ -1,2 +1,10 @@
 .charts/
+artifacts/audit/
 
+environments/
+
+image-security/cosign/*.pub
+
+docs/reports/weekly_report
+
+scripts/

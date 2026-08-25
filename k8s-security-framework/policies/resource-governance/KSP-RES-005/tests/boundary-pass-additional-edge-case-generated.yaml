@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-resource-quota
+  namespace: res-005-boundary-additional-boundary-pass
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/generated-by: ksp-res-005
+    policies.ksp.io/environment: production
+    policies.ksp.io/quota-class: large
+spec:
+  hard:
+    requests.cpu: "16"
+    requests.memory: "32Gi"
+    limits.cpu: "32"
+    limits.memory: "64Gi"
+    pods: "200"

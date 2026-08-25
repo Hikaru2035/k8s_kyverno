@@ -1,0 +1,30 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/image-security/KSP-IMG-001/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 14 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (14) [0m │ [40;32mPOLICY             [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                        [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                 [0m │
+│──────────│─────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-boundary-digest                                       │ Pass   │ Ok     │ success                                                                                  │
+│ 2        │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-positive                                              │ Pass   │ Ok     │ success                                                                                  │
+│ 3        │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-positive-two-images                               │ Pass   │ Ok     │ success                                                                                  │
+│ 4        │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-boundary-digest-additional-boundary-pass              │ Pass   │ Ok     │ success                                                                                  │
+│ 5        │ disallow-latest-tag │ exception │ v1/Pod/policy-test/ksp-img-001-exception                                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-latest-tag-exception       │
+│ 6        │ disallow-latest-tag │ exception │ v1/Pod/policy-test/ksp-img-001-exception-secondary                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-latest-tag-exception       │
+│ 7        │ disallow-latest-tag │ exception │ v1/Pod/policy-test/ksp-img-001-exception-tertiary                                │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-latest-tag-exception       │
+│ 8        │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-ephemeral-image                          │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 9        │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-init-image                               │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 10       │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-negative-latest                                       │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 11       │ disallow-latest-tag │           │ v1/Pod/policy-test/img-001-negative-untagged                                     │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 12       │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-image-first                              │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 13       │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-image-last                               │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│ 14       │ disallow-latest-tag │           │ v1/Pod/policy-test/ksp-img-001-negative-ephemeral-image-additional-boundary-fail │ Pass   │ Ok     │ Use an explicit version tag or sha256 digest; latest and untagged images are prohibited. │
+│──────────│─────────────────────│───────────│──────────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 14 tests passed and 0 tests failed
+

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-007-negative-hostpath-restricted-last
+  namespace: policy-test
+spec:
+  volumes:
+    - name: cache
+      emptyDir: {}
+    - name: host
+      hostPath:
+        path: /etc
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0

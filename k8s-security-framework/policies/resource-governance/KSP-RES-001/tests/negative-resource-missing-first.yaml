@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-res-001-negative-missing-first
+  namespace: policy-test
+spec:
+  containers:
+    - name: missing
+      image: harbor.example.com/demo-api:1.0.0
+    - name: configured
+      image: harbor.example.com/demo-api:1.0.0
+      resources:
+        requests:
+          cpu: 100m

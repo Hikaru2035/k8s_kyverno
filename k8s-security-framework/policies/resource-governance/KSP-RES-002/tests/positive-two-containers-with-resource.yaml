@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-res-002-positive-two-resource
+  namespace: policy-test
+spec:
+  containers:
+    - name: demo-api
+      image: harbor.example.com/demo-api:1.0.0
+      resources:
+        requests:
+          memory: 128Mi
+    - name: sidecar
+      image: harbor.example.com/demo-api:1.0.0
+      resources:
+        requests:
+          memory: 128Mi

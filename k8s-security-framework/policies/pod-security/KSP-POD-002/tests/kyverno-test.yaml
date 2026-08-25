@@ -1,0 +1,60 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+
+metadata:
+  name: ksp-pod-002-disallow-privileged
+
+policies:
+- ../KSP-POD-002-disallow-privileged.yaml
+
+resources:
+- boundary-container-privileged-unset.yaml
+- boundary-fail-single-condition.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-container-privileged-true.yaml
+- negative-ephemeral-container-noncompliant.yaml
+- negative-init-container-noncompliant.yaml
+- negative-noncompliant-container-first.yaml
+- negative-noncompliant-container-last.yaml
+- positive-all-container-types-compliant.yaml
+- positive-container-privileged-false.yaml
+- positive-two-containers-compliant.yaml
+
+exceptions:
+- exception-policy-for-specific-resources.yaml
+
+results:
+
+# PASS
+- policy: disallow-privileged
+  rule: disallow-privileged
+  kind: Pod
+  resources:
+  - pod-002-boundary-omitted
+  - pod-002-positive-all-types
+  - pod-002-positive-one-container
+  - pod-002-positive-two-compliant
+  result: pass
+
+# FAIL
+- policy: disallow-privileged
+  rule: disallow-privileged
+  kind: Pod
+  resources:
+  - pod-002-negative-one-container-privileged-true
+  - pod-002-negative-ephemeral-container-noncompliant
+  - pod-002-negative-init-container-noncompliant
+  - pod-002-negative-first-container-privileged-true
+  - pod-002-negative-last-container-privileged-true
+  - pod-002-boundary-ephemeral-additional-boundary-fail
+  result: fail
+
+# EXCEPTION
+- policy: disallow-privileged
+  rule: disallow-privileged
+  kind: Pod
+  resources:
+  - ksp-pod-002-exception
+  - ksp-pod-002-exception-secondary
+  - ksp-pod-002-exception-tertiary
+  result: skip

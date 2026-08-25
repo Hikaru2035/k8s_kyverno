@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ksp-pod-013-negative-init
+  namespace: policy-test
+spec:
+  containers:
+    - name: secure
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        runAsUser: 1000
+  initContainers:
+    - name: init
+      image: harbor.example.com/demo-api:1.0.0
+      securityContext:
+        runAsUser: 0

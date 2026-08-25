@@ -1,0 +1,31 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/network-security/KSP-NET-001/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 11 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────────────│───────────────────────────│───────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY                   [0m │ [40;32mRULE                     [0m │ [40;32mRESOURCE                                                 [0m │ [40;32mRESULT[0m │ [40;32mREASON  [0m │ [40;32mMESSAGE                      [0m │
+│──────────│───────────────────────────│───────────────────────────│───────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+│ 1        │ generate-network-baseline │ generate-network-baseline │ /default-deny-ingress-egress                              │ Pass   │ Ok       │ policy evaluated successfully │
+│ 2        │ generate-network-baseline │ generate-network-baseline │ /allow-dns-egress                                         │ Pass   │ Ok       │ policy evaluated successfully │
+│ 3        │ generate-network-baseline │ generate-network-baseline │ /default-deny-ingress-egress                              │ Pass   │ Ok       │ policy evaluated successfully │
+│ 4        │ generate-network-baseline │ generate-network-baseline │ /allow-dns-egress                                         │ Pass   │ Ok       │ policy evaluated successfully │
+│ 5        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/net-001-negative                     │ Pass   │ Excluded │ Excluded                      │
+│ 6        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/ksp-net-001-unrelated-label          │ Pass   │ Excluded │ Excluded                      │
+│ 7        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/ksp-net-001-negative-opt-in-disabled │ Pass   │ Excluded │ Excluded                      │
+│ 8        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/ksp-net-001-negative-opt-in-empty    │ Pass   │ Excluded │ Excluded                      │
+│ 9        │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/net-001-boundary-wrong-case          │ Pass   │ Excluded │ Excluded                      │
+│ 10       │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/net-001-boundary-trailing-space      │ Pass   │ Excluded │ Excluded                      │
+│ 11       │ generate-network-baseline │ generate-network-baseline │ /default-deny-ingress-egress                              │ Pass   │ Ok       │ policy evaluated successfully │
+│ 12       │ generate-network-baseline │ generate-network-baseline │ /allow-dns-egress                                         │ Pass   │ Ok       │ policy evaluated successfully │
+│ 13       │ generate-network-baseline │ generate-network-baseline │ v1/Namespace/default/ksp-net-001-exception                │ Pass   │ Excluded │ Excluded                      │
+│ 14       │ generate-network-baseline │ generate-network-baseline │ /default-deny-ingress-egress                              │ Pass   │ Ok       │ policy evaluated successfully │
+│ 15       │ generate-network-baseline │ generate-network-baseline │ /allow-dns-egress                                         │ Pass   │ Ok       │ policy evaluated successfully │
+│──────────│───────────────────────────│───────────────────────────│───────────────────────────────────────────────────────────│────────│──────────│───────────────────────────────│
+
+
+Test Summary: 15 tests passed and 0 tests failed
+

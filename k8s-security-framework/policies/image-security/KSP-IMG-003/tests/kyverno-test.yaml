@@ -1,0 +1,49 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: ksp-img-003-require-image-digest
+policies:
+- ../KSP-IMG-003-require-image-digest.yaml
+resources:
+- boundary-valid-uppercase-sha256-digest.yaml
+- exception-resources-with-policy-violation.yaml
+- negative-ephemeral-container-noncompliant-image.yaml
+- negative-init-container-noncompliant-image.yaml
+- negative-noncompliant-image-first.yaml
+- negative-noncompliant-image-last.yaml
+- negative-version-tag-without-digest.yaml
+- positive-two-containers-compliant-images.yaml
+- positive-valid-lowercase-sha256-digest.yaml
+- boundary-pass-additional-edge-case.yaml
+- boundary-fail-single-condition.yaml
+exceptions:
+- exception-policy-for-specific-resources.yaml
+results:
+- policy: require-image-digest
+  rule: require-image-digest
+  kind: Pod
+  resources:
+  - img-003-boundary-uppercase
+  - ksp-img-003-positive-two-images
+  - img-003-positive
+  - img-003-boundary-uppercase-additional-boundary-pass
+  result: pass
+- policy: require-image-digest
+  rule: require-image-digest
+  kind: Pod
+  resources:
+  - ksp-img-003-exception
+  - ksp-img-003-exception-secondary
+  - ksp-img-003-exception-tertiary
+  result: skip
+- policy: require-image-digest
+  rule: require-image-digest
+  kind: Pod
+  resources:
+  - ksp-img-003-negative-ephemeral-image
+  - ksp-img-003-negative-init-image
+  - ksp-img-003-negative-image-first
+  - ksp-img-003-negative-image-last
+  - img-003-negative
+  - ksp-img-003-negative-ephemeral-image-additional-boundary-fail
+  result: fail

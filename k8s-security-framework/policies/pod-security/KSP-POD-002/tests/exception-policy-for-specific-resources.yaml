@@ -1,0 +1,13 @@
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: disallow-privileged-exception
+  namespace: policy-test
+spec:
+  policyRefs:
+  - name: disallow-privileged
+    kind: ValidatingPolicy
+  matchConditions:
+  - name: match-exempt-resource
+    expression: object.metadata.name in ['ksp-pod-002-exception', 'ksp-pod-002-exception-secondary',
+      'ksp-pod-002-exception-tertiary'] && object.metadata.namespace == 'policy-test'

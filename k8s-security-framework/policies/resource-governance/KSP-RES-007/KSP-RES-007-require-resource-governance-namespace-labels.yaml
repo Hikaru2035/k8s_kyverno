@@ -1,0 +1,56 @@
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: require-resource-governance-namespace-labels
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-res-007
+  annotations:
+    policies.kyverno.io/title: Require Resource Governance Namespace Labels
+    policies.kyverno.io/category: KSP Resource Governance
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace
+    policies.kyverno.io/description: Require valid environment and quota-class labels on namespaces opted in to resource governance.
+    policies.ksp.io/profiles: standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+spec:
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - namespaces
+  matchConditions:
+  - name: opted-in-resource-governance
+    expression: >-
+      object.metadata.?labels[
+        "policies.ksp.io/generate-resource-governance"
+      ].orValue("") == "enabled"
+  validations:
+  - expression: >-
+      object.metadata.?labels[
+        "policies.ksp.io/environment"
+      ].orValue("") in ["dev", "staging", "production"]
+    message: Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.
+  - expression: >-
+      object.metadata.?labels[
+        "policies.ksp.io/quota-class"
+      ].orValue("") in ["small", "medium", "large"]
+    message: Opted-in namespaces must set policies.ksp.io/quota-class to small, medium, or large.

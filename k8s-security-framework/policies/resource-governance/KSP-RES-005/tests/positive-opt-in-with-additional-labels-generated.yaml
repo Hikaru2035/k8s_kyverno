@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-resource-quota
+  namespace: ksp-res-005-positive-opt-in-with-additional-labels
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/generated-by: ksp-res-005
+    policies.ksp.io/environment: staging
+    policies.ksp.io/quota-class: small
+spec:
+  hard:
+    requests.cpu: "3"
+    requests.memory: "6Gi"
+    limits.cpu: "6"
+    limits.memory: "12Gi"
+    pods: "30"
