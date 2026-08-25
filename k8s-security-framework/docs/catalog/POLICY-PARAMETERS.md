@@ -47,7 +47,7 @@ Nguyên tắc:
 
 Production Restricted chỉ chấp nhận registry tổ chức và image reference theo digest. Signature verification phải dùng public key thật hoặc keyless identity được phê duyệt. `COSIGN_PUBLIC_KEY_FILE` không được trỏ tới file chứa `PRIVATE KEY`.
 
-Registry bootstrap trong base policy chỉ phục vụ development. Renderer production phải fail trước khi tạo artifact nếu placeholder còn tồn tại.
+Registry bootstrap `registry.k8s.io` và `reg.kyverno.io` trong base policy chỉ phục vụ development. Chúng không phải production invariants. Renderer production phase sau phải thay toàn bộ allowlist từ `APPROVED_REGISTRIES` và fail trước khi tạo artifact nếu placeholder còn tồn tại.
 
 ## 4. Labels
 
@@ -58,10 +58,11 @@ app.kubernetes.io/name
 app.kubernetes.io/managed-by
 policies.ksp.io/owner
 policies.ksp.io/environment
+policies.ksp.io/quota-class
 policies.ksp.io/governed
 ```
 
-Owner không bao giờ được mutate tự động. Environment chỉ nhận `dev`, `staging`, `production`. Thay label key là breaking change vì ảnh hưởng inventory, exception và report query.
+Owner không bao giờ được mutate tự động. Environment chỉ nhận `dev`, `staging`, `production`; quota class chỉ nhận `small`, `medium`, `large`. KSP-RES-007 validate hai label này trên Namespace đã opt-in trước khi RES-005/006 consume chúng; các generating policy vẫn giữ defensive match conditions. Thay label key là breaking change vì ảnh hưởng inventory, exception và report query.
 
 ## 5. Excluded namespaces
 

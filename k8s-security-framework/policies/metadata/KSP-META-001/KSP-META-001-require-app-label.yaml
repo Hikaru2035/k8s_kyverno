@@ -10,8 +10,7 @@ metadata:
     policies.kyverno.io/category: KSP Metadata
     policies.kyverno.io/severity: low
     policies.kyverno.io/subject: Workload
-    policies.kyverno.io/description: Requires the Kubernetes recommended application
-      name label.
+    policies.kyverno.io/description: Requires the Kubernetes recommended application name label.
     policies.ksp.io/profiles: baseline,standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
@@ -45,6 +44,4 @@ spec:
       - cronjobs
   validations:
   - expression: object.metadata.?labels['app.kubernetes.io/name'].orValue('') != ''
-    message: Add metadata.labels.app.kubernetes.io/name with a meaningful application
-      name.
-
+    message: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.

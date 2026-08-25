@@ -4,4 +4,7 @@ metadata:
   name: res-005-boundary-additional-boundary-pass
   labels:
     policies.ksp.io/generate-resource-governance: enabled
-    policies.ksp.io/environment: dev
+    policies.ksp.io/environment: production
+    policies.ksp.io/quota-class: large
+    app.kubernetes.io/name: checkout
+    policies.ksp.io/unrelated: retained

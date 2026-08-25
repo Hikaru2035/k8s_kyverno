@@ -6,94 +6,49 @@ policies:
 - ../KSP-POD-010-require-seccomp.yaml
 resources:
 - boundary-container-level-localhost-seccomp.yaml
+- boundary-fail-single-condition.yaml
 - exception-resources-with-policy-violation.yaml
 - negative-ephemeral-container-unconfined.yaml
 - negative-init-container-missing-seccomp.yaml
 - negative-one-container-unconfined-first.yaml
 - negative-pod-level-unconfined-seccomp.yaml
+- negative-pod-default-with-container-unconfined-overrides.yaml
 - positive-pod-level-runtime-default-seccomp.yaml
 - positive-pod-level-runtime-default-with-all-container-types.yaml
 - positive-two-containers-with-seccomp.yaml
-- boundary-pass-additional-edge-case.yaml
-- boundary-fail-single-condition.yaml
 exceptions:
 - exception-policy-for-specific-resources.yaml
+
 results:
 - policy: require-seccomp
   rule: require-seccomp
   kind: Pod
   resources:
   - pod-010-boundary-localhost
+  - pod-010-positive
+  - pod-010-positive-pod-runtime-default
+  - pod-010-positive-two-container-seccomp
   result: pass
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
-  - ksp-pod-010-exception
-  result: skip
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
-  - ksp-pod-010-exception-secondary
-  result: skip
+
 - policy: require-seccomp
   rule: require-seccomp
   kind: Pod
   resources:
   - pod-010-negative-ephemeral-unconfined
-  result: fail
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
   - pod-010-negative-init-unset
-  result: fail
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
   - pod-010-negative-unconfined-first
-  result: fail
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
   - pod-010-negative
+  - pod-010-boundary-ephemeral-unconfined-additional-boundary-fail
+  - pod-010-negative-pod-default-regular-override
+  - pod-010-negative-pod-default-init-override
+  - pod-010-negative-pod-default-ephemeral-override
   result: fail
+
 - policy: require-seccomp
   rule: require-seccomp
   kind: Pod
   resources:
-  - pod-010-positive
-  result: pass
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
-  - pod-010-positive-pod-runtime-default
-  result: pass
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
-  - pod-010-positive-two-container-seccomp
-  result: pass
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
-  - pod-010-boundary-localhost-additional-boundary-pass
-  result: pass
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
-  - pod-010-negative-ephemeral-unconfined-additional-boundary-fail
-  result: fail
-- policy: require-seccomp
-  rule: require-seccomp
-  kind: Pod
-  resources:
+  - ksp-pod-010-exception
+  - ksp-pod-010-exception-secondary
   - ksp-pod-010-exception-tertiary
   result: skip

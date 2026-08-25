@@ -24,76 +24,26 @@ results:
   kind: Pod
   resources:
   - res-004-boundary-init
-  result: pass
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
-  - ksp-res-004-exception
-  result: skip
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
-  - ksp-res-004-exception-secondary
-  result: skip
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
-  - res-004-negative
-  result: fail
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
-  - ksp-res-004-negative-init-missing
-  result: fail
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
-  - ksp-res-004-negative-missing-first
-  result: fail
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
-  - ksp-res-004-negative-missing-last
-  result: fail
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
   - res-004-positive
-  result: pass
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
   - ksp-res-004-positive-ephemeral-ignored
-  result: pass
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
   - ksp-res-004-positive-two-resource
-  result: pass
-- policy: require-memory-limit
-  rule: require-memory-limit
-  kind: Pod
-  resources:
   - res-004-boundary-init-additional-boundary-pass
   result: pass
 - policy: require-memory-limit
   rule: require-memory-limit
   kind: Pod
   resources:
-  - ksp-res-004-negative-init-missing-additional-boundary-fail
-  result: fail
+  - ksp-res-004-exception
+  - ksp-res-004-exception-secondary
+  - ksp-res-004-exception-tertiary
+  result: skip
 - policy: require-memory-limit
   rule: require-memory-limit
   kind: Pod
   resources:
-  - ksp-res-004-exception-tertiary
-  result: skip
+  - res-004-negative
+  - ksp-res-004-negative-init-missing
+  - ksp-res-004-negative-missing-first
+  - ksp-res-004-negative-missing-last
+  - ksp-res-004-negative-init-missing-additional-boundary-fail
+  result: fail

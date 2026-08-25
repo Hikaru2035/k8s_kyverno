@@ -1,0 +1,29 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/pod-security/KSP-POD-009/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY                     [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                              [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                   [0m │
+│──────────│─────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-positive-one-container                      │ Pass   │ Ok     │ success                                                                                    │
+│ 2        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-positive-all-types                          │ Pass   │ Ok     │ success                                                                                    │
+│ 3        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                                    │
+│ 4        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-boundary-no-add-additional-boundary-pass    │ Pass   │ Ok     │ success                                                                                    │
+│ 5        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-one-container                      │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 6        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-ephemeral                          │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 7        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-init                               │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 8        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-first                              │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 9        │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-negative-last                               │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 10       │ restrict-added-capabilities │           │ v1/Pod/policy-test/pod-009-boundary-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ Only approved Linux capabilities may be added.                                             │
+│ 11       │ restrict-added-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-009-exception                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-added-capabilities-exception │
+│ 12       │ restrict-added-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-009-exception-secondary                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-added-capabilities-exception │
+│ 13       │ restrict-added-capabilities │ exception │ v1/Pod/policy-test/ksp-pod-009-exception-tertiary                      │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-added-capabilities-exception │
+│──────────│─────────────────────────────│───────────│────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 13 tests passed and 0 tests failed
+

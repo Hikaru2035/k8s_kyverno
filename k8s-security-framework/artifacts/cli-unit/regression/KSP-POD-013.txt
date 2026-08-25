@@ -1,0 +1,30 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/pod-security/KSP-POD-013/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 14 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (14) [0m │ [40;32mPOLICY                   [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                  [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                 [0m │
+│──────────│───────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/pod-013-boundary-unset                                  │ Pass   │ Ok     │ success                                                                                  │
+│ 2        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-positive-all-types                          │ Pass   │ Ok     │ success                                                                                  │
+│ 3        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/pod-013-positive                                        │ Pass   │ Ok     │ success                                                                                  │
+│ 4        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-positive-two-compliant                      │ Pass   │ Ok     │ success                                                                                  │
+│ 5        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/pod-013-boundary-unset-additional-boundary-pass         │ Pass   │ Ok     │ success                                                                                  │
+│ 6        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-ephemeral                          │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 7        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-init                               │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 8        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-first                              │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 9        │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-last                               │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 10       │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/pod-013-negative                                        │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 11       │ disallow-run-as-user-zero │           │ v1/Pod/policy-test/ksp-pod-013-negative-ephemeral-additional-boundary-fail │ Pass   │ Ok     │ runAsUser must be greater than zero when explicitly configured.                          │
+│ 12       │ disallow-run-as-user-zero │ exception │ v1/Pod/policy-test/ksp-pod-013-exception                                   │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-run-as-user-zero-exception │
+│ 13       │ disallow-run-as-user-zero │ exception │ v1/Pod/policy-test/ksp-pod-013-exception-secondary                         │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-run-as-user-zero-exception │
+│ 14       │ disallow-run-as-user-zero │ exception │ v1/Pod/policy-test/ksp-pod-013-exception-tertiary                          │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/disallow-run-as-user-zero-exception │
+│──────────│───────────────────────────│───────────│────────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 14 tests passed and 0 tests failed
+

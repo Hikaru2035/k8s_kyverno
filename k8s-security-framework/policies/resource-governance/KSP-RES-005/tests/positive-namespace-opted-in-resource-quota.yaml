@@ -4,3 +4,5 @@ metadata:
   name: res-005-positive
   labels:
     policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: dev
+    policies.ksp.io/quota-class: small

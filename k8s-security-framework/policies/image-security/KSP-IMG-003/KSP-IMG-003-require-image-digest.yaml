@@ -37,8 +37,11 @@ spec:
       - UPDATE
       resources:
       - pods
-  validations:
-  - expression: (((object.spec.containers + object.spec.?initContainers.orValue([])
-      + object.spec.?ephemeralContainers.orValue([])))).all(c, c.image.matches('^.+@sha256:[a-fA-F0-9]{64}$'))
-    message: Reference every image as image@sha256:<64-hex-digest>.
 
+  variables:
+  - name: allContainers
+    expression: object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])
+
+  validations:
+  - expression: variables.allContainers.all(container, container.image.matches('^.+@sha256:[a-fA-F0-9]{64}$'))
+    message: Reference every image as image@sha256:<64-hex-digest>.

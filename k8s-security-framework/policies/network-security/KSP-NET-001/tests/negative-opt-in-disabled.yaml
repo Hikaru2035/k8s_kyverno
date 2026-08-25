@@ -3,5 +3,4 @@ kind: Namespace
 metadata:
   name: ksp-net-001-negative-opt-in-disabled
   labels:
-    policies.ksp.io/generate-network-baseline: "disabled"
-    policies.ksp.io/environment: staging
+    policies.ksp.io/generate-network-baseline: disabled

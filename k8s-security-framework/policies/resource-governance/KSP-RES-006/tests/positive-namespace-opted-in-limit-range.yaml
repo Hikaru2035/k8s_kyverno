@@ -4,3 +4,4 @@ metadata:
   name: res-006-positive
   labels:
     policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: dev

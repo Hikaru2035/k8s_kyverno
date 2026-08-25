@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-007-positive
+  name: pod-007-positive-empty-dir-volume
   namespace: policy-test
 spec:
   volumes:

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-005-negative-additional-boundary-fail
+  name: pod-005-boundary-additional-boundary-fail
   namespace: policy-test
 spec:
   hostPID: true

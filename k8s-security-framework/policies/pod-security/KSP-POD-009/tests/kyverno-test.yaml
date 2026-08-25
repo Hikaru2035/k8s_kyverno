@@ -5,7 +5,6 @@ metadata:
 policies:
 - ../KSP-POD-009-restrict-added-capabilities.yaml
 resources:
-- boundary-capabilities-add-unset.yaml
 - exception-resources-with-policy-violation.yaml
 - negative-add-sys-admin.yaml
 - negative-ephemeral-container-noncompliant.yaml
@@ -19,88 +18,35 @@ resources:
 - boundary-fail-single-condition.yaml
 exceptions:
 - exception-policy-for-specific-resources.yaml
+
 results:
 - policy: restrict-added-capabilities
   rule: restrict-added-capabilities
   kind: Pod
   resources:
-  - pod-009-boundary-no-add
+  - pod-009-positive-one-container
+  - pod-009-positive-all-types
+  - pod-009-positive-two-compliant
+  - pod-009-boundary-no-add-additional-boundary-pass
   result: pass
+
+- policy: restrict-added-capabilities
+  rule: restrict-added-capabilities
+  kind: Pod
+  resources:
+  - pod-009-negative-one-container
+  - pod-009-negative-ephemeral
+  - pod-009-negative-init
+  - pod-009-negative-first
+  - pod-009-negative-last
+  - pod-009-boundary-ephemeral-additional-boundary-fail
+  result: fail
+
 - policy: restrict-added-capabilities
   rule: restrict-added-capabilities
   kind: Pod
   resources:
   - ksp-pod-009-exception
-  result: skip
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
   - ksp-pod-009-exception-secondary
-  result: skip
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - pod-009-negative
-  result: fail
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - ksp-pod-009-negative-ephemeral
-  result: fail
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - ksp-pod-009-negative-init
-  result: fail
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - ksp-pod-009-negative-first
-  result: fail
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - ksp-pod-009-negative-last
-  result: fail
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - pod-009-positive
-  result: pass
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - ksp-pod-009-positive-all-types
-  result: pass
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - ksp-pod-009-positive-two-compliant
-  result: pass
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - pod-009-boundary-no-add-additional-boundary-pass
-  result: pass
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
-  - ksp-pod-009-negative-ephemeral-additional-boundary-fail
-  result: fail
-- policy: restrict-added-capabilities
-  rule: restrict-added-capabilities
-  kind: Pod
-  resources:
   - ksp-pod-009-exception-tertiary
   result: skip

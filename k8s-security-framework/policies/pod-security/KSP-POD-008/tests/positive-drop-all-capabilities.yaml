@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-008-positive
+  name: pod-008-positive-one-container
   namespace: policy-test
 spec:
   containers:

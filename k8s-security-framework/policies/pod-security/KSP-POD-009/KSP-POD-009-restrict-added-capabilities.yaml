@@ -10,8 +10,7 @@ metadata:
     policies.kyverno.io/category: KSP Pod Security
     policies.kyverno.io/severity: high
     policies.kyverno.io/subject: Pod
-    policies.kyverno.io/description: Allows only NET_BIND_SERVICE when Linux capabilities
-      are added.
+    policies.kyverno.io/description: Allows only NET_BIND_SERVICE when Linux capabilities are added.
     policies.ksp.io/profiles: restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
@@ -38,9 +37,14 @@ spec:
       - UPDATE
       resources:
       - pods
-  validations:
-  - expression: (((object.spec.containers + object.spec.?initContainers.orValue([])
-      + object.spec.?ephemeralContainers.orValue([])))).all(c, c.?securityContext.capabilities.add.orValue([]).all(x,
-      x == 'NET_BIND_SERVICE'))
-    message: Only NET_BIND_SERVICE may be added as a Linux capability.
 
+  variables:
+    - name: allContainers
+      expression: object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])
+
+    - name: allowedCapabilities
+      expression: '["NET_BIND_SERVICE"]'
+
+  validations:
+    - expression: variables.allContainers.all(container, container.?securityContext.?capabilities.?add.orValue([]).all(capability, capability in variables.allowedCapabilities))
+      message: Only approved Linux capabilities may be added.

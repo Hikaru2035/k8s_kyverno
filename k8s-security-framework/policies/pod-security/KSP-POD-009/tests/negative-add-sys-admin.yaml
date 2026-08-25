@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-009-negative
+  name: pod-009-negative-one-container
   namespace: policy-test
 spec:
   containers:

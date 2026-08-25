@@ -23,64 +23,19 @@ results:
   kind: Pod
   resources:
   - img-004-boundary-out-of-scope
-  result: skip
-- policy: verify-signed-images
-  rule: verify-signed-images
-  kind: Pod
-  resources:
   - ksp-img-004-exception
+  - img-004-positive-out-of-scope-images
+  - img-004-positive-out-of-scope
+  - img-004-boundary-out-of-scope-additional-boundary-pass
+  - ksp-img-004-exception-secondary
   result: skip
 - policy: verify-signed-images
   rule: verify-signed-images
   kind: Pod
   resources:
   - img-004-negative-ephemeral-unsigned
-  result: fail
-- policy: verify-signed-images
-  rule: verify-signed-images
-  kind: Pod
-  resources:
   - img-004-negative-init-unsigned
-  result: fail
-- policy: verify-signed-images
-  rule: verify-signed-images
-  kind: Pod
-  resources:
   - img-004-negative-two-unsigned
-  result: fail
-- policy: verify-signed-images
-  rule: verify-signed-images
-  kind: Pod
-  resources:
   - img-004-negative-unsigned
-  result: fail
-- policy: verify-signed-images
-  rule: verify-signed-images
-  kind: Pod
-  resources:
-  - img-004-positive-out-of-scope-images
-  result: skip
-- policy: verify-signed-images
-  rule: verify-signed-images
-  kind: Pod
-  resources:
-  - img-004-positive-out-of-scope
-  result: skip
-- policy: verify-signed-images
-  rule: verify-signed-images
-  kind: Pod
-  resources:
-  - img-004-boundary-out-of-scope-additional-boundary-pass
-  result: skip
-- policy: verify-signed-images
-  rule: verify-signed-images
-  kind: Pod
-  resources:
   - img-004-negative-ephemeral-unsigned-additional-boundary-fail
   result: fail
-- policy: verify-signed-images
-  rule: verify-signed-images
-  kind: Pod
-  resources:
-  - ksp-img-004-exception-secondary
-  result: skip

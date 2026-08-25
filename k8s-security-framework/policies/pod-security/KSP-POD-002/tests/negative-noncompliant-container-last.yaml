@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ksp-pod-002-negative-last
+  name: pod-002-negative-last-container-privileged-true
   namespace: policy-test
 spec:
   containers:

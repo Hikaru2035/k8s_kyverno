@@ -6,7 +6,7 @@ metadata:
 spec:
   policyRefs:
   - name: generate-resource-quota
-    kind: ValidatingPolicy
+    kind: GeneratingPolicy
   matchConditions:
   - name: match-exempt-resource
-    expression: object.metadata.name in ['ksp-res-005-exception', 'ksp-res-005-exception-secondary']
+    expression: object.metadata.name == 'ksp-res-005-exception'

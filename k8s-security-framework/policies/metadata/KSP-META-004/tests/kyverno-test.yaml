@@ -77,10 +77,5 @@ results:
   kind: Pod
   resources:
   - meta-004-negative-pod
-  result: skip
-- policy: add-default-labels
-  rule: add-default-labels
-  kind: Pod
-  resources:
   - meta-004-boundary-out-of-scope-pod
   result: skip

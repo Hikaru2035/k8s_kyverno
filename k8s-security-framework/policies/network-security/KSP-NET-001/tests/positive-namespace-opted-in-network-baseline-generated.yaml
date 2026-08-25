@@ -13,3 +13,33 @@ spec:
   - Egress
   ingress: []
   egress: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: net-001-positive
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/generated-by: ksp-net-001
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: In
+          values: [kube-system]
+      podSelector:
+        matchExpressions:
+        - key: k8s-app
+          operator: In
+          values: [kube-dns]
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53

@@ -1,48 +1,136 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: GeneratingPolicy
 metadata:
   name: generate-limit-range
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-res-006}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-res-006
   annotations:
     policies.kyverno.io/title: Generate LimitRange
     policies.kyverno.io/category: KSP Resource Governance
     policies.kyverno.io/severity: medium
     policies.kyverno.io/subject: Namespace,LimitRange
-    policies.kyverno.io/description: Generates synchronized container defaults for opted-in application namespaces.
-    policies.ksp.io/parameter: Replace bootstrap defaults with environment-specific sizing before production rollout.
+    policies.kyverno.io/description: Generates synchronized environment-specific container resource defaults for opted-in application namespaces.
+    policies.ksp.io/parameter: Resource sizing is loaded from the ksp-limitrange-sizing ConfigMap according to policies.ksp.io/environment.
     policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Generate
     policies.ksp.io/staging-mode: Generate
     policies.ksp.io/prod-mode: Generate
     policies.ksp.io/exception: controlled
+
 spec:
-  background: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: generate-limit-range
-      match:
-        any:
-          - resources:
-              kinds: [Namespace]
-              selector:
-                matchLabels:
-                  policies.ksp.io/generate-resource-governance: enabled
-      generate:
-        apiVersion: v1
-        kind: LimitRange
-        name: container-resource-defaults
-        namespace: "{{ request.object.metadata.name }}"
-        synchronize: true
-        generateExisting: true
-        data:
-          metadata:
-            labels:
-              app.kubernetes.io/managed-by: kyverno
-              policies.ksp.io/generated-by: ksp-res-006
-          spec:
-            limits:
-              - type: Container
-                defaultRequest: {cpu: 100m, memory: 128Mi}
-                default: {cpu: 500m, memory: 512Mi}
-                min: {cpu: 25m, memory: 32Mi}
-                max: {cpu: "2", memory: 2Gi}
+  evaluation:
+    synchronize:
+      enabled: true
+    generateExisting:
+      enabled: true
+
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - namespaces
+
+  matchConditions:
+  - name: opted-in-namespace
+    expression: >-
+      object.metadata.?labels[
+        "policies.ksp.io/generate-resource-governance"
+      ].orValue("") == "enabled"
+  - name: valid-environment
+    expression: >-
+      object.metadata.?labels[
+        "policies.ksp.io/environment"
+      ].orValue("") in [
+        "dev",
+        "staging",
+        "production"
+      ]
+
+  variables:
+  - name: namespaceName
+    expression: object.metadata.name
+  - name: environment
+    expression: >-
+      object.metadata.labels[
+        "policies.ksp.io/environment"
+      ]
+  - name: sizingConfig
+    expression: >-
+      resource.Get(
+        "v1",
+        "configmaps",
+        "kyverno",
+        "ksp-limitrange-sizing"
+      )
+  - name: defaultRequestCpu
+    expression: variables.sizingConfig.data[string(variables.environment) + ".defaultRequestCpu"]
+  - name: defaultRequestMemory
+    expression: variables.sizingConfig.data[string(variables.environment) + ".defaultRequestMemory"]
+  - name: defaultCpu
+    expression: variables.sizingConfig.data[string(variables.environment) + ".defaultCpu"]
+  - name: defaultMemory
+    expression: variables.sizingConfig.data[string(variables.environment) + ".defaultMemory"]
+  - name: minCpu
+    expression: variables.sizingConfig.data[string(variables.environment) + ".minCpu"]
+  - name: minMemory
+    expression: variables.sizingConfig.data[string(variables.environment) + ".minMemory"]
+  - name: maxCpu
+    expression: variables.sizingConfig.data[string(variables.environment) + ".maxCpu"]
+  - name: maxMemory
+    expression: variables.sizingConfig.data[string(variables.environment) + ".maxMemory"]
+
+  - name: downstream
+    expression: |-
+      [
+        {
+          "apiVersion": dyn("v1"),
+          "kind": dyn("LimitRange"),
+          "metadata": dyn({
+            "name": dyn("container-resource-defaults"),
+            "labels": dyn({
+              "app.kubernetes.io/managed-by": "kyverno",
+              "policies.ksp.io/generated-by": "ksp-res-006",
+              "policies.ksp.io/environment": string(variables.environment)
+            })
+          }),
+          "spec": dyn({
+            "limits": dyn([
+              dyn({
+                "type": dyn("Container"),
+
+                "defaultRequest": dyn({
+                  "cpu": string(variables.defaultRequestCpu),
+                  "memory": string(variables.defaultRequestMemory)
+                }),
+
+                "default": dyn({
+                  "cpu": string(variables.defaultCpu),
+                  "memory": string(variables.defaultMemory)
+                }),
+
+                "min": dyn({
+                  "cpu": string(variables.minCpu),
+                  "memory": string(variables.minMemory)
+                }),
+
+                "max": dyn({
+                  "cpu": string(variables.maxCpu),
+                  "memory": string(variables.maxMemory)
+                })
+              })
+            ])
+          })
+        }
+      ]
+
+  generate:
+  - expression: generator.Apply(
+      variables.namespaceName,
+      variables.downstream)

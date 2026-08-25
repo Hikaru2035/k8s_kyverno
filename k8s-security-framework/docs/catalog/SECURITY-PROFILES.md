@@ -14,7 +14,7 @@ Baseline ⊂ Standard ⊂ Restricted
 
 Profile không tự quyết định Audit/Enforce; environment overlay quyết định mode. Production dùng mapping risk ở phần 3.
 
-## 2. Mapping đủ 29 policy
+## 2. Mapping đủ 30 policy
 
 | Policy ID | Baseline | Standard | Restricted | Risk rationale |
 |---|:---:|:---:|:---:|---|
@@ -42,6 +42,7 @@ Profile không tự quyết định Audit/Enforce; environment overlay quyết �
 | KSP-RES-004 | — | ✓ | ✓ | memory exhaustion |
 | KSP-RES-005 | — | ✓ | ✓ | namespace blast radius |
 | KSP-RES-006 | — | ✓ | ✓ | resource defaults |
+| KSP-RES-007 | — | ✓ | ✓ | opted-in Namespace governance labels |
 | KSP-META-001 | ✓ | ✓ | ✓ | application inventory |
 | KSP-META-002 | — | ✓ | ✓ | accountability |
 | KSP-META-003 | — | ✓ | ✓ | environment traceability |

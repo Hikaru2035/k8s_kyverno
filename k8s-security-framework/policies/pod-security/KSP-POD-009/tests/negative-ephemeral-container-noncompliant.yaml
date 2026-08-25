@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ksp-pod-009-negative-ephemeral
+  name: pod-009-negative-ephemeral
   namespace: policy-test
 spec:
   containers:

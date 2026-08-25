@@ -41,7 +41,7 @@ policy_engine:
     version: "1.18.2"
     chart_version: "3.8.2"
   kyverno_cli:
-    version: "TBD"
+    version: "1.18.2"
 
 image_security:
   harbor:

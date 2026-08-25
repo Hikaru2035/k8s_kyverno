@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: res-006-boundary
-  labels:
-    policies.ksp.io/generate-resource-governance: enabled
-    policies.ksp.io/environment: dev

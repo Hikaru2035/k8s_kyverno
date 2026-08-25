@@ -45,4 +45,3 @@ spec:
   validations:
   - expression: object.metadata.?labels['policies.ksp.io/owner'].orValue('') != ''
     message: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
-

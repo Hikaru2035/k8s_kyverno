@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ksp-pod-002-positive-two-compliant
+  name: pod-002-positive-two-compliant
   namespace: policy-test
 spec:
   containers:

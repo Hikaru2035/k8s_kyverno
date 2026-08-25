@@ -10,8 +10,7 @@ metadata:
     policies.kyverno.io/category: KSP Pod Security
     policies.kyverno.io/severity: critical
     policies.kyverno.io/subject: Pod,Volume
-    policies.kyverno.io/description: Rejects hostPath volumes; exceptions require
-      explicit review.
+    policies.kyverno.io/description: Restricts hostPath volumes to a minimal approved allowlist.
     policies.ksp.io/profiles: baseline,standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Enforce
@@ -38,7 +37,13 @@ spec:
       - UPDATE
       resources:
       - pods
-  validations:
-  - expression: object.spec.?volumes.orValue([]).all(v, !has(v.hostPath))
-    message: hostPath volumes are prohibited; use a managed volume or approved exception.
+  variables:
+  - name: allVolumes
+    expression: object.spec.?volumes.orValue([])
 
+  - name: allowedHostPaths
+    expression: '["/var/log", "/tmp"]'
+
+  validations:
+  - expression: variables.allVolumes.all(volume, !has(volume.hostPath) || volume.hostPath.path in variables.allowedHostPaths)
+    message: hostPath is restricted to the minimal approved allowlist.

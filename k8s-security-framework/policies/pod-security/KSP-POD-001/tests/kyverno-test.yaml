@@ -25,6 +25,7 @@ resources:
 - boundary-pod-level-with-container-false.yaml
 exceptions:
 - exception-policy-for-specific-resources.yaml
+
 results:
 - isValidatingPolicy: true
   policy: require-run-as-non-root

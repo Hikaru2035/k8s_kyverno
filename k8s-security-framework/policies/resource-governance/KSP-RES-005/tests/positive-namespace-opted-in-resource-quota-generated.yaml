@@ -6,10 +6,12 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: kyverno
     policies.ksp.io/generated-by: ksp-res-005
+    policies.ksp.io/environment: dev
+    policies.ksp.io/quota-class: small
 spec:
   hard:
-    requests.cpu: '4'
-    requests.memory: 8Gi
-    limits.cpu: '8'
-    limits.memory: 16Gi
-    pods: '50'
+    requests.cpu: "2"
+    requests.memory: "4Gi"
+    limits.cpu: "4"
+    limits.memory: "8Gi"
+    pods: "25"

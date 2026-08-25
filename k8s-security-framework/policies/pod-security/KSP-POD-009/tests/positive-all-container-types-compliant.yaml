@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ksp-pod-009-positive-all-types
+  name: pod-009-positive-all-types
   namespace: policy-test
 spec:
   containers:

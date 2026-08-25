@@ -4,4 +4,7 @@ metadata:
   name: net-001-boundary-additional-boundary-pass
   labels:
     policies.ksp.io/generate-network-baseline: enabled
-    policies.ksp.io/environment: dev
+    policies.ksp.io/environment: production
+    app.kubernetes.io/name: checkout
+    app.kubernetes.io/part-of: commerce
+    team.example.com/owner: platform

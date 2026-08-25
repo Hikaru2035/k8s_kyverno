@@ -6,7 +6,7 @@ metadata:
 spec:
   policyRefs:
   - name: verify-signed-images
-    kind: ValidatingPolicy
+    kind: ImageValidatingPolicy
   matchConditions:
   - name: match-exempt-resource
     expression: object.metadata.name in ['ksp-img-004-exception', 'ksp-img-004-exception-secondary']

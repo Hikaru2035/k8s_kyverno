@@ -37,8 +37,11 @@ spec:
       - UPDATE
       resources:
       - pods
-  validations:
-  - expression: (object.spec.containers + object.spec.?initContainers.orValue([])).all(c,
-      c.?resources.requests.cpu.orValue('') != '')
-    message: Set resources.requests.cpu on every regular and init container.
 
+  variables:
+  - name: allContainers
+    expression: object.spec.containers + object.spec.?initContainers.orValue([])
+
+  validations:
+  - expression: variables.allContainers.all(container, container.?resources.?requests.?cpu.orValue('') != '')
+    message: Set resources.requests.cpu on every regular and init container.

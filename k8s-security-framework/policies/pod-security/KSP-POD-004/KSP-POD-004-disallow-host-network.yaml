@@ -16,16 +16,21 @@ metadata:
     policies.ksp.io/staging-mode: Audit
     policies.ksp.io/prod-mode: Enforce
     policies.ksp.io/exception: controlled
+
 spec:
   evaluation:
     background:
       enabled: true
+
   failurePolicy: Fail
+
   webhookConfiguration:
     timeoutSeconds: 10
+
   validationActions:
   - Audit
   - Warn
+
   matchConstraints:
     resourceRules:
     - apiGroups:
@@ -37,7 +42,11 @@ spec:
       - UPDATE
       resources:
       - pods
-  validations:
-  - expression: '!object.spec.?hostNetwork.orValue(false)'
-    message: spec.hostNetwork must be unset or false.
 
+  variables:
+  - name: hostNetwork
+    expression: object.spec.?hostNetwork.orValue(false)
+
+  validations:
+  - expression: variables.hostNetwork == false
+    message: spec.hostNetwork must be unset or false.

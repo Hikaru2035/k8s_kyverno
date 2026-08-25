@@ -4,12 +4,14 @@ metadata:
   name: ksp-res-005-exception
   labels:
     policies.ksp.io/generate-resource-governance: enabled
-    policies.ksp.io/generate-network-baseline: enabled
+    policies.ksp.io/environment: staging
+    policies.ksp.io/quota-class: medium
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ksp-res-005-exception-secondary
+  name: ksp-res-005-exception-similar
   labels:
     policies.ksp.io/generate-resource-governance: enabled
-    policies.ksp.io/generate-network-baseline: enabled
+    policies.ksp.io/environment: staging
+    policies.ksp.io/quota-class: medium

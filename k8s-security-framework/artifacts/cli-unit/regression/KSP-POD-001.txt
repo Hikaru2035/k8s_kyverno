@@ -1,0 +1,36 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/pod-security/KSP-POD-001/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 20 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────────│───────────│──────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (20) [0m │ [40;32mPOLICY                 [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                                             [0m │
+│──────────│─────────────────────────│───────────│──────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-boundary-containers                           │ Pass   │ Ok     │ success                                                                                                              │
+│ 2        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive-all-container-types                  │ Pass   │ Ok     │ success                                                                                                              │
+│ 3        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive-one-container-non-root               │ Pass   │ Ok     │ success                                                                                                              │
+│ 4        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive                                      │ Pass   │ Ok     │ success                                                                                                              │
+│ 5        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive-pod-level-two-containers             │ Pass   │ Ok     │ success                                                                                                              │
+│ 6        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-positive-two-containers-non-root              │ Pass   │ Ok     │ success                                                                                                              │
+│ 7        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-boundary-containers-additional-boundary-pass  │ Pass   │ Ok     │ success                                                                                                              │
+│ 8        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-false-first                          │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 9        │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-false-last                           │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 10       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-ephemeral-container-false            │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 11       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-init-container-unset                 │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 12       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-init-container-false                 │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 13       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-one-container-missing-context        │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 14       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative-pod-level-false                      │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 15       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-negative                                      │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 16       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-boundary-false-first-additional-boundary-fail │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 17       │ require-run-as-non-root │           │ v1/Pod/policy-test/pod-001-boundary-pod-level-container-false            │ Pass   │ Ok     │ Set Pod runAsNonRoot=true without any container overriding it to false, or set runAsNonRoot=true on every container. │
+│ 18       │ require-run-as-non-root │ exception │ v1/Pod/policy-test/ksp-pod-001-exception                                 │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-run-as-non-root-exception                               │
+│ 19       │ require-run-as-non-root │ exception │ v1/Pod/policy-test/ksp-pod-001-exception-secondary                       │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-run-as-non-root-exception                               │
+│ 20       │ require-run-as-non-root │ exception │ v1/Pod/policy-test/ksp-pod-001-exception-tertiary                        │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-run-as-non-root-exception                               │
+│──────────│─────────────────────────│───────────│──────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 20 tests passed and 0 tests failed
+

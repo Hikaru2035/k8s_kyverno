@@ -10,8 +10,7 @@ metadata:
     policies.kyverno.io/category: KSP Pod Security
     policies.kyverno.io/severity: high
     policies.kyverno.io/subject: Pod
-    policies.kyverno.io/description: Requires RuntimeDefault or Localhost seccomp
-      at Pod or container level.
+    policies.kyverno.io/description: Requires RuntimeDefault or Localhost seccomp at Pod or container level.
     policies.ksp.io/profiles: restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
@@ -38,9 +37,26 @@ spec:
       - UPDATE
       resources:
       - pods
-  validations:
-  - expression: object.spec.?securityContext.seccompProfile.type.orValue('') in ['RuntimeDefault','Localhost']
-      || ((object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([]))).all(c,
-      c.?securityContext.seccompProfile.type.orValue('') in ['RuntimeDefault','Localhost'])
-    message: Use seccompProfile.type RuntimeDefault or Localhost.
 
+  variables:
+  - name: allContainers
+    expression: object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])
+
+  - name: allowedSeccompTypes
+    expression: '["RuntimeDefault", "Localhost"]'
+
+  - name: podSeccompType
+    expression: object.spec.?securityContext.?seccompProfile.?type.orValue('')
+
+  validations:
+  - expression: >
+      variables.allContainers.all(
+        container,
+        container.?securityContext.?seccompProfile.?type.orValue(
+          variables.podSeccompType
+        )
+          in variables.allowedSeccompTypes
+      )
+    message: >-
+      Use seccompProfile.type RuntimeDefault or Localhost; a container override
+      must be independently compliant.

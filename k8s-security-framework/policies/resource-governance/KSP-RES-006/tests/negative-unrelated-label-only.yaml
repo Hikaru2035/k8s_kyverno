@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: ksp-res-006-unrelated-label
   labels:
-    policies.ksp.io/environment: dev
+    policies.ksp.io/environment: staging

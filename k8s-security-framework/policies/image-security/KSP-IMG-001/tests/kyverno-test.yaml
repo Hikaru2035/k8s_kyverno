@@ -24,82 +24,27 @@ results:
   kind: Pod
   resources:
   - img-001-boundary-digest
-  result: pass
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
-  - ksp-img-001-exception
-  result: skip
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
-  - ksp-img-001-exception-secondary
-  result: skip
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
-  - ksp-img-001-negative-ephemeral-image
-  result: fail
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
-  - ksp-img-001-negative-init-image
-  result: fail
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
-  - img-001-negative-latest
-  result: fail
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
-  - img-001-negative-untagged
-  result: fail
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
-  - ksp-img-001-negative-image-first
-  result: fail
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
-  - ksp-img-001-negative-image-last
-  result: fail
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
   - img-001-positive
-  result: pass
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
   - ksp-img-001-positive-two-images
-  result: pass
-- policy: disallow-latest-tag
-  rule: disallow-latest-tag
-  kind: Pod
-  resources:
   - img-001-boundary-digest-additional-boundary-pass
   result: pass
 - policy: disallow-latest-tag
   rule: disallow-latest-tag
   kind: Pod
   resources:
-  - ksp-img-001-negative-ephemeral-image-additional-boundary-fail
-  result: fail
+  - ksp-img-001-exception
+  - ksp-img-001-exception-secondary
+  - ksp-img-001-exception-tertiary
+  result: skip
 - policy: disallow-latest-tag
   rule: disallow-latest-tag
   kind: Pod
   resources:
-  - ksp-img-001-exception-tertiary
-  result: skip
+  - ksp-img-001-negative-ephemeral-image
+  - ksp-img-001-negative-init-image
+  - img-001-negative-latest
+  - img-001-negative-untagged
+  - ksp-img-001-negative-image-first
+  - ksp-img-001-negative-image-last
+  - ksp-img-001-negative-ephemeral-image-additional-boundary-fail
+  result: fail

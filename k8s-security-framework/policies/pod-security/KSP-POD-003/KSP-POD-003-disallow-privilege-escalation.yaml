@@ -10,8 +10,7 @@ metadata:
     policies.kyverno.io/category: KSP Pod Security
     policies.kyverno.io/severity: high
     policies.kyverno.io/subject: Pod
-    policies.kyverno.io/description: Requires allowPrivilegeEscalation=false for every
-      container type.
+    policies.kyverno.io/description: Requires allowPrivilegeEscalation=false for every container type.
     policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Enforce
@@ -38,9 +37,11 @@ spec:
       - UPDATE
       resources:
       - pods
-  validations:
-  - expression: (((object.spec.containers + object.spec.?initContainers.orValue([])
-      + object.spec.?ephemeralContainers.orValue([])))).all(c, has(c.securityContext)
-      && c.securityContext.?allowPrivilegeEscalation.orValue(true) == false)
-    message: Set allowPrivilegeEscalation=false on every container.
+      
+  variables:
+  - name: allContainers
+    expression: object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])
 
+  validations:
+  - expression: variables.allContainers.all(container, container.?securityContext.?allowPrivilegeEscalation.orValue(true) == false)
+    message: Set allowPrivilegeEscalation=false on every container.

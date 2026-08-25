@@ -10,10 +10,8 @@ metadata:
     policies.kyverno.io/category: KSP Image Security
     policies.kyverno.io/severity: critical
     policies.kyverno.io/subject: Pod
-    policies.kyverno.io/description: Allows project Harbor and explicitly approved
-      bootstrap registries.
-    policies.ksp.io/parameter: Replace harbor.example.com with the production Harbor
-      FQDN before Enforce.
+    policies.kyverno.io/description: Allows project Harbor plus Kubernetes and Kyverno bootstrap registries in the development source policy.
+    policies.ksp.io/parameter: Production rendering must replace the complete development allowlist from APPROVED_REGISTRIES; bootstrap registries are not production invariants.
     policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
@@ -40,9 +38,11 @@ spec:
       - UPDATE
       resources:
       - pods
-  validations:
-  - expression: (((object.spec.containers + object.spec.?initContainers.orValue([])
-      + object.spec.?ephemeralContainers.orValue([])))).all(c, c.image.startsWith('harbor.example.com/')
-      || c.image.startsWith('registry.k8s.io/') || c.image.startsWith('reg.kyverno.io/'))
-    message: Images must come from the approved Harbor, Kubernetes, or Kyverno registry.
 
+  variables:
+  - name: allContainers
+    expression: object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])
+
+  validations:
+  - expression: variables.allContainers.all(container, container.image.startsWith('harbor.example.com/') || container.image.startsWith('registry.k8s.io/') || container.image.startsWith('reg.kyverno.io/'))
+    message: Images must come from the approved Harbor, Kubernetes, or Kyverno registry.

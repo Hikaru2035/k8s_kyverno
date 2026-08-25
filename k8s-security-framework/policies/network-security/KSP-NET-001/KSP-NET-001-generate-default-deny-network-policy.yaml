@@ -1,46 +1,168 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: GeneratingPolicy
 metadata:
-  name: generate-default-deny-network-policy
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-net-001}
+  name: generate-network-baseline
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-net-001
+
   annotations:
-    policies.kyverno.io/title: Generate Default Deny NetworkPolicy
+    policies.kyverno.io/title: Generate Network Baseline
     policies.kyverno.io/category: KSP Network Security
     policies.kyverno.io/severity: high
     policies.kyverno.io/subject: Namespace,NetworkPolicy
-    policies.kyverno.io/description: Generates synchronized default-deny ingress and egress policies for opted-in namespaces.
-    policies.ksp.io/parameter: Add DNS and application-specific allow policies before enabling workloads.
+    policies.kyverno.io/description: >-
+      Generates synchronized default-deny ingress/egress and DNS egress
+      NetworkPolicies for opted-in namespaces.
+    policies.ksp.io/parameter: >-
+      Application-specific allow rules must be defined separately
+      for each workload.
     policies.ksp.io/profiles: baseline,standard,restricted
     policies.ksp.io/dev-mode: Generate
     policies.ksp.io/staging-mode: Generate
     policies.ksp.io/prod-mode: Generate
     policies.ksp.io/exception: controlled
 spec:
-  background: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: generate-default-deny-network-policy
-      match:
-        any:
-          - resources:
-              kinds: [Namespace]
-              selector:
-                matchLabels:
-                  policies.ksp.io/generate-network-baseline: enabled
-      generate:
-        apiVersion: networking.k8s.io/v1
-        kind: NetworkPolicy
-        name: default-deny-ingress-egress
-        namespace: "{{ request.object.metadata.name }}"
-        synchronize: true
-        generateExisting: true
-        data:
-          metadata:
-            labels:
-              app.kubernetes.io/managed-by: kyverno
-              policies.ksp.io/generated-by: ksp-net-001
-          spec:
-            podSelector: {}
-            policyTypes: [Ingress, Egress]
-            ingress: []
-            egress: []
+  evaluation:
+    synchronize:
+      enabled: true
+    generateExisting:
+      enabled: true
+
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - namespaces
+
+  matchConditions:
+  - name: opted-in-namespace
+    expression: >-
+      object.metadata.?labels[
+        "policies.ksp.io/generate-network-baseline"
+      ].orValue("") == "enabled"
+
+  variables:
+    - name: namespaceName
+      expression: object.metadata.name
+    - name: dnsNamespace
+      expression: '"kube-system"'
+    - name: dnsNamespaceLabelKey
+      expression: '"kubernetes.io/metadata.name"'
+    - name: dnsPodLabelKey
+      expression: '"k8s-app"'
+    - name: dnsPodLabelValue
+      expression: '"kube-dns"'
+    - name: dnsPort
+      expression: "53"
+
+    # GENERATED RESOURCES
+    - name: downstream
+      expression: >-
+        [
+          {
+            "apiVersion": dyn("networking.k8s.io/v1"),
+            "kind": dyn("NetworkPolicy"),
+
+            "metadata": dyn({
+              "name": dyn("default-deny-ingress-egress"),
+              "namespace": dyn(string(variables.namespaceName)),
+              "labels": dyn({
+                "app.kubernetes.io/managed-by": "kyverno",
+                "policies.ksp.io/generated-by": "ksp-net-001"
+              })
+            }),
+
+            "spec": dyn({
+              "podSelector": dyn({}),
+              "policyTypes": dyn([
+                "Ingress",
+                "Egress"
+              ]),
+              "ingress": dyn([]),
+              "egress": dyn([])
+            })
+          },
+
+          {
+            "apiVersion": dyn("networking.k8s.io/v1"),
+            "kind": dyn("NetworkPolicy"),
+
+            "metadata": dyn({
+              "name": dyn("allow-dns-egress"),
+              "namespace": dyn(string(variables.namespaceName)),
+              "labels": dyn({
+                "app.kubernetes.io/managed-by": "kyverno",
+                "policies.ksp.io/generated-by": "ksp-net-001"
+              })
+            }),
+
+            "spec": dyn({
+              "podSelector": dyn({}),
+
+              "policyTypes": dyn([
+                "Egress"
+              ]),
+
+              "egress": dyn([
+                {
+                  "to": dyn([
+                    {
+                      "namespaceSelector": dyn({
+                        "matchExpressions": dyn([
+                          {
+                            "key": dyn(
+                              string(variables.dnsNamespaceLabelKey)
+                            ),
+                            "operator": dyn("In"),
+                            "values": dyn([
+                              string(variables.dnsNamespace)
+                            ])
+                          }
+                        ])
+                      }),
+
+                      "podSelector": dyn({
+                        "matchExpressions": dyn([
+                          {
+                            "key": dyn(
+                              string(variables.dnsPodLabelKey)
+                            ),
+                            "operator": dyn("In"),
+                            "values": dyn([
+                              string(variables.dnsPodLabelValue)
+                            ])
+                          }
+                        ])
+                      })
+                    }
+                  ]),
+
+                  "ports": dyn([
+                    {
+                      "protocol": dyn("UDP"),
+                      "port": dyn(variables.dnsPort)
+                    },
+                    {
+                      "protocol": dyn("TCP"),
+                      "port": dyn(variables.dnsPort)
+                    }
+                  ])
+                }
+              ])
+            })
+          }
+        ]
+
+  generate:
+  - expression: >-
+      generator.Apply(
+        variables.namespaceName,
+        variables.downstream
+      )

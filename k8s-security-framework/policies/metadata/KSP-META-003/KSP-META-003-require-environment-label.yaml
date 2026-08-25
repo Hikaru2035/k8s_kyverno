@@ -10,8 +10,7 @@ metadata:
     policies.kyverno.io/category: KSP Metadata
     policies.kyverno.io/severity: low
     policies.kyverno.io/subject: Workload
-    policies.kyverno.io/description: Requires a canonical dev, staging, or production
-      environment label.
+    policies.kyverno.io/description: Requires a canonical dev, staging, or production environment label.
     policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
@@ -44,7 +43,5 @@ spec:
       - jobs
       - cronjobs
   validations:
-  - expression: object.metadata.?labels['policies.ksp.io/environment'].orValue('')
-      in ['dev', 'staging', 'production']
+  - expression: object.metadata.?labels['policies.ksp.io/environment'].orValue('') in ['dev', 'staging', 'production']
     message: Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.
-

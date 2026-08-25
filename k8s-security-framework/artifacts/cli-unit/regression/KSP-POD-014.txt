@@ -1,0 +1,29 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/pod-security/KSP-POD-014/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+│──────────│─────────────────────│───────────│─────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (13) [0m │ [40;32mPOLICY             [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                       [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                           [0m │
+│──────────│─────────────────────│───────────│─────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-boundary-no-ports                                    │ Pass   │ Ok     │ success                                                                            │
+│ 2        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-positive                                             │ Pass   │ Ok     │ success                                                                            │
+│ 3        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-positive-two-container-ports                         │ Pass   │ Ok     │ success                                                                            │
+│ 4        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-boundary-no-ports-additional-boundary-pass           │ Pass   │ Ok     │ success                                                                            │
+│ 5        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative                                             │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 6        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-ephemeral-hostport                          │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 7        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-hostport-first                              │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 8        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-hostport-last                               │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 9        │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-init-hostport                               │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 10       │ restrict-host-ports │           │ v1/Pod/policy-test/pod-014-negative-ephemeral-hostport-additional-boundary-fail │ Pass   │ Ok     │ hostPort is prohibited; use a Service or approved ingress.                         │
+│ 11       │ restrict-host-ports │ exception │ v1/Pod/policy-test/ksp-pod-014-exception                                        │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-ports-exception │
+│ 12       │ restrict-host-ports │ exception │ v1/Pod/policy-test/ksp-pod-014-exception-secondary                              │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-ports-exception │
+│ 13       │ restrict-host-ports │ exception │ v1/Pod/policy-test/ksp-pod-014-exception-tertiary                               │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/restrict-host-ports-exception │
+│──────────│─────────────────────│───────────│─────────────────────────────────────────────────────────────────────────────────│────────│────────│────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 13 tests passed and 0 tests failed
+

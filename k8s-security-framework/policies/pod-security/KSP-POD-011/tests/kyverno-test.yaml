@@ -2,10 +2,13 @@ apiVersion: cli.kyverno.io/v1alpha1
 kind: Test
 metadata:
   name: ksp-pod-011-require-read-only-root-filesystem
+
 policies:
 - ../KSP-POD-011-require-read-only-root-filesystem.yaml
+
 resources:
 - boundary-init-container-read-only-root.yaml
+- boundary-fail-single-condition.yaml
 - exception-resources-with-policy-violation.yaml
 - negative-ephemeral-container-noncompliant.yaml
 - negative-init-container-noncompliant.yaml
@@ -15,92 +18,37 @@ resources:
 - positive-all-container-types-compliant.yaml
 - positive-read-only-root-filesystem.yaml
 - positive-two-containers-compliant.yaml
-- boundary-pass-additional-edge-case.yaml
-- boundary-fail-single-condition.yaml
 exceptions:
 - exception-policy-for-specific-resources.yaml
+
 results:
 - policy: require-read-only-root-filesystem
   rule: require-read-only-root-filesystem
   kind: Pod
   resources:
   - pod-011-boundary-init
+  - pod-011-positive-all-types
+  - pod-011-positive
+  - pod-011-positive-two-compliant
   result: pass
+
+- policy: require-read-only-root-filesystem
+  rule: require-read-only-root-filesystem
+  kind: Pod
+  resources:
+  - pod-011-negative-ephemeral
+  - pod-011-negative-init
+  - pod-011-negative-first
+  - pod-011-negative-last
+  - pod-011-negative
+  - pod-011-boundary-ephemeral-additional-boundary-fail
+  result: fail
+
 - policy: require-read-only-root-filesystem
   rule: require-read-only-root-filesystem
   kind: Pod
   resources:
   - ksp-pod-011-exception
-  result: skip
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
   - ksp-pod-011-exception-secondary
-  result: skip
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - ksp-pod-011-negative-ephemeral
-  result: fail
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - ksp-pod-011-negative-init
-  result: fail
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - ksp-pod-011-negative-first
-  result: fail
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - ksp-pod-011-negative-last
-  result: fail
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - pod-011-negative
-  result: fail
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - ksp-pod-011-positive-all-types
-  result: pass
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - pod-011-positive
-  result: pass
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - ksp-pod-011-positive-two-compliant
-  result: pass
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - pod-011-boundary-init-additional-boundary-pass
-  result: pass
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
-  - ksp-pod-011-negative-ephemeral-additional-boundary-fail
-  result: fail
-- policy: require-read-only-root-filesystem
-  rule: require-read-only-root-filesystem
-  kind: Pod
-  resources:
   - ksp-pod-011-exception-tertiary
   result: skip

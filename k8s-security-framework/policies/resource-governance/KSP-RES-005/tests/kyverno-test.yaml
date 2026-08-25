@@ -2,89 +2,90 @@ apiVersion: cli.kyverno.io/v1alpha1
 kind: Test
 metadata:
   name: ksp-res-005-generate-resource-quota
+
 policies:
 - ../KSP-RES-005-generate-resource-quota.yaml
+
 resources:
-- boundary-opted-in-development-namespace.yaml
-- exception-resources-with-policy-violation.yaml
-- negative-namespace-without-resource-opt-in.yaml
-- negative-opt-in-disabled.yaml
-- negative-opt-in-empty.yaml
-- negative-unrelated-label-only.yaml
 - positive-namespace-opted-in-resource-quota.yaml
+- positive-staging-medium-namespace.yaml
+- positive-production-large-namespace.yaml
 - positive-opt-in-with-additional-labels.yaml
+- negative-namespace-without-resource-opt-in.yaml
+- negative-opt-in-without-environment.yaml
+- negative-opt-in-without-quota-class.yaml
+- negative-unrelated-label-only.yaml
+- boundary-invalid-environment-prod.yaml
+- boundary-invalid-environment-uppercase.yaml
+- boundary-invalid-quota-class-uppercase.yaml
+- boundary-empty-quota-class.yaml
 - boundary-pass-additional-edge-case.yaml
-- boundary-fail-single-condition.yaml
+- exception-resources-with-policy-violation.yaml
+
 exceptions:
 - exception-policy-for-specific-resources.yaml
+
+context: context.yaml
+
 results:
 - policy: generate-resource-quota
   rule: generate-resource-quota
   kind: Namespace
-  resources:
-  - res-005-boundary
-  generatedResource: boundary-opted-in-development-namespace-generated.yaml
+  resources: [res-005-positive]
+  generatedResource: positive-namespace-opted-in-resource-quota-generated.yaml
   result: pass
+
 - policy: generate-resource-quota
   rule: generate-resource-quota
   kind: Namespace
-  resources:
-  - ksp-res-005-exception
-  result: skip
+  resources: [res-005-positive-staging-medium]
+  generatedResource: positive-staging-medium-namespace-generated.yaml
+  result: pass
+
+- policy: generate-resource-quota
+  rule: generate-resource-quota
+  kind: Namespace
+  resources: [res-005-positive-production-large]
+  generatedResource: positive-production-large-namespace-generated.yaml
+  result: pass
+
+- policy: generate-resource-quota
+  rule: generate-resource-quota
+  kind: Namespace
+  resources: [ksp-res-005-positive-opt-in-with-additional-labels]
+  generatedResource: positive-opt-in-with-additional-labels-generated.yaml
+  result: pass
+
 - policy: generate-resource-quota
   rule: generate-resource-quota
   kind: Namespace
   resources:
   - res-005-negative
-  result: skip
-- policy: generate-resource-quota
-  rule: generate-resource-quota
-  kind: Namespace
-  resources:
-  - ksp-res-005-negative-opt-in-disabled
-  result: skip
-- policy: generate-resource-quota
-  rule: generate-resource-quota
-  kind: Namespace
-  resources:
-  - ksp-res-005-negative-opt-in-empty
-  result: skip
-- policy: generate-resource-quota
-  rule: generate-resource-quota
-  kind: Namespace
-  resources:
+  - res-005-opt-in-without-environment
+  - res-005-opt-in-without-quota-class
   - ksp-res-005-unrelated-label
+  - res-005-invalid-environment-prod
+  - res-005-invalid-environment-uppercase
+  - res-005-invalid-quota-class-uppercase
+  - res-005-empty-quota-class
   result: skip
+
 - policy: generate-resource-quota
   rule: generate-resource-quota
   kind: Namespace
-  resources:
-  - res-005-positive
-  generatedResource: positive-namespace-opted-in-resource-quota-generated.yaml
-  result: pass
-- policy: generate-resource-quota
-  rule: generate-resource-quota
-  kind: Namespace
-  resources:
-  - ksp-res-005-positive-opt-in-with-additional-labels
-  generatedResource: positive-opt-in-with-additional-labels-generated.yaml
-  result: pass
-- policy: generate-resource-quota
-  rule: generate-resource-quota
-  kind: Namespace
-  resources:
-  - res-005-boundary-additional-boundary-pass
+  resources: [res-005-boundary-additional-boundary-pass]
   generatedResource: boundary-pass-additional-edge-case-generated.yaml
   result: pass
+
 - policy: generate-resource-quota
   rule: generate-resource-quota
   kind: Namespace
-  resources:
-  - res-005-negative-additional-boundary-fail
+  resources: [ksp-res-005-exception]
   result: skip
+
 - policy: generate-resource-quota
   rule: generate-resource-quota
   kind: Namespace
-  resources:
-  - ksp-res-005-exception-secondary
-  result: skip
+  resources: [ksp-res-005-exception-similar]
+  generatedResource: exception-similar-namespace-generated.yaml
+  result: pass

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ksp-res-007-exception
+  labels:
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: prod
+    policies.ksp.io/quota-class: Small
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ksp-res-007-exception-similar
+  labels:
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: prod
+    policies.ksp.io/quota-class: Small

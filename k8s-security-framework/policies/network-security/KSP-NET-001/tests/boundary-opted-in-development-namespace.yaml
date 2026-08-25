@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: net-001-boundary
-  labels:
-    policies.ksp.io/generate-network-baseline: enabled
-    policies.ksp.io/environment: dev

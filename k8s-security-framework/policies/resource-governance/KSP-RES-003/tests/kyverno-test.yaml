@@ -24,76 +24,26 @@ results:
   kind: Pod
   resources:
   - res-003-boundary-init
-  result: pass
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
-  - ksp-res-003-exception
-  result: skip
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
-  - ksp-res-003-exception-secondary
-  result: skip
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
-  - res-003-negative
-  result: fail
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
-  - ksp-res-003-negative-init-missing
-  result: fail
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
-  - ksp-res-003-negative-missing-first
-  result: fail
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
-  - ksp-res-003-negative-missing-last
-  result: fail
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
   - res-003-positive
-  result: pass
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
   - ksp-res-003-positive-ephemeral-ignored
-  result: pass
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
   - ksp-res-003-positive-two-resource
-  result: pass
-- policy: require-cpu-limit
-  rule: require-cpu-limit
-  kind: Pod
-  resources:
   - res-003-boundary-init-additional-boundary-pass
   result: pass
 - policy: require-cpu-limit
   rule: require-cpu-limit
   kind: Pod
   resources:
-  - ksp-res-003-negative-init-missing-additional-boundary-fail
-  result: fail
+  - ksp-res-003-exception
+  - ksp-res-003-exception-secondary
+  - ksp-res-003-exception-tertiary
+  result: skip
 - policy: require-cpu-limit
   rule: require-cpu-limit
   kind: Pod
   resources:
-  - ksp-res-003-exception-tertiary
-  result: skip
+  - res-003-negative
+  - ksp-res-003-negative-init-missing
+  - ksp-res-003-negative-missing-first
+  - ksp-res-003-negative-missing-last
+  - ksp-res-003-negative-init-missing-additional-boundary-fail
+  result: fail

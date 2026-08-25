@@ -4,3 +4,4 @@ metadata:
   name: ksp-res-005-unrelated-label
   labels:
     policies.ksp.io/environment: dev
+    policies.ksp.io/quota-class: medium

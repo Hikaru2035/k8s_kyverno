@@ -5,81 +5,40 @@ metadata:
 policies:
 - ../KSP-POD-005-disallow-host-pid.yaml
 resources:
-- boundary-host-pid-unset.yaml
 - exception-resources-with-policy-violation.yaml
 - negative-host-pid-true.yaml
 - negative-hostpid-true-with-two-containers.yaml
-- positive-host-pid-false.yaml
 - positive-hostpid-false-with-two-containers.yaml
 - positive-hostpid-unset-with-two-containers.yaml
 - boundary-pass-additional-edge-case.yaml
 - boundary-fail-single-condition.yaml
 exceptions:
 - exception-policy-for-specific-resources.yaml
+
 results:
 - policy: disallow-host-pid
   rule: disallow-host-pid
   kind: Pod
   resources:
-  - pod-005-boundary-unset
+  - pod-005-boundary-unset-additional-boundary-pass
+  - pod-005-positive-false-two
+  - pod-005-positive-unset-two
   result: pass
-- policy: disallow-host-pid
-  rule: disallow-host-pid
-  kind: Pod
-  resources:
-  - ksp-pod-005-exception
-  result: skip
-- policy: disallow-host-pid
-  rule: disallow-host-pid
-  kind: Pod
-  resources:
-  - ksp-pod-005-exception-secondary
-  result: skip
+
 - policy: disallow-host-pid
   rule: disallow-host-pid
   kind: Pod
   resources:
   - pod-005-negative
+  - pod-005-negative-true-two
+  - pod-005-boundary-additional-boundary-fail
   result: fail
+
 - policy: disallow-host-pid
   rule: disallow-host-pid
   kind: Pod
   resources:
-  - ksp-pod-005-negative-true-two
-  result: fail
-- policy: disallow-host-pid
-  rule: disallow-host-pid
-  kind: Pod
-  resources:
-  - pod-005-positive
-  result: pass
-- policy: disallow-host-pid
-  rule: disallow-host-pid
-  kind: Pod
-  resources:
-  - ksp-pod-005-positive-false-two
-  result: pass
-- policy: disallow-host-pid
-  rule: disallow-host-pid
-  kind: Pod
-  resources:
-  - ksp-pod-005-positive-unset-two
-  result: pass
-- policy: disallow-host-pid
-  rule: disallow-host-pid
-  kind: Pod
-  resources:
-  - pod-005-boundary-unset-additional-boundary-pass
-  result: pass
-- policy: disallow-host-pid
-  rule: disallow-host-pid
-  kind: Pod
-  resources:
-  - pod-005-negative-additional-boundary-fail
-  result: fail
-- policy: disallow-host-pid
-  rule: disallow-host-pid
-  kind: Pod
-  resources:
+  - ksp-pod-005-exception
+  - ksp-pod-005-exception-secondary
   - ksp-pod-005-exception-tertiary
   result: skip

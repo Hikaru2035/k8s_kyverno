@@ -1,49 +1,220 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: MutatingPolicy
 metadata:
   name: add-default-security-context
-  labels: {app.kubernetes.io/managed-by: kyverno, policies.ksp.io/id: ksp-pod-012}
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-012
   annotations:
     policies.kyverno.io/title: Add Default Security Context
     policies.kyverno.io/category: KSP Pod Security
     policies.kyverno.io/severity: medium
     policies.kyverno.io/subject: Pod
-    policies.kyverno.io/description: Adds non-destructive secure defaults only in explicitly opted-in namespaces.
+    policies.kyverno.io/description: Adds secure defaults in explicitly opted-in namespaces.
     policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Mutate
     policies.ksp.io/staging-mode: Audit
     policies.ksp.io/prod-mode: Disabled
     policies.ksp.io/exception: controlled
-    pod-policies.kyverno.io/autogen-controllers: none
 spec:
-  background: false
-  emitWarning: true
-  webhookConfiguration: {failurePolicy: Fail, timeoutSeconds: 10}
-  rules:
-    - name: add-default-security-context
-      match:
-        any:
-          - resources:
-              kinds: [Pod]
-              namespaceSelector:
-                matchLabels:
-                  policies.ksp.io/mutate-default-security-context: enabled
-      mutate:
-        mutateExistingOnPolicyUpdate: false
-        patchStrategicMerge:
-          spec:
-            securityContext:
-              +(runAsNonRoot): true
-              +(seccompProfile): {type: RuntimeDefault}
-            containers:
-              - (name): "*"
+  failurePolicy: Fail
+  evaluation:
+    admission:
+      enabled: true
+    mutateExisting:
+      enabled: false
+  matchConstraints:
+    namespaceSelector:
+      matchLabels:
+        policies.ksp.io/mutate-default-security-context: enabled
+    resourceRules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+
+  mutations:
+  - patchType: ApplyConfiguration
+    applyConfiguration:
+      expression: >
+        Object{
+          spec: Object.spec{
+            securityContext: Object.spec.securityContext{
+              runAsNonRoot:
+                object.spec.?securityContext.?runAsNonRoot.orValue(true),
+
+              seccompProfile:
+                object.spec.?securityContext.?seccompProfile.orValue(
+                  Object.spec.securityContext.seccompProfile{
+                    type: "RuntimeDefault"
+                  }
+                )
+            }
+          }
+        }
+
+  - patchType: ApplyConfiguration
+    applyConfiguration:
+      expression: >
+        Object{
+          spec: Object.spec{
+            containers: object.spec.containers.map(
+              container,
+              Object.spec.containers{
+                name: container.name,
+
                 securityContext:
-                  +(allowPrivilegeEscalation): false
-                  +(readOnlyRootFilesystem): true
-                  +(capabilities): {drop: [ALL]}
-            +(initContainers):
-              - (name): "*"
-                securityContext:
-                  +(allowPrivilegeEscalation): false
-                  +(readOnlyRootFilesystem): true
-                  +(capabilities): {drop: [ALL]}
+                  Object.spec.containers.securityContext{
+
+                    allowPrivilegeEscalation:
+                      container.?securityContext.?allowPrivilegeEscalation.orValue(false),
+
+                    readOnlyRootFilesystem:
+                      container.?securityContext.?readOnlyRootFilesystem.orValue(true)
+                  }
+              }
+            )
+          }
+        }
+
+  - patchType: ApplyConfiguration
+    applyConfiguration:
+      expression: >
+        !has(object.spec.initContainers) ?
+          Object{} :
+          Object{
+            spec: Object.spec{
+              initContainers: object.spec.initContainers.map(
+                container,
+                Object.spec.initContainers{
+                  name: container.name,
+
+                  securityContext:
+                    Object.spec.initContainers.securityContext{
+
+                      allowPrivilegeEscalation:
+                        container.?securityContext.?allowPrivilegeEscalation.orValue(false),
+
+                      readOnlyRootFilesystem:
+                        container.?securityContext.?readOnlyRootFilesystem.orValue(true)
+                    }
+                }
+              )
+            }
+          }
+
+  - patchType: ApplyConfiguration
+    applyConfiguration:
+      expression: >
+        !has(object.spec.ephemeralContainers) ?
+          Object{} :
+          Object{
+            spec: Object.spec{
+              ephemeralContainers: object.spec.ephemeralContainers.map(
+                container,
+                Object.spec.ephemeralContainers{
+                  name: container.name,
+
+                  securityContext:
+                    Object.spec.ephemeralContainers.securityContext{
+
+                      allowPrivilegeEscalation:
+                        container.?securityContext.?allowPrivilegeEscalation.orValue(false),
+
+                      readOnlyRootFilesystem:
+                        container.?securityContext.?readOnlyRootFilesystem.orValue(true)
+                    }
+                }
+              )
+            }
+          }
+
+  - patchType: JSONPatch
+    jsonPatch:
+      expression: >
+        object.spec.containers.map(
+          container,
+          container.?securityContext.?capabilities.hasValue() &&
+          !container.?securityContext.?capabilities.?drop.hasValue() ?
+            [JSONPatch{
+              op: "add",
+              path: "/spec/containers/" + string(object.spec.containers.indexOf(container)) + "/securityContext/capabilities/drop",
+              value: ["ALL"]
+            }] : []
+        ).flatten()
+
+  - patchType: JSONPatch
+    jsonPatch:
+      expression: >
+        !has(object.spec.initContainers) ? [] :
+          object.spec.initContainers.map(
+            container,
+            container.?securityContext.?capabilities.hasValue() &&
+            !container.?securityContext.?capabilities.?drop.hasValue() ?
+              [JSONPatch{
+                op: "add",
+                path: "/spec/initContainers/" + string(object.spec.initContainers.indexOf(container)) + "/securityContext/capabilities/drop",
+                value: ["ALL"]
+              }] : []
+          ).flatten()
+
+  - patchType: JSONPatch
+    jsonPatch:
+      expression: >
+        !has(object.spec.ephemeralContainers) ? [] :
+          object.spec.ephemeralContainers.map(
+            container,
+            container.?securityContext.?capabilities.hasValue() &&
+            !container.?securityContext.?capabilities.?drop.hasValue() ?
+              [JSONPatch{
+                op: "add",
+                path: "/spec/ephemeralContainers/" + string(object.spec.ephemeralContainers.indexOf(container)) + "/securityContext/capabilities/drop",
+                value: ["ALL"]
+              }] : []
+          ).flatten()
+
+  - patchType: JSONPatch
+    jsonPatch:
+      expression: >
+        object.spec.containers.map(
+          container,
+          !container.?securityContext.?capabilities.hasValue() ?
+            [JSONPatch{
+              op: "add",
+              path: "/spec/containers/" + string(object.spec.containers.indexOf(container)) + "/securityContext/capabilities",
+              value: {"drop": ["ALL"]}
+            }] : []
+        ).flatten()
+
+  - patchType: JSONPatch
+    jsonPatch:
+      expression: >
+        !has(object.spec.initContainers) ? [] :
+          object.spec.initContainers.map(
+            container,
+            !container.?securityContext.?capabilities.hasValue() ?
+              [JSONPatch{
+                op: "add",
+                path: "/spec/initContainers/" + string(object.spec.initContainers.indexOf(container)) + "/securityContext/capabilities",
+                value: {"drop": ["ALL"]}
+              }] : []
+          ).flatten()
+
+  - patchType: JSONPatch
+    jsonPatch:
+      expression: >
+        !has(object.spec.ephemeralContainers) ? [] :
+          object.spec.ephemeralContainers.map(
+            container,
+            !container.?securityContext.?capabilities.hasValue() ?
+              [JSONPatch{
+                op: "add",
+                path: "/spec/ephemeralContainers/" + string(object.spec.ephemeralContainers.indexOf(container)) + "/securityContext/capabilities",
+                value: {"drop": ["ALL"]}
+              }] : []
+          ).flatten()

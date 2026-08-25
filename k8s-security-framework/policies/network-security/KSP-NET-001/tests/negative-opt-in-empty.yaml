@@ -4,4 +4,3 @@ metadata:
   name: ksp-net-001-negative-opt-in-empty
   labels:
     policies.ksp.io/generate-network-baseline: ""
-    policies.ksp.io/environment: staging

@@ -1,0 +1,32 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/resource-governance/KSP-RES-007/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 16 resources with 1 exception ...
+  Checking results ...
+
+│──────────│──────────────────────────────────────────────│───────────│────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (16) [0m │ [40;32mPOLICY                                      [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                              [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                                    [0m │
+│──────────│──────────────────────────────────────────────│───────────│────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-p01-dev-small             │ Pass   │ Ok     │ success                                                                                                     │
+│ 2        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-p02-staging-medium        │ Pass   │ Ok     │ success                                                                                                     │
+│ 3        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-p03-production-large      │ Pass   │ Ok     │ success                                                                                                     │
+│ 4        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-p04-additional-labels     │ Pass   │ Ok     │ success                                                                                                     │
+│ 5        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-n01-missing-environment   │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 6        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-n02-missing-quota-class   │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/quota-class to small, medium, or large.                        │
+│ 7        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-n03-missing-both          │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 8        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b01-environment-prod      │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 9        │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b02-environment-uppercase │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 10       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b03-quota-uppercase       │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/quota-class to small, medium, or large.                        │
+│ 11       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b04-quota-empty           │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/quota-class to small, medium, or large.                        │
+│ 12       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b05-environment-empty     │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 13       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/ksp-res-007-exception-similar     │ Pass   │ Ok     │ Opted-in namespaces must set policies.ksp.io/environment to dev, staging, or production.                    │
+│ 14       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b06-no-opt-in-with-labels │ Pass   │ Ok     │ skip                                                                                                        │
+│ 15       │ require-resource-governance-namespace-labels │           │ v1/Namespace/default/res-007-b06-no-opt-in-no-labels   │ Pass   │ Ok     │ skip                                                                                                        │
+│ 16       │ require-resource-governance-namespace-labels │ exception │ v1/Namespace/default/ksp-res-007-exception             │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-resource-governance-namespace-labels-exception │
+│──────────│──────────────────────────────────────────────│───────────│────────────────────────────────────────────────────────│────────│────────│─────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 16 tests passed and 0 tests failed
+

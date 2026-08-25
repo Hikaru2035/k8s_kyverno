@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ksp-pod-006-positive-unset-two
+  name: pod-006-positive-unset-two
   namespace: policy-test
 spec:
   containers:

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ksp-pod-009-negative-first
+  name: pod-009-negative-first
   namespace: policy-test
 spec:
   containers:

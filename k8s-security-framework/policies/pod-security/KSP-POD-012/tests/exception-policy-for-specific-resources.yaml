@@ -6,8 +6,8 @@ metadata:
 spec:
   policyRefs:
   - name: add-default-security-context
-    kind: ValidatingPolicy
+    kind: MutatingPolicy
   matchConditions:
   - name: match-exempt-resource
-    expression: object.metadata.name in ['ksp-pod-012-exception', 'ksp-pod-012-exception-secondary']
+    expression: object.metadata.name == 'ksp-pod-012-exception'
       && object.metadata.namespace == 'security-test'

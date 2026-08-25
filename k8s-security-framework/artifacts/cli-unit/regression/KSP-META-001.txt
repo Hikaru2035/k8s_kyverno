@@ -1,0 +1,31 @@
+Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies/metadata/KSP-META-001/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 15 resources with 1 exception ...
+  Checking results ...
+
+│──────────│───────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ [40;32mID (15) [0m │ [40;32mPOLICY           [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                 [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                         [0m │
+│──────────│───────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+│ 1        │ require-app-label │           │ batch/v1/CronJob/policy-test/meta-001-boundary                            │ Pass   │ Ok     │ success                                                                          │
+│ 2        │ require-app-label │           │ batch/v1/CronJob/policy-test/ksp-meta-001-positive-cronjob                │ Pass   │ Ok     │ success                                                                          │
+│ 3        │ require-app-label │           │ batch/v1/CronJob/policy-test/meta-001-boundary-additional-boundary-pass   │ Pass   │ Ok     │ success                                                                          │
+│ 4        │ require-app-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-001-exception                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-app-label-exception │
+│ 5        │ require-app-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-001-exception-secondary           │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-app-label-exception │
+│ 6        │ require-app-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-001-exception-tertiary            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-app-label-exception │
+│ 7        │ require-app-label │           │ apps/v1/Deployment/policy-test/meta-001-negative                          │ Pass   │ Ok     │ Add metadata.labels.app.kubernetes.io/name with a meaningful application name.   │
+│ 8        │ require-app-label │           │ apps/v1/Deployment/policy-test/ksp-meta-001-negative-empty                │ Pass   │ Ok     │ Add metadata.labels.app.kubernetes.io/name with a meaningful application name.   │
+│ 9        │ require-app-label │           │ apps/v1/Deployment/policy-test/meta-001-negative-additional-boundary-fail │ Pass   │ Ok     │ Add metadata.labels.app.kubernetes.io/name with a meaningful application name.   │
+│ 10       │ require-app-label │           │ batch/v1/Job/policy-test/ksp-meta-001-negative-job-missing                │ Pass   │ Ok     │ Add metadata.labels.app.kubernetes.io/name with a meaningful application name.   │
+│ 11       │ require-app-label │           │ apps/v1/DaemonSet/policy-test/ksp-meta-001-positive-daemonset             │ Pass   │ Ok     │ success                                                                          │
+│ 12       │ require-app-label │           │ apps/v1/Deployment/policy-test/meta-001-positive                          │ Pass   │ Ok     │ success                                                                          │
+│ 13       │ require-app-label │           │ apps/v1/Deployment/policy-test/ksp-meta-001-positive-deployment           │ Pass   │ Ok     │ success                                                                          │
+│ 14       │ require-app-label │           │ batch/v1/Job/policy-test/ksp-meta-001-positive-job                        │ Pass   │ Ok     │ success                                                                          │
+│ 15       │ require-app-label │           │ apps/v1/StatefulSet/policy-test/ksp-meta-001-positive-statefulset         │ Pass   │ Ok     │ success                                                                          │
+│──────────│───────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────│
+
+
+Test Summary: 15 tests passed and 0 tests failed
+
