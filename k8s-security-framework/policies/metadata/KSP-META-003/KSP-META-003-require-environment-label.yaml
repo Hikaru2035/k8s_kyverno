@@ -1,21 +1,21 @@
 apiVersion: policies.kyverno.io/v1
 kind: ValidatingPolicy
 metadata:
-  name: require-environment-label
+  name: require-namespace-environment-profile
   labels:
     app.kubernetes.io/managed-by: kyverno
     policies.ksp.io/id: ksp-meta-003
   annotations:
-    policies.kyverno.io/title: Require Environment Label
+    policies.kyverno.io/title: Require Namespace Environment and Profile
     policies.kyverno.io/category: KSP Metadata
-    policies.kyverno.io/severity: low
-    policies.kyverno.io/subject: Workload
-    policies.kyverno.io/description: Requires a canonical dev, staging, or production environment label.
-    policies.ksp.io/profiles: standard,restricted
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Namespace
+    policies.kyverno.io/description: Validates independent environment and security-profile labels on application Namespaces.
+    policies.ksp.io/profiles: common
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
     policies.ksp.io/prod-mode: Enforce
-    policies.ksp.io/exception: limited
+    policies.ksp.io/exception: none
 spec:
   evaluation:
     background:
@@ -23,25 +23,21 @@ spec:
   failurePolicy: Fail
   webhookConfiguration:
     timeoutSeconds: 10
-  validationActions:
-  - Audit
-  - Warn
+  validationActions: [Audit, Warn]
   matchConstraints:
     resourceRules:
-    - apiGroups:
-      - apps
-      - batch
-      apiVersions:
-      - v1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - deployments
-      - statefulsets
-      - daemonsets
-      - jobs
-      - cronjobs
+    - apiGroups: ['']
+      apiVersions: [v1]
+      operations: [CREATE, UPDATE]
+      resources: [namespaces]
+    excludeResourceRules:
+    - apiGroups: ['']
+      apiVersions: [v1]
+      operations: [CREATE, UPDATE]
+      resources: [namespaces]
+      resourceNames: [default, kube-system, kube-public, kube-node-lease, kyverno, calico-system, tigera-operator]
   validations:
-  - expression: object.metadata.?labels['policies.ksp.io/environment'].orValue('') in ['dev', 'staging', 'production']
-    message: Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.
+  - expression: object.metadata.?labels['ksp.io/environment'].orValue('') in ['dev', 'staging', 'production']
+    message: Set ksp.io/environment to dev, staging, or production.
+  - expression: object.metadata.?labels['ksp.io/profile'].orValue('') in ['baseline', 'standard', 'restricted']
+    message: Set ksp.io/profile to baseline, standard, or restricted.

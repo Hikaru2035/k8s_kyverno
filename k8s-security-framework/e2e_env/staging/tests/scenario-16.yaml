@@ -1,0 +1,28 @@
+# Scenario 16: Restricted-compliant hardened workload
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e2e-ksp-restricted-ok
+  namespace: e2e-ksp-canary
+  labels: {app.kubernetes.io/name: e2e-ksp-restricted-ok, policies.ksp.io/owner: e2e}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app.kubernetes.io/name: e2e-ksp-restricted-ok}}
+  template:
+    metadata: {labels: {app.kubernetes.io/name: e2e-ksp-restricted-ok}}
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+      - name: app
+        image: registry.k8s.io/pause@sha256:58e0d1ca5295e09e21b94244a05a8dd43546cf6a347afbf19cdd79f58835c4c2
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {drop: [ALL]}
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 65532
+        resources:
+          requests: {cpu: 10m, memory: 16Mi}
+          limits: {cpu: 100m, memory: 64Mi}

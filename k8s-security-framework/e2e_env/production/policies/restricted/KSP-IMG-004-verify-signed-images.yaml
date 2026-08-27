@@ -1,0 +1,81 @@
+# Generated; edit the source identified by policies.ksp.io/rendered-from.
+apiVersion: policies.kyverno.io/v1
+kind: ImageValidatingPolicy
+metadata:
+  name: verify-signed-images
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-img-004
+  annotations:
+    policies.kyverno.io/title: Verify Signed Images
+    policies.kyverno.io/category: KSP Image Security
+    policies.kyverno.io/severity: critical
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Verifies Cosign signatures for images in the
+      project Harbor registry.
+    policies.ksp.io/parameter: Bootstrap public key and harbor.example.com must be
+      replaced before Enforce.
+    policies.ksp.io/profiles: restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+    policies.ksp.io/rendered-from: policies/image-security/KSP-IMG-004/KSP-IMG-004-verify-signed-images.yaml
+    policies.ksp.io/runtime-environment: production
+spec:
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 30
+  evaluation:
+    background:
+      enabled: false
+  validationActions:
+  - Deny
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+    namespaceSelector:
+      matchExpressions:
+      - key: ksp.io/profile
+        operator: In
+        values:
+        - restricted
+  matchImageReferences:
+  - glob: harbor.example.com/*
+  attestors:
+  - name: cosign
+    cosign:
+      key:
+        data: '-----BEGIN PUBLIC KEY-----
+
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv/K8EkIRNgGWkDZr2fAf
+
+          vk3vt12E81yTHbrf+34NAN6WlgUKEJLNYfU4825HpdenkuoWY055j8MvF8jYoATk
+
+          g82sFvJTyjUs2s4zX3PTt+Z7oSlWIPEc8DLHVwxnD7P8mNTktPlk7yxWvE2q8VnM
+
+          QnuPt6lN+MSXcTIGHxxjWj9uJV2tpz8Xz00sO4X8103mj2N7usPZykCwQ5vSCqtj
+
+          IWb2zoAdmlwynDZGkMfljhk6dUlA9/6SG00VFYzwiZDe7f3lnAbi2F6qNm+KEdky
+
+          qrvGh7ETFc6sy9FoIX0hNNh2BZ4ofmVl3EdwtcHq05rb/ZJAn0wPXGrt2l9KWrAU
+
+          rQIDAQAB
+
+          -----END PUBLIC KEY-----'
+  validations:
+  - expression: "images.containers.map(\n  image,\n  verifyImageSignatures(image,\
+      \ [attestors.cosign])\n).all(result, result > 0)\n"
+    message: Image must be signed with the trusted Cosign key.
+  matchConditions:
+  - name: ksp-runtime-profile-and-platform-scope
+    expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))

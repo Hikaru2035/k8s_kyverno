@@ -1,0 +1,91 @@
+# Generated; edit the source identified by policies.ksp.io/rendered-from.
+apiVersion: policies.kyverno.io/v1
+kind: GeneratingPolicy
+metadata:
+  name: generate-resource-quota
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-res-005
+  annotations:
+    policies.kyverno.io/title: Generate ResourceQuota
+    policies.kyverno.io/category: KSP Resource Governance
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace,ResourceQuota
+    policies.kyverno.io/description: Generates synchronized environment- and quota-class-specific
+      ResourceQuota objects for opted-in application namespaces.
+    policies.ksp.io/parameter: Quota sizing is loaded from the ksp-resource-quota-sizing
+      ConfigMap according to policies.ksp.io/environment and policies.ksp.io/quota-class.
+    policies.ksp.io/profiles: standard,restricted
+    policies.ksp.io/dev-mode: Generate
+    policies.ksp.io/staging-mode: Generate
+    policies.ksp.io/prod-mode: Generate
+    policies.ksp.io/exception: controlled
+    policies.ksp.io/rendered-from: policies/resource-governance/KSP-RES-005/KSP-RES-005-generate-resource-quota.yaml
+    policies.ksp.io/runtime-environment: production
+spec:
+  evaluation:
+    synchronize:
+      enabled: true
+    generateExisting:
+      enabled: true
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - namespaces
+  matchConditions:
+  - name: opted-in-namespace
+    expression: "object.metadata.?labels[\n  \"policies.ksp.io/generate-resource-governance\"\
+      \n].orValue(\"\") == \"enabled\""
+  - name: valid-environment
+    expression: "object.metadata.?labels[\n  \"policies.ksp.io/environment\"\n].orValue(\"\
+      \") in [\n  \"dev\",\n  \"staging\",\n  \"production\"\n]"
+  - name: valid-quota-class
+    expression: "object.metadata.?labels[\n  \"policies.ksp.io/quota-class\"\n].orValue(\"\
+      \") in [\n  \"small\",\n  \"medium\",\n  \"large\"\n]"
+  - name: ksp-runtime-profile-and-platform-scope
+    expression: (object.metadata.?labels['ksp.io/profile'].orValue('') in ['standard',
+      'restricted']) && (!(object.metadata.name in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+  variables:
+  - name: namespaceName
+    expression: object.metadata.name
+  - name: environment
+    expression: object.metadata.labels["policies.ksp.io/environment"]
+  - name: quotaClass
+    expression: object.metadata.labels["policies.ksp.io/quota-class"]
+  - name: quotaConfig
+    expression: "resource.Get(\n  \"v1\",\n  \"configmaps\",\n  \"kyverno\",\n  \"\
+      ksp-resource-quota-sizing\"\n)"
+  - name: quotaKey
+    expression: string(variables.environment) + "." + string(variables.quotaClass)
+  - name: requestsCpu
+    expression: variables.quotaConfig.data[variables.quotaKey + ".requestsCpu"]
+  - name: requestsMemory
+    expression: variables.quotaConfig.data[variables.quotaKey + ".requestsMemory"]
+  - name: limitsCpu
+    expression: variables.quotaConfig.data[variables.quotaKey + ".limitsCpu"]
+  - name: limitsMemory
+    expression: variables.quotaConfig.data[variables.quotaKey + ".limitsMemory"]
+  - name: pods
+    expression: variables.quotaConfig.data[variables.quotaKey + ".pods"]
+  - name: downstream
+    expression: "[\n  {\n    \"apiVersion\": dyn(\"v1\"),\n    \"kind\": dyn(\"ResourceQuota\"\
+      ),\n\n    \"metadata\": dyn({\n      \"name\": dyn(\"namespace-resource-quota\"\
+      ),\n      \"labels\": dyn({\n        \"app.kubernetes.io/managed-by\": \"kyverno\"\
+      ,\n        \"policies.ksp.io/generated-by\": \"ksp-res-005\",\n        \"policies.ksp.io/environment\"\
+      : string(variables.environment),\n        \"policies.ksp.io/quota-class\": string(variables.quotaClass)\n\
+      \      })\n    }),\n\n    \"spec\": dyn({\n      \"hard\": dyn({\n        \"\
+      requests.cpu\": dyn(string(variables.requestsCpu)),\n        \"requests.memory\"\
+      : dyn(string(variables.requestsMemory)),\n        \"limits.cpu\": dyn(string(variables.limitsCpu)),\n\
+      \        \"limits.memory\": dyn(string(variables.limitsMemory)),\n        \"\
+      pods\": dyn(string(variables.pods))\n      })\n    })\n  }\n]"
+  generate:
+  - expression: "generator.Apply(\n  variables.namespaceName,\n  variables.downstream\n\
+      )"

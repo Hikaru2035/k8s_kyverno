@@ -1,0 +1,49 @@
+# Generated; edit the source identified by policies.ksp.io/rendered-from.
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: disallow-host-pid
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-005
+  annotations:
+    policies.kyverno.io/title: Disallow Host PID
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Prevents Pods from sharing the host PID namespace.
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+    policies.ksp.io/rendered-from: policies/pod-security/KSP-POD-005/KSP-POD-005-disallow-host-pid.yaml
+    policies.ksp.io/runtime-environment: development
+spec:
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+  validations:
+  - expression: '!object.spec.?hostPID.orValue(false)'
+    message: spec.hostPID must be unset or false.
+  matchConditions:
+  - name: ksp-runtime-profile-and-platform-scope
+    expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))

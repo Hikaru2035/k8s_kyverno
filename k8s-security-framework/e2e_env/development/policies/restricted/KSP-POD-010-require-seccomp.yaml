@@ -1,0 +1,66 @@
+# Generated; edit the source identified by policies.ksp.io/rendered-from.
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: require-seccomp
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-010
+  annotations:
+    policies.kyverno.io/title: Require Seccomp
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Requires RuntimeDefault or Localhost seccomp
+      at Pod or container level.
+    policies.ksp.io/profiles: restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+    policies.ksp.io/rendered-from: policies/pod-security/KSP-POD-010/KSP-POD-010-require-seccomp.yaml
+    policies.ksp.io/runtime-environment: development
+spec:
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+    namespaceSelector:
+      matchExpressions:
+      - key: ksp.io/profile
+        operator: In
+        values:
+        - restricted
+  variables:
+  - name: allContainers
+    expression: object.spec.containers + object.spec.?initContainers.orValue([]) +
+      object.spec.?ephemeralContainers.orValue([])
+  - name: allowedSeccompTypes
+    expression: '["RuntimeDefault", "Localhost"]'
+  - name: podSeccompType
+    expression: object.spec.?securityContext.?seccompProfile.?type.orValue('')
+  validations:
+  - expression: "variables.allContainers.all(\n  container,\n  container.?securityContext.?seccompProfile.?type.orValue(\n\
+      \    variables.podSeccompType\n  )\n    in variables.allowedSeccompTypes\n)\n"
+    message: Use seccompProfile.type RuntimeDefault or Localhost; a container override
+      must be independently compliant.
+  matchConditions:
+  - name: ksp-runtime-profile-and-platform-scope
+    expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))

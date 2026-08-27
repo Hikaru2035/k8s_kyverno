@@ -1,0 +1,55 @@
+# Generated; edit the source identified by policies.ksp.io/rendered-from.
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: require-app-label
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-meta-001
+  annotations:
+    policies.kyverno.io/title: Require App Label
+    policies.kyverno.io/category: KSP Metadata
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/subject: Workload
+    policies.kyverno.io/description: Requires the Kubernetes recommended application
+      name label.
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: limited
+    policies.ksp.io/rendered-from: policies/metadata/KSP-META-001/KSP-META-001-require-app-label.yaml
+    policies.ksp.io/runtime-environment: production
+spec:
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Deny
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - apps
+      - batch
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - deployments
+      - statefulsets
+      - daemonsets
+      - jobs
+      - cronjobs
+  validations:
+  - expression: object.metadata.?labels['app.kubernetes.io/name'].orValue('') != ''
+    message: Add metadata.labels.app.kubernetes.io/name with a meaningful application
+      name.
+  matchConditions:
+  - name: ksp-runtime-profile-and-platform-scope
+    expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))

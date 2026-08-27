@@ -14,7 +14,9 @@ Baseline ⊂ Standard ⊂ Restricted
 
 Profile không tự quyết định Audit/Enforce; environment overlay quyết định mode. Production dùng mapping risk ở phần 3.
 
-## 2. Mapping đủ 30 policy
+## 2. Mapping 30 source policy
+
+KSP-META-003 is a common/bootstrap governance policy and is not counted in a security profile. Current source-of-truth counts are Common 1, Baseline 10, Standard 22, and Restricted 29. Runtime bundles are incremental: Standard adds 12 to Baseline and Restricted adds 7 to Standard.
 
 | Policy ID | Baseline | Standard | Restricted | Risk rationale |
 |---|:---:|:---:|:---:|---|
@@ -45,7 +47,7 @@ Profile không tự quyết định Audit/Enforce; environment overlay quyết �
 | KSP-RES-007 | — | ✓ | ✓ | opted-in Namespace governance labels |
 | KSP-META-001 | ✓ | ✓ | ✓ | application inventory |
 | KSP-META-002 | — | ✓ | ✓ | accountability |
-| KSP-META-003 | — | ✓ | ✓ | environment traceability |
+| KSP-META-003 | common | common | common | Namespace environment/profile governance |
 | KSP-META-004 | ✓ | ✓ | ✓ | deterministic technical labels |
 | KSP-NET-001 | ✓ | ✓ | ✓ | namespace network isolation |
 
@@ -72,4 +74,4 @@ Critical policy luôn dùng `failurePolicy: Fail` ở production. Enforce chỉ 
 
 ## 5. Profile selection
 
-Profile được chọn ở `environments/<environment>/parameters.env`. Một cluster/environment có default profile; namespace có thể yêu cầu profile cao hơn, không được hạ thấp profile nếu không có exception được phê duyệt.
+Profile is selected independently on each application Namespace with `ksp.io/profile=baseline|standard|restricted`; environment is `ksp.io/environment=dev|staging|production`. No one-to-one environment/profile mapping exists. Missing or invalid profile labels still receive Baseline controls and are reported by common KSP-META-003. Standard additions select Standard and Restricted namespaces; Restricted additions select only Restricted namespaces. Explicit platform namespace names are excluded from admission scope so an ordinary Namespace cannot bypass the framework by adding a label.

@@ -1,0 +1,24 @@
+# Scenario 08: three Baseline business namespaces
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-alpha
+  labels:
+    ksp.io/environment: dev
+    ksp.io/profile: baseline
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-beta
+  labels:
+    ksp.io/environment: dev
+    ksp.io/profile: baseline
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-canary
+  labels:
+    ksp.io/environment: dev
+    ksp.io/profile: baseline

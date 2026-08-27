@@ -3,29 +3,35 @@ Loading test  ( /home/hikaru/k8s_kyverno_project/k8s-security-framework/policies
   Loading policies ...
   Loading resources ...
   Loading exceptions ...
-  Applying 1 policy to 15 resources with 1 exception ...
+  Applying 1 policy to 21 resources with 0 exceptions ...
   Checking results ...
 
-│──────────│───────────────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
-│ [40;32mID (15) [0m │ [40;32mPOLICY                   [0m │ [40;32mRULE     [0m │ [40;32mRESOURCE                                                                 [0m │ [40;32mRESULT[0m │ [40;32mREASON[0m │ [40;32mMESSAGE                                                                                 [0m │
-│──────────│───────────────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
-│ 1        │ require-environment-label │           │ batch/v1/Job/policy-test/meta-003-boundary                                │ Pass   │ Ok     │ success                                                                                  │
-│ 2        │ require-environment-label │           │ batch/v1/Job/policy-test/ksp-meta-003-positive-job                        │ Pass   │ Ok     │ success                                                                                  │
-│ 3        │ require-environment-label │           │ batch/v1/Job/policy-test/meta-003-boundary-additional-boundary-pass       │ Pass   │ Ok     │ success                                                                                  │
-│ 4        │ require-environment-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-003-exception                     │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-environment-label-exception │
-│ 5        │ require-environment-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-003-exception-secondary           │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-environment-label-exception │
-│ 6        │ require-environment-label │ exception │ apps/v1/Deployment/policy-test/ksp-meta-003-exception-tertiary            │ Pass   │ Ok     │ rule is skipped due to policy exception: policy-test/require-environment-label-exception │
-│ 7        │ require-environment-label │           │ apps/v1/Deployment/policy-test/meta-003-negative                          │ Pass   │ Ok     │ Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.          │
-│ 8        │ require-environment-label │           │ apps/v1/Deployment/policy-test/ksp-meta-003-negative-empty                │ Pass   │ Ok     │ Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.          │
-│ 9        │ require-environment-label │           │ apps/v1/Deployment/policy-test/meta-003-negative-additional-boundary-fail │ Pass   │ Ok     │ Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.          │
-│ 10       │ require-environment-label │           │ batch/v1/Job/policy-test/ksp-meta-003-negative-job-missing                │ Pass   │ Ok     │ Set metadata.labels.policies.ksp.io/environment to dev, staging, or production.          │
-│ 11       │ require-environment-label │           │ batch/v1/CronJob/policy-test/ksp-meta-003-positive-cronjob                │ Pass   │ Ok     │ success                                                                                  │
-│ 12       │ require-environment-label │           │ apps/v1/DaemonSet/policy-test/ksp-meta-003-positive-daemonset             │ Pass   │ Ok     │ success                                                                                  │
-│ 13       │ require-environment-label │           │ apps/v1/Deployment/policy-test/meta-003-positive                          │ Pass   │ Ok     │ success                                                                                  │
-│ 14       │ require-environment-label │           │ apps/v1/Deployment/policy-test/ksp-meta-003-positive-deployment           │ Pass   │ Ok     │ success                                                                                  │
-│ 15       │ require-environment-label │           │ apps/v1/StatefulSet/policy-test/ksp-meta-003-positive-statefulset         │ Pass   │ Ok     │ success                                                                                  │
-│──────────│───────────────────────────│───────────│───────────────────────────────────────────────────────────────────────────│────────│────────│──────────────────────────────────────────────────────────────────────────────────────────│
+│──────────│───────────────────────────────────────│───────────────────────────────────────│─────────────────────────────────────────────────────────────────│────────│──────────│──────────────────────────────────────────────────────────│
+│ [40;32mID (21) [0m │ [40;32mPOLICY                               [0m │ [40;32mRULE                                 [0m │ [40;32mRESOURCE                                                       [0m │ [40;32mRESULT[0m │ [40;32mREASON  [0m │ [40;32mMESSAGE                                                 [0m │
+│──────────│───────────────────────────────────────│───────────────────────────────────────│─────────────────────────────────────────────────────────────────│────────│──────────│──────────────────────────────────────────────────────────│
+│ 1        │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-dev-baseline                      │ Pass   │ Ok       │ success                                                  │
+│ 2        │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-dev-standard                      │ Pass   │ Ok       │ success                                                  │
+│ 3        │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-dev-restricted                    │ Pass   │ Ok       │ success                                                  │
+│ 4        │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-staging-baseline                  │ Pass   │ Ok       │ success                                                  │
+│ 5        │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-staging-standard                  │ Pass   │ Ok       │ success                                                  │
+│ 6        │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-production-baseline               │ Pass   │ Ok       │ success                                                  │
+│ 7        │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-production-restricted             │ Pass   │ Ok       │ success                                                  │
+│ 8        │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-update-valid-profile              │ Pass   │ Ok       │ success                                                  │
+│ 9        │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-missing-environment               │ Pass   │ Ok       │ Set ksp.io/environment to dev, staging, or production.   │
+│ 10       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-empty-environment                 │ Pass   │ Ok       │ Set ksp.io/environment to dev, staging, or production.   │
+│ 11       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-invalid-environment               │ Pass   │ Ok       │ Set ksp.io/environment to dev, staging, or production.   │
+│ 12       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-wrong-case-environment            │ Pass   │ Ok       │ Set ksp.io/environment to dev, staging, or production.   │
+│ 13       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-invalid-environment-valid-profile │ Pass   │ Ok       │ Set ksp.io/environment to dev, staging, or production.   │
+│ 14       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-missing-profile                   │ Pass   │ Ok       │ Set ksp.io/profile to baseline, standard, or restricted. │
+│ 15       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-empty-profile                     │ Pass   │ Ok       │ Set ksp.io/profile to baseline, standard, or restricted. │
+│ 16       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-invalid-profile                   │ Pass   │ Ok       │ Set ksp.io/profile to baseline, standard, or restricted. │
+│ 17       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-valid-environment-invalid-profile │ Pass   │ Ok       │ Set ksp.io/profile to baseline, standard, or restricted. │
+│ 18       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-update-invalid-profile            │ Pass   │ Ok       │ Set ksp.io/profile to baseline, standard, or restricted. │
+│ 19       │ require-namespace-environment-profile │                                       │ v1/Namespace/default/meta-003-update-missing-profile            │ Pass   │ Ok       │ Set ksp.io/profile to baseline, standard, or restricted. │
+│ 20       │ require-namespace-environment-profile │ require-namespace-environment-profile │ v1/Namespace/default/kube-system                                │ Pass   │ Excluded │ Excluded                                                 │
+│ 21       │ require-namespace-environment-profile │ require-namespace-environment-profile │ v1/Namespace/default/calico-system                              │ Pass   │ Excluded │ Excluded                                                 │
+│──────────│───────────────────────────────────────│───────────────────────────────────────│─────────────────────────────────────────────────────────────────│────────│──────────│──────────────────────────────────────────────────────────│
 
 
-Test Summary: 15 tests passed and 0 tests failed
+Test Summary: 21 tests passed and 0 tests failed
 

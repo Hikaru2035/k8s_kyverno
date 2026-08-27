@@ -1,0 +1,94 @@
+# Generated; edit the source identified by policies.ksp.io/rendered-from.
+apiVersion: policies.kyverno.io/v1
+kind: GeneratingPolicy
+metadata:
+  name: generate-limit-range
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-res-006
+  annotations:
+    policies.kyverno.io/title: Generate LimitRange
+    policies.kyverno.io/category: KSP Resource Governance
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace,LimitRange
+    policies.kyverno.io/description: Generates synchronized environment-specific container
+      resource defaults for opted-in application namespaces.
+    policies.ksp.io/parameter: Resource sizing is loaded from the ksp-limitrange-sizing
+      ConfigMap according to policies.ksp.io/environment.
+    policies.ksp.io/profiles: standard,restricted
+    policies.ksp.io/dev-mode: Generate
+    policies.ksp.io/staging-mode: Generate
+    policies.ksp.io/prod-mode: Generate
+    policies.ksp.io/exception: controlled
+    policies.ksp.io/rendered-from: policies/resource-governance/KSP-RES-006/KSP-RES-006-generate-limit-range.yaml
+    policies.ksp.io/runtime-environment: staging
+spec:
+  evaluation:
+    synchronize:
+      enabled: true
+    generateExisting:
+      enabled: true
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - namespaces
+  matchConditions:
+  - name: opted-in-namespace
+    expression: "object.metadata.?labels[\n  \"policies.ksp.io/generate-resource-governance\"\
+      \n].orValue(\"\") == \"enabled\""
+  - name: valid-environment
+    expression: "object.metadata.?labels[\n  \"policies.ksp.io/environment\"\n].orValue(\"\
+      \") in [\n  \"dev\",\n  \"staging\",\n  \"production\"\n]"
+  - name: ksp-runtime-profile-and-platform-scope
+    expression: (object.metadata.?labels['ksp.io/profile'].orValue('') in ['standard',
+      'restricted']) && (!(object.metadata.name in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+  variables:
+  - name: namespaceName
+    expression: object.metadata.name
+  - name: environment
+    expression: "object.metadata.labels[\n  \"policies.ksp.io/environment\"\n]"
+  - name: sizingConfig
+    expression: "resource.Get(\n  \"v1\",\n  \"configmaps\",\n  \"kyverno\",\n  \"\
+      ksp-limitrange-sizing\"\n)"
+  - name: defaultRequestCpu
+    expression: variables.sizingConfig.data[string(variables.environment) + ".defaultRequestCpu"]
+  - name: defaultRequestMemory
+    expression: variables.sizingConfig.data[string(variables.environment) + ".defaultRequestMemory"]
+  - name: defaultCpu
+    expression: variables.sizingConfig.data[string(variables.environment) + ".defaultCpu"]
+  - name: defaultMemory
+    expression: variables.sizingConfig.data[string(variables.environment) + ".defaultMemory"]
+  - name: minCpu
+    expression: variables.sizingConfig.data[string(variables.environment) + ".minCpu"]
+  - name: minMemory
+    expression: variables.sizingConfig.data[string(variables.environment) + ".minMemory"]
+  - name: maxCpu
+    expression: variables.sizingConfig.data[string(variables.environment) + ".maxCpu"]
+  - name: maxMemory
+    expression: variables.sizingConfig.data[string(variables.environment) + ".maxMemory"]
+  - name: downstream
+    expression: "[\n  {\n    \"apiVersion\": dyn(\"v1\"),\n    \"kind\": dyn(\"LimitRange\"\
+      ),\n    \"metadata\": dyn({\n      \"name\": dyn(\"container-resource-defaults\"\
+      ),\n      \"labels\": dyn({\n        \"app.kubernetes.io/managed-by\": \"kyverno\"\
+      ,\n        \"policies.ksp.io/generated-by\": \"ksp-res-006\",\n        \"policies.ksp.io/environment\"\
+      : string(variables.environment)\n      })\n    }),\n    \"spec\": dyn({\n  \
+      \    \"limits\": dyn([\n        dyn({\n          \"type\": dyn(\"Container\"\
+      ),\n\n          \"defaultRequest\": dyn({\n            \"cpu\": string(variables.defaultRequestCpu),\n\
+      \            \"memory\": string(variables.defaultRequestMemory)\n          }),\n\
+      \n          \"default\": dyn({\n            \"cpu\": string(variables.defaultCpu),\n\
+      \            \"memory\": string(variables.defaultMemory)\n          }),\n\n\
+      \          \"min\": dyn({\n            \"cpu\": string(variables.minCpu),\n\
+      \            \"memory\": string(variables.minMemory)\n          }),\n\n    \
+      \      \"max\": dyn({\n            \"cpu\": string(variables.maxCpu),\n    \
+      \        \"memory\": string(variables.maxMemory)\n          })\n        })\n\
+      \      ])\n    })\n  }\n]"
+  generate:
+  - expression: generator.Apply( variables.namespaceName, variables.downstream)

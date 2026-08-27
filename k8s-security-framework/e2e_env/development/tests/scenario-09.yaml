@@ -1,0 +1,28 @@
+# Scenario 09: Baseline-compliant workload
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e2e-ksp-baseline-ok
+  namespace: e2e-ksp-alpha
+  labels: {app.kubernetes.io/name: e2e-ksp-baseline-ok, policies.ksp.io/owner: e2e}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app.kubernetes.io/name: e2e-ksp-baseline-ok}}
+  template:
+    metadata: {labels: {app.kubernetes.io/name: e2e-ksp-baseline-ok}}
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+      - name: app
+        image: registry.k8s.io/pause:3.10
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {drop: [ALL]}
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 65532
+        resources:
+          requests: {cpu: 10m, memory: 16Mi}
+          limits: {cpu: 100m, memory: 64Mi}

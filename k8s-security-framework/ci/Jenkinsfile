@@ -1,9 +1,19 @@
 pipeline {
     agent none
     stages {
-        stage('Placeholder') {
+        stage('Policy configuration') {
+            agent any
             steps {
-                echo 'TODO: implement Policy-as-Code pipeline'
+                sh 'cd k8s-security-framework && ./scripts/validate-policy-config.sh'
+                sh 'cd k8s-security-framework && ./scripts/render-policies.sh development && ./scripts/render-policies.sh staging && ./scripts/render-policies.sh production'
+                sh 'cd k8s-security-framework && git diff --exit-code -- e2e_env'
+            }
+        }
+        stage('Kyverno CLI regression') {
+            agent any
+            steps {
+                sh 'cd k8s-security-framework && ./tests/policies/check-coverage.sh'
+                sh 'cd k8s-security-framework && ./tests/policies/regression/run.sh'
             }
         }
     }

@@ -18,11 +18,11 @@ if [[ ! -d "${POLICIES_ROOT}" ]]; then
   exit 1
 fi
 
-mapfile -t POLICY_IDS < <(grep -E '^[A-Z0-9-]+$' "${PRODUCTION_PROFILE}")
+mapfile -t POLICY_IDS < <({ grep -E '^[A-Z0-9-]+$' "${PRODUCTION_PROFILE}"; echo KSP-META-003; } | sort -u)
 
 errors=0
 
-echo "Checking production-candidate CLI test coverage..."
+echo "Checking security-profile plus common-policy CLI test coverage..."
 echo "Profile source: ${PRODUCTION_PROFILE}"
 echo "Policies declared: ${#POLICY_IDS[@]}"
 

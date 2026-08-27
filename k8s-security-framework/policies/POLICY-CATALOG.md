@@ -1,6 +1,6 @@
 # Base policy catalog
 
-Catalog này chứa 30 Kyverno CEL policy nền tảng cho PoC production-candidate.
+Catalog này chứa 30 Kyverno CEL policy source: 1 common/bootstrap governance policy và 29 security policies.
 
 - Mỗi Policy ID có đúng một thư mục và một file theo format `<POLICY-ID>-<policy-name>.yaml`.
 - Validate/verify policy mặc định chạy `Audit`; promotion sang `Enforce` được thực hiện bởi profile/overlay theo annotation `policies.ksp.io/*-mode`.
@@ -30,7 +30,8 @@ Operational labels used by generated resources and metadata mutation:
 
 ```yaml
 app.kubernetes.io/managed-by: kyverno
-policies.ksp.io/environment: dev|staging|production
+ksp.io/environment: dev|staging|production
+ksp.io/profile: baseline|standard|restricted
 policies.ksp.io/quota-class: small|medium|large
 ```
 

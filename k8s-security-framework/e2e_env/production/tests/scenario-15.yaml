@@ -1,0 +1,8 @@
+# Scenario 15: promote canary to Restricted
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-canary
+  labels:
+    ksp.io/environment: production
+    ksp.io/profile: restricted

@@ -7,4 +7,4 @@ image-security/cosign/*.pub
 
 docs/reports/weekly_report
 
-scripts/
+scripts/__pycache__/

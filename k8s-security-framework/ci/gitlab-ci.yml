@@ -4,3 +4,20 @@ stages:
   - test
   - integration
   - report
+
+policy-config:
+  stage: validate
+  script:
+    - cd k8s-security-framework
+    - ./scripts/validate-policy-config.sh
+    - ./scripts/render-policies.sh development
+    - ./scripts/render-policies.sh staging
+    - ./scripts/render-policies.sh production
+    - git diff --exit-code -- e2e_env
+
+policy-cli-regression:
+  stage: test
+  script:
+    - cd k8s-security-framework
+    - ./tests/policies/check-coverage.sh
+    - ./tests/policies/regression/run.sh

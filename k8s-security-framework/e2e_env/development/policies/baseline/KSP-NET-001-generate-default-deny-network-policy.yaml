@@ -1,0 +1,97 @@
+# Generated; edit the source identified by policies.ksp.io/rendered-from.
+apiVersion: policies.kyverno.io/v1
+kind: GeneratingPolicy
+metadata:
+  name: generate-network-baseline
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-net-001
+  annotations:
+    policies.kyverno.io/title: Generate Network Baseline
+    policies.kyverno.io/category: KSP Network Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Namespace,NetworkPolicy
+    policies.kyverno.io/description: Generates synchronized default-deny ingress/egress
+      and DNS egress NetworkPolicies for opted-in namespaces.
+    policies.ksp.io/parameter: Application-specific allow rules must be defined separately
+      for each workload.
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/dev-mode: Generate
+    policies.ksp.io/staging-mode: Generate
+    policies.ksp.io/prod-mode: Generate
+    policies.ksp.io/exception: controlled
+    policies.ksp.io/rendered-from: policies/network-security/KSP-NET-001/KSP-NET-001-generate-default-deny-network-policy.yaml
+    policies.ksp.io/runtime-environment: development
+spec:
+  evaluation:
+    synchronize:
+      enabled: true
+    generateExisting:
+      enabled: true
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - namespaces
+  matchConditions:
+  - name: opted-in-namespace
+    expression: "object.metadata.?labels[\n  \"policies.ksp.io/generate-network-baseline\"\
+      \n].orValue(\"\") == \"enabled\""
+  - name: ksp-runtime-profile-and-platform-scope
+    expression: (true) && (!(object.metadata.name in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+  variables:
+  - name: namespaceName
+    expression: object.metadata.name
+  - name: dnsNamespace
+    expression: '"kube-system"'
+  - name: dnsNamespaceLabelKey
+    expression: '"kubernetes.io/metadata.name"'
+  - name: dnsPodLabelKey
+    expression: '"k8s-app"'
+  - name: dnsPodLabelValue
+    expression: '"kube-dns"'
+  - name: dnsPort
+    expression: '53'
+  - name: downstream
+    expression: "[\n  {\n    \"apiVersion\": dyn(\"networking.k8s.io/v1\"),\n    \"\
+      kind\": dyn(\"NetworkPolicy\"),\n\n    \"metadata\": dyn({\n      \"name\":\
+      \ dyn(\"default-deny-ingress-egress\"),\n      \"namespace\": dyn(string(variables.namespaceName)),\n\
+      \      \"labels\": dyn({\n        \"app.kubernetes.io/managed-by\": \"kyverno\"\
+      ,\n        \"policies.ksp.io/generated-by\": \"ksp-net-001\"\n      })\n   \
+      \ }),\n\n    \"spec\": dyn({\n      \"podSelector\": dyn({}),\n      \"policyTypes\"\
+      : dyn([\n        \"Ingress\",\n        \"Egress\"\n      ]),\n      \"ingress\"\
+      : dyn([]),\n      \"egress\": dyn([])\n    })\n  },\n\n  {\n    \"apiVersion\"\
+      : dyn(\"networking.k8s.io/v1\"),\n    \"kind\": dyn(\"NetworkPolicy\"),\n\n\
+      \    \"metadata\": dyn({\n      \"name\": dyn(\"allow-dns-egress\"),\n     \
+      \ \"namespace\": dyn(string(variables.namespaceName)),\n      \"labels\": dyn({\n\
+      \        \"app.kubernetes.io/managed-by\": \"kyverno\",\n        \"policies.ksp.io/generated-by\"\
+      : \"ksp-net-001\"\n      })\n    }),\n\n    \"spec\": dyn({\n      \"podSelector\"\
+      : dyn({}),\n\n      \"policyTypes\": dyn([\n        \"Egress\"\n      ]),\n\n\
+      \      \"egress\": dyn([\n        {\n          \"to\": dyn([\n            {\n\
+      \              \"namespaceSelector\": dyn({\n                \"matchExpressions\"\
+      : dyn([\n                  {\n                    \"key\": dyn(\n          \
+      \            string(variables.dnsNamespaceLabelKey)\n                    ),\n\
+      \                    \"operator\": dyn(\"In\"),\n                    \"values\"\
+      : dyn([\n                      string(variables.dnsNamespace)\n            \
+      \        ])\n                  }\n                ])\n              }),\n\n\
+      \              \"podSelector\": dyn({\n                \"matchExpressions\"\
+      : dyn([\n                  {\n                    \"key\": dyn(\n          \
+      \            string(variables.dnsPodLabelKey)\n                    ),\n    \
+      \                \"operator\": dyn(\"In\"),\n                    \"values\"\
+      : dyn([\n                      string(variables.dnsPodLabelValue)\n        \
+      \            ])\n                  }\n                ])\n              })\n\
+      \            }\n          ]),\n\n          \"ports\": dyn([\n            {\n\
+      \              \"protocol\": dyn(\"UDP\"),\n              \"port\": dyn(variables.dnsPort)\n\
+      \            },\n            {\n              \"protocol\": dyn(\"TCP\"),\n\
+      \              \"port\": dyn(variables.dnsPort)\n            }\n          ])\n\
+      \        }\n      ])\n    })\n  }\n]"
+  generate:
+  - expression: "generator.Apply(\n  variables.namespaceName,\n  variables.downstream\n\
+      )"
