@@ -1,4 +1,3 @@
-# Generated; edit the source identified by policies.ksp.io/rendered-from.
 apiVersion: policies.kyverno.io/v1
 kind: ValidatingPolicy
 metadata:
@@ -41,16 +40,15 @@ spec:
       - UPDATE
       resources:
       - pods
+
+  matchConditions:
+  - name: exclude-platform-namespaces
+    expression: "!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator'])"
+
   variables:
   - name: allContainers
-    expression: object.spec.containers + object.spec.?initContainers.orValue([]) +
-      object.spec.?ephemeralContainers.orValue([])
+    expression: object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])
+
   validations:
-  - expression: variables.allContainers.all(container, container.image.matches('^.+@.+$')
-      || (container.image.matches('^.+:[^/]+$') && !container.image.endsWith(':latest')))
-    message: Use an explicit version tag or sha256 digest; latest and untagged images
-      are prohibited.
-  matchConditions:
-  - name: ksp-runtime-profile-and-platform-scope
-    expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
-      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+  - expression: variables.allContainers.all(container, container.image.matches('^.+@.+$') || (container.image.matches('^.+:[^/]+$') && !container.image.endsWith(':latest')))
+    message: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
