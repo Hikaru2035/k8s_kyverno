@@ -44,12 +44,6 @@ workflow:
     # Push bình thường.
     - if: '$CI_COMMIT_BRANCH'
 
-
-# ============================================================
-# STAGE 1
-# VALIDATE SOURCE
-# ============================================================
-
 validate:
   stage: validate
 
@@ -539,17 +533,6 @@ validate:
     paths:
       - k8s-security-framework/artifacts/validate/
 
-
-# ============================================================
-# STAGE 1
-# CHECK GENERATED DEPLOYABLE POLICIES
-#
-# Đây là job riêng.
-#
-# policies/ = source of truth
-# e2e_env/  = generated deployable artifact
-# ============================================================
-
 check-policy:
   stage: validate
 
@@ -634,28 +617,43 @@ check-policy:
     paths:
       - k8s-security-framework/artifacts/check-policy/
 
-
-# ============================================================
-# STAGE 2
-# SOURCE POLICY UNIT TEST
-#
-# Positive / Negative / Boundary / Exception
-#
-# Chạy trên source of truth.
-# ============================================================
-
 unit:
   stage: unit
 
-  image:
-    name: ghcr.io/kyverno/kyverno-cli:v1.18.2
-    entrypoint: [""]
+  image: alpine:3.21.3
 
   needs:
     - job: check-policy
       artifacts: false
 
   before_script:
+    - apk add --no-cache curl tar
+    - |
+      ARCH="$(uname -m)"
+
+      case "$ARCH" in
+        x86_64)
+          KYVERNO_ARCH="x86_64"
+          ;;
+        aarch64|arm64)
+          KYVERNO_ARCH="arm64"
+          ;;
+        *)
+          echo "Unsupported architecture: $ARCH"
+          exit 1
+          ;;
+      esac
+
+      curl -fsSL \
+        "https://github.com/kyverno/kyverno/releases/download/v1.18.2/kyverno-cli_v1.18.2_linux_${KYVERNO_ARCH}.tar.gz" \
+        -o /tmp/kyverno.tar.gz
+
+      tar -xzf /tmp/kyverno.tar.gz -C /tmp
+      mv /tmp/kyverno /usr/local/bin/kyverno
+      chmod +x /usr/local/bin/kyverno
+
+      kyverno version
+
     - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
 
   script:
@@ -776,46 +774,46 @@ unit:
       junit:
         k8s-security-framework/artifacts/cli-unit/junit/*.xml
 
-
-# ============================================================
-# STAGE 2
-# RENDERED POLICY TEST
-#
-# Không lưu duplicate test trong e2e_env.
-#
-# CI tạo:
-#
-# artifacts/rendered-policy-test/tmp-tests/
-#
-# rồi copy:
-#
-# source fixtures
-# +
-# rendered production policy
-#
-# vào cùng temporary suite.
-#
-# ============================================================
-
 rendered-policy-test:
   stage: unit
 
-  image:
-    name: ghcr.io/kyverno/kyverno-cli:v1.18.2
-    entrypoint: [""]
+  image: alpine:3.21.3
 
   needs:
     - job: check-policy
       artifacts: false
 
   before_script:
-    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/rendered-policy-test"
+    - apk add --no-cache curl tar
+    - |
+      ARCH="$(uname -m)"
 
+      case "$ARCH" in
+        x86_64)
+          KYVERNO_ARCH="x86_64"
+          ;;
+        aarch64|arm64)
+          KYVERNO_ARCH="arm64"
+          ;;
+        *)
+          echo "Unsupported architecture: $ARCH"
+          exit 1
+          ;;
+      esac
+
+      curl -fsSL \
+        "https://github.com/kyverno/kyverno/releases/download/v1.18.2/kyverno-cli_v1.18.2_linux_${KYVERNO_ARCH}.tar.gz" \
+        -o /tmp/kyverno.tar.gz
+
+      tar -xzf /tmp/kyverno.tar.gz -C /tmp
+      mv /tmp/kyverno /usr/local/bin/kyverno
+      chmod +x /usr/local/bin/kyverno
+
+      kyverno version
+
+    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
   script:
 
-    # --------------------------------------------------------
-    # 1. Create temporary test suites
-    # --------------------------------------------------------
     - |
       set -eu
 
@@ -879,13 +877,6 @@ rendered-policy-test:
         mkdir -p "$tmp_policy_dir"
 
 
-        # Keep exactly the same directory layout expected by
-        # kyverno-test.yaml:
-        #
-        # KSP-ID/
-        #   policy.yaml
-        #   tests/
-        #
         cp "$rendered_policy" \
           "$tmp_policy_dir/$source_name"
 
@@ -913,18 +904,6 @@ rendered-policy-test:
 
       cat artifacts/rendered-policy-test/tmp-manifest.txt
 
-
-    # --------------------------------------------------------
-    # 2. Run temporary rendered-policy suites
-    #
-    # Important:
-    #
-    # Nếu rendered policy bổ sung environment/profile matching
-    # khiến expected result thành SKIP, đây là tín hiệu thật:
-    # source fixture chưa mô phỏng runtime scope của rendered policy.
-    #
-    # Không silently đổi expected result.
-    # --------------------------------------------------------
     - |
       set -u
 
@@ -965,19 +944,10 @@ rendered-policy-test:
       - k8s-security-framework/artifacts/rendered-policy-test/
 
 
-# ============================================================
-# STAGE 3
-# FULL REGRESSION
-#
-# Toàn bộ source policy suite chạy lại như một regression gate.
-# ============================================================
-
 regression:
   stage: regression
 
-  image:
-    name: ghcr.io/kyverno/kyverno-cli:v1.18.2
-    entrypoint: [""]
+  image: alpine:3.21.3
 
   needs:
     - job: unit
@@ -987,7 +957,34 @@ regression:
       artifacts: false
 
   before_script:
-    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/regression"
+    - apk add --no-cache curl tar
+    - |
+      ARCH="$(uname -m)"
+
+      case "$ARCH" in
+        x86_64)
+          KYVERNO_ARCH="x86_64"
+          ;;
+        aarch64|arm64)
+          KYVERNO_ARCH="arm64"
+          ;;
+        *)
+          echo "Unsupported architecture: $ARCH"
+          exit 1
+          ;;
+      esac
+
+      curl -fsSL \
+        "https://github.com/kyverno/kyverno/releases/download/v1.18.2/kyverno-cli_v1.18.2_linux_${KYVERNO_ARCH}.tar.gz" \
+        -o /tmp/kyverno.tar.gz
+
+      tar -xzf /tmp/kyverno.tar.gz -C /tmp
+      mv /tmp/kyverno /usr/local/bin/kyverno
+      chmod +x /usr/local/bin/kyverno
+
+      kyverno version
+
+    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
 
   script:
 
