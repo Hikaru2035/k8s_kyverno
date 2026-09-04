@@ -2,24 +2,57 @@ stages:
   - validate
   - unit
   - regression
+  - integration
   - report
 
+
 variables:
-  FRAMEWORK_ROOT: k8s-security-framework
+  FRAMEWORK_ROOT: "k8s-security-framework"
+
   MINIMUM_POLICY_SUITES: "30"
+
+  KYVERNO_VERSION: "v1.18.2"
+  KYVERNO_CHART_VERSION: "3.8.2"
+
+  KIND_VERSION: "v0.32.0"
+
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
-  PIP_ROOT_USER_ACTION: ignore
+  PIP_ROOT_USER_ACTION: "ignore"
+
+  # Cần history để xác định policy thay đổi trong MR/push.
+  GIT_DEPTH: "0"
+
 
 default:
   interruptible: true
+
   retry:
     max: 1
     when:
       - runner_system_failure
 
 
+workflow:
+  rules:
+    # Merge Request pipeline.
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+    # Không tạo branch pipeline trùng nếu branch đã có MR.
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+
+    # Push bình thường.
+    - if: '$CI_COMMIT_BRANCH'
+
+
+# ============================================================
+# STAGE 1
+# VALIDATE SOURCE
+# ============================================================
+
 validate:
   stage: validate
+
   image: python:3.12.11-slim-bookworm
 
   before_script:
@@ -27,6 +60,10 @@ validate:
     - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/validate"
 
   script:
+
+    # --------------------------------------------------------
+    # 1. Policy/profile/environment configuration
+    # --------------------------------------------------------
     - |
       set -u
 
@@ -45,6 +82,15 @@ validate:
 
       test "$config_status" -eq 0
 
+
+    # --------------------------------------------------------
+    # 2. Test coverage
+    # --------------------------------------------------------
+    - |
+      set -u
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
       suite_count="$(
         find policies \
           -type f \
@@ -52,6 +98,8 @@ validate:
           | wc -l \
           | tr -d ' '
       )"
+
+      echo "Policy suites found: $suite_count"
 
       set +e
 
@@ -67,6 +115,12 @@ validate:
 
       test "$coverage_status" -eq 0
 
+
+    # --------------------------------------------------------
+    # 3. YAML + references
+    #
+    # Giữ logic từ pipeline validate đã chạy thành công.
+    # --------------------------------------------------------
     - |
       set -u
 
@@ -85,7 +139,6 @@ validate:
 
 
       root = Path.cwd()
-
       errors = []
 
       minimum = int(os.environ["MINIMUM_POLICY_SUITES"])
@@ -128,8 +181,6 @@ validate:
 
 
       yaml_files = sorted(set(yaml_files))
-
-
       documents = {}
 
 
@@ -182,7 +233,6 @@ validate:
 
 
       policy_names = []
-
       manifests = []
 
 
@@ -356,7 +406,6 @@ validate:
 
 
               if references is None:
-
                   continue
 
 
@@ -460,10 +509,7 @@ validate:
           )
 
           for error in errors:
-
-              print(
-                  f"ERROR: {error}"
-              )
+              print(f"ERROR: {error}")
 
           sys.exit(1)
 
@@ -485,12 +531,118 @@ validate:
 
       exit "$validation_status"
 
+
   artifacts:
     when: always
     expire_in: 14 days
+
     paths:
       - k8s-security-framework/artifacts/validate/
 
+
+# ============================================================
+# STAGE 1
+# CHECK GENERATED DEPLOYABLE POLICIES
+#
+# Đây là job riêng.
+#
+# policies/ = source of truth
+# e2e_env/  = generated deployable artifact
+# ============================================================
+
+check-policy:
+  stage: validate
+
+  image: python:3.12.11-slim-bookworm
+
+  needs:
+    - job: validate
+      artifacts: false
+
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends git
+    - rm -rf /var/lib/apt/lists/*
+    - python3 -m pip install --no-cache-dir PyYAML==6.0.2
+    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/check-policy"
+
+  script:
+
+    # --------------------------------------------------------
+    # 1. Render all environments deterministically
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+      python3 ./scripts/render-policies.py development \
+        > artifacts/check-policy/render-development.txt \
+        2>&1
+
+      python3 ./scripts/render-policies.py staging \
+        > artifacts/check-policy/render-staging.txt \
+        2>&1
+
+      python3 ./scripts/render-policies.py production \
+        > artifacts/check-policy/render-production.txt \
+        2>&1
+
+
+      cat artifacts/check-policy/render-development.txt
+      cat artifacts/check-policy/render-staging.txt
+      cat artifacts/check-policy/render-production.txt
+
+
+    # --------------------------------------------------------
+    # 2. Check drift
+    #
+    # Nếu render lại tạo bất kỳ modified/new/deleted file nào:
+    # FAIL.
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+      git status --porcelain -- e2e_env \
+        > artifacts/check-policy/render-drift.txt
+
+
+      cat artifacts/check-policy/render-drift.txt
+
+
+      if test -s artifacts/check-policy/render-drift.txt
+      then
+
+        echo "ERROR: rendered e2e_env policy bundle is stale."
+        echo "Source of truth and deployable policies are not synchronized."
+
+        exit 1
+
+      fi
+
+
+      echo "CHECK POLICY PASSED."
+      echo "e2e_env is synchronized with policies/."
+
+
+  artifacts:
+    when: always
+    expire_in: 14 days
+
+    paths:
+      - k8s-security-framework/artifacts/check-policy/
+
+
+# ============================================================
+# STAGE 2
+# SOURCE POLICY UNIT TEST
+#
+# Positive / Negative / Boundary / Exception
+#
+# Chạy trên source of truth.
+# ============================================================
 
 unit:
   stage: unit
@@ -500,45 +652,32 @@ unit:
     entrypoint: [""]
 
   needs:
-    - job: validate
+    - job: check-policy
       artifacts: false
 
   before_script:
     - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
 
   script:
+
     - |
       set -u
 
       cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
 
+
       kyverno version \
         > artifacts/cli-unit/kyverno-version.txt \
         2>&1
 
-      set +e
 
-      kyverno test policies \
-        --remove-color \
-        --detailed-results \
-        --require-tests \
-        > artifacts/cli-unit/results.txt \
-        2>&1
-
-      text_status=$?
-
-      cat artifacts/cli-unit/results.txt
-
-
-      junit_status=0
+      overall_status=0
 
 
       while IFS= read -r manifest
       do
 
-        tests_dir="$(
-          dirname "$manifest"
-        )"
+        tests_dir="$(dirname "$manifest")"
 
         policy_id="$(
           basename "$(
@@ -547,11 +686,30 @@ unit:
         )"
 
 
+        echo "=================================================="
+        echo "UNIT TEST: $policy_id"
+        echo "=================================================="
+
+
         raw_report="artifacts/cli-unit/junit/${policy_id}.raw.txt"
 
         extracted_report="artifacts/cli-unit/junit/${policy_id}.extracted.xml"
 
         xml_report="artifacts/cli-unit/junit/${policy_id}.xml"
+
+
+        set +e
+
+
+        kyverno test "$tests_dir" \
+          --remove-color \
+          --detailed-results \
+          --require-tests \
+          > "artifacts/cli-unit/${policy_id}.txt" \
+          2>&1
+
+
+        text_status=$?
 
 
         kyverno test "$tests_dir" \
@@ -562,7 +720,13 @@ unit:
           2>&1
 
 
-        suite_status=$?
+        junit_status=$?
+
+
+        set -e
+
+
+        cat "artifacts/cli-unit/${policy_id}.txt"
 
 
         sed -n \
@@ -580,15 +744,15 @@ unit:
         rm -f "$extracted_report"
 
 
-        if (
-          test "$suite_status" -ne 0
+        if test "$text_status" -ne 0 \
+          || test "$junit_status" -ne 0 \
           || ! test -s "$xml_report"
-        )
         then
 
-          junit_status=1
+          overall_status=1
 
         fi
+
 
       done < <(
         find policies \
@@ -598,12 +762,8 @@ unit:
       )
 
 
-      set -e
+      exit "$overall_status"
 
-
-      test "$text_status" -eq 0
-
-      test "$junit_status" -eq 0
 
   artifacts:
     when: always
@@ -617,6 +777,201 @@ unit:
         k8s-security-framework/artifacts/cli-unit/junit/*.xml
 
 
+# ============================================================
+# STAGE 2
+# RENDERED POLICY TEST
+#
+# Không lưu duplicate test trong e2e_env.
+#
+# CI tạo:
+#
+# artifacts/rendered-policy-test/tmp-tests/
+#
+# rồi copy:
+#
+# source fixtures
+# +
+# rendered production policy
+#
+# vào cùng temporary suite.
+#
+# ============================================================
+
+rendered-policy-test:
+  stage: unit
+
+  image:
+    name: ghcr.io/kyverno/kyverno-cli:v1.18.2
+    entrypoint: [""]
+
+  needs:
+    - job: check-policy
+      artifacts: false
+
+  before_script:
+    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/rendered-policy-test"
+
+  script:
+
+    # --------------------------------------------------------
+    # 1. Create temporary test suites
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      TMP_ROOT="artifacts/rendered-policy-test/tmp-tests"
+
+
+      rm -rf "$TMP_ROOT"
+
+      mkdir -p "$TMP_ROOT"
+
+
+      while IFS= read -r manifest
+      do
+
+        tests_dir="$(dirname "$manifest")"
+
+        policy_dir="$(dirname "$tests_dir")"
+
+        policy_id="$(basename "$policy_dir")"
+
+
+        source_policy="$(
+          find "$policy_dir" \
+            -maxdepth 1 \
+            -type f \
+            -name "${policy_id}-*.yaml" \
+            -print \
+            -quit
+        )"
+
+
+        source_name="$(basename "$source_policy")"
+
+
+        rendered_policy="$(
+          find e2e_env/production/policies \
+            -type f \
+            -name "$source_name" \
+            -print \
+            -quit
+        )"
+
+
+        if test -z "$rendered_policy"
+        then
+
+          echo "ERROR: rendered production policy missing:"
+          echo "$policy_id"
+
+          exit 1
+
+        fi
+
+
+        tmp_policy_dir="$TMP_ROOT/$policy_id"
+
+
+        mkdir -p "$tmp_policy_dir"
+
+
+        # Keep exactly the same directory layout expected by
+        # kyverno-test.yaml:
+        #
+        # KSP-ID/
+        #   policy.yaml
+        #   tests/
+        #
+        cp "$rendered_policy" \
+          "$tmp_policy_dir/$source_name"
+
+
+        cp -R "$tests_dir" \
+          "$tmp_policy_dir/tests"
+
+
+        echo "$policy_id -> $rendered_policy"
+
+
+      done < <(
+        find policies \
+          -type f \
+          -path '*/tests/kyverno-test.yaml' \
+          | sort
+      )
+
+
+      find "$TMP_ROOT" \
+        -type f \
+        | sort \
+        > artifacts/rendered-policy-test/tmp-manifest.txt
+
+
+      cat artifacts/rendered-policy-test/tmp-manifest.txt
+
+
+    # --------------------------------------------------------
+    # 2. Run temporary rendered-policy suites
+    #
+    # Important:
+    #
+    # Nếu rendered policy bổ sung environment/profile matching
+    # khiến expected result thành SKIP, đây là tín hiệu thật:
+    # source fixture chưa mô phỏng runtime scope của rendered policy.
+    #
+    # Không silently đổi expected result.
+    # --------------------------------------------------------
+    - |
+      set -u
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      TMP_ROOT="artifacts/rendered-policy-test/tmp-tests"
+
+
+      set +e
+
+
+      kyverno test "$TMP_ROOT" \
+        --remove-color \
+        --detailed-results \
+        --require-tests \
+        > artifacts/rendered-policy-test/results.txt \
+        2>&1
+
+
+      rendered_test_status=$?
+
+
+      set -e
+
+
+      cat artifacts/rendered-policy-test/results.txt
+
+
+      exit "$rendered_test_status"
+
+
+  artifacts:
+    when: always
+    expire_in: 14 days
+
+    paths:
+      - k8s-security-framework/artifacts/rendered-policy-test/
+
+
+# ============================================================
+# STAGE 3
+# FULL REGRESSION
+#
+# Toàn bộ source policy suite chạy lại như một regression gate.
+# ============================================================
+
 regression:
   stage: regression
 
@@ -628,14 +983,19 @@ regression:
     - job: unit
       artifacts: false
 
+    - job: rendered-policy-test
+      artifacts: false
+
   before_script:
     - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/regression"
 
   script:
+
     - |
       set -u
 
       cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
 
       kyverno version \
         > artifacts/regression/kyverno-version.txt \
@@ -664,6 +1024,7 @@ regression:
 
       exit "$regression_status"
 
+
   artifacts:
     when: always
     expire_in: 14 days
@@ -672,49 +1033,677 @@ regression:
       - k8s-security-framework/artifacts/regression/
 
 
+# ============================================================
+# STAGE 4
+# REAL KUBERNETES / KIND INTEGRATION
+#
+# Đây mới là admission test thật.
+# ============================================================
+
+kind-integration:
+  stage: integration
+
+  image: docker:27.5.1-cli
+
+  services:
+    - name: docker:27.5.1-dind
+      alias: docker
+      command:
+        - "--tls=false"
+
+  variables:
+    DOCKER_HOST: "tcp://docker:2375"
+    DOCKER_TLS_CERTDIR: ""
+
+    KIND_CLUSTER_NAME: "ksp-ci"
+
+  needs:
+    - job: regression
+      artifacts: false
+
+  rules:
+
+    - changes:
+        - k8s-security-framework/policies/**/*
+        - k8s-security-framework/profiles/**/*
+        - k8s-security-framework/e2e_env/**/*
+        - k8s-security-framework/tests/**/*
+        - k8s-security-framework/scripts/**/*
+        - .gitlab-ci.yml
+
+    - when: never
+
+
+  before_script:
+
+    - apk add --no-cache bash curl ca-certificates tar gzip
+
+    - |
+      set -eu
+
+      case "$(uname -m)" in
+
+        x86_64)
+          ARCH="amd64"
+          ;;
+
+        aarch64|arm64)
+          ARCH="arm64"
+          ;;
+
+        *)
+          echo "Unsupported architecture: $(uname -m)"
+          exit 1
+          ;;
+
+      esac
+
+
+      echo "$ARCH" > /tmp/ci-arch
+
+
+    # --------------------------------------------------------
+    # Install Kind
+    # --------------------------------------------------------
+    - |
+      ARCH="$(cat /tmp/ci-arch)"
+
+
+      curl -fsSLo /usr/local/bin/kind \
+        "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-linux-${ARCH}"
+
+
+      chmod +x /usr/local/bin/kind
+
+
+      kind version
+
+
+    # --------------------------------------------------------
+    # Install kubectl
+    # --------------------------------------------------------
+    - |
+      ARCH="$(cat /tmp/ci-arch)"
+
+
+      KUBECTL_VERSION="$(
+        curl -L -s \
+          https://dl.k8s.io/release/stable.txt
+      )"
+
+
+      curl -fsSLo /usr/local/bin/kubectl \
+        "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${ARCH}/kubectl"
+
+
+      chmod +x /usr/local/bin/kubectl
+
+
+      kubectl version --client
+
+
+    # --------------------------------------------------------
+    # Install Helm
+    # --------------------------------------------------------
+    - |
+      ARCH="$(cat /tmp/ci-arch)"
+
+
+      HELM_VERSION="v3.21.4"
+
+
+      curl -fsSLo /tmp/helm.tar.gz \
+        "https://get.helm.sh/helm-${HELM_VERSION}-linux-${ARCH}.tar.gz"
+
+
+      tar -xzf /tmp/helm.tar.gz \
+        -C /tmp
+
+
+      mv "/tmp/linux-${ARCH}/helm" \
+        /usr/local/bin/helm
+
+
+      chmod +x /usr/local/bin/helm
+
+
+      helm version
+
+
+    - docker info
+
+
+  script:
+
+    # --------------------------------------------------------
+    # 1. Artifact directory
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+      mkdir -p artifacts/integration-kind
+
+
+    # --------------------------------------------------------
+    # 2. Create cluster
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      kind create cluster \
+        --name "$KIND_CLUSTER_NAME" \
+        --wait 180s \
+        2>&1 \
+        | tee artifacts/integration-kind/kind-create.txt
+
+
+      kubectl get nodes -o wide \
+        | tee artifacts/integration-kind/nodes.txt
+
+
+    # --------------------------------------------------------
+    # 3. Install Kyverno
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      helm repo add kyverno \
+        https://kyverno.github.io/kyverno/
+
+
+      helm repo update
+
+
+      helm install kyverno kyverno/kyverno \
+        --namespace kyverno \
+        --create-namespace \
+        --version "$KYVERNO_CHART_VERSION" \
+        --set admissionController.replicas=1 \
+        --set backgroundController.replicas=1 \
+        --set cleanupController.replicas=1 \
+        --set reportsController.replicas=1 \
+        --wait \
+        --timeout 5m \
+        2>&1 \
+        | tee artifacts/integration-kind/kyverno-install.txt
+
+
+      kubectl -n kyverno get pods -o wide \
+        | tee artifacts/integration-kind/kyverno-pods.txt
+
+
+      kubectl get validatingwebhookconfigurations \
+        -o wide \
+        > artifacts/integration-kind/webhooks.txt
+
+
+    # --------------------------------------------------------
+    # 4. Apply ALL rendered production policies
+    #
+    # Mục tiêu:
+    # chứng minh deployable policies được API Server/Kyverno
+    # accept.
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      kubectl apply \
+        --recursive \
+        -f e2e_env/production/policies \
+        2>&1 \
+        | tee artifacts/integration-kind/all-policy-apply.txt
+
+
+      sleep 15
+
+
+      kubectl get validatingpolicies \
+        -o yaml \
+        > artifacts/integration-kind/validating-policies.yaml \
+        2>&1 \
+        || true
+
+
+      kubectl get imagevalidatingpolicies \
+        -o yaml \
+        > artifacts/integration-kind/image-validating-policies.yaml \
+        2>&1 \
+        || true
+
+
+      kubectl get mutatingpolicies \
+        -o yaml \
+        > artifacts/integration-kind/mutating-policies.yaml \
+        2>&1 \
+        || true
+
+
+    # --------------------------------------------------------
+    # 5. Check policy status
+    #
+    # Nếu Kyverno compile policy không thành công,
+    # không cho integration pass.
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      kubectl get validatingpolicies \
+        -o json \
+        > artifacts/integration-kind/validating-policy-status.json \
+        2>&1 \
+        || true
+
+
+      kubectl get imagevalidatingpolicies \
+        -o json \
+        > artifacts/integration-kind/image-policy-status.json \
+        2>&1 \
+        || true
+
+
+      kubectl get mutatingpolicies \
+        -o json \
+        > artifacts/integration-kind/mutating-policy-status.json \
+        2>&1 \
+        || true
+
+
+    # --------------------------------------------------------
+    # 6. Remove all policies
+    #
+    # Sau đó chỉ apply một policy đại diện để admission
+    # behavior không bị policy khác can thiệp.
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      kubectl delete \
+        --recursive \
+        -f e2e_env/production/policies \
+        --ignore-not-found \
+        >/dev/null 2>&1 \
+        || true
+
+
+      sleep 5
+
+
+    # --------------------------------------------------------
+    # 7. Apply rendered KSP-POD-002 only
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      policy_file="$(
+        find e2e_env/production/policies \
+          -type f \
+          -name 'KSP-POD-002-*.yaml' \
+          -print \
+          -quit
+      )"
+
+
+      if test -z "$policy_file"
+      then
+
+        echo "ERROR: rendered KSP-POD-002 not found."
+
+        exit 1
+
+      fi
+
+
+      echo "Policy under admission test:"
+      echo "$policy_file"
+
+
+      kubectl apply -f "$policy_file" \
+        2>&1 \
+        | tee artifacts/integration-kind/ksp-pod-002-apply.txt
+
+
+      sleep 10
+
+
+    # --------------------------------------------------------
+    # 8. Create production test namespace
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+
+      kubectl create namespace ksp-ci
+
+
+      kubectl label namespace ksp-ci \
+        ksp.io/environment=production \
+        ksp.io/profile=baseline \
+        --overwrite
+
+
+      kubectl get namespace ksp-ci \
+        --show-labels \
+        > "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/integration-kind/namespace.txt"
+
+
+    # --------------------------------------------------------
+    # 9. Positive admission
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      cat > /tmp/positive.yaml <<'EOF'
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: ksp-positive
+        namespace: ksp-ci
+      spec:
+        containers:
+          - name: app
+            image: registry.k8s.io/pause:3.10
+            securityContext:
+              privileged: false
+      EOF
+
+
+      kubectl create -f /tmp/positive.yaml \
+        2>&1 \
+        | tee artifacts/integration-kind/positive-admission.txt
+
+
+      kubectl get pod ksp-positive \
+        -n ksp-ci \
+        -o yaml \
+        > artifacts/integration-kind/positive-pod.yaml
+
+
+    # --------------------------------------------------------
+    # 10. Negative admission
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      cat > /tmp/negative.yaml <<'EOF'
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: ksp-negative
+        namespace: ksp-ci
+      spec:
+        containers:
+          - name: app
+            image: registry.k8s.io/pause:3.10
+            securityContext:
+              privileged: true
+      EOF
+
+
+      set +e
+
+
+      kubectl create -f /tmp/negative.yaml \
+        > artifacts/integration-kind/negative-admission.txt \
+        2>&1
+
+
+      negative_status=$?
+
+
+      set -e
+
+
+      cat artifacts/integration-kind/negative-admission.txt
+
+
+      if test "$negative_status" -eq 0
+      then
+
+        echo "ERROR: privileged Pod was admitted."
+
+        exit 1
+
+      fi
+
+
+      if ! grep -Eqi \
+        'denied|privileged' \
+        artifacts/integration-kind/negative-admission.txt
+      then
+
+        echo "ERROR: request failed, but not because of expected policy denial."
+
+        exit 1
+
+      fi
+
+
+      if kubectl get pod ksp-negative \
+        -n ksp-ci \
+        >/dev/null 2>&1
+      then
+
+        echo "ERROR: denied Pod exists."
+
+        exit 1
+
+      fi
+
+
+      echo "Negative admission correctly denied."
+
+
+    # --------------------------------------------------------
+    # 11. Evidence
+    # --------------------------------------------------------
+    - |
+      set -eu
+
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+
+      kubectl get policyreports \
+        -A \
+        -o yaml \
+        > artifacts/integration-kind/policyreports.yaml \
+        2>&1 \
+        || true
+
+
+      kubectl -n kyverno get \
+        pods,svc,endpoints,endpointslices \
+        -o wide \
+        > artifacts/integration-kind/kyverno-health.txt
+
+
+      kubectl -n kyverno logs \
+        -l app.kubernetes.io/component=admission-controller \
+        --all-containers \
+        --since=10m \
+        > artifacts/integration-kind/kyverno-admission.log \
+        2>&1 \
+        || true
+
+
+      echo "KIND INTEGRATION PASSED."
+
+
+  after_script:
+
+    - |
+      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT" \
+        2>/dev/null \
+        || exit 0
+
+
+      mkdir -p artifacts/integration-kind
+
+
+      if command -v kind >/dev/null 2>&1
+      then
+
+        kind export logs \
+          artifacts/integration-kind/kind-cluster-logs \
+          --name "${KIND_CLUSTER_NAME:-ksp-ci}" \
+          >/dev/null 2>&1 \
+          || true
+
+
+        kind delete cluster \
+          --name "${KIND_CLUSTER_NAME:-ksp-ci}" \
+          >/dev/null 2>&1 \
+          || true
+
+      fi
+
+
+  artifacts:
+    when: always
+    expire_in: 14 days
+
+    paths:
+      - k8s-security-framework/artifacts/integration-kind/
+
+
+# ============================================================
+# STAGE 5
+# REPORT
+# ============================================================
+
 report:
   stage: report
 
   image: alpine:3.21.3
 
   needs:
+
     - job: validate
+      artifacts: true
+
+    - job: check-policy
       artifacts: true
 
     - job: unit
       artifacts: true
 
+    - job: rendered-policy-test
+      artifacts: true
+
     - job: regression
       artifacts: true
 
+    - job: kind-integration
+      artifacts: true
+      optional: true
+
+
   when: always
 
+
   script:
+
     - |
       set -eu
 
-      report_root="$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/report"
+
+      framework="$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
+
+      report_root="$framework/artifacts/report"
 
 
       mkdir -p \
         "$report_root/validate" \
+        "$report_root/check-policy" \
         "$report_root/cli-unit" \
-        "$report_root/regression"
+        "$report_root/rendered-policy-test" \
+        "$report_root/regression" \
+        "$report_root/integration-kind"
 
 
-      cp -R \
-        "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/validate/." \
-        "$report_root/validate/"
+      if test -d "$framework/artifacts/validate"
+      then
+
+        cp -R \
+          "$framework/artifacts/validate/." \
+          "$report_root/validate/"
+
+      fi
 
 
-      cp -R \
-        "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/." \
-        "$report_root/cli-unit/"
+      if test -d "$framework/artifacts/check-policy"
+      then
+
+        cp -R \
+          "$framework/artifacts/check-policy/." \
+          "$report_root/check-policy/"
+
+      fi
 
 
-      cp -R \
-        "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/regression/." \
-        "$report_root/regression/"
+      if test -d "$framework/artifacts/cli-unit"
+      then
+
+        cp -R \
+          "$framework/artifacts/cli-unit/." \
+          "$report_root/cli-unit/"
+
+      fi
+
+
+      if test -d "$framework/artifacts/rendered-policy-test"
+      then
+
+        cp -R \
+          "$framework/artifacts/rendered-policy-test/." \
+          "$report_root/rendered-policy-test/"
+
+      fi
+
+
+      if test -d "$framework/artifacts/regression"
+      then
+
+        cp -R \
+          "$framework/artifacts/regression/." \
+          "$report_root/regression/"
+
+      fi
+
+
+      if test -d "$framework/artifacts/integration-kind"
+      then
+
+        cp -R \
+          "$framework/artifacts/integration-kind/." \
+          "$report_root/integration-kind/"
+
+      fi
 
 
       find "$report_root" \
@@ -725,6 +1714,7 @@ report:
 
 
       cat "$report_root/manifest.txt"
+
 
   artifacts:
     when: always
