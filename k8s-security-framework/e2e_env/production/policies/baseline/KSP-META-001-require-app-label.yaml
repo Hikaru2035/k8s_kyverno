@@ -32,27 +32,26 @@ spec:
   matchConstraints:
     resourceRules:
     - apiGroups:
-        - apps
+      - apps
       apiVersions:
-        - v1
+      - v1
       operations:
-        - CREATE
-        - UPDATE
+      - CREATE
+      - UPDATE
       resources:
-        - deployments
-        - statefulsets
-        - daemonsets
-
+      - deployments
+      - statefulsets
+      - daemonsets
     - apiGroups:
-        - batch
+      - batch
       apiVersions:
-        - v1
+      - v1
       operations:
-        - CREATE
-        - UPDATE
+      - CREATE
+      - UPDATE
       resources:
-        - jobs
-        - cronjobs
+      - jobs
+      - cronjobs
   validations:
   - expression: object.metadata.?labels['app.kubernetes.io/name'].orValue('') != ''
     message: Add metadata.labels.app.kubernetes.io/name with a meaningful application
