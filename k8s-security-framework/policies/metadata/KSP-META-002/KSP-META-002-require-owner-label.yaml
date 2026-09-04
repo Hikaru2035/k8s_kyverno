@@ -29,19 +29,27 @@ spec:
   matchConstraints:
     resourceRules:
     - apiGroups:
-      - apps
-      - batch
+        - apps
       apiVersions:
-      - v1
+        - v1
       operations:
-      - CREATE
-      - UPDATE
+        - CREATE
+        - UPDATE
       resources:
-      - deployments
-      - statefulsets
-      - daemonsets
-      - jobs
-      - cronjobs
+        - deployments
+        - statefulsets
+        - daemonsets
+
+    - apiGroups:
+        - batch
+      apiVersions:
+        - v1
+      operations:
+        - CREATE
+        - UPDATE
+      resources:
+        - jobs
+        - cronjobs
   validations:
   - expression: object.metadata.?labels['policies.ksp.io/owner'].orValue('') != ''
     message: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.

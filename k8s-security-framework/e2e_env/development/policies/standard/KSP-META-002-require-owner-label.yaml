@@ -32,27 +32,26 @@ spec:
   matchConstraints:
     resourceRules:
     - apiGroups:
-        - apps
+      - apps
       apiVersions:
-        - v1
+      - v1
       operations:
-        - CREATE
-        - UPDATE
+      - CREATE
+      - UPDATE
       resources:
-        - deployments
-        - statefulsets
-        - daemonsets
-
+      - deployments
+      - statefulsets
+      - daemonsets
     - apiGroups:
-        - batch
+      - batch
       apiVersions:
-        - v1
+      - v1
       operations:
-        - CREATE
-        - UPDATE
+      - CREATE
+      - UPDATE
       resources:
-        - jobs
-        - cronjobs
+      - jobs
+      - cronjobs
     namespaceSelector:
       matchExpressions:
       - key: ksp.io/profile

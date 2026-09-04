@@ -8,3 +8,6 @@ image-security/cosign/*.pub
 docs/reports/weekly_report
 
 scripts/__pycache__/
+
+e2e_env/staging/evidence/
+e2e_env/production/evidence/
