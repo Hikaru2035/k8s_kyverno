@@ -1,0 +1,289 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+    - when: never
+
+stages:
+  - validate
+  - unit
+  - regression
+  - report
+
+variables:
+  FRAMEWORK_ROOT: k8s-security-framework
+  MINIMUM_POLICY_SUITES: "30"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PIP_ROOT_USER_ACTION: ignore
+
+default:
+  interruptible: true
+  retry:
+    max: 1
+    when:
+      - runner_system_failure
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
+
+validate:
+  stage: validate
+  image: python:3.12.11-slim-bookworm
+  before_script:
+    - python3 -m pip install --no-cache-dir PyYAML==6.0.2
+    - mkdir -p "$FRAMEWORK_ROOT/artifacts/validate"
+  script:
+    - |
+      set -u
+      cd "$FRAMEWORK_ROOT"
+      set +e
+      bash ./scripts/validate-policy-config.sh > artifacts/validate/policy-config.txt 2>&1
+      config_status=$?
+      set -e
+      cat artifacts/validate/policy-config.txt
+      test "$config_status" -eq 0
+      suite_count="$(find policies -type f -path '*/tests/kyverno-test.yaml' | wc -l | tr -d ' ')"
+      set +e
+      EXPECTED_POLICY_COUNT="$suite_count" bash ./tests/policies/check-coverage.sh > artifacts/validate/test-coverage.txt 2>&1
+      coverage_status=$?
+      set -e
+      cat artifacts/validate/test-coverage.txt
+      test "$coverage_status" -eq 0
+    - |
+      cd "$FRAMEWORK_ROOT"
+      set +e
+      python3 - <<'PY' > artifacts/validate/yaml-and-references.txt 2>&1
+      from collections import Counter
+      from pathlib import Path
+      import os
+      import sys
+      import yaml
+
+      root = Path.cwd()
+      errors = []
+      minimum = int(os.environ["MINIMUM_POLICY_SUITES"])
+      scan_roots = [
+          root / "policies",
+          root / "tests",
+          root / "ci",
+          root / "e2e_env",
+          root / "kyverno" / "helm",
+          root / "profiles",
+          root / "environments",
+      ]
+      yaml_files = []
+      for scan_root in scan_roots:
+          if scan_root.exists():
+              candidates = list(scan_root.rglob("*.yaml")) + list(scan_root.rglob("*.yml"))
+              yaml_files.extend(
+                  path for path in candidates
+                  if "evidence" not in path.parts and "reports" not in path.parts
+              )
+      yaml_files.append(root.parent / ".gitlab-ci.yml")
+      yaml_files = sorted(set(yaml_files))
+
+      documents = {}
+      for path in yaml_files:
+          try:
+              documents[path] = list(yaml.safe_load_all(path.read_text(encoding="utf-8")))
+          except (OSError, UnicodeError, yaml.YAMLError) as exc:
+              errors.append(f"invalid YAML {path.relative_to(root.parent)}: {exc}")
+
+      policy_dirs = sorted(path for path in (root / "policies").glob("*/KSP-*") if path.is_dir())
+      policy_ids = [path.name for path in policy_dirs]
+      for policy_id, count in Counter(policy_ids).items():
+          if count > 1:
+              errors.append(f"duplicate policy ID: {policy_id}")
+
+      policy_names = []
+      manifests = []
+      for policy_dir in policy_dirs:
+          policy_id = policy_dir.name
+          sources = sorted(policy_dir.glob(f"{policy_id}-*.yaml"))
+          if len(sources) != 1:
+              errors.append(f"{policy_id}: expected one source policy, found {len(sources)}")
+          elif sources[0] in documents:
+              for document in documents[sources[0]]:
+                  if isinstance(document, dict):
+                      name = document.get("metadata", {}).get("name")
+                      if not name:
+                          errors.append(f"{policy_id}: policy metadata.name is missing")
+                      else:
+                          policy_names.append((name, sources[0]))
+          manifest = policy_dir / "tests" / "kyverno-test.yaml"
+          if not manifest.is_file():
+              errors.append(f"{policy_id}: missing tests/kyverno-test.yaml")
+          else:
+              manifests.append(manifest)
+
+      for name, count in Counter(name for name, _ in policy_names).items():
+          if count > 1:
+              locations = ", ".join(str(path.relative_to(root)) for candidate, path in policy_names if candidate == name)
+              errors.append(f"duplicate policy metadata.name '{name}': {locations}")
+
+      if len(manifests) < minimum:
+          errors.append(f"suite baseline violated: expected at least {minimum}, found {len(manifests)}")
+      if len(manifests) != len(policy_dirs):
+          errors.append(f"policy/test mismatch: {len(policy_dirs)} policy directories, {len(manifests)} suites")
+
+      list_reference_keys = ("policies", "resources", "exceptions", "targetResources")
+      scalar_reference_keys = ("context", "variables", "userinfo")
+      result_reference_keys = ("patchedResource", "generatedResource", "cloneSourceResource")
+      for manifest in manifests:
+          loaded = documents.get(manifest, [])
+          test = loaded[0] if loaded else None
+          if not isinstance(test, dict):
+              errors.append(f"{manifest.relative_to(root)}: expected one Test document")
+              continue
+          if test.get("kind") != "Test":
+              errors.append(f"{manifest.relative_to(root)}: kind must be Test")
+          for key in list_reference_keys:
+              references = test.get(key, [])
+              if references is None:
+                  continue
+              if not isinstance(references, list):
+                  errors.append(f"{manifest.relative_to(root)}: {key} must be a list")
+                  continue
+              for reference in references:
+                  if not isinstance(reference, str) or not (manifest.parent / reference).is_file():
+                      errors.append(f"{manifest.relative_to(root)}: missing {key} reference {reference!r}")
+          for key in scalar_reference_keys:
+              reference = test.get(key)
+              if reference is not None and (not isinstance(reference, str) or not (manifest.parent / reference).is_file()):
+                  errors.append(f"{manifest.relative_to(root)}: missing {key} reference {reference!r}")
+          for index, result in enumerate(test.get("results", [])):
+              if not isinstance(result, dict):
+                  errors.append(f"{manifest.relative_to(root)}: results[{index}] must be a mapping")
+                  continue
+              for key in result_reference_keys:
+                  reference = result.get(key)
+                  if reference is not None and (not isinstance(reference, str) or not (manifest.parent / reference).is_file()):
+                      errors.append(f"{manifest.relative_to(root)}: missing results[{index}].{key} reference {reference!r}")
+
+      if errors:
+          print(f"Validation FAILED with {len(errors)} error(s):")
+          for error in errors:
+              print(f"ERROR: {error}")
+          sys.exit(1)
+      print(f"Validation PASSED: {len(yaml_files)} YAML files, {len(policy_dirs)} policies, {len(manifests)} suites.")
+      PY
+      validation_status=$?
+      set -e
+      cat artifacts/validate/yaml-and-references.txt
+      exit "$validation_status"
+  artifacts:
+    when: always
+    expire_in: 14 days
+    paths:
+      - k8s-security-framework/artifacts/validate/
+
+unit:
+  stage: unit
+  image:
+    name: ghcr.io/kyverno/kyverno-cli:v1.18.2
+    entrypoint: [""]
+  needs:
+    - job: validate
+      artifacts: false
+  before_script:
+    - mkdir -p "$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
+  script:
+    - |
+      set -u
+      cd "$FRAMEWORK_ROOT"
+      kyverno version > artifacts/cli-unit/kyverno-version.txt 2>&1
+      set +e
+      kyverno test policies --remove-color --detailed-results --require-tests > artifacts/cli-unit/results.txt 2>&1
+      text_status=$?
+      cat artifacts/cli-unit/results.txt
+      junit_status=0
+      for manifest in $(find policies -type f -path '*/tests/kyverno-test.yaml' | sort); do
+        tests_dir=$(dirname "$manifest")
+        policy_id=$(basename "$(dirname "$tests_dir")")
+        raw_report="artifacts/cli-unit/junit/${policy_id}.raw.txt"
+        extracted_report="artifacts/cli-unit/junit/${policy_id}.extracted.xml"
+        xml_report="artifacts/cli-unit/junit/${policy_id}.xml"
+        kyverno test "$tests_dir" --remove-color --require-tests --output-format junit > "$raw_report" 2>&1
+        suite_status=$?
+        sed -n '/^<?xml /,/^<\/testsuites>$/p' "$raw_report" > "$extracted_report"
+        sed 's#<failure message="\([^"]*\)">#<failure message="\1" />#' "$extracted_report" > "$xml_report"
+        rm "$extracted_report"
+        if test "$suite_status" -ne 0 || ! test -s "$xml_report"; then
+          junit_status=1
+        fi
+      done
+      set -e
+      test "$text_status" -eq 0
+      test "$junit_status" -eq 0
+  artifacts:
+    when: always
+    expire_in: 14 days
+    paths:
+      - k8s-security-framework/artifacts/cli-unit/
+    reports:
+      junit: k8s-security-framework/artifacts/cli-unit/junit/*.xml
+
+regression:
+  stage: regression
+  image:
+    name: ghcr.io/kyverno/kyverno-cli:v1.18.2
+    entrypoint: [""]
+  needs:
+    - job: unit
+      artifacts: false
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH'
+      when: always
+  before_script:
+    - mkdir -p "$FRAMEWORK_ROOT/artifacts/regression"
+  script:
+    - |
+      set -u
+      cd "$FRAMEWORK_ROOT"
+      kyverno version > artifacts/regression/kyverno-version.txt 2>&1
+      set +e
+      kyverno test policies --remove-color --detailed-results --require-tests > artifacts/regression/results.txt 2>&1
+      regression_status=$?
+      set -e
+      cat artifacts/regression/results.txt
+      exit "$regression_status"
+  artifacts:
+    when: always
+    expire_in: 14 days
+    paths:
+      - k8s-security-framework/artifacts/regression/
+
+report:
+  stage: report
+  image: alpine:3.21.3
+  needs:
+    - job: validate
+      artifacts: true
+    - job: unit
+      artifacts: true
+    - job: regression
+      artifacts: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH'
+      when: always
+  script:
+    - |
+      set -eu
+      report_root="$FRAMEWORK_ROOT/artifacts/report"
+      mkdir -p "$report_root/validate" "$report_root/cli-unit" "$report_root/regression"
+      cp -R "$FRAMEWORK_ROOT/artifacts/validate/." "$report_root/validate/"
+      cp -R "$FRAMEWORK_ROOT/artifacts/cli-unit/." "$report_root/cli-unit/"
+      cp -R "$FRAMEWORK_ROOT/artifacts/regression/." "$report_root/regression/"
+      find "$report_root" -type f -print | sort > "$report_root/manifest.txt"
+      cat "$report_root/manifest.txt"
+  artifacts:
+    when: always
+    expire_in: 14 days
+    paths:
+      - k8s-security-framework/artifacts/report/
