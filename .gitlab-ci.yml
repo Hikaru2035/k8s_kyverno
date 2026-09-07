@@ -625,14 +625,36 @@ unit:
 
   tags:
     - harbor-runner
+  
+  variables:
+    DOCKER_CONFIG: "$CI_PROJECT_DIR/.docker"
 
   needs:
     - job: check-policy
       artifacts: false
 
   before_script:
+    - |
+      export DOCKER_CONFIG="$CI_PROJECT_DIR/.docker"
+      mkdir -p "$DOCKER_CONFIG"
+
+      AUTH="$(printf '%s:%s' "$HARBOR_USERNAME" "$HARBOR_PASSWORD" | base64 -w0)"
+
+      cat > "$DOCKER_CONFIG/config.json" <<EOF
+      {
+        "auths": {
+          "harbor-public:30003": {
+            "auth": "$AUTH"
+          }
+        }
+      }
+      EOF
+
+      chmod 600 "$DOCKER_CONFIG/config.json"
+
     - kyverno version
     - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
+
 
   script:
 
@@ -678,6 +700,7 @@ unit:
 
 
         kyverno test "$tests_dir" \
+          --registry \
           --remove-color \
           --detailed-results \
           --require-tests \
@@ -689,6 +712,7 @@ unit:
 
 
         kyverno test "$tests_dir" \
+          --registry \
           --remove-color \
           --require-tests \
           --output-format junit \
