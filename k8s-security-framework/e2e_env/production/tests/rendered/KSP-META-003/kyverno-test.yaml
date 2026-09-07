@@ -1,0 +1,29 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: rendered-production-ksp-meta-003
+policies:
+- ../../../policies/common/KSP-META-003-require-environment-label.yaml
+resources:
+- resources.yaml
+results:
+- policy: require-namespace-environment-profile
+  rule: require-namespace-environment-profile
+  kind: Namespace
+  resources:
+  - rendered-prod-valid
+  result: pass
+
+- policy: require-namespace-environment-profile
+  rule: require-namespace-environment-profile
+  kind: Namespace
+  resources:
+  - rendered-prod-wrong-environment
+  result: fail
+
+- policy: require-namespace-environment-profile
+  rule: require-namespace-environment-profile
+  kind: Namespace
+  resources:
+  - kube-system
+  result: skip

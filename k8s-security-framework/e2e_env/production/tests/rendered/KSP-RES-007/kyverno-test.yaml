@@ -1,0 +1,24 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: rendered-production-ksp-res-007
+policies:
+- ../../../policies/standard/KSP-RES-007-require-resource-governance-namespace-labels.yaml
+resources:
+- resources.yaml
+results:
+- policy: require-resource-governance-namespace-labels
+  rule: require-resource-governance-namespace-labels
+  kind: Namespace
+  resources:
+  - rendered-res007-standard
+  - rendered-res007-restricted
+  result: pass
+
+- policy: require-resource-governance-namespace-labels
+  rule: require-resource-governance-namespace-labels
+  kind: Namespace
+  resources:
+  - rendered-res007-baseline
+  - kube-system
+  result: skip

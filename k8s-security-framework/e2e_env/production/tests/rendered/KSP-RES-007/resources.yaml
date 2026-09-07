@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rendered-res007-standard
+  labels:
+    ksp.io/profile: standard
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: production
+    policies.ksp.io/quota-class: medium
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rendered-res007-restricted
+  labels:
+    ksp.io/profile: restricted
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: production
+    policies.ksp.io/quota-class: medium
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rendered-res007-baseline
+  labels:
+    ksp.io/profile: baseline
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: production
+    policies.ksp.io/quota-class: medium
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-system
+  labels:
+    ksp.io/profile: standard
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: production
+    policies.ksp.io/quota-class: medium

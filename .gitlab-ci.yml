@@ -813,130 +813,51 @@ rendered-policy-test:
 
       kyverno version
 
-    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
+    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/rendered-policy-test"
+
   script:
-
-    - |
-      set -eu
-
-      cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
-
-
-      TMP_ROOT="artifacts/rendered-policy-test/tmp-tests"
-
-
-      rm -rf "$TMP_ROOT"
-
-      mkdir -p "$TMP_ROOT"
-
-
-      while IFS= read -r manifest
-      do
-
-        tests_dir="$(dirname "$manifest")"
-
-        policy_dir="$(dirname "$tests_dir")"
-
-        policy_id="$(basename "$policy_dir")"
-
-
-        source_policy="$(
-          find "$policy_dir" \
-            -maxdepth 1 \
-            -type f \
-            -name "${policy_id}-*.yaml" \
-            -print \
-            -quit
-        )"
-
-
-        source_name="$(basename "$source_policy")"
-
-
-        rendered_policy="$(
-          find e2e_env/production/policies \
-            -type f \
-            -name "$source_name" \
-            -print \
-            -quit
-        )"
-
-
-        if test -z "$rendered_policy"
-        then
-
-          echo "ERROR: rendered production policy missing:"
-          echo "$policy_id"
-
-          exit 1
-
-        fi
-
-
-        tmp_policy_dir="$TMP_ROOT/$policy_id"
-
-
-        mkdir -p "$tmp_policy_dir"
-
-
-        cp "$rendered_policy" \
-          "$tmp_policy_dir/$source_name"
-
-
-        cp -R "$tests_dir" \
-          "$tmp_policy_dir/tests"
-
-
-        echo "$policy_id -> $rendered_policy"
-
-
-      done < <(
-        find policies \
-          -type f \
-          -path '*/tests/kyverno-test.yaml' \
-          | sort
-      )
-
-
-      find "$TMP_ROOT" \
-        -type f \
-        | sort \
-        > artifacts/rendered-policy-test/tmp-manifest.txt
-
-
-      cat artifacts/rendered-policy-test/tmp-manifest.txt
-
     - |
       set -u
 
       cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
 
+      TEST_ROOT="e2e_env/production/tests/rendered"
 
-      TMP_ROOT="artifacts/rendered-policy-test/tmp-tests"
+      if ! find "$TEST_ROOT" \
+        -type f \
+        -name kyverno-test.yaml \
+        -print \
+        -quit \
+        | grep -q .
+      then
+        echo "ERROR: no rendered policy tests found in $TEST_ROOT"
+        exit 1
+      fi
 
+      find "$TEST_ROOT" \
+        -type f \
+        -name kyverno-test.yaml \
+        | sort \
+        > artifacts/rendered-policy-test/test-manifest.txt
+
+      cat artifacts/rendered-policy-test/test-manifest.txt
 
       set +e
 
-
-      kyverno test "$TMP_ROOT" \
+      kyverno test "$TEST_ROOT" \
         --remove-color \
         --detailed-results \
         --require-tests \
         > artifacts/rendered-policy-test/results.txt \
         2>&1
 
-
       rendered_test_status=$?
-
 
       set -e
 
-
       cat artifacts/rendered-policy-test/results.txt
 
-
       exit "$rendered_test_status"
-
 
   artifacts:
     when: always
