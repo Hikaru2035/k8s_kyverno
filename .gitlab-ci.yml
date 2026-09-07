@@ -5,7 +5,6 @@ stages:
   - integration
   - report
 
-
 variables:
   FRAMEWORK_ROOT: "k8s-security-framework"
   MINIMUM_POLICY_SUITES: "30"
@@ -14,10 +13,7 @@ variables:
   KIND_VERSION: "v0.32.0"
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
   PIP_ROOT_USER_ACTION: "ignore"
-
-  # Cần history để xác định policy thay đổi trong MR/push.
   GIT_DEPTH: "0"
-
 
 default:
   interruptible: true
@@ -27,17 +23,11 @@ default:
     when:
       - runner_system_failure
 
-
 workflow:
   rules:
-    # Merge Request pipeline.
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-
-    # Không tạo branch pipeline trùng nếu branch đã có MR.
     - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
       when: never
-
-    # Push bình thường.
     - if: '$CI_COMMIT_BRANCH'
 
 harbor_auth_check:
@@ -56,7 +46,7 @@ harbor_auth_check:
         https://harbor-public:30003/v2/)"
       echo "Harbor HTTP status: $STATUS"
       test "$STATUS" = "200"
-      
+
 validate:
   stage: validate
 
@@ -632,41 +622,16 @@ check-policy:
 
 unit:
   stage: unit
+
   tags:
     - harbor-runner
-  image: alpine:3.21.3
+
   needs:
     - job: check-policy
       artifacts: false
 
   before_script:
-    - apk add --no-cache curl tar
-    - |
-      ARCH="$(uname -m)"
-
-      case "$ARCH" in
-        x86_64)
-          KYVERNO_ARCH="x86_64"
-          ;;
-        aarch64|arm64)
-          KYVERNO_ARCH="arm64"
-          ;;
-        *)
-          echo "Unsupported architecture: $ARCH"
-          exit 1
-          ;;
-      esac
-
-      curl -fsSL \
-        "https://github.com/kyverno/kyverno/releases/download/v1.18.2/kyverno-cli_v1.18.2_linux_${KYVERNO_ARCH}.tar.gz" \
-        -o /tmp/kyverno.tar.gz
-
-      tar -xzf /tmp/kyverno.tar.gz -C /tmp
-      mv /tmp/kyverno /usr/local/bin/kyverno
-      chmod +x /usr/local/bin/kyverno
-
-      kyverno version
-
+    - kyverno version
     - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
 
   script:
