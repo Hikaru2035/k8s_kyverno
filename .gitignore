@@ -1,0 +1,4 @@
+
+# Cosign private keys
+k8s-security-framework/image-security/cosign/**/*.key
+k8s-security-framework/image-security/cosign/*.key

@@ -13,8 +13,8 @@ metadata:
     policies.kyverno.io/subject: Pod
     policies.kyverno.io/description: Verifies Cosign signatures for images in the
       project Harbor registry.
-    policies.ksp.io/parameter: Bootstrap public key and harbor.example.com must be
-      replaced before Enforce.
+    policies.ksp.io/parameter: Trusted Cosign public key configured for the project
+      Harbor registry.
     policies.ksp.io/profiles: restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
@@ -49,31 +49,30 @@ spec:
         operator: In
         values:
         - restricted
+  credentials:
+    providers:
+    - default
+    secrets:
+    - harbor-registry-credentials
   matchImageReferences:
-  - glob: harbor.example.com/*
+  - glob: harbor-public:30003/ksp-test/*
   attestors:
   - name: cosign
     cosign:
+      ctlog:
+        url: https://rekor.sigstore.dev
+        insecureIgnoreTlog: true
       key:
         data: '-----BEGIN PUBLIC KEY-----
 
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv/K8EkIRNgGWkDZr2fAf
+          MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENCILe4A6XfYS7ywb6+2dYofOp/EF
 
-          vk3vt12E81yTHbrf+34NAN6WlgUKEJLNYfU4825HpdenkuoWY055j8MvF8jYoATk
-
-          g82sFvJTyjUs2s4zX3PTt+Z7oSlWIPEc8DLHVwxnD7P8mNTktPlk7yxWvE2q8VnM
-
-          QnuPt6lN+MSXcTIGHxxjWj9uJV2tpz8Xz00sO4X8103mj2N7usPZykCwQ5vSCqtj
-
-          IWb2zoAdmlwynDZGkMfljhk6dUlA9/6SG00VFYzwiZDe7f3lnAbi2F6qNm+KEdky
-
-          qrvGh7ETFc6sy9FoIX0hNNh2BZ4ofmVl3EdwtcHq05rb/ZJAn0wPXGrt2l9KWrAU
-
-          rQIDAQAB
+          m2QD8eSTF3tewrleB6qxxTbrdicMpvUl+n26WcNFGKz5Lcw+c60AERhJPw==
 
           -----END PUBLIC KEY-----'
   validations:
-  - expression: "images.containers.map(\n  image,\n  verifyImageSignatures(image,\
+  - expression: "(\n  images.containers\n  + images.?initContainers.orValue([])\n\
+      \  + images.?ephemeralContainers.orValue([])\n).map(\n  image,\n  verifyImageSignatures(image,\
       \ [attestors.cosign])\n).all(result, result > 0)\n"
     message: Image must be signed with the trusted Cosign key.
   matchConditions:
