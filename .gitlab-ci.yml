@@ -8,14 +8,10 @@ stages:
 
 variables:
   FRAMEWORK_ROOT: "k8s-security-framework"
-
   MINIMUM_POLICY_SUITES: "30"
-
   KYVERNO_VERSION: "v1.18.2"
   KYVERNO_CHART_VERSION: "3.8.2"
-
   KIND_VERSION: "v0.32.0"
-
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
   PIP_ROOT_USER_ACTION: "ignore"
 
@@ -44,6 +40,23 @@ workflow:
     # Push bình thường.
     - if: '$CI_COMMIT_BRANCH'
 
+harbor_auth_check:
+  stage: validate
+  tags:
+    - harbor-runner
+  script:
+    - test -n "$HARBOR_USERNAME"
+    - test -n "$HARBOR_PASSWORD"
+    - |
+      AUTH="$(printf '%s:%s' "$HARBOR_USERNAME" "$HARBOR_PASSWORD" | base64 -w0)"
+      STATUS="$(curl -sS \
+        -o /dev/null \
+        -w '%{http_code}' \
+        -H "Authorization: Basic $AUTH" \
+        https://harbor-public:30003/v2/)"
+      echo "Harbor HTTP status: $STATUS"
+      test "$STATUS" = "200"
+      
 validate:
   stage: validate
 
@@ -943,7 +956,6 @@ rendered-policy-test:
     paths:
       - k8s-security-framework/artifacts/rendered-policy-test/
 
-
 regression:
   stage: regression
 
@@ -1028,14 +1040,6 @@ regression:
 
     paths:
       - k8s-security-framework/artifacts/regression/
-
-
-# ============================================================
-# STAGE 4
-# REAL KUBERNETES / KIND INTEGRATION
-#
-# Đây mới là admission test thật.
-# ============================================================
 
 kind-integration:
   stage: integration
@@ -1586,12 +1590,6 @@ kind-integration:
 
     paths:
       - k8s-security-framework/artifacts/integration-kind/
-
-
-# ============================================================
-# STAGE 5
-# REPORT
-# ============================================================
 
 report:
   stage: report
