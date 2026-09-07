@@ -632,9 +632,9 @@ check-policy:
 
 unit:
   stage: unit
-
+  tags:
+    - harbor-runner
   image: alpine:3.21.3
-
   needs:
     - job: check-policy
       artifacts: false
