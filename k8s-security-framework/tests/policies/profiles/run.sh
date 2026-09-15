@@ -22,6 +22,8 @@ esac
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FRAMEWORK_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
 
+bash "${FRAMEWORK_ROOT}/scripts/validate-policy-config.sh" || exit 1
+
 PROFILE_FILE="${FRAMEWORK_ROOT}/profiles/${PROFILE}/policy-ids.txt"
 POLICIES_ROOT="${FRAMEWORK_ROOT}/policies"
 REPORT_ROOT="${REPORT_ROOT:-${FRAMEWORK_ROOT}/artifacts/cli-unit/profile-${PROFILE}}"

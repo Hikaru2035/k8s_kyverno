@@ -11,8 +11,7 @@ metadata:
     policies.kyverno.io/severity: critical
     policies.kyverno.io/subject: Pod
     policies.kyverno.io/description: Verifies Cosign signatures for images in the project Harbor registry.
-    policies.ksp.io/parameter: Trusted Cosign public key configured for the project Harbor registry.
-    policies.ksp.io/profiles: restricted
+    policies.ksp.io/profiles: baseline,standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
     policies.ksp.io/prod-mode: Enforce
@@ -20,18 +19,14 @@ metadata:
 
 spec:
   failurePolicy: Fail
-
   webhookConfiguration:
     timeoutSeconds: 30
-
   evaluation:
     background:
       enabled: false
-
   validationActions:
   - Audit
   - Warn
-
   matchConstraints:
     resourceRules:
     - apiGroups:
@@ -49,10 +44,8 @@ spec:
     - default
     secrets:
     - harbor-registry-credentials
-
   matchImageReferences:
   - glob: "harbor-public:30003/ksp-test/*"
-
   attestors:
   - name: cosign
     cosign:

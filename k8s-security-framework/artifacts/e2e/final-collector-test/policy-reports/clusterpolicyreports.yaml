@@ -1,0 +1,673 @@
+apiVersion: v1
+items:
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:00Z"
+    generation: 20
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 02b026e2-ea52-4d3a-aa67-962bd639f4dd
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: default
+      uid: 02b026e2-ea52-4d3a-aa67-962bd639f4dd
+    resourceVersion: "4958938"
+    uid: 17506cd4-89db-4745-82e3-08b67613f5e3
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923788
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: default
+    uid: 02b026e2-ea52-4d3a-aa67-962bd639f4dd
+  summary:
+    error: 0
+    fail: 0
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:01Z"
+    generation: 20
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 0a2a715f-3ae4-4727-b68f-462d9cdaf855
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: kube-public
+      uid: 0a2a715f-3ae4-4727-b68f-462d9cdaf855
+    resourceVersion: "4958960"
+    uid: 6be1461c-0361-4576-937a-c06161c6fda0
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: kube-public
+    uid: 0a2a715f-3ae4-4727-b68f-462d9cdaf855
+  summary:
+    error: 0
+    fail: 0
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:01Z"
+    generation: 23
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 0b50820f-26c8-4331-9e4f-0e237eb452ed
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: harbor
+      uid: 0b50820f-26c8-4331-9e4f-0e237eb452ed
+    resourceVersion: "4958944"
+    uid: b8de61be-801b-4d94-a1fb-0596dcb9220f
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923788
+  - category: KSP Metadata
+    message: Set ksp.io/environment to dev for this development cluster.
+    policy: require-namespace-environment-profile
+    properties:
+      process: background scan
+    result: fail
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788921654
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: harbor
+    uid: 0b50820f-26c8-4331-9e4f-0e237eb452ed
+  summary:
+    error: 0
+    fail: 1
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:01Z"
+    generation: 23
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 226ee6a7-89c8-4c2e-83ff-32ff65392f98
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: ksp-dev
+      uid: 226ee6a7-89c8-4c2e-83ff-32ff65392f98
+    resourceVersion: "4958947"
+    uid: 1259e84a-ecdf-4f72-bf5e-df8fd3573e27
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  - category: KSP Metadata
+    message: Set ksp.io/environment to dev for this development cluster.
+    policy: require-namespace-environment-profile
+    properties:
+      process: background scan
+    result: fail
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788921654
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: ksp-dev
+    uid: 226ee6a7-89c8-4c2e-83ff-32ff65392f98
+  summary:
+    error: 0
+    fail: 1
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:01Z"
+    generation: 20
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 417710d5-f182-4af3-af6a-fe19f41416fc
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: kube-node-lease
+      uid: 417710d5-f182-4af3-af6a-fe19f41416fc
+    resourceVersion: "4958957"
+    uid: 9902d1a1-9f3b-48c4-ab71-18db463cbb85
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: kube-node-lease
+    uid: 417710d5-f182-4af3-af6a-fe19f41416fc
+  summary:
+    error: 0
+    fail: 0
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:01Z"
+    generation: 23
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 4ed980b5-b6ab-46b4-bf64-8a2d745f1065
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: ksp-production
+      uid: 4ed980b5-b6ab-46b4-bf64-8a2d745f1065
+    resourceVersion: "4958950"
+    uid: 47a90ba6-0b0e-4b86-bc4c-71217d18174b
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  - category: KSP Metadata
+    message: Set ksp.io/environment to dev for this development cluster.
+    policy: require-namespace-environment-profile
+    properties:
+      process: background scan
+    result: fail
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788921654
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: ksp-production
+    uid: 4ed980b5-b6ab-46b4-bf64-8a2d745f1065
+  summary:
+    error: 0
+    fail: 1
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:01Z"
+    generation: 20
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 73da6a4f-f956-4560-b21e-7b384376a1ea
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: kube-system
+      uid: 73da6a4f-f956-4560-b21e-7b384376a1ea
+    resourceVersion: "4958963"
+    uid: b699c341-1a46-4f22-93f7-bbec9569b0e5
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: kube-system
+    uid: 73da6a4f-f956-4560-b21e-7b384376a1ea
+  summary:
+    error: 0
+    fail: 0
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:01Z"
+    generation: 23
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 7cc85c8a-08e5-4625-b96b-a8c88013fb64
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: ksp-staging
+      uid: 7cc85c8a-08e5-4625-b96b-a8c88013fb64
+    resourceVersion: "4958953"
+    uid: 13c7a0c9-733b-40e5-912c-a8d2a50ef215
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  - category: KSP Metadata
+    message: Set ksp.io/environment to dev for this development cluster.
+    policy: require-namespace-environment-profile
+    properties:
+      process: background scan
+    result: fail
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788921654
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: ksp-staging
+    uid: 7cc85c8a-08e5-4625-b96b-a8c88013fb64
+  summary:
+    error: 0
+    fail: 1
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:01Z"
+    generation: 23
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 8182d027-20cc-45fe-a3e3-2adce91bf61c
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: local-path-storage
+      uid: 8182d027-20cc-45fe-a3e3-2adce91bf61c
+    resourceVersion: "4958972"
+    uid: 2b14e741-f586-453c-ba78-b93fbd2d0e3d
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  - category: KSP Metadata
+    message: Set ksp.io/environment to dev for this development cluster.
+    policy: require-namespace-environment-profile
+    properties:
+      process: background scan
+    result: fail
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788921653
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: local-path-storage
+    uid: 8182d027-20cc-45fe-a3e3-2adce91bf61c
+  summary:
+    error: 0
+    fail: 1
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:01Z"
+    generation: 20
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 922015cf-6315-4c29-8930-f721ef908f3f
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: kyverno
+      uid: 922015cf-6315-4c29-8930-f721ef908f3f
+    resourceVersion: "4958968"
+    uid: fc103e70-7b6e-48ca-8446-8123d1f4ddb4
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: kyverno
+    uid: 922015cf-6315-4c29-8930-f721ef908f3f
+  summary:
+    error: 0
+    fail: 0
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:02Z"
+    generation: 23
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 9e5fbfd2-6ce7-499b-84a4-cac88f2f1b14
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: tigera-operator
+      uid: 9e5fbfd2-6ce7-499b-84a4-cac88f2f1b14
+    resourceVersion: "4958980"
+    uid: 4c1344fe-a224-4786-b7c0-64da5a47d65f
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  - category: KSP Metadata
+    message: Set ksp.io/environment to dev for this development cluster.
+    policy: require-namespace-environment-profile
+    properties:
+      process: background scan
+    result: fail
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788921654
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: tigera-operator
+    uid: 9e5fbfd2-6ce7-499b-84a4-cac88f2f1b14
+  summary:
+    error: 0
+    fail: 1
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:00Z"
+    generation: 23
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 9fbcfa6d-6363-46a2-9ecf-e7ce5af9c8a0
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: calico-system
+      uid: 9fbcfa6d-6363-46a2-9ecf-e7ce5af9c8a0
+    resourceVersion: "4958935"
+    uid: dd1cc438-d9eb-4901-be1c-4af846791741
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923788
+  - category: KSP Metadata
+    message: Set ksp.io/environment to dev for this development cluster.
+    policy: require-namespace-environment-profile
+    properties:
+      process: background scan
+    result: fail
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788921654
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: calico-system
+    uid: 9fbcfa6d-6363-46a2-9ecf-e7ce5af9c8a0
+  summary:
+    error: 0
+    fail: 1
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T09:07:00Z"
+    generation: 23
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: b43f6395-3e50-46fe-9a62-5a1282bc3a04
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: demo
+      uid: b43f6395-3e50-46fe-9a62-5a1282bc3a04
+    resourceVersion: "4958941"
+    uid: e33e88eb-ca21-4166-9360-3fbf78e7edee
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923788
+  - category: KSP Metadata
+    message: Set ksp.io/environment to dev for this development cluster.
+    policy: require-namespace-environment-profile
+    properties:
+      process: background scan
+    result: fail
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788921654
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: demo
+    uid: b43f6395-3e50-46fe-9a62-5a1282bc3a04
+  summary:
+    error: 0
+    fail: 1
+    pass: 1
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: ClusterPolicyReport
+  metadata:
+    creationTimestamp: "2026-09-08T10:16:39Z"
+    generation: 21
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: d2ef9c9d-81c9-460d-a713-7801081d7376
+    ownerReferences:
+    - apiVersion: v1
+      kind: Namespace
+      name: monitoring
+      uid: d2ef9c9d-81c9-460d-a713-7801081d7376
+    resourceVersion: "4958977"
+    uid: 3d8032f1-ebed-482b-9d6c-6a1cd945d818
+  results:
+  - category: KSP Resource Governance
+    message: policy evaluated successfully
+    policy: generate-resource-quota
+    properties:
+      process: admission review
+    result: pass
+    rule: generate-resource-quota
+    scored: true
+    severity: medium
+    source: KyvernoGeneratingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788923789
+  - category: KSP Metadata
+    message: Set ksp.io/environment to dev for this development cluster.
+    policy: require-namespace-environment-profile
+    properties:
+      process: background scan
+    result: fail
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1788921654
+  scope:
+    apiVersion: v1
+    kind: Namespace
+    name: monitoring
+    uid: d2ef9c9d-81c9-460d-a713-7801081d7376
+  summary:
+    error: 0
+    fail: 1
+    pass: 1
+    skip: 0
+    warn: 0
+kind: List
+metadata:
+  resourceVersion: ""

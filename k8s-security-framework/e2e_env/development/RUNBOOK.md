@@ -42,7 +42,7 @@ kubectl get policyreports -A -o yaml > "$EVIDENCE/baseline-policyreports.yaml"
 kubectl -n kyverno logs -l app.kubernetes.io/component=admission-controller --all-containers --since=15m > "$EVIDENCE/baseline-kyverno.log"
 ```
 
-Expected: valid objects succeed; invalid objects follow each rendered policy's action in `EXPECTED-RESULTS.md`; Scenario 11 appears in a PolicyReport when background evaluation is enabled.
+Expected: Scenario 09 uses a tagged image and now violates Baseline digest policy; other objects follow each rendered policy's action in `EXPECTED-RESULTS.md`; Scenario 11 appears in a PolicyReport when background evaluation is enabled.
 
 ## 4. Standard promotion
 
@@ -61,7 +61,7 @@ kubectl -n e2e-ksp-canary rollout status deploy/e2e-ksp-ha-app
 kubectl -n e2e-ksp-canary get pods,endpoints,endpointslices -o wide | tee "$EVIDENCE/14-availability.txt"
 ```
 
-Expected: canary becomes Standard, alpha remains Baseline, remediation succeeds, three replicas become Ready, and the Service has endpoints.
+Expected: canary becomes Standard and alpha remains Baseline. Scenario 14's tagged image now violates Baseline digest policy. In production, replace it with a verified digest for the same image before the availability step; Pod admission is denied until remediated. Development/staging audit the digest violation. Registry-matching images also require a trusted signature in production.
 
 ## 5. Restricted promotion
 

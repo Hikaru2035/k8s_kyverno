@@ -69,11 +69,13 @@ def main():
         for old in target.glob("*.yaml"): old.unlink()
     sets = {"baseline": ids("baseline"), "standard": ids("standard"), "restricted": ids("restricted")}
     incremental = {"baseline": sets["baseline"], "standard": [x for x in sets["standard"] if x not in sets["baseline"]], "restricted": [x for x in sets["restricted"] if x not in sets["standard"]]}
-    jobs = [("common", "KSP-META-003")]
-    jobs += [(level, p) for level in ("baseline", "standard", "restricted") for p in incremental[level]]
+    # Bootstrap governance belongs to baseline but is installed first, once.
+    common = [p for p in sets["baseline"] if p == "KSP-META-003"]
+    jobs = [("common", p) for p in common]
+    jobs += [(level, p) for level in ("baseline", "standard", "restricted") for p in incremental[level] if p not in common]
     for level, policy_id in jobs:
         content = render(policy_id, level, env_name)
         if content is not None: (out / "policies" / level / source(policy_id).name).write_text(content)
-    print(f"rendered {env_name}: common=1 baseline={len(incremental['baseline'])} standard={len(incremental['standard'])} restricted={len(incremental['restricted'])}")
+    print(f"rendered {env_name}: common={len(common)} baseline={len(incremental['baseline']) - len(common)} standard={len(incremental['standard'])} restricted={len(incremental['restricted'])}")
 
 if __name__ == "__main__": main()

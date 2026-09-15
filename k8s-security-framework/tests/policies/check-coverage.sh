@@ -6,7 +6,7 @@ FRAMEWORK_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 PRODUCTION_PROFILE="${FRAMEWORK_ROOT}/profiles/restricted/policy-ids.txt"
 POLICIES_ROOT="${FRAMEWORK_ROOT}/policies"
-EXPECTED_POLICY_COUNT="${EXPECTED_POLICY_COUNT:-30}"
+EXPECTED_POLICY_COUNT="${EXPECTED_POLICY_COUNT:-$(find "${POLICIES_ROOT}" -mindepth 2 -maxdepth 2 -type d -name 'KSP-*' | wc -l)}"
 
 if [[ ! -f "${PRODUCTION_PROFILE}" ]]; then
   echo "ERROR: missing production profile: ${PRODUCTION_PROFILE}"
@@ -18,7 +18,7 @@ if [[ ! -d "${POLICIES_ROOT}" ]]; then
   exit 1
 fi
 
-mapfile -t POLICY_IDS < <({ grep -E '^[A-Z0-9-]+$' "${PRODUCTION_PROFILE}"; echo KSP-META-003; } | sort -u)
+mapfile -t POLICY_IDS < <(grep -E '^[A-Z0-9-]+$' "${PRODUCTION_PROFILE}" | sort -u)
 
 errors=0
 

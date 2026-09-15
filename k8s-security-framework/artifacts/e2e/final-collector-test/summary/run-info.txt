@@ -1,0 +1,3 @@
+run_id=final-collector-test
+timestamp_utc=2026-09-09T03:26:53Z
+cluster_context=kubernetes-admin@kubernetes

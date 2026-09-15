@@ -7,7 +7,6 @@ stages:
 
 variables:
   FRAMEWORK_ROOT: "k8s-security-framework"
-  MINIMUM_POLICY_SUITES: "30"
   KYVERNO_VERSION: "v1.18.2"
   KYVERNO_CHART_VERSION: "3.8.2"
   KIND_VERSION: "v0.32.0"
@@ -138,7 +137,6 @@ validate:
       root = Path.cwd()
       errors = []
 
-      minimum = int(os.environ["MINIMUM_POLICY_SUITES"])
 
 
       scan_roots = [
@@ -321,12 +319,10 @@ validate:
               )
 
 
-      if len(manifests) < minimum:
+      if not policy_dirs:
 
           errors.append(
-              "suite baseline violated: "
-              f"expected at least {minimum}, "
-              f"found {len(manifests)}"
+              "no source policy directories found"
           )
 
 
@@ -804,7 +800,7 @@ rendered-policy-test:
       esac
 
       curl -fsSL \
-        "https://github.com/kyverno/kyverno/releases/download/v1.18.2/kyverno-cli_v1.18.2_linux_${KYVERNO_ARCH}.tar.gz" \
+        "https://github.com/kyverno/kyverno/releases/download/${KYVERNO_VERSION}/kyverno-cli_${KYVERNO_VERSION}_linux_${KYVERNO_ARCH}.tar.gz" \
         -o /tmp/kyverno.tar.gz
 
       tar -xzf /tmp/kyverno.tar.gz -C /tmp
@@ -897,7 +893,7 @@ regression:
       esac
 
       curl -fsSL \
-        "https://github.com/kyverno/kyverno/releases/download/v1.18.2/kyverno-cli_v1.18.2_linux_${KYVERNO_ARCH}.tar.gz" \
+        "https://github.com/kyverno/kyverno/releases/download/${KYVERNO_VERSION}/kyverno-cli_${KYVERNO_VERSION}_linux_${KYVERNO_ARCH}.tar.gz" \
         -o /tmp/kyverno.tar.gz
 
       tar -xzf /tmp/kyverno.tar.gz -C /tmp

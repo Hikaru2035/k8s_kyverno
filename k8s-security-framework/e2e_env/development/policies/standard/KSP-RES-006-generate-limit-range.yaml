@@ -13,8 +13,6 @@ metadata:
     policies.kyverno.io/subject: Namespace,LimitRange
     policies.kyverno.io/description: Generates synchronized environment-specific container
       resource defaults for opted-in application namespaces.
-    policies.ksp.io/parameter: Resource sizing is loaded from the ksp-limitrange-sizing
-      ConfigMap according to policies.ksp.io/environment.
     policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Generate
     policies.ksp.io/staging-mode: Generate

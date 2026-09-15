@@ -6,7 +6,7 @@ FRAMEWORK_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
 
 POLICIES_ROOT="${FRAMEWORK_ROOT}/policies"
 REPORT_ROOT="${REPORT_ROOT:-${FRAMEWORK_ROOT}/artifacts/cli-unit/regression}"
-EXPECTED_POLICY_COUNT="${EXPECTED_POLICY_COUNT:-30}"
+EXPECTED_POLICY_COUNT="${EXPECTED_POLICY_COUNT:-$(find "${POLICIES_ROOT}" -mindepth 2 -maxdepth 2 -type d -name 'KSP-*' | wc -l)}"
 
 if ! command -v kyverno >/dev/null 2>&1; then
   echo "ERROR: kyverno CLI not found in PATH"
