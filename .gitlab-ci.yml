@@ -846,6 +846,12 @@ kind-integration:
         apiServerPort: 6443
       nodes:
         - role: control-plane
+          kubeadmConfigPatches:
+            - |
+              kind: ClusterConfiguration
+              apiServer:
+                certSANs:
+                  - "docker"
       EOF
 
       echo "=== Kind configuration ==="
