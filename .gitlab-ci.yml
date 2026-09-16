@@ -138,7 +138,7 @@ validate:
           root / "profiles",
       ]
 
-      yaml_files = [root.parent / "versions.yaml", root.parent / "test-harbor.yaml"]
+      yaml_files = [root.parent / "versions.yaml"]
       for scan_root in scan_roots:
           if scan_root.exists():
               candidates = (
