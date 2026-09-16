@@ -1,0 +1,135 @@
+]633;E;echo "=== NAMESPACES ===";4fc89ec6-e5ff-404b-b626-2f7a1e9aa6dc]633;C=== NAMESPACES ===
+NAME                 STATUS   AGE     LABELS
+calico-system        Active   20d     app.kubernetes.io/component=Installation.operator.tigera.io,app.kubernetes.io/instance=default,app.kubernetes.io/managed-by=tigera-operator,app.kubernetes.io/name=calico-system,app.kubernetes.io/part-of=Calico,k8s-app=calico-system,kubernetes.io/metadata.name=calico-system,name=calico-system,pod-security.kubernetes.io/enforce-version=latest,pod-security.kubernetes.io/enforce=privileged
+default              Active   20d     kubernetes.io/metadata.name=default
+e2e-dev-ns-invalid   Active   38s     kubernetes.io/metadata.name=e2e-dev-ns-invalid
+e2e-dev-ns-valid     Active   38s     ksp.io/environment=development,ksp.io/profile=baseline,kubernetes.io/metadata.name=e2e-dev-ns-valid
+harbor               Active   10d     kubernetes.io/metadata.name=harbor
+ksp-dev              Active   20d     kubernetes.io/metadata.name=ksp-dev
+ksp-production       Active   20d     kubernetes.io/metadata.name=ksp-production
+ksp-staging          Active   20d     kubernetes.io/metadata.name=ksp-staging
+kube-node-lease      Active   20d     kubernetes.io/metadata.name=kube-node-lease
+kube-public          Active   20d     kubernetes.io/metadata.name=kube-public
+kube-system          Active   20d     kubernetes.io/metadata.name=kube-system
+kyverno              Active   20d     kubernetes.io/metadata.name=kyverno,name=kyverno
+local-path-storage   Active   10d     kubernetes.io/metadata.name=local-path-storage
+monitoring           Active   7d15h   kubernetes.io/metadata.name=monitoring
+tigera-operator      Active   20d     kubernetes.io/metadata.name=tigera-operator
+
+=== PODS ===
+NAMESPACE            NAME                                                     READY   STATUS             RESTARTS       AGE     IP                NODE            NOMINATED NODE   READINESS GATES
+calico-system        calico-apiserver-587bcdb7d9-hskb6                        1/1     Running            0              20d     10.244.235.132    control-plane   <none>           <none>
+calico-system        calico-apiserver-587bcdb7d9-q28rt                        1/1     Running            0              20d     10.244.235.129    control-plane   <none>           <none>
+calico-system        calico-kube-controllers-6d6788ff4c-kb9th                 1/1     Running            0              20d     10.244.235.135    control-plane   <none>           <none>
+calico-system        calico-node-jb755                                        1/1     Running            0              20d     171.244.199.140   control-plane   <none>           <none>
+calico-system        calico-node-qv545                                        1/1     Running            0              20d     171.244.199.112   worker-node-2   <none>           <none>
+calico-system        calico-node-vtr9p                                        1/1     Running            0              20d     171.244.199.186   worker-node-1   <none>           <none>
+calico-system        calico-typha-7b99d88765-pcp5x                            1/1     Running            0              20d     171.244.199.112   worker-node-2   <none>           <none>
+calico-system        calico-typha-7b99d88765-s94z9                            1/1     Running            0              20d     171.244.199.140   control-plane   <none>           <none>
+calico-system        goldmane-646fd87bdd-l2tzm                                1/1     Running            1 (15h ago)    20d     10.244.235.130    control-plane   <none>           <none>
+calico-system        whisker-7d677966c9-846t4                                 2/2     Running            0              20d     10.244.235.134    control-plane   <none>           <none>
+harbor               harbor-core-77576b4656-k2h7q                             1/1     Running            0              10d     10.244.212.72     worker-node-1   <none>           <none>
+harbor               harbor-database-0                                        1/1     Running            0              10d     10.244.212.77     worker-node-1   <none>           <none>
+harbor               harbor-jobservice-684494d9bb-stzqr                       1/1     Running            3 (10d ago)    10d     10.244.212.76     worker-node-1   <none>           <none>
+harbor               harbor-nginx-688cf77c5b-8ml75                            1/1     Running            0              10d     10.244.212.73     worker-node-1   <none>           <none>
+harbor               harbor-portal-677b5d5455-zsr4z                           1/1     Running            0              10d     10.244.19.136     worker-node-2   <none>           <none>
+harbor               harbor-redis-0                                           1/1     Running            0              10d     10.244.19.140     worker-node-2   <none>           <none>
+harbor               harbor-registry-8464c694b4-8fflh                         2/2     Running            0              10d     10.244.19.139     worker-node-2   <none>           <none>
+ksp-dev              e2e-dev-daemonset-invalid-4g6nm                          1/1     Running            0              23s     10.244.212.107    worker-node-1   <none>           <none>
+ksp-dev              e2e-dev-daemonset-invalid-mjtjl                          1/1     Running            0              23s     10.244.19.172     worker-node-2   <none>           <none>
+ksp-dev              e2e-dev-daemonset-valid-4jx5m                            0/1     ImagePullBackOff   0              12s     10.244.212.109    worker-node-1   <none>           <none>
+ksp-dev              e2e-dev-daemonset-valid-f8vzg                            0/1     ImagePullBackOff   0              16s     10.244.19.174     worker-node-2   <none>           <none>
+ksp-dev              e2e-dev-deployment-invalid-698dbd4fd5-9n2t7              1/1     Running            0              33s     10.244.19.170     worker-node-2   <none>           <none>
+ksp-dev              e2e-dev-deployment-valid-7bf54f7d8-2hvhf                 0/1     ImagePullBackOff   0              24s     10.244.19.171     worker-node-2   <none>           <none>
+ksp-dev              e2e-dev-job-invalid-dtjqh                                0/1     Completed          0              19s     10.244.212.108    worker-node-1   <none>           <none>
+ksp-dev              e2e-dev-job-valid-q5fqb                                  0/1     ImagePullBackOff   0              12s     10.244.212.110    worker-node-1   <none>           <none>
+ksp-dev              e2e-dev-pod-invalid                                      1/1     Running            0              37s     10.244.212.105    worker-node-1   <none>           <none>
+ksp-dev              e2e-dev-pod-valid                                        0/1     ErrImagePull       0              33s     10.244.19.169     worker-node-2   <none>           <none>
+ksp-dev              e2e-dev-statefulset-invalid-0                            1/1     Running            0              28s     10.244.212.106    worker-node-1   <none>           <none>
+ksp-dev              e2e-dev-statefulset-valid-0                              0/1     ImagePullBackOff   0              20s     10.244.19.173     worker-node-2   <none>           <none>
+kube-system          coredns-7fb7fff89d-6dc7z                                 1/1     Running            0              45h     10.244.212.94     worker-node-1   <none>           <none>
+kube-system          coredns-7fb7fff89d-xjvkx                                 1/1     Running            0              45h     10.244.235.136    control-plane   <none>           <none>
+kube-system          etcd-control-plane                                       1/1     Running            0              20d     171.244.199.140   control-plane   <none>           <none>
+kube-system          kube-apiserver-control-plane                             1/1     Running            2 (15h ago)    20d     171.244.199.140   control-plane   <none>           <none>
+kube-system          kube-controller-manager-control-plane                    1/1     Running            8 (15h ago)    20d     171.244.199.140   control-plane   <none>           <none>
+kube-system          kube-proxy-9s6l5                                         1/1     Running            0              20d     171.244.199.112   worker-node-2   <none>           <none>
+kube-system          kube-proxy-h92qn                                         1/1     Running            0              20d     171.244.199.186   worker-node-1   <none>           <none>
+kube-system          kube-proxy-nrc2h                                         1/1     Running            0              20d     171.244.199.140   control-plane   <none>           <none>
+kube-system          kube-scheduler-control-plane                             1/1     Running            5 (15h ago)    20d     171.244.199.140   control-plane   <none>           <none>
+kyverno              dns-debug                                                0/1     Completed          0              46h     10.244.212.93     worker-node-1   <none>           <none>
+kyverno              harbor-debug                                             0/1     Completed          0              44h     10.244.212.102    worker-node-1   <none>           <none>
+kyverno              kyverno-admission-controller-65d97f9d85-dg9vw            1/1     Running            1 (15h ago)    44h     10.244.19.163     worker-node-2   <none>           <none>
+kyverno              kyverno-admission-controller-65d97f9d85-fzcdt            1/1     Running            0              44h     10.244.19.162     worker-node-2   <none>           <none>
+kyverno              kyverno-admission-controller-65d97f9d85-kpczd            1/1     Running            0              44h     10.244.212.103    worker-node-1   <none>           <none>
+kyverno              kyverno-admission-controller-65d97f9d85-mz6ct            1/1     Running            2 (15h ago)    44h     10.244.212.104    worker-node-1   <none>           <none>
+kyverno              kyverno-background-controller-54c8547bdc-6qlqz           1/1     Running            31 (15h ago)   20d     10.244.212.67     worker-node-1   <none>           <none>
+kyverno              kyverno-background-controller-54c8547bdc-pjj5l           1/1     Running            26 (15h ago)   20d     10.244.19.131     worker-node-2   <none>           <none>
+kyverno              kyverno-cleanup-controller-86f44b75bc-7bx7w              1/1     Running            31 (15h ago)   20d     10.244.19.132     worker-node-2   <none>           <none>
+kyverno              kyverno-cleanup-controller-86f44b75bc-tn8sc              1/1     Running            31 (17d ago)   20d     10.244.212.65     worker-node-1   <none>           <none>
+kyverno              kyverno-migrate-resources-tvp42                          0/1     Completed          0              44h     10.244.19.158     worker-node-2   <none>           <none>
+kyverno              kyverno-reports-controller-849f95d74f-4zgrr              1/1     Running            34 (15h ago)   20d     10.244.212.66     worker-node-1   <none>           <none>
+kyverno              kyverno-reports-controller-849f95d74f-5krgq              1/1     Running            36 (45h ago)   20d     10.244.19.129     worker-node-2   <none>           <none>
+kyverno              net-debug                                                0/1     Completed          0              44h     10.244.19.161     worker-node-2   <none>           <none>
+local-path-storage   local-path-provisioner-79b7b99b5d-b6gn6                  1/1     Running            0              10d     10.244.212.71     worker-node-1   <none>           <none>
+monitoring           alertmanager-monitoring-kube-prometheus-alertmanager-0   2/2     Running            0              7d15h   10.244.19.144     worker-node-2   <none>           <none>
+monitoring           monitoring-grafana-7dcf4fc76f-mgx2l                      3/3     Running            0              7d15h   10.244.19.143     worker-node-2   <none>           <none>
+monitoring           monitoring-kube-prometheus-operator-744d56b88f-d5n56     1/1     Running            0              7d15h   10.244.212.80     worker-node-1   <none>           <none>
+monitoring           monitoring-kube-state-metrics-7c9c8f4687-9ztgf           1/1     Running            14 (15h ago)   7d15h   10.244.212.79     worker-node-1   <none>           <none>
+monitoring           monitoring-prometheus-node-exporter-rxs5q                1/1     Running            0              7d15h   171.244.199.112   worker-node-2   <none>           <none>
+monitoring           monitoring-prometheus-node-exporter-wrb9f                1/1     Running            3 (15h ago)    7d15h   171.244.199.140   control-plane   <none>           <none>
+monitoring           monitoring-prometheus-node-exporter-xvrjt                1/1     Running            0              7d15h   171.244.199.186   worker-node-1   <none>           <none>
+monitoring           prometheus-monitoring-kube-prometheus-prometheus-0       2/2     Running            0              7d15h   10.244.212.82     worker-node-1   <none>           <none>
+tigera-operator      tigera-operator-7fc95779c7-v9krb                         1/1     Running            9 (15h ago)    20d     171.244.199.140   control-plane   <none>           <none>
+
+=== DEPLOYMENTS ===
+NAMESPACE            NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS                                            IMAGES                                                                                                                SELECTOR
+calico-system        calico-apiserver                      2/2     2            2           20d     calico-apiserver                                      quay.io/calico/apiserver:v3.32.1                                                                                      apiserver=true
+calico-system        calico-kube-controllers               1/1     1            1           20d     calico-kube-controllers                               quay.io/calico/kube-controllers:v3.32.1                                                                               k8s-app=calico-kube-controllers
+calico-system        calico-typha                          2/2     2            2           20d     calico-typha                                          quay.io/calico/typha:v3.32.1                                                                                          k8s-app=calico-typha
+calico-system        goldmane                              1/1     1            1           20d     goldmane                                              quay.io/calico/goldmane:v3.32.1                                                                                       k8s-app=goldmane
+calico-system        whisker                               1/1     1            1           20d     whisker,whisker-backend                               quay.io/calico/whisker:v3.32.1,quay.io/calico/whisker-backend:v3.32.1                                                 k8s-app=whisker
+harbor               harbor-core                           1/1     1            1           10d     core                                                  docker.io/goharbor/harbor-core:v2.15.2                                                                                app=harbor,component=core,release=harbor
+harbor               harbor-jobservice                     1/1     1            1           10d     jobservice                                            docker.io/goharbor/harbor-jobservice:v2.15.2                                                                          app=harbor,component=jobservice,release=harbor
+harbor               harbor-nginx                          1/1     1            1           10d     nginx                                                 docker.io/goharbor/nginx-photon:v2.15.2                                                                               app=harbor,component=nginx,release=harbor
+harbor               harbor-portal                         1/1     1            1           10d     portal                                                docker.io/goharbor/harbor-portal:v2.15.2                                                                              app=harbor,component=portal,release=harbor
+harbor               harbor-registry                       1/1     1            1           10d     registry,registryctl                                  docker.io/goharbor/registry-photon:v2.15.2,docker.io/goharbor/harbor-registryctl:v2.15.2                              app=harbor,component=registry,release=harbor
+ksp-dev              e2e-dev-deployment-invalid            1/1     1            1           34s     app                                                   nginx:latest                                                                                                          app=e2e-dev-deployment-invalid
+ksp-dev              e2e-dev-deployment-valid              0/1     1            0           30s     app                                                   harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f           app=e2e-dev-deployment-valid
+kube-system          coredns                               2/2     2            2           20d     coredns                                               registry.k8s.io/coredns/coredns:v1.13.1                                                                               k8s-app=kube-dns
+kyverno              kyverno-admission-controller          4/4     4            4           20d     kyverno                                               reg.kyverno.io/kyverno/kyverno:v1.18.2                                                                                app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno              kyverno-background-controller         2/2     2            2           20d     controller                                            reg.kyverno.io/kyverno/background-controller:v1.18.2                                                                  app.kubernetes.io/component=background-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno              kyverno-cleanup-controller            2/2     2            2           20d     controller                                            reg.kyverno.io/kyverno/cleanup-controller:v1.18.2                                                                     app.kubernetes.io/component=cleanup-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno              kyverno-reports-controller            2/2     2            2           20d     controller                                            reg.kyverno.io/kyverno/reports-controller:v1.18.2                                                                     app.kubernetes.io/component=reports-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+local-path-storage   local-path-provisioner                1/1     1            1           10d     local-path-provisioner                                docker.io/rancher/local-path-provisioner:v0.0.37                                                                      app=local-path-provisioner
+monitoring           monitoring-grafana                    1/1     1            1           7d15h   grafana-sc-dashboard,grafana-sc-datasources,grafana   quay.io/kiwigrid/k8s-sidecar:2.11.2,quay.io/kiwigrid/k8s-sidecar:2.11.2,docker.io/grafana/grafana:13.2.1-distroless   app.kubernetes.io/instance=monitoring,app.kubernetes.io/name=grafana
+monitoring           monitoring-kube-prometheus-operator   1/1     1            1           7d15h   kube-prometheus-stack                                 quay.io/prometheus-operator/prometheus-operator:v0.93.1                                                               app=kube-prometheus-stack-operator,release=monitoring
+monitoring           monitoring-kube-state-metrics         1/1     1            1           7d15h   kube-state-metrics                                    registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0                                                         app.kubernetes.io/instance=monitoring,app.kubernetes.io/name=kube-state-metrics
+tigera-operator      tigera-operator                       1/1     1            1           20d     tigera-operator                                       quay.io/tigera/operator:v1.42.3                                                                                       name=tigera-operator
+
+=== STATEFULSETS ===
+NAMESPACE    NAME                                                   READY   AGE     CONTAINERS                     IMAGES
+harbor       harbor-database                                        1/1     10d     database                       docker.io/goharbor/harbor-db:v2.15.2
+harbor       harbor-redis                                           1/1     10d     redis                          docker.io/goharbor/valkey-photon:v2.15.2
+ksp-dev      e2e-dev-statefulset-invalid                            1/1     29s     app                            nginx:latest
+ksp-dev      e2e-dev-statefulset-valid                              0/1     24s     app                            harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+monitoring   alertmanager-monitoring-kube-prometheus-alertmanager   1/1     7d15h   alertmanager,config-reloader   quay.io/prometheus/alertmanager:v0.34.0,quay.io/prometheus-operator/prometheus-config-reloader:v0.93.1
+monitoring   prometheus-monitoring-kube-prometheus-prometheus       1/1     7d15h   prometheus,config-reloader     quay.io/prometheus/prometheus:v3.14.0-distroless,quay.io/prometheus-operator/prometheus-config-reloader:v0.93.1
+
+=== DAEMONSETS ===
+NAMESPACE       NAME                                  DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE     CONTAINERS      IMAGES                                                                                                        SELECTOR
+calico-system   calico-node                           3         3         3       3            3           kubernetes.io/os=linux   20d     calico-node     quay.io/calico/node:v3.32.1                                                                                   k8s-app=calico-node
+ksp-dev         e2e-dev-daemonset-invalid             2         2         2       2            2           <none>                   24s     app             nginx:latest                                                                                                  app=e2e-dev-daemonset-invalid
+ksp-dev         e2e-dev-daemonset-valid               2         2         0       2            0           <none>                   20s     app             harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f   app=e2e-dev-daemonset-valid
+kube-system     kube-proxy                            3         3         3       3            3           kubernetes.io/os=linux   20d     kube-proxy      registry.k8s.io/kube-proxy:v1.35.8                                                                            k8s-app=kube-proxy
+monitoring      monitoring-prometheus-node-exporter   3         3         3       3            3           kubernetes.io/os=linux   7d15h   node-exporter   quay.io/prometheus/node-exporter:v1.12.1-distroless                                                           app.kubernetes.io/instance=monitoring,app.kubernetes.io/name=prometheus-node-exporter
+
+=== JOBS ===
+NAMESPACE   NAME                        STATUS     COMPLETIONS   DURATION   AGE
+ksp-dev     e2e-dev-job-invalid         Complete   1/1           5s         20s
+ksp-dev     e2e-dev-job-valid           Running    0/1           16s        16s
+kyverno     kyverno-migrate-resources   Complete   1/1           11s        44h
+
+=== CRONJOBS ===
+NAMESPACE   NAME                      SCHEDULE       TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+ksp-dev     e2e-dev-cronjob-invalid   */10 * * * *   <none>     False     0        <none>          16s
+ksp-dev     e2e-dev-cronjob-valid     */10 * * * *   <none>     False     0        <none>          12s

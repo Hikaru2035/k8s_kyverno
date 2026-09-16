@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-dev-baseline, labels: {ksp.io/environment: dev, ksp.io/profile: baseline}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-dev-standard, labels: {ksp.io/environment: dev, ksp.io/profile: standard}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-dev-restricted, labels: {ksp.io/environment: dev, ksp.io/profile: restricted}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-staging-baseline, labels: {ksp.io/environment: staging, ksp.io/profile: baseline}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-staging-standard, labels: {ksp.io/environment: staging, ksp.io/profile: standard}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-production-baseline, labels: {ksp.io/environment: production, ksp.io/profile: baseline}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-production-restricted, labels: {ksp.io/environment: production, ksp.io/profile: restricted}}

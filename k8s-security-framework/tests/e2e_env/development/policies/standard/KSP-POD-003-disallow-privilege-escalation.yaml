@@ -1,0 +1,62 @@
+# Generated; edit the source identified by policies.ksp.io/rendered-from.
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: disallow-privilege-escalation
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-003
+  annotations:
+    policies.kyverno.io/title: Disallow Privilege Escalation
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Requires allowPrivilegeEscalation=false for every
+      container type.
+    policies.ksp.io/profiles: standard,restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Enforce
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+    policies.ksp.io/rendered-from: policies/pod-security/KSP-POD-003/KSP-POD-003-disallow-privilege-escalation.yaml
+    policies.ksp.io/runtime-environment: development
+spec:
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Audit
+  - Warn
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+    namespaceSelector:
+      matchExpressions:
+      - key: ksp.io/profile
+        operator: In
+        values:
+        - standard
+        - restricted
+  variables:
+  - name: allContainers
+    expression: object.spec.containers + object.spec.?initContainers.orValue([]) +
+      object.spec.?ephemeralContainers.orValue([])
+  validations:
+  - expression: variables.allContainers.all(container, container.?securityContext.?allowPrivilegeEscalation.orValue(true)
+      == false)
+    message: Set allowPrivilegeEscalation=false on every container.
+  matchConditions:
+  - name: ksp-runtime-profile-and-platform-scope
+    expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))

@@ -11,7 +11,7 @@ metadata:
     policies.kyverno.io/severity: low
     policies.kyverno.io/subject: Workload
     policies.kyverno.io/description: Adds only deterministic technical metadata and never invents owner identity.
-    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Mutate
     policies.ksp.io/staging-mode: Mutate
     policies.ksp.io/prod-mode: Mutate

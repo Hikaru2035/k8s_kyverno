@@ -1,0 +1,116 @@
+=== KUBECTL ===
+Client Version: v1.35.8
+Kustomize Version: v5.7.1
+Server Version: v1.35.8
+
+=== KYVERNO CLI ===
+Version: 1.18.2
+Time: 2026-07-10T01:17:50Z
+Git commit ID: 945ac9ce8546ea6cd51370f24b615148c577da5e
+
+=== HELM ===
+v3.21.4+g813176c
+
+=== KYVERNO HELM RELEASE ===
+NAME   	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART        	APP VERSION
+kyverno	kyverno  	5       	2026-09-14 11:36:17.749030445 +0700 +07	deployed	kyverno-3.8.2	v1.18.2    
+
+=== VERSIONS SSoT ===
+# versions.yaml
+# Single source of truth for component versions used by this project.
+#
+# Repository version inventory reviewed: 2026-09-13
+# Platform entries are declared baselines, not live-cluster verification.
+# CI pins are checked against .gitlab-ci.yml by policy-validate.
+# null means no application version is recorded in repository configuration.
+# Security rule:
+# - No "latest" tags.
+# - Use stable releases only.
+# - Run vulnerability scan before production-candidate release.
+# - Re-check versions before final PoC release.
+
+framework:
+  name: kyverno-security-framework
+  version: "0.1.0"
+
+platform:
+  os:
+    name: ubuntu-server
+    version: "22.04.5"
+
+  kubernetes:
+    version: "1.35.7"
+    kubeadm: "1.35.7"
+    kubelet: "1.35.7"
+    kubectl: "1.35.7"
+
+  runtime:
+    name: containerd
+    version: "2.2.1"
+
+networking:
+  cni:
+    name: calico
+    version: "3.28.0"
+
+package_management:
+  helm:
+    version: "4.2.3"
+
+policy_engine:
+  kyverno:
+    version: "1.18.2"
+    chart_version: "3.8.2"
+  kyverno_cli:
+    version: "1.18.2"
+
+image_security:
+  harbor:
+    version: null # harbor-values.yaml does not pin an application/chart version.
+  cosign:
+    version: null # Public keys are present; no CLI installation pin is recorded.
+
+monitoring:
+  prometheus:
+    version: null # Values and ServiceMonitors do not pin an application version.
+  grafana:
+    version: null # Dashboard pluginVersion 13.2.1 is not a deployment pin.
+
+# Preserve CI's existing toolchain separately from the platform baseline.
+ci:
+  kind:
+    version: "0.32.0"
+    node_image: null # kind create cluster uses this Kind release's default.
+  helm:
+    version: "3.21.4" # CI differs intentionally from platform Helm 4.2.3.
+  kubectl:
+    version: null
+    source: "https://dl.k8s.io/release/stable.txt" # Existing rolling selection; not reproducible.
+  python:
+    image: "python:3.12.11-slim-bookworm"
+  pyyaml:
+    version: "6.0.2"
+  alpine:
+    image: "alpine:3.21.3"
+  docker:
+    image: "docker:27.5.1-cli"
+
+cluster:
+  type: multi-node
+
+  node_network: "192.168.101.0/24"
+  pod_cidr: "10.244.0.0/16"
+  service_cidr: "10.96.0.0/12"
+
+  nodes:
+    control_plane:
+      hostname: control-plane
+      #ip: "192.168.101.80"
+
+    worker_01:
+      hostname: worker-node-1
+      #ip: "192.168.101.81"
+
+    worker_02:
+      hostname: worker-node-2
+      #ip: "192.168.101.82"

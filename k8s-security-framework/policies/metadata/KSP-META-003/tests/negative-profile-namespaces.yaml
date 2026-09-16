@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-missing-profile, labels: {ksp.io/environment: dev}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-empty-profile, labels: {ksp.io/environment: staging, ksp.io/profile: ''}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-invalid-profile, labels: {ksp.io/environment: production, ksp.io/profile: hardened}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-valid-environment-invalid-profile, labels: {ksp.io/environment: dev, ksp.io/profile: Standard}}

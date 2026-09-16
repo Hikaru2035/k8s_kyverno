@@ -5,19 +5,13 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: kyverno
     policies.ksp.io/id: ksp-net-001
-
   annotations:
     policies.kyverno.io/title: Generate Network Baseline
     policies.kyverno.io/category: KSP Network Security
     policies.kyverno.io/severity: high
     policies.kyverno.io/subject: Namespace,NetworkPolicy
-    policies.kyverno.io/description: >-
-      Generates synchronized default-deny ingress/egress and DNS egress
-      NetworkPolicies for opted-in namespaces.
-    policies.ksp.io/parameter: >-
-      Application-specific allow rules must be defined separately
-      for each workload.
-    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.kyverno.io/description: Generates synchronized default-deny ingress/egress and DNS egress NetworkPolicies for opted-in namespaces.
+    policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Generate
     policies.ksp.io/staging-mode: Generate
     policies.ksp.io/prod-mode: Generate
@@ -62,7 +56,6 @@ spec:
     - name: dnsPort
       expression: "53"
 
-    # GENERATED RESOURCES
     - name: downstream
       expression: >-
         [

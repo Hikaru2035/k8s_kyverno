@@ -1,0 +1,62 @@
+# Generated; edit the source identified by policies.ksp.io/rendered-from.
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: restrict-added-capabilities
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-pod-009
+  annotations:
+    policies.kyverno.io/title: Restrict Added Capabilities
+    policies.kyverno.io/category: KSP Pod Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: Allows only NET_BIND_SERVICE when Linux capabilities
+      are added.
+    policies.ksp.io/profiles: restricted
+    policies.ksp.io/dev-mode: Audit
+    policies.ksp.io/staging-mode: Audit
+    policies.ksp.io/prod-mode: Enforce
+    policies.ksp.io/exception: controlled
+    policies.ksp.io/rendered-from: policies/pod-security/KSP-POD-009/KSP-POD-009-restrict-added-capabilities.yaml
+    policies.ksp.io/runtime-environment: production
+spec:
+  evaluation:
+    background:
+      enabled: true
+  failurePolicy: Fail
+  webhookConfiguration:
+    timeoutSeconds: 10
+  validationActions:
+  - Deny
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+    namespaceSelector:
+      matchExpressions:
+      - key: ksp.io/profile
+        operator: In
+        values:
+        - restricted
+  variables:
+  - name: allContainers
+    expression: object.spec.containers + object.spec.?initContainers.orValue([]) +
+      object.spec.?ephemeralContainers.orValue([])
+  - name: allowedCapabilities
+    expression: '["NET_BIND_SERVICE"]'
+  validations:
+  - expression: variables.allContainers.all(container, container.?securityContext.?capabilities.?add.orValue([]).all(capability,
+      capability in variables.allowedCapabilities))
+    message: Only approved Linux capabilities may be added.
+  matchConditions:
+  - name: ksp-runtime-profile-and-platform-scope
+    expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))

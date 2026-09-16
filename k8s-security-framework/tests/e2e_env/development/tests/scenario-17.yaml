@@ -1,0 +1,28 @@
+# Scenario 17: Restricted composite violation and generated-resource checks
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e2e-ksp-restricted-composite-violation
+  namespace: e2e-ksp-canary
+  labels: {app.kubernetes.io/name: e2e-ksp-restricted-composite-violation, policies.ksp.io/owner: e2e}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app.kubernetes.io/name: e2e-ksp-restricted-composite-violation}}
+  template:
+    metadata: {labels: {app.kubernetes.io/name: e2e-ksp-restricted-composite-violation}}
+    spec:
+      containers:
+      - name: app
+        image: nginx:latest
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-generated-check
+  labels:
+    ksp.io/environment: dev
+    ksp.io/profile: restricted
+    policies.ksp.io/generate-network-baseline: enabled
+    policies.ksp.io/generate-resource-governance: enabled
+    policies.ksp.io/environment: dev
+    policies.ksp.io/quota-class: small

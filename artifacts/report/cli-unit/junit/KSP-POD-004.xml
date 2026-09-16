@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="8" failures="0">
+ <testsuite name="disallow-host-network" tests="8" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/pod-004-boundary-unset-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-host-network
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-004-boundary-unset-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-004-positive-false-two">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-host-network
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-004-positive-false-two
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-004-positive-unset-two">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-host-network
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-004-positive-unset-two
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-004-negative-true-two">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-host-network
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-004-negative-true-two
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-004-boundary-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-host-network
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-004-boundary-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-004-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-host-network
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-004-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-004-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-host-network
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-004-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-004-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-host-network
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-004-exception-tertiary
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

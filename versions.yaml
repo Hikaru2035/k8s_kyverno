@@ -1,7 +1,10 @@
 # versions.yaml
 # Single source of truth for component versions used by this project.
 #
-# Version baseline date: 2026-08-11
+# Repository version inventory reviewed: 2026-09-13
+# Platform entries are declared baselines, not live-cluster verification.
+# CI pins are checked against .gitlab-ci.yml by policy-validate.
+# null means no application version is recorded in repository configuration.
 # Security rule:
 # - No "latest" tags.
 # - Use stable releases only.
@@ -45,19 +48,34 @@ policy_engine:
 
 image_security:
   harbor:
-    version: "TBD"
+    version: null # harbor-values.yaml does not pin an application/chart version.
   cosign:
-    version: "TBD"
-
-testing:
-  kind:
-    version: "TBD"
+    version: null # Public keys are present; no CLI installation pin is recorded.
 
 monitoring:
   prometheus:
-    version: "TBD"
+    version: null # Values and ServiceMonitors do not pin an application version.
   grafana:
-    version: "TBD"
+    version: null # Dashboard pluginVersion 13.2.1 is not a deployment pin.
+
+# Preserve CI's existing toolchain separately from the platform baseline.
+ci:
+  kind:
+    version: "0.32.0"
+    node_image: null # kind create cluster uses this Kind release's default.
+  helm:
+    version: "3.21.4" # CI differs intentionally from platform Helm 4.2.3.
+  kubectl:
+    version: null
+    source: "https://dl.k8s.io/release/stable.txt" # Existing rolling selection; not reproducible.
+  python:
+    image: "python:3.12.11-slim-bookworm"
+  pyyaml:
+    version: "6.0.2"
+  alpine:
+    image: "alpine:3.21.3"
+  docker:
+    image: "docker:27.5.1-cli"
 
 cluster:
   type: multi-node
@@ -69,12 +87,12 @@ cluster:
   nodes:
     control_plane:
       hostname: control-plane
-      ip: "192.168.101.80"
+      #ip: "192.168.101.80"
 
     worker_01:
       hostname: worker-node-1
-      ip: "192.168.101.81"
+      #ip: "192.168.101.81"
 
     worker_02:
       hostname: worker-node-2
-      ip: "192.168.101.82"
+      #ip: "192.168.101.82"

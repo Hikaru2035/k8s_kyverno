@@ -1,0 +1,53 @@
+=== NODES ===
+NAME            STATUS   ROLES           AGE   VERSION   INTERNAL-IP       EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION       CONTAINER-RUNTIME
+control-plane   Ready    control-plane   20d   v1.35.8   171.244.199.140   <none>        Ubuntu 22.04.5 LTS   5.15.0-153-generic   containerd://2.2.1
+worker-node-1   Ready    <none>          20d   v1.35.8   171.244.199.186   <none>        Ubuntu 22.04.5 LTS   5.15.0-153-generic   containerd://2.2.1
+worker-node-2   Ready    <none>          20d   v1.35.8   171.244.199.112   <none>        Ubuntu 22.04.5 LTS   5.15.0-153-generic   containerd://2.2.1
+
+=== NODE CONDITIONS ===
+NAME            STATUS   ROLES           AGE   VERSION
+control-plane   Ready    control-plane   20d   v1.35.8
+worker-node-1   Ready    <none>          20d   v1.35.8
+worker-node-2   Ready    <none>          20d   v1.35.8
+
+=== KYVERNO PODS ===
+NAME                                             READY   STATUS      RESTARTS       AGE   IP               NODE            NOMINATED NODE   READINESS GATES
+dns-debug                                        0/1     Completed   0              30h   10.244.212.93    worker-node-1   <none>           <none>
+harbor-debug                                     0/1     Completed   0              28h   10.244.212.102   worker-node-1   <none>           <none>
+kyverno-admission-controller-65d97f9d85-dg9vw    1/1     Running     0              28h   10.244.19.163    worker-node-2   <none>           <none>
+kyverno-admission-controller-65d97f9d85-fzcdt    1/1     Running     0              28h   10.244.19.162    worker-node-2   <none>           <none>
+kyverno-admission-controller-65d97f9d85-kpczd    1/1     Running     0              28h   10.244.212.103   worker-node-1   <none>           <none>
+kyverno-admission-controller-65d97f9d85-mz6ct    1/1     Running     0              28h   10.244.212.104   worker-node-1   <none>           <none>
+kyverno-background-controller-54c8547bdc-6qlqz   1/1     Running     30 (16d ago)   20d   10.244.212.67    worker-node-1   <none>           <none>
+kyverno-background-controller-54c8547bdc-pjj5l   1/1     Running     25 (29h ago)   20d   10.244.19.131    worker-node-2   <none>           <none>
+kyverno-cleanup-controller-86f44b75bc-7bx7w      1/1     Running     28 (29h ago)   20d   10.244.19.132    worker-node-2   <none>           <none>
+kyverno-cleanup-controller-86f44b75bc-tn8sc      1/1     Running     31 (16d ago)   20d   10.244.212.65    worker-node-1   <none>           <none>
+kyverno-migrate-resources-tvp42                  0/1     Completed   0              29h   10.244.19.158    worker-node-2   <none>           <none>
+kyverno-reports-controller-849f95d74f-4zgrr      1/1     Running     32 (16d ago)   20d   10.244.212.66    worker-node-1   <none>           <none>
+kyverno-reports-controller-849f95d74f-5krgq      1/1     Running     36 (30h ago)   20d   10.244.19.129    worker-node-2   <none>           <none>
+net-debug                                        0/1     Completed   0              28h   10.244.19.161    worker-node-2   <none>           <none>
+
+=== KYVERNO DEPLOYMENTS ===
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+kyverno-admission-controller    4/4     4            4           20d
+kyverno-background-controller   2/2     2            2           20d
+kyverno-cleanup-controller      2/2     2            2           20d
+kyverno-reports-controller      2/2     2            2           20d
+
+=== KYVERNO SERVICES ===
+NAME                                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+kyverno-background-controller-metrics   ClusterIP   10.107.63.253    <none>        8000/TCP   20d
+kyverno-cleanup-controller              ClusterIP   10.110.91.111    <none>        443/TCP    20d
+kyverno-cleanup-controller-metrics      ClusterIP   10.100.21.143    <none>        8000/TCP   20d
+kyverno-reports-controller-metrics      ClusterIP   10.107.183.80    <none>        8000/TCP   20d
+kyverno-svc                             ClusterIP   10.105.178.93    <none>        443/TCP    20d
+kyverno-svc-metrics                     ClusterIP   10.111.119.194   <none>        8000/TCP   20d
+
+=== ENDPOINTS ===
+NAME                                          ADDRESSTYPE   PORTS   ENDPOINTS                                                AGE
+kyverno-background-controller-metrics-6bfv9   IPv4          8000    10.244.212.67,10.244.19.131                              20d
+kyverno-cleanup-controller-btmg2              IPv4          9443    10.244.212.65,10.244.19.132                              20d
+kyverno-cleanup-controller-metrics-m24kn      IPv4          8000    10.244.212.65,10.244.19.132                              20d
+kyverno-reports-controller-metrics-f7bqf      IPv4          8000    10.244.19.129,10.244.212.66                              20d
+kyverno-svc-986g8                             IPv4          9443    10.244.19.162,10.244.212.103,10.244.19.163 + 1 more...   20d
+kyverno-svc-metrics-zfn8g                     IPv4          8000    10.244.19.162,10.244.212.103,10.244.19.163 + 1 more...   20d

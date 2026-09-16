@@ -1,0 +1,44 @@
+=== DEVELOPMENT CLEANUP ===
+Time: 2026-09-16T08:53:09+07:00
+
+DELETE: k8s-security-framework/tests/e2e/development/cronjob/invalid.yaml
+cronjob.batch "e2e-dev-cronjob-invalid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/cronjob/valid.yaml
+cronjob.batch "e2e-dev-cronjob-valid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/job/invalid.yaml
+job.batch "e2e-dev-job-invalid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/job/valid.yaml
+job.batch "e2e-dev-job-valid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/daemonset/invalid.yaml
+daemonset.apps "e2e-dev-daemonset-invalid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/daemonset/valid.yaml
+daemonset.apps "e2e-dev-daemonset-valid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/statefulset/invalid.yaml
+statefulset.apps "e2e-dev-statefulset-invalid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/statefulset/valid.yaml
+statefulset.apps "e2e-dev-statefulset-valid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/deployment/invalid.yaml
+deployment.apps "e2e-dev-deployment-invalid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/deployment/valid.yaml
+deployment.apps "e2e-dev-deployment-valid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/pod/invalid.yaml
+pod "e2e-dev-pod-invalid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/pod/valid.yaml
+pod "e2e-dev-pod-valid" deleted from ksp-dev namespace
+
+DELETE: k8s-security-framework/tests/e2e/development/namespace/invalid.yaml
+namespace "e2e-dev-ns-invalid" deleted
+
+DELETE: k8s-security-framework/tests/e2e/development/namespace/valid.yaml
+namespace "e2e-dev-ns-valid" deleted

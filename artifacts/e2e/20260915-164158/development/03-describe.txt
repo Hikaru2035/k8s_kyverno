@@ -1,0 +1,1615 @@
+]633;E;echo "=== PODS ===";4fc89ec6-e5ff-404b-b626-2f7a1e9aa6dc]633;C=== PODS ===
+Name:             e2e-dev-daemonset-invalid-4g6nm
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-1/171.244.199.186
+Start Time:       Wed, 16 Sep 2026 08:23:45 +0700
+Labels:           app=e2e-dev-daemonset-invalid
+                  controller-revision-hash=68fb96fbcb
+                  pod-template-generation=1
+Annotations:      cni.projectcalico.org/containerID: 19f2c83d4932dcda72fa2cd2afc4fdd675686952d9fd1eb784d7144a91253a68
+                  cni.projectcalico.org/podIP: 10.244.212.107/32
+                  cni.projectcalico.org/podIPs: 10.244.212.107/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Running
+IP:               10.244.212.107
+IPs:
+  IP:           10.244.212.107
+Controlled By:  DaemonSet/e2e-dev-daemonset-invalid
+Containers:
+  app:
+    Container ID:  containerd://f575aace161784c4552d39f06e7d6146ffc7286ff0b8e57ad4f52ec0a337fb48
+    Image:         nginx:latest
+    Image ID:      docker.io/library/nginx@sha256:05b8cb60c354a44ab824ea6e7dc69b46d50762cdbe728a347a5b656e6fb3d7c4
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Running
+      Started:      Wed, 16 Sep 2026 08:23:47 +0700
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-twklk (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-twklk:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type     Reason           Age   From               Message
+  ----     ------           ----  ----               -------
+  Warning  PolicyViolation  44s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  43s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  95s   kyverno-admission  policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  15s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  15s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  15s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  15s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  74s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  74s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  73s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  73s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Normal   Scheduled        95s   default-scheduler  Successfully assigned ksp-dev/e2e-dev-daemonset-invalid-4g6nm to worker-node-1
+  Warning  PolicyViolation  73s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  73s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  44s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  44s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  44s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  44s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  44s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  73s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  16s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  16s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  15s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Normal   Pulling          94s   kubelet            spec.containers{app}: Pulling image "nginx:latest"
+  Normal   Started          93s   kubelet            spec.containers{app}: Container started
+  Normal   Created          93s   kubelet            spec.containers{app}: Container created
+  Normal   Pulled           93s   kubelet            spec.containers{app}: Successfully pulled image "nginx:latest" in 1.346s (1.346s including waiting). Image size: 66343926 bytes.
+
+
+Name:             e2e-dev-daemonset-invalid-mjtjl
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Wed, 16 Sep 2026 08:23:45 +0700
+Labels:           app=e2e-dev-daemonset-invalid
+                  controller-revision-hash=68fb96fbcb
+                  pod-template-generation=1
+Annotations:      cni.projectcalico.org/containerID: c7bafd7217c8ca11f8057484522affc274d8022fb5c378c8fb95ddc14aa926d2
+                  cni.projectcalico.org/podIP: 10.244.19.172/32
+                  cni.projectcalico.org/podIPs: 10.244.19.172/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Running
+IP:               10.244.19.172
+IPs:
+  IP:           10.244.19.172
+Controlled By:  DaemonSet/e2e-dev-daemonset-invalid
+Containers:
+  app:
+    Container ID:  containerd://ff95459ca06167cc2b44c2c61a2bafcf72b7e8902ee9560f896aee024fbfcc98
+    Image:         nginx:latest
+    Image ID:      docker.io/library/nginx@sha256:05b8cb60c354a44ab824ea6e7dc69b46d50762cdbe728a347a5b656e6fb3d7c4
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Running
+      Started:      Wed, 16 Sep 2026 08:23:47 +0700
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-d2kch (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-d2kch:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type     Reason           Age   From               Message
+  ----     ------           ----  ----               -------
+  Warning  PolicyViolation  43s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  43s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  95s   kyverno-admission  policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Normal   Scheduled        95s   default-scheduler  Successfully assigned ksp-dev/e2e-dev-daemonset-invalid-mjtjl to worker-node-2
+  Warning  PolicyViolation  13s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  14s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  14s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  14s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  74s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  74s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  74s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  73s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  73s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  73s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  44s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  44s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  44s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  44s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  43s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-admission  policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  73s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  14s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  14s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  14s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Normal   Pulling          94s   kubelet            spec.containers{app}: Pulling image "nginx:latest"
+  Normal   Started          93s   kubelet            spec.containers{app}: Container started
+  Normal   Created          93s   kubelet            spec.containers{app}: Container created
+  Normal   Pulled           93s   kubelet            spec.containers{app}: Successfully pulled image "nginx:latest" in 1.364s (1.364s including waiting). Image size: 66343926 bytes.
+
+
+Name:             e2e-dev-daemonset-valid-4jx5m
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-1/171.244.199.186
+Start Time:       Wed, 16 Sep 2026 08:23:56 +0700
+Labels:           app=e2e-dev-daemonset-valid
+                  controller-revision-hash=5d55bb8769
+                  pod-template-generation=1
+Annotations:      cni.projectcalico.org/containerID: 52d44d0436901d0e2812d8857d2b47f9f102325a3e6625e94748afe521280087
+                  cni.projectcalico.org/podIP: 10.244.212.109/32
+                  cni.projectcalico.org/podIPs: 10.244.212.109/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.212.109
+IPs:
+  IP:           10.244.212.109
+Controlled By:  DaemonSet/e2e-dev-daemonset-valid
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5bsb6 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-5bsb6:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        84s                default-scheduler  Successfully assigned ksp-dev/e2e-dev-daemonset-valid-4jx5m to worker-node-1
+  Normal   Pulling                          42s (x3 over 83s)  kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           42s (x3 over 83s)  kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: failed to do request: Head "https://harbor-public:30003/v2/ksp-test/signed/manifests/sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": dial tcp: lookup harbor-public on 115.84.177.20:53: no such host
+  Warning  Failed                           42s (x3 over 83s)  kubelet            spec.containers{app}: Error: ErrImagePull
+  Warning  FailedToRetrieveImagePullSecret  4s (x9 over 84s)   kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   BackOff                          4s (x6 over 83s)   kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           4s (x6 over 83s)   kubelet            spec.containers{app}: Error: ImagePullBackOff
+
+
+Name:             e2e-dev-daemonset-valid-f8vzg
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Wed, 16 Sep 2026 08:23:52 +0700
+Labels:           app=e2e-dev-daemonset-valid
+                  controller-revision-hash=5d55bb8769
+                  pod-template-generation=1
+Annotations:      cni.projectcalico.org/containerID: 25c87a98739a5f09fbb3342c11f8ec13ae46c60cfd877cdd8503ecacb696249a
+                  cni.projectcalico.org/podIP: 10.244.19.174/32
+                  cni.projectcalico.org/podIPs: 10.244.19.174/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.19.174
+IPs:
+  IP:           10.244.19.174
+Controlled By:  DaemonSet/e2e-dev-daemonset-valid
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-47hf4 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-47hf4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        88s                default-scheduler  Successfully assigned ksp-dev/e2e-dev-daemonset-valid-f8vzg to worker-node-2
+  Normal   BackOff                          14s (x5 over 86s)  kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           14s (x5 over 86s)  kubelet            spec.containers{app}: Error: ImagePullBackOff
+  Warning  FailedToRetrieveImagePullSecret  2s (x9 over 87s)   kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   Pulling                          2s (x4 over 87s)   kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           2s (x4 over 87s)   kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: pull access denied, repository does not exist or may require authorization: authorization failed: no basic auth credentials
+  Warning  Failed                           2s (x4 over 87s)   kubelet            spec.containers{app}: Error: ErrImagePull
+
+
+Name:             e2e-dev-deployment-invalid-698dbd4fd5-9n2t7
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Wed, 16 Sep 2026 08:23:36 +0700
+Labels:           app=e2e-dev-deployment-invalid
+                  pod-template-hash=698dbd4fd5
+Annotations:      cni.projectcalico.org/containerID: c6ddcb6861c55d3aaed38a18d9fabab1c26892095b08387dd3f784d2bc1246a3
+                  cni.projectcalico.org/podIP: 10.244.19.170/32
+                  cni.projectcalico.org/podIPs: 10.244.19.170/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Running
+IP:               10.244.19.170
+IPs:
+  IP:           10.244.19.170
+Controlled By:  ReplicaSet/e2e-dev-deployment-invalid-698dbd4fd5
+Containers:
+  app:
+    Container ID:  containerd://997ea867952e7010e1d044905c5a5aaf02af2e964b5d4a10f5aaf00cd31613f4
+    Image:         nginx:latest
+    Image ID:      docker.io/library/nginx@sha256:05b8cb60c354a44ab824ea6e7dc69b46d50762cdbe728a347a5b656e6fb3d7c4
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Running
+      Started:      Wed, 16 Sep 2026 08:23:38 +0700
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-89pkn (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-89pkn:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason           Age   From               Message
+  ----     ------           ----  ----               -------
+  Warning  PolicyViolation  37s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  37s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  104s  kyverno-admission  policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  104s  kyverno-admission  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  104s  kyverno-admission  policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  104s  kyverno-admission  policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  104s  kyverno-admission  policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  104s  kyverno-admission  policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  8s    kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  8s    kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  8s    kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  8s    kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  94s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  94s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  66s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  94s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  94s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  94s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  104s  kyverno-admission  policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  94s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  65s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  65s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  65s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  65s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  65s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  65s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  38s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  38s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  93s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  37s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Normal   Scheduled        104s  default-scheduler  Successfully assigned ksp-dev/e2e-dev-deployment-invalid-698dbd4fd5-9n2t7 to worker-node-2
+  Warning  PolicyViolation  37s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  36s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  9s    kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  9s    kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  9s    kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Normal   Pulling          104s  kubelet            spec.containers{app}: Pulling image "nginx:latest"
+  Normal   Started          102s  kubelet            spec.containers{app}: Container started
+  Normal   Created          102s  kubelet            spec.containers{app}: Container created
+  Normal   Pulled           102s  kubelet            spec.containers{app}: Successfully pulled image "nginx:latest" in 1.353s (1.393s including waiting). Image size: 66343926 bytes.
+
+
+Name:             e2e-dev-deployment-valid-7bf54f7d8-2hvhf
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Wed, 16 Sep 2026 08:23:44 +0700
+Labels:           app=e2e-dev-deployment-valid
+                  pod-template-hash=7bf54f7d8
+Annotations:      cni.projectcalico.org/containerID: 8ed01068184371497fad46a0be648bf82e920c239ab2a1082a6315b5b48256b9
+                  cni.projectcalico.org/podIP: 10.244.19.171/32
+                  cni.projectcalico.org/podIPs: 10.244.19.171/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.19.171
+IPs:
+  IP:           10.244.19.171
+Controlled By:  ReplicaSet/e2e-dev-deployment-valid-7bf54f7d8
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-855jq (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-855jq:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        96s                default-scheduler  Successfully assigned ksp-dev/e2e-dev-deployment-valid-7bf54f7d8-2hvhf to worker-node-2
+  Normal   BackOff                          15s (x6 over 95s)  kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           15s (x6 over 95s)  kubelet            spec.containers{app}: Error: ImagePullBackOff
+  Warning  FailedToRetrieveImagePullSecret  1s (x10 over 96s)  kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   Pulling                          1s (x4 over 95s)   kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           1s (x4 over 95s)   kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: pull access denied, repository does not exist or may require authorization: authorization failed: no basic auth credentials
+  Warning  Failed                           1s (x4 over 95s)   kubelet            spec.containers{app}: Error: ErrImagePull
+
+
+Name:             e2e-dev-job-invalid-dtjqh
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-1/171.244.199.186
+Start Time:       Wed, 16 Sep 2026 08:23:49 +0700
+Labels:           app=e2e-dev-job-invalid
+                  batch.kubernetes.io/controller-uid=5f83fde4-90f1-4e5f-a532-bdd5d3e7b954
+                  batch.kubernetes.io/job-name=e2e-dev-job-invalid
+                  controller-uid=5f83fde4-90f1-4e5f-a532-bdd5d3e7b954
+                  job-name=e2e-dev-job-invalid
+Annotations:      cni.projectcalico.org/containerID: 8262f4beb97446ca62d136f279854bebbcf7547949e6d5a03759acb71caa2b70
+                  cni.projectcalico.org/podIP: 
+                  cni.projectcalico.org/podIPs: 
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Succeeded
+IP:               10.244.212.108
+IPs:
+  IP:           10.244.212.108
+Controlled By:  Job/e2e-dev-job-invalid
+Containers:
+  app:
+    Container ID:  containerd://9cf55242d138551932dc4fc1c51788504b438aaa8429f0cdbb3c8880bad7966f
+    Image:         nginx:latest
+    Image ID:      docker.io/library/nginx@sha256:05b8cb60c354a44ab824ea6e7dc69b46d50762cdbe728a347a5b656e6fb3d7c4
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo invalid
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 16 Sep 2026 08:23:51 +0700
+      Finished:     Wed, 16 Sep 2026 08:23:51 +0700
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5v4sx (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-5v4sx:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason           Age   From               Message
+  ----     ------           ----  ----               -------
+  Warning  PolicyViolation  30s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  30s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  91s   kyverno-admission  policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  91s   kyverno-admission  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  91s   kyverno-admission  policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  91s   kyverno-admission  policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  91s   kyverno-admission  policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  91s   kyverno-admission  policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  8s    kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  9s    kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  9s    kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  9s    kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  86s   kyverno-admission  policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  86s   kyverno-admission  policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  54s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  86s   kyverno-admission  policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  86s   kyverno-admission  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  86s   kyverno-admission  policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  91s   kyverno-admission  policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  86s   kyverno-admission  policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  53s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  54s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  54s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  53s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  53s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  54s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  31s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  31s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  86s   kyverno-admission  policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  30s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Normal   Scheduled        91s   default-scheduler  Successfully assigned ksp-dev/e2e-dev-job-invalid-dtjqh to worker-node-1
+  Warning  PolicyViolation  30s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  30s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  9s    kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  9s    kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  9s    kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Normal   Pulling          90s   kubelet            spec.containers{app}: Pulling image "nginx:latest"
+  Normal   Started          89s   kubelet            spec.containers{app}: Container started
+  Normal   Created          89s   kubelet            spec.containers{app}: Container created
+  Normal   Pulled           89s   kubelet            spec.containers{app}: Successfully pulled image "nginx:latest" in 1.367s (1.367s including waiting). Image size: 66343926 bytes.
+
+
+Name:             e2e-dev-job-valid-q5fqb
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-1/171.244.199.186
+Start Time:       Wed, 16 Sep 2026 08:23:56 +0700
+Labels:           app=e2e-dev-job-valid
+                  batch.kubernetes.io/controller-uid=c5285e4c-9b3a-4097-81a0-17e2a0b0c45a
+                  batch.kubernetes.io/job-name=e2e-dev-job-valid
+                  controller-uid=c5285e4c-9b3a-4097-81a0-17e2a0b0c45a
+                  job-name=e2e-dev-job-valid
+Annotations:      cni.projectcalico.org/containerID: bf60d9f4501e39bd8aaee6110cc797f2ded7cec1ecf3f9ad9ac46874b3e0d544
+                  cni.projectcalico.org/podIP: 10.244.212.110/32
+                  cni.projectcalico.org/podIPs: 10.244.212.110/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.212.110
+IPs:
+  IP:           10.244.212.110
+Controlled By:  Job/e2e-dev-job-valid
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      echo 'E2E Job PASS'
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-282qk (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-282qk:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        84s                default-scheduler  Successfully assigned ksp-dev/e2e-dev-job-valid-q5fqb to worker-node-1
+  Normal   Pulling                          44s (x3 over 83s)  kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           44s (x3 over 83s)  kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: failed to do request: Head "https://harbor-public:30003/v2/ksp-test/signed/manifests/sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": dial tcp: lookup harbor-public on 115.84.177.20:53: no such host
+  Warning  Failed                           44s (x3 over 83s)  kubelet            spec.containers{app}: Error: ErrImagePull
+  Warning  FailedToRetrieveImagePullSecret  5s (x9 over 83s)   kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   BackOff                          5s (x6 over 82s)   kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           5s (x6 over 82s)   kubelet            spec.containers{app}: Error: ImagePullBackOff
+
+
+Name:             e2e-dev-pod-invalid
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-1/171.244.199.186
+Start Time:       Wed, 16 Sep 2026 08:23:31 +0700
+Labels:           <none>
+Annotations:      cni.projectcalico.org/containerID: 014ab100d8e9ba9708476ce35f3053264d4a7ceab4f6287468dfc958bde9615b
+                  cni.projectcalico.org/podIP: 10.244.212.105/32
+                  cni.projectcalico.org/podIPs: 10.244.212.105/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Running
+IP:               10.244.212.105
+IPs:
+  IP:  10.244.212.105
+Containers:
+  app:
+    Container ID:  containerd://3ba89fedd69211be28287d5ac2b84ea7e887f2591d555131a4a760ad8ab0fbc3
+    Image:         nginx:latest
+    Image ID:      docker.io/library/nginx@sha256:05b8cb60c354a44ab824ea6e7dc69b46d50762cdbe728a347a5b656e6fb3d7c4
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Running
+      Started:      Wed, 16 Sep 2026 08:23:34 +0700
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-wnf7w (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-wnf7w:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason           Age   From               Message
+  ----     ------           ----  ----               -------
+  Warning  PolicyViolation  66s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  66s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  109s  kyverno-admission  policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  109s  kyverno-admission  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  109s  kyverno-admission  policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  109s  kyverno-admission  policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  109s  kyverno-admission  policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Normal   Scheduled        109s  default-scheduler  Successfully assigned ksp-dev/e2e-dev-pod-invalid to worker-node-1
+  Warning  PolicyViolation  36s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  37s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  37s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  37s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  95s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  95s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  95s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  95s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  109s  kyverno-admission  policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  94s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  95s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  68s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  67s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  67s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  67s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  66s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  109s  kyverno-admission  policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  94s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  38s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  37s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  37s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Normal   Pulling          108s  kubelet            spec.containers{app}: Pulling image "nginx:latest"
+  Normal   Created          107s  kubelet            spec.containers{app}: Container created
+  Normal   Pulled           107s  kubelet            spec.containers{app}: Successfully pulled image "nginx:latest" in 1.493s (1.493s including waiting). Image size: 66343926 bytes.
+  Normal   Started          106s  kubelet            spec.containers{app}: Container started
+
+
+Name:             e2e-dev-pod-valid
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Wed, 16 Sep 2026 08:23:35 +0700
+Labels:           <none>
+Annotations:      cni.projectcalico.org/containerID: eac8c96c2a957c3c9f773034e8dec3278c418717732f8ff6ac33b0b8a3383778
+                  cni.projectcalico.org/podIP: 10.244.19.169/32
+                  cni.projectcalico.org/podIPs: 10.244.19.169/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.19.169
+IPs:
+  IP:  10.244.19.169
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-rnfmw (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-rnfmw:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                           Age                 From               Message
+  ----     ------                           ----                ----               -------
+  Normal   Scheduled                        105s                default-scheduler  Successfully assigned ksp-dev/e2e-dev-pod-valid to worker-node-2
+  Normal   Pulling                          17s (x4 over 104s)  kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           17s (x4 over 104s)  kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: pull access denied, repository does not exist or may require authorization: authorization failed: no basic auth credentials
+  Warning  Failed                           17s (x4 over 104s)  kubelet            spec.containers{app}: Error: ErrImagePull
+  Warning  FailedToRetrieveImagePullSecret  3s (x10 over 104s)  kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   BackOff                          3s (x6 over 103s)   kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           3s (x6 over 103s)   kubelet            spec.containers{app}: Error: ImagePullBackOff
+
+
+Name:             e2e-dev-statefulset-invalid-0
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-1/171.244.199.186
+Start Time:       Wed, 16 Sep 2026 08:23:40 +0700
+Labels:           app=e2e-dev-statefulset-invalid
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=e2e-dev-statefulset-invalid-67dff5b48b
+                  statefulset.kubernetes.io/pod-name=e2e-dev-statefulset-invalid-0
+Annotations:      cni.projectcalico.org/containerID: e1cf3242d65443a09345739bed5c06ada4baa71c8e188eccbb7b92a6434b60a8
+                  cni.projectcalico.org/podIP: 10.244.212.106/32
+                  cni.projectcalico.org/podIPs: 10.244.212.106/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Running
+IP:               10.244.212.106
+IPs:
+  IP:           10.244.212.106
+Controlled By:  StatefulSet/e2e-dev-statefulset-invalid
+Containers:
+  app:
+    Container ID:  containerd://d5cc25afcdf6022ba87ea006ed3cfb23bea5ed062c01421f5f292105bf47f9d2
+    Image:         nginx:latest
+    Image ID:      docker.io/library/nginx@sha256:05b8cb60c354a44ab824ea6e7dc69b46d50762cdbe728a347a5b656e6fb3d7c4
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Running
+      Started:      Wed, 16 Sep 2026 08:23:42 +0700
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-ms9hd (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-ms9hd:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason           Age   From               Message
+  ----     ------           ----  ----               -------
+  Warning  PolicyViolation  69s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  69s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  100s  kyverno-admission  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  100s  kyverno-admission  policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  100s  kyverno-admission  policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  100s  kyverno-admission  policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  100s  kyverno-admission  policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  100s  kyverno-admission  policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  6s    kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  6s    kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  6s    kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  6s    kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  69s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  69s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Normal   Scheduled        100s  default-scheduler  Successfully assigned ksp-dev/e2e-dev-statefulset-invalid-0 to worker-node-1
+  Warning  PolicyViolation  39s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  39s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  69s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  68s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  40s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  69s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  39s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  100s  kyverno-admission  policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  39s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  38s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  38s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Normal   Pulling          100s  kubelet            spec.containers{app}: Pulling image "nginx:latest"
+  Normal   Started          98s   kubelet            spec.containers{app}: Container started
+  Normal   Created          98s   kubelet            spec.containers{app}: Container created
+  Normal   Pulled           98s   kubelet            spec.containers{app}: Successfully pulled image "nginx:latest" in 1.381s (1.381s including waiting). Image size: 66343926 bytes.
+
+
+Name:             e2e-dev-statefulset-valid-0
+Namespace:        ksp-dev
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Wed, 16 Sep 2026 08:23:48 +0700
+Labels:           app=e2e-dev-statefulset-valid
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=e2e-dev-statefulset-valid-5dc5b78df5
+                  statefulset.kubernetes.io/pod-name=e2e-dev-statefulset-valid-0
+Annotations:      cni.projectcalico.org/containerID: 074f5af72febbe6fd3c0f9a7d3798cbb8b4aca038a1e821096a1d25575ac589c
+                  cni.projectcalico.org/podIP: 10.244.19.173/32
+                  cni.projectcalico.org/podIPs: 10.244.19.173/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.19.173
+IPs:
+  IP:           10.244.19.173
+Controlled By:  StatefulSet/e2e-dev-statefulset-valid
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-wk6c4 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-wk6c4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        92s                default-scheduler  Successfully assigned ksp-dev/e2e-dev-statefulset-valid-0 to worker-node-2
+  Normal   BackOff                          15s (x6 over 91s)  kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           15s (x6 over 91s)  kubelet            spec.containers{app}: Error: ImagePullBackOff
+  Warning  FailedToRetrieveImagePullSecret  2s (x10 over 91s)  kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   Pulling                          2s (x4 over 91s)   kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           2s (x4 over 91s)   kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: pull access denied, repository does not exist or may require authorization: authorization failed: no basic auth credentials
+  Warning  Failed                           2s (x4 over 91s)   kubelet            spec.containers{app}: Error: ErrImagePull
+
+=== DEPLOYMENTS ===
+Name:                   e2e-dev-deployment-invalid
+Namespace:              ksp-dev
+CreationTimestamp:      Wed, 16 Sep 2026 08:23:35 +0700
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+                        kyverno.io/image-verification-outcomes:
+                          {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Selector:               app=e2e-dev-deployment-invalid
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=e2e-dev-deployment-invalid
+  Containers:
+   app:
+    Image:      nginx:latest
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   e2e-dev-deployment-invalid-698dbd4fd5 (1/1 replicas created)
+Events:
+  Type     Reason             Age   From                   Message
+  ----     ------             ----  ----                   -------
+  Warning  PolicyViolation    62s   kyverno-scan           policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation    63s   kyverno-scan           policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation    105s  kyverno-admission      policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation    105s  kyverno-admission      policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation    105s  kyverno-admission      policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation    63s   kyverno-scan           policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation    105s  kyverno-admission      policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation    105s  kyverno-admission      policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation    105s  kyverno-admission      policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation    33s   kyverno-scan           policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation    91s   kyverno-scan           policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation    91s   kyverno-scan           policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation    90s   kyverno-scan           policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation    90s   kyverno-scan           policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation    90s   kyverno-scan           policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation    90s   kyverno-scan           policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation    90s   kyverno-scan           policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation    90s   kyverno-scan           policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation    105s  kyverno-admission      policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation    89s   kyverno-scan           policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation    105s  kyverno-admission      policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation    63s   kyverno-scan           policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation    63s   kyverno-scan           policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation    62s   kyverno-scan           policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation    62s   kyverno-scan           policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation    62s   kyverno-scan           policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation    62s   kyverno-scan           policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation    105s  kyverno-admission      policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation    34s   kyverno-scan           policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation    34s   kyverno-scan           policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation    33s   kyverno-scan           policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation    33s   kyverno-scan           policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation    33s   kyverno-scan           policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation    33s   kyverno-scan           policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation    33s   kyverno-scan           policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation    33s   kyverno-scan           policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Normal   ScalingReplicaSet  106s  deployment-controller  Scaled up replica set e2e-dev-deployment-invalid-698dbd4fd5 from 0 to 1
+
+
+Name:                   e2e-dev-deployment-valid
+Namespace:              ksp-dev
+CreationTimestamp:      Wed, 16 Sep 2026 08:23:39 +0700
+Labels:                 app.kubernetes.io/name=e2e-dev-deployment
+                        policies.ksp.io/owner=security-team
+Annotations:            deployment.kubernetes.io/revision: 1
+                        kyverno.io/image-verification-outcomes:
+                          {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Selector:               app=e2e-dev-deployment-valid
+Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=e2e-dev-deployment-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:         50m
+      memory:      32Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   e2e-dev-deployment-valid-7bf54f7d8 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  102s  deployment-controller  Scaled up replica set e2e-dev-deployment-valid-7bf54f7d8 from 0 to 1
+
+=== STATEFULSETS ===
+Name:               e2e-dev-statefulset-invalid
+Namespace:          ksp-dev
+CreationTimestamp:  Wed, 16 Sep 2026 08:23:40 +0700
+Selector:           app=e2e-dev-statefulset-invalid
+Labels:             <none>
+Annotations:        kyverno.io/image-verification-outcomes:
+                      {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Replicas:           1 desired | 1 total
+Update Strategy:    RollingUpdate
+  Partition:        0
+Pods Status:        1 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=e2e-dev-statefulset-invalid
+  Containers:
+   app:
+    Image:      nginx:latest
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Volume Claims:     <none>
+Events:
+  Type     Reason            Age   From                    Message
+  ----     ------            ----  ----                    -------
+  Warning  PolicyViolation   67s   kyverno-scan            policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation   37s   kyverno-scan            policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   101s  kyverno-admission       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   101s  kyverno-admission       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation   101s  kyverno-admission       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation   101s  kyverno-admission       policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   101s  kyverno-admission       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation   101s  kyverno-admission       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   101s  kyverno-admission       policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   37s   kyverno-scan            policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   67s   kyverno-scan            policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   67s   kyverno-scan            policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation   101s  kyverno-admission       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   67s   kyverno-scan            policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   101s  kyverno-admission       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   67s   kyverno-scan            policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   67s   kyverno-scan            policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation   67s   kyverno-scan            policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   67s   kyverno-scan            policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   38s   kyverno-scan            policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   38s   kyverno-scan            policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   38s   kyverno-scan            policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation   37s   kyverno-scan            policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   67s   kyverno-scan            policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   37s   kyverno-scan            policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation   37s   kyverno-scan            policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   37s   kyverno-scan            policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Normal   SuccessfulCreate  101s  statefulset-controller  Create Pod e2e-dev-statefulset-invalid-0 in StatefulSet e2e-dev-statefulset-invalid successful
+
+
+Name:               e2e-dev-statefulset-valid
+Namespace:          ksp-dev
+CreationTimestamp:  Wed, 16 Sep 2026 08:23:45 +0700
+Selector:           app=e2e-dev-statefulset-valid
+Labels:             app.kubernetes.io/name=e2e-dev-statefulset
+                    policies.ksp.io/owner=security-team
+Annotations:        kyverno.io/image-verification-outcomes:
+                      {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Replicas:           1 desired | 1 total
+Update Strategy:    RollingUpdate
+  Partition:        0
+Pods Status:        0 Running / 1 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=e2e-dev-statefulset-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:         50m
+      memory:      32Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Volume Claims:     <none>
+Events:
+  Type    Reason            Age   From                    Message
+  ----    ------            ----  ----                    -------
+  Normal  SuccessfulCreate  93s   statefulset-controller  Create Pod e2e-dev-statefulset-valid-0 in StatefulSet e2e-dev-statefulset-valid successful
+
+=== DAEMONSETS ===
+Name:           e2e-dev-daemonset-invalid
+Namespace:      ksp-dev
+Selector:       app=e2e-dev-daemonset-invalid
+Node-Selector:  <none>
+Labels:         <none>
+Annotations:    deprecated.daemonset.template.generation: 1
+                kyverno.io/image-verification-outcomes:
+                  {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Desired Number of Nodes Scheduled: 2
+Current Number of Nodes Scheduled: 2
+Number of Nodes Scheduled with Up-to-date Pods: 2
+Number of Nodes Scheduled with Available Pods: 2
+Number of Nodes Misscheduled: 0
+Pods Status:  2 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=e2e-dev-daemonset-invalid
+  Containers:
+   app:
+    Image:      nginx:latest
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type     Reason            Age   From                  Message
+  ----     ------            ----  ----                  -------
+  Warning  PolicyViolation   45s   kyverno-scan          policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   45s   kyverno-scan          policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation   95s   kyverno-admission     policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   95s   kyverno-admission     policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   95s   kyverno-admission     policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation   95s   kyverno-admission     policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   95s   kyverno-admission     policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   95s   kyverno-admission     policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   95s   kyverno-admission     policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation   45s   kyverno-scan          policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   24s   kyverno-scan          policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation   75s   kyverno-scan          policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   75s   kyverno-scan          policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation   74s   kyverno-scan          policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   74s   kyverno-scan          policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation   74s   kyverno-scan          policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   74s   kyverno-scan          policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   74s   kyverno-scan          policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   95s   kyverno-admission     policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   74s   kyverno-scan          policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   24s   kyverno-scan          policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   45s   kyverno-scan          policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   45s   kyverno-scan          policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation   45s   kyverno-scan          policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   45s   kyverno-scan          policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation   45s   kyverno-scan          policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   45s   kyverno-scan          policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   95s   kyverno-admission     policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation   74s   kyverno-scan          policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation   25s   kyverno-scan          policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   25s   kyverno-scan          policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   25s   kyverno-scan          policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   24s   kyverno-scan          policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation   24s   kyverno-scan          policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   24s   kyverno-scan          policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   24s   kyverno-scan          policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Normal   SuccessfulCreate  96s   daemonset-controller  Created pod: e2e-dev-daemonset-invalid-4g6nm
+  Normal   SuccessfulCreate  96s   daemonset-controller  Created pod: e2e-dev-daemonset-invalid-mjtjl
+
+
+Name:           e2e-dev-daemonset-valid
+Namespace:      ksp-dev
+Selector:       app=e2e-dev-daemonset-valid
+Node-Selector:  <none>
+Labels:         app.kubernetes.io/name=e2e-dev-daemonset
+                policies.ksp.io/owner=security-team
+Annotations:    deprecated.daemonset.template.generation: 1
+                kyverno.io/image-verification-outcomes:
+                  {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Desired Number of Nodes Scheduled: 2
+Current Number of Nodes Scheduled: 2
+Number of Nodes Scheduled with Up-to-date Pods: 2
+Number of Nodes Scheduled with Available Pods: 0
+Number of Nodes Misscheduled: 0
+Pods Status:  0 Running / 2 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=e2e-dev-daemonset-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:         50m
+      memory:      32Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From                  Message
+  ----    ------            ----  ----                  -------
+  Normal  SuccessfulCreate  89s   daemonset-controller  Created pod: e2e-dev-daemonset-valid-f8vzg
+  Normal  SuccessfulCreate  85s   daemonset-controller  Created pod: e2e-dev-daemonset-valid-4jx5m
+
+=== JOBS ===
+Name:             e2e-dev-job-invalid
+Namespace:        ksp-dev
+Selector:         batch.kubernetes.io/controller-uid=5f83fde4-90f1-4e5f-a532-bdd5d3e7b954
+Labels:           app=e2e-dev-job-invalid
+Annotations:      kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Suspend:          false
+Backoff Limit:    6
+Start Time:       Wed, 16 Sep 2026 08:23:49 +0700
+Completed At:     Wed, 16 Sep 2026 08:23:54 +0700
+Duration:         5s
+Pods Statuses:    0 Active (0 Ready) / 1 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=e2e-dev-job-invalid
+           batch.kubernetes.io/controller-uid=5f83fde4-90f1-4e5f-a532-bdd5d3e7b954
+           batch.kubernetes.io/job-name=e2e-dev-job-invalid
+           controller-uid=5f83fde4-90f1-4e5f-a532-bdd5d3e7b954
+           job-name=e2e-dev-job-invalid
+  Containers:
+   app:
+    Image:      nginx:latest
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      sh
+      -c
+      echo invalid
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  PolicyViolation   63s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   62s   kyverno-scan       policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   91s   kyverno-admission  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   91s   kyverno-admission  policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   91s   kyverno-admission  policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   91s   kyverno-admission  policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   91s   kyverno-admission  policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   91s   kyverno-admission  policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation   91s   kyverno-admission  policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   34s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   34s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation   63s   kyverno-scan       policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   63s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   63s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation   91s   kyverno-admission  policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation   63s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation   91s   kyverno-admission  policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation   63s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   62s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation   63s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation   35s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation   35s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation   35s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation   34s   kyverno-scan       policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation   34s   kyverno-scan       policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation   34s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation   34s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Normal   SuccessfulCreate  92s   job-controller     Created pod: e2e-dev-job-invalid-dtjqh
+  Normal   Completed         87s   job-controller     Job completed
+
+
+Name:             e2e-dev-job-valid
+Namespace:        ksp-dev
+Selector:         batch.kubernetes.io/controller-uid=c5285e4c-9b3a-4097-81a0-17e2a0b0c45a
+Labels:           app.kubernetes.io/name=e2e-dev-job
+                  policies.ksp.io/owner=security-team
+Annotations:      kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Suspend:          false
+Backoff Limit:    6
+Start Time:       Wed, 16 Sep 2026 08:23:53 +0700
+Pods Statuses:    1 Active (0 Ready) / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=e2e-dev-job-valid
+           batch.kubernetes.io/controller-uid=c5285e4c-9b3a-4097-81a0-17e2a0b0c45a
+           batch.kubernetes.io/job-name=e2e-dev-job-valid
+           controller-uid=c5285e4c-9b3a-4097-81a0-17e2a0b0c45a
+           job-name=e2e-dev-job-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      echo 'E2E Job PASS'
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:         50m
+      memory:      32Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  85s   job-controller  Created pod: e2e-dev-job-valid-q5fqb
+
+=== CRONJOBS ===
+Name:                          e2e-dev-cronjob-invalid
+Namespace:                     ksp-dev
+Labels:                        <none>
+Annotations:                   kyverno.io/image-verification-outcomes:
+                                 {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Schedule:                      */10 * * * *
+Concurrency Policy:            Allow
+Suspend:                       False
+Successful Job History Limit:  3
+Failed Job History Limit:      1
+Starting Deadline Seconds:     <unset>
+Selector:                      <unset>
+Parallelism:                   <unset>
+Completions:                   <unset>
+Pod Template:
+  Labels:  app=e2e-dev-cronjob-invalid
+  Containers:
+   app:
+    Image:      nginx:latest
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      sh
+      -c
+      echo invalid
+    Environment:     <none>
+    Mounts:          <none>
+  Volumes:           <none>
+  Node-Selectors:    <none>
+  Tolerations:       <none>
+Last Schedule Time:  <unset>
+Active Jobs:         <none>
+Events:
+  Type     Reason           Age   From               Message
+  ----     ------           ----  ----               -------
+  Warning  PolicyViolation  88s   kyverno-admission  policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  88s   kyverno-admission  policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation  88s   kyverno-admission  policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  88s   kyverno-admission  policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  88s   kyverno-admission  policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  88s   kyverno-admission  policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  88s   kyverno-admission  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  88s   kyverno-admission  policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation  88s   kyverno-admission  policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  58s   kyverno-scan       policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  Warning  PolicyViolation  58s   kyverno-scan       policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation  58s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  58s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  58s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  58s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  58s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  57s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  57s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  32s   kyverno-scan       policy require-owner-label/ fail: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  Warning  PolicyViolation  32s   kyverno-scan       policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  32s   kyverno-scan       policy require-cpu-request/ fail: Set resources.requests.cpu on every regular and init container.
+  Warning  PolicyViolation  32s   kyverno-scan       policy disallow-latest-tag/ fail: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+  Warning  PolicyViolation  32s   kyverno-scan       policy require-cpu-limit/ fail: Set resources.limits.cpu on every regular and init container.
+  Warning  PolicyViolation  32s   kyverno-scan       policy require-image-digest/ fail: Reference every image as image@sha256:<64-hex-digest>.
+  Warning  PolicyViolation  32s   kyverno-scan       policy require-memory-limit/ fail: Set resources.limits.memory on every regular and init container.
+  Warning  PolicyViolation  31s   kyverno-scan       policy require-memory-request/ fail: Set resources.requests.memory on every regular and init container.
+  Warning  PolicyViolation  31s   kyverno-scan       policy require-app-label/ fail: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+
+
+Name:                          e2e-dev-cronjob-valid
+Namespace:                     ksp-dev
+Labels:                        app.kubernetes.io/name=e2e-dev-cronjob
+                               policies.ksp.io/owner=security-team
+Annotations:                   kyverno.io/image-verification-outcomes:
+                                 {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Schedule:                      */10 * * * *
+Concurrency Policy:            Allow
+Suspend:                       False
+Successful Job History Limit:  3
+Failed Job History Limit:      1
+Starting Deadline Seconds:     <unset>
+Selector:                      <unset>
+Parallelism:                   <unset>
+Completions:                   <unset>
+Pod Template:
+  Labels:  app=e2e-dev-cronjob-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      echo 'E2E CronJob PASS'
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:           50m
+      memory:        32Mi
+    Environment:     <none>
+    Mounts:          <none>
+  Volumes:           <none>
+  Node-Selectors:    <none>
+  Tolerations:       <none>
+Last Schedule Time:  <unset>
+Active Jobs:         <none>
+Events:              <none>
+
+=== NAMESPACE ===
+Name:         ksp-dev
+Labels:       kubernetes.io/metadata.name=ksp-dev
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.

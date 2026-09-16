@@ -1,0 +1,9 @@
+# Renderer source of truth for explicit platform exclusions.
+platformNamespaces:
+- default
+- kube-system
+- kube-public
+- kube-node-lease
+- kyverno
+- calico-system
+- tigera-operator

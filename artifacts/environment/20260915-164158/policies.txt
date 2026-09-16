@@ -1,0 +1,23 @@
+=== VALIDATING POLICIES ===
+NAME                                    AGE   READY
+disallow-latest-tag                     45h   true
+disallow-run-as-user-zero               45h   true
+require-app-label                       45h   true
+require-cpu-limit                       45h   true
+require-cpu-request                     45h   true
+require-image-digest                    45h   true
+require-memory-limit                    45h   true
+require-memory-request                  45h   true
+require-namespace-environment-profile   45h   true
+require-owner-label                     45h   true
+require-seccomp                         45h   true
+
+=== IMAGE VALIDATING POLICIES ===
+NAME                   AGE   READY
+verify-signed-images   45h   true
+
+=== GENERATING POLICIES ===
+NAME                      AGE
+generate-resource-quota   45h
+
+=== MUTATING POLICIES ===
