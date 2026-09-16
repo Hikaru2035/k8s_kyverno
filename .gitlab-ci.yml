@@ -841,9 +841,50 @@ kind-integration:
         2>&1 \
         | tee ../artifacts/integration-kind/kind-create.txt
 
+      echo "=== Original Kubernetes API endpoint ==="
+      kubectl config view \
+        --minify \
+        -o jsonpath='{.clusters[0].cluster.server}'
+      echo
+
+      API_SERVER="$(
+        kubectl config view \
+          --minify \
+          -o jsonpath='{.clusters[0].cluster.server}'
+      )"
+
+      API_SERVER="$(
+        echo "$API_SERVER" \
+          | sed 's#127\.0\.0\.1#docker#'
+      )"
+
+      echo "Using Kubernetes API endpoint: $API_SERVER"
+
+      kubectl config set-cluster \
+        "kind-${KIND_CLUSTER_NAME}" \
+        --server="$API_SERVER"
+
+      echo "=== Connectivity check ==="
+
+      kubectl cluster-info
+
+      kubectl wait \
+        --for=condition=Ready \
+        node \
+        --all \
+        --timeout=120s
+
       kubectl get nodes -o wide \
         | tee ../artifacts/integration-kind/nodes.txt
 
+      echo "=== KIND KUBECONFIG ==="
+      kubectl config view --minify
+
+      echo "=== DOCKER CONTAINERS ==="
+      docker ps
+
+      echo "=== KIND CONTROL PLANE PORT ==="
+      docker port "${KIND_CLUSTER_NAME}-control-plane" 6443
     - |
       set -eu
 
