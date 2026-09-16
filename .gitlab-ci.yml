@@ -53,7 +53,7 @@ validate:
 
   before_script:
     - python3 -m pip install --no-cache-dir PyYAML==6.0.2
-    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/validate"
+    - mkdir -p "$CI_PROJECT_DIR/artifacts/validate"
 
   script:
 
@@ -68,13 +68,13 @@ validate:
       set +e
 
       bash ./scripts/validate-policy-config.sh \
-        > artifacts/validate/policy-config.txt 2>&1
+        > ../artifacts/validate/policy-config.txt 2>&1
 
       config_status=$?
 
       set -e
 
-      cat artifacts/validate/policy-config.txt
+      cat ../artifacts/validate/policy-config.txt
 
       test "$config_status" -eq 0
 
@@ -101,13 +101,13 @@ validate:
 
       EXPECTED_POLICY_COUNT="$suite_count" \
         bash ./tests/policies/check-coverage.sh \
-        > artifacts/validate/test-coverage.txt 2>&1
+        > ../artifacts/validate/test-coverage.txt 2>&1
 
       coverage_status=$?
 
       set -e
 
-      cat artifacts/validate/test-coverage.txt
+      cat ../artifacts/validate/test-coverage.txt
 
       test "$coverage_status" -eq 0
 
@@ -125,7 +125,7 @@ validate:
       set +e
 
       python3 - <<'PY' \
-        > artifacts/validate/yaml-and-references.txt 2>&1
+        > ../artifacts/validate/yaml-and-references.txt 2>&1
 
       from collections import Counter
       from pathlib import Path
@@ -142,15 +142,15 @@ validate:
       scan_roots = [
           root / "policies",
           root / "tests",
-          root / "ci",
-          root / "e2e_env",
-          root / "kyverno" / "helm",
+          root / "template",
+          root.parent / "helm",
+          root.parent / "monitoring",
+          root.parent / "image-security",
           root / "profiles",
-          root / "environments",
       ]
 
 
-      yaml_files = []
+      yaml_files = [root.parent / "versions.yaml", root.parent / "test-harbor.yaml"]
 
       for scan_root in scan_roots:
 
@@ -520,7 +520,7 @@ validate:
 
       set -e
 
-      cat artifacts/validate/yaml-and-references.txt
+      cat ../artifacts/validate/yaml-and-references.txt
 
       exit "$validation_status"
 
@@ -530,7 +530,7 @@ validate:
     expire_in: 14 days
 
     paths:
-      - k8s-security-framework/artifacts/validate/
+      - artifacts/validate/
 
 check-policy:
   stage: validate
@@ -546,7 +546,7 @@ check-policy:
     - apt-get install -y --no-install-recommends git
     - rm -rf /var/lib/apt/lists/*
     - python3 -m pip install --no-cache-dir PyYAML==6.0.2
-    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/check-policy"
+    - mkdir -p "$CI_PROJECT_DIR/artifacts/check-policy"
 
   script:
 
@@ -559,21 +559,21 @@ check-policy:
       cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
 
       python3 ./scripts/render-policies.py development \
-        > artifacts/check-policy/render-development.txt \
+        > ../artifacts/check-policy/render-development.txt \
         2>&1
 
       python3 ./scripts/render-policies.py staging \
-        > artifacts/check-policy/render-staging.txt \
+        > ../artifacts/check-policy/render-staging.txt \
         2>&1
 
       python3 ./scripts/render-policies.py production \
-        > artifacts/check-policy/render-production.txt \
+        > ../artifacts/check-policy/render-production.txt \
         2>&1
 
 
-      cat artifacts/check-policy/render-development.txt
-      cat artifacts/check-policy/render-staging.txt
-      cat artifacts/check-policy/render-production.txt
+      cat ../artifacts/check-policy/render-development.txt
+      cat ../artifacts/check-policy/render-staging.txt
+      cat ../artifacts/check-policy/render-production.txt
 
 
     # --------------------------------------------------------
@@ -587,17 +587,17 @@ check-policy:
 
       cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
 
-      git status --porcelain -- e2e_env \
-        > artifacts/check-policy/render-drift.txt
+      git status --porcelain -- tests/e2e_env \
+        > ../artifacts/check-policy/render-drift.txt
 
 
-      cat artifacts/check-policy/render-drift.txt
+      cat ../artifacts/check-policy/render-drift.txt
 
 
-      if test -s artifacts/check-policy/render-drift.txt
+      if test -s ../artifacts/check-policy/render-drift.txt
       then
 
-        echo "ERROR: rendered e2e_env policy bundle is stale."
+        echo "ERROR: rendered tests/e2e_env policy bundle is stale."
         echo "Source of truth and deployable policies are not synchronized."
 
         exit 1
@@ -606,7 +606,7 @@ check-policy:
 
 
       echo "CHECK POLICY PASSED."
-      echo "e2e_env is synchronized with policies/."
+      echo "tests/e2e_env is synchronized with policies/."
 
 
   artifacts:
@@ -614,7 +614,7 @@ check-policy:
     expire_in: 14 days
 
     paths:
-      - k8s-security-framework/artifacts/check-policy/
+      - artifacts/check-policy/
 
 unit:
   stage: unit
@@ -649,7 +649,7 @@ unit:
       chmod 600 "$DOCKER_CONFIG/config.json"
 
     - kyverno version
-    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
+    - mkdir -p "$CI_PROJECT_DIR/artifacts/cli-unit/junit"
 
 
   script:
@@ -661,7 +661,7 @@ unit:
 
 
       kyverno version \
-        > artifacts/cli-unit/kyverno-version.txt \
+        > ../artifacts/cli-unit/kyverno-version.txt \
         2>&1
 
 
@@ -685,11 +685,11 @@ unit:
         echo "=================================================="
 
 
-        raw_report="artifacts/cli-unit/junit/${policy_id}.raw.txt"
+        raw_report="../artifacts/cli-unit/junit/${policy_id}.raw.txt"
 
-        extracted_report="artifacts/cli-unit/junit/${policy_id}.extracted.xml"
+        extracted_report="../artifacts/cli-unit/junit/${policy_id}.extracted.xml"
 
-        xml_report="artifacts/cli-unit/junit/${policy_id}.xml"
+        xml_report="../artifacts/cli-unit/junit/${policy_id}.xml"
 
 
         set +e
@@ -700,7 +700,7 @@ unit:
           --remove-color \
           --detailed-results \
           --require-tests \
-          > "artifacts/cli-unit/${policy_id}.txt" \
+          > "../artifacts/cli-unit/${policy_id}.txt" \
           2>&1
 
 
@@ -722,7 +722,7 @@ unit:
         set -e
 
 
-        cat "artifacts/cli-unit/${policy_id}.txt"
+        cat "../artifacts/cli-unit/${policy_id}.txt"
 
 
         sed -n \
@@ -766,11 +766,11 @@ unit:
     expire_in: 14 days
 
     paths:
-      - k8s-security-framework/artifacts/cli-unit/
+      - artifacts/cli-unit/
 
     reports:
       junit:
-        k8s-security-framework/artifacts/cli-unit/junit/*.xml
+        artifacts/cli-unit/junit/*.xml
 
 rendered-policy-test:
   stage: unit
@@ -809,7 +809,7 @@ rendered-policy-test:
 
       kyverno version
 
-    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/rendered-policy-test"
+    - mkdir -p "$CI_PROJECT_DIR/artifacts/rendered-policy-test"
 
   script:
     - |
@@ -817,7 +817,7 @@ rendered-policy-test:
 
       cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
 
-      TEST_ROOT="e2e_env/production/tests/rendered"
+      TEST_ROOT="tests/e2e_env/production/tests/rendered"
 
       if ! find "$TEST_ROOT" \
         -type f \
@@ -834,9 +834,9 @@ rendered-policy-test:
         -type f \
         -name kyverno-test.yaml \
         | sort \
-        > artifacts/rendered-policy-test/test-manifest.txt
+        > ../artifacts/rendered-policy-test/test-manifest.txt
 
-      cat artifacts/rendered-policy-test/test-manifest.txt
+      cat ../artifacts/rendered-policy-test/test-manifest.txt
 
       set +e
 
@@ -844,14 +844,14 @@ rendered-policy-test:
         --remove-color \
         --detailed-results \
         --require-tests \
-        > artifacts/rendered-policy-test/results.txt \
+        > ../artifacts/rendered-policy-test/results.txt \
         2>&1
 
       rendered_test_status=$?
 
       set -e
 
-      cat artifacts/rendered-policy-test/results.txt
+      cat ../artifacts/rendered-policy-test/results.txt
 
       exit "$rendered_test_status"
 
@@ -860,7 +860,7 @@ rendered-policy-test:
     expire_in: 14 days
 
     paths:
-      - k8s-security-framework/artifacts/rendered-policy-test/
+      - artifacts/rendered-policy-test/
 
 regression:
   stage: regression
@@ -902,7 +902,7 @@ regression:
 
       kyverno version
 
-    - mkdir -p "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/cli-unit/junit"
+    - mkdir -p "$CI_PROJECT_DIR/artifacts/regression"
 
   script:
 
@@ -913,7 +913,7 @@ regression:
 
 
       kyverno version \
-        > artifacts/regression/kyverno-version.txt \
+        > ../artifacts/regression/kyverno-version.txt \
         2>&1
 
 
@@ -924,7 +924,7 @@ regression:
         --remove-color \
         --detailed-results \
         --require-tests \
-        > artifacts/regression/results.txt \
+        > ../artifacts/regression/results.txt \
         2>&1
 
 
@@ -934,7 +934,7 @@ regression:
       set -e
 
 
-      cat artifacts/regression/results.txt
+      cat ../artifacts/regression/results.txt
 
 
       exit "$regression_status"
@@ -945,7 +945,7 @@ regression:
     expire_in: 14 days
 
     paths:
-      - k8s-security-framework/artifacts/regression/
+      - artifacts/regression/
 
 kind-integration:
   stage: integration
@@ -973,7 +973,7 @@ kind-integration:
     - changes:
         - k8s-security-framework/policies/**/*
         - k8s-security-framework/profiles/**/*
-        - k8s-security-framework/e2e_env/**/*
+        - k8s-security-framework/tests/e2e_env/**/*
         - k8s-security-framework/tests/**/*
         - k8s-security-framework/scripts/**/*
         - .gitlab-ci.yml
@@ -1090,7 +1090,7 @@ kind-integration:
 
       cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
 
-      mkdir -p artifacts/integration-kind
+      mkdir -p ../artifacts/integration-kind
 
 
     # --------------------------------------------------------
@@ -1106,11 +1106,11 @@ kind-integration:
         --name "$KIND_CLUSTER_NAME" \
         --wait 180s \
         2>&1 \
-        | tee artifacts/integration-kind/kind-create.txt
+        | tee ../artifacts/integration-kind/kind-create.txt
 
 
       kubectl get nodes -o wide \
-        | tee artifacts/integration-kind/nodes.txt
+        | tee ../artifacts/integration-kind/nodes.txt
 
 
     # --------------------------------------------------------
@@ -1140,16 +1140,16 @@ kind-integration:
         --wait \
         --timeout 5m \
         2>&1 \
-        | tee artifacts/integration-kind/kyverno-install.txt
+        | tee ../artifacts/integration-kind/kyverno-install.txt
 
 
       kubectl -n kyverno get pods -o wide \
-        | tee artifacts/integration-kind/kyverno-pods.txt
+        | tee ../artifacts/integration-kind/kyverno-pods.txt
 
 
       kubectl get validatingwebhookconfigurations \
         -o wide \
-        > artifacts/integration-kind/webhooks.txt
+        > ../artifacts/integration-kind/webhooks.txt
 
 
     # --------------------------------------------------------
@@ -1167,9 +1167,9 @@ kind-integration:
 
       kubectl apply \
         --recursive \
-        -f e2e_env/production/policies \
+        -f tests/e2e_env/production/policies \
         2>&1 \
-        | tee artifacts/integration-kind/all-policy-apply.txt
+        | tee ../artifacts/integration-kind/all-policy-apply.txt
 
 
       sleep 15
@@ -1177,21 +1177,21 @@ kind-integration:
 
       kubectl get validatingpolicies \
         -o yaml \
-        > artifacts/integration-kind/validating-policies.yaml \
+        > ../artifacts/integration-kind/validating-policies.yaml \
         2>&1 \
         || true
 
 
       kubectl get imagevalidatingpolicies \
         -o yaml \
-        > artifacts/integration-kind/image-validating-policies.yaml \
+        > ../artifacts/integration-kind/image-validating-policies.yaml \
         2>&1 \
         || true
 
 
       kubectl get mutatingpolicies \
         -o yaml \
-        > artifacts/integration-kind/mutating-policies.yaml \
+        > ../artifacts/integration-kind/mutating-policies.yaml \
         2>&1 \
         || true
 
@@ -1210,21 +1210,21 @@ kind-integration:
 
       kubectl get validatingpolicies \
         -o json \
-        > artifacts/integration-kind/validating-policy-status.json \
+        > ../artifacts/integration-kind/validating-policy-status.json \
         2>&1 \
         || true
 
 
       kubectl get imagevalidatingpolicies \
         -o json \
-        > artifacts/integration-kind/image-policy-status.json \
+        > ../artifacts/integration-kind/image-policy-status.json \
         2>&1 \
         || true
 
 
       kubectl get mutatingpolicies \
         -o json \
-        > artifacts/integration-kind/mutating-policy-status.json \
+        > ../artifacts/integration-kind/mutating-policy-status.json \
         2>&1 \
         || true
 
@@ -1243,7 +1243,7 @@ kind-integration:
 
       kubectl delete \
         --recursive \
-        -f e2e_env/production/policies \
+        -f tests/e2e_env/production/policies \
         --ignore-not-found \
         >/dev/null 2>&1 \
         || true
@@ -1262,7 +1262,7 @@ kind-integration:
 
 
       policy_file="$(
-        find e2e_env/production/policies \
+        find tests/e2e_env/production/policies \
           -type f \
           -name 'KSP-POD-002-*.yaml' \
           -print \
@@ -1286,7 +1286,7 @@ kind-integration:
 
       kubectl apply -f "$policy_file" \
         2>&1 \
-        | tee artifacts/integration-kind/ksp-pod-002-apply.txt
+        | tee ../artifacts/integration-kind/ksp-pod-002-apply.txt
 
 
       sleep 10
@@ -1310,7 +1310,7 @@ kind-integration:
 
       kubectl get namespace ksp-ci \
         --show-labels \
-        > "$CI_PROJECT_DIR/$FRAMEWORK_ROOT/artifacts/integration-kind/namespace.txt"
+        > "$CI_PROJECT_DIR/artifacts/integration-kind/namespace.txt"
 
 
     # --------------------------------------------------------
@@ -1339,13 +1339,13 @@ kind-integration:
 
       kubectl create -f /tmp/positive.yaml \
         2>&1 \
-        | tee artifacts/integration-kind/positive-admission.txt
+        | tee ../artifacts/integration-kind/positive-admission.txt
 
 
       kubectl get pod ksp-positive \
         -n ksp-ci \
         -o yaml \
-        > artifacts/integration-kind/positive-pod.yaml
+        > ../artifacts/integration-kind/positive-pod.yaml
 
 
     # --------------------------------------------------------
@@ -1376,7 +1376,7 @@ kind-integration:
 
 
       kubectl create -f /tmp/negative.yaml \
-        > artifacts/integration-kind/negative-admission.txt \
+        > ../artifacts/integration-kind/negative-admission.txt \
         2>&1
 
 
@@ -1386,7 +1386,7 @@ kind-integration:
       set -e
 
 
-      cat artifacts/integration-kind/negative-admission.txt
+      cat ../artifacts/integration-kind/negative-admission.txt
 
 
       if test "$negative_status" -eq 0
@@ -1401,7 +1401,7 @@ kind-integration:
 
       if ! grep -Eqi \
         'denied|privileged' \
-        artifacts/integration-kind/negative-admission.txt
+        ../artifacts/integration-kind/negative-admission.txt
       then
 
         echo "ERROR: request failed, but not because of expected policy denial."
@@ -1438,7 +1438,7 @@ kind-integration:
       kubectl get policyreports \
         -A \
         -o yaml \
-        > artifacts/integration-kind/policyreports.yaml \
+        > ../artifacts/integration-kind/policyreports.yaml \
         2>&1 \
         || true
 
@@ -1446,14 +1446,14 @@ kind-integration:
       kubectl -n kyverno get \
         pods,svc,endpoints,endpointslices \
         -o wide \
-        > artifacts/integration-kind/kyverno-health.txt
+        > ../artifacts/integration-kind/kyverno-health.txt
 
 
       kubectl -n kyverno logs \
         -l app.kubernetes.io/component=admission-controller \
         --all-containers \
         --since=10m \
-        > artifacts/integration-kind/kyverno-admission.log \
+        > ../artifacts/integration-kind/kyverno-admission.log \
         2>&1 \
         || true
 
@@ -1469,14 +1469,14 @@ kind-integration:
         || exit 0
 
 
-      mkdir -p artifacts/integration-kind
+      mkdir -p ../artifacts/integration-kind
 
 
       if command -v kind >/dev/null 2>&1
       then
 
         kind export logs \
-          artifacts/integration-kind/kind-cluster-logs \
+          ../artifacts/integration-kind/kind-cluster-logs \
           --name "${KIND_CLUSTER_NAME:-ksp-ci}" \
           >/dev/null 2>&1 \
           || true
@@ -1495,7 +1495,7 @@ kind-integration:
     expire_in: 14 days
 
     paths:
-      - k8s-security-framework/artifacts/integration-kind/
+      - artifacts/integration-kind/
 
 report:
   stage: report
@@ -1535,7 +1535,7 @@ report:
 
       framework="$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
 
-      report_root="$framework/artifacts/report"
+      report_root="$CI_PROJECT_DIR/artifacts/report"
 
 
       mkdir -p \
@@ -1547,61 +1547,61 @@ report:
         "$report_root/integration-kind"
 
 
-      if test -d "$framework/artifacts/validate"
+      if test -d "$CI_PROJECT_DIR/artifacts/validate"
       then
 
         cp -R \
-          "$framework/artifacts/validate/." \
+          "$CI_PROJECT_DIR/artifacts/validate/." \
           "$report_root/validate/"
 
       fi
 
 
-      if test -d "$framework/artifacts/check-policy"
+      if test -d "$CI_PROJECT_DIR/artifacts/check-policy"
       then
 
         cp -R \
-          "$framework/artifacts/check-policy/." \
+          "$CI_PROJECT_DIR/artifacts/check-policy/." \
           "$report_root/check-policy/"
 
       fi
 
 
-      if test -d "$framework/artifacts/cli-unit"
+      if test -d "$CI_PROJECT_DIR/artifacts/cli-unit"
       then
 
         cp -R \
-          "$framework/artifacts/cli-unit/." \
+          "$CI_PROJECT_DIR/artifacts/cli-unit/." \
           "$report_root/cli-unit/"
 
       fi
 
 
-      if test -d "$framework/artifacts/rendered-policy-test"
+      if test -d "$CI_PROJECT_DIR/artifacts/rendered-policy-test"
       then
 
         cp -R \
-          "$framework/artifacts/rendered-policy-test/." \
+          "$CI_PROJECT_DIR/artifacts/rendered-policy-test/." \
           "$report_root/rendered-policy-test/"
 
       fi
 
 
-      if test -d "$framework/artifacts/regression"
+      if test -d "$CI_PROJECT_DIR/artifacts/regression"
       then
 
         cp -R \
-          "$framework/artifacts/regression/." \
+          "$CI_PROJECT_DIR/artifacts/regression/." \
           "$report_root/regression/"
 
       fi
 
 
-      if test -d "$framework/artifacts/integration-kind"
+      if test -d "$CI_PROJECT_DIR/artifacts/integration-kind"
       then
 
         cp -R \
-          "$framework/artifacts/integration-kind/." \
+          "$CI_PROJECT_DIR/artifacts/integration-kind/." \
           "$report_root/integration-kind/"
 
       fi
@@ -1622,4 +1622,4 @@ report:
     expire_in: 14 days
 
     paths:
-      - k8s-security-framework/artifacts/report/
+      - artifacts/report/

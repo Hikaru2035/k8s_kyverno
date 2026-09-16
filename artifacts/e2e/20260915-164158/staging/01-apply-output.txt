@@ -1,0 +1,160 @@
+
+==================================================
+RESOURCE TYPE: namespace
+FILE: k8s-security-framework/tests/e2e/staging/namespace/invalid.yaml
+TIME: 2026-09-16T09:07:19+07:00
+==================================================
+Warning: Policy require-namespace-environment-profile failed: Set ksp.io/environment to staging for this staging cluster.
+namespace/e2e-stg-ns-invalid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: namespace
+FILE: k8s-security-framework/tests/e2e/staging/namespace/valid.yaml
+TIME: 2026-09-16T09:07:20+07:00
+==================================================
+namespace/e2e-stg-ns-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: pod
+FILE: k8s-security-framework/tests/e2e/staging/pod/invalid.yaml
+TIME: 2026-09-16T09:07:20+07:00
+==================================================
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Error from server: error when creating "k8s-security-framework/tests/e2e/staging/pod/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag" denied the request: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+EXIT_CODE=1
+
+==================================================
+RESOURCE TYPE: pod
+FILE: k8s-security-framework/tests/e2e/staging/pod/valid.yaml
+TIME: 2026-09-16T09:07:20+07:00
+==================================================
+pod/e2e-stg-pod-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: deployment
+FILE: k8s-security-framework/tests/e2e/staging/deployment/invalid.yaml
+TIME: 2026-09-16T09:07:24+07:00
+==================================================
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Error from server: error when creating "k8s-security-framework/tests/e2e/staging/deployment/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag" denied the request: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+EXIT_CODE=1
+
+==================================================
+RESOURCE TYPE: deployment
+FILE: k8s-security-framework/tests/e2e/staging/deployment/valid.yaml
+TIME: 2026-09-16T09:07:24+07:00
+==================================================
+deployment.apps/e2e-stg-deployment-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: statefulset
+FILE: k8s-security-framework/tests/e2e/staging/statefulset/invalid.yaml
+TIME: 2026-09-16T09:07:28+07:00
+==================================================
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Error from server: error when creating "k8s-security-framework/tests/e2e/staging/statefulset/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag" denied the request: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+EXIT_CODE=1
+
+==================================================
+RESOURCE TYPE: statefulset
+FILE: k8s-security-framework/tests/e2e/staging/statefulset/valid.yaml
+TIME: 2026-09-16T09:07:28+07:00
+==================================================
+Warning: Policy verify-signed-images error: failed to evaluate policy: Get "https://harbor-public:30003/v2/": dial tcp: lookup harbor-public: i/o timeout
+statefulset.apps/e2e-stg-statefulset-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: daemonset
+FILE: k8s-security-framework/tests/e2e/staging/daemonset/invalid.yaml
+TIME: 2026-09-16T09:07:33+07:00
+==================================================
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Error from server: error when creating "k8s-security-framework/tests/e2e/staging/daemonset/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag" denied the request: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+EXIT_CODE=1
+
+==================================================
+RESOURCE TYPE: daemonset
+FILE: k8s-security-framework/tests/e2e/staging/daemonset/valid.yaml
+TIME: 2026-09-16T09:07:33+07:00
+==================================================
+daemonset.apps/e2e-stg-daemonset-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: job
+FILE: k8s-security-framework/tests/e2e/staging/job/invalid.yaml
+TIME: 2026-09-16T09:07:37+07:00
+==================================================
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Error from server: error when creating "k8s-security-framework/tests/e2e/staging/job/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag" denied the request: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+EXIT_CODE=1
+
+==================================================
+RESOURCE TYPE: job
+FILE: k8s-security-framework/tests/e2e/staging/job/valid.yaml
+TIME: 2026-09-16T09:07:37+07:00
+==================================================
+job.batch/e2e-stg-job-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: cronjob
+FILE: k8s-security-framework/tests/e2e/staging/cronjob/invalid.yaml
+TIME: 2026-09-16T09:07:40+07:00
+==================================================
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Error from server: error when creating "k8s-security-framework/tests/e2e/staging/cronjob/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag" denied the request: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+EXIT_CODE=1
+
+==================================================
+RESOURCE TYPE: cronjob
+FILE: k8s-security-framework/tests/e2e/staging/cronjob/valid.yaml
+TIME: 2026-09-16T09:07:40+07:00
+==================================================
+cronjob.batch/e2e-stg-cronjob-valid created
+EXIT_CODE=0

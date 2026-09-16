@@ -21,12 +21,13 @@ esac
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FRAMEWORK_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+REPO_ROOT="$(cd "${FRAMEWORK_ROOT}/.." && pwd)"
 
 bash "${FRAMEWORK_ROOT}/scripts/validate-policy-config.sh" || exit 1
 
 PROFILE_FILE="${FRAMEWORK_ROOT}/profiles/${PROFILE}/policy-ids.txt"
 POLICIES_ROOT="${FRAMEWORK_ROOT}/policies"
-REPORT_ROOT="${REPORT_ROOT:-${FRAMEWORK_ROOT}/artifacts/cli-unit/profile-${PROFILE}}"
+REPORT_ROOT="${REPORT_ROOT:-${REPO_ROOT}/artifacts/cli-unit/profile-${PROFILE}}"
 
 if ! command -v kyverno >/dev/null 2>&1; then
   echo "ERROR: kyverno CLI not found in PATH"

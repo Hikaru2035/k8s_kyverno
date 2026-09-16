@@ -59,7 +59,7 @@ def render(policy_id, level, env_name):
 def main():
     global PLATFORM
     if len(sys.argv) != 2 or sys.argv[1] not in ENV: raise SystemExit("usage: render-policies.py development|staging|production")
-    env_name = sys.argv[1]; out = ROOT / "e2e_env" / env_name
+    env_name = sys.argv[1]; out = ROOT / "tests" / "e2e_env" / env_name
     config = out / "platform-namespaces.yaml"
     if not config.exists(): raise SystemExit(f"missing platform exemption config: {config}")
     PLATFORM = yaml.safe_load(config.read_text())["platformNamespaces"]

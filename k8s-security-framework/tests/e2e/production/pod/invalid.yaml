@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: e2e-prod-pod-invalid
+  namespace: ksp-production
+spec:
+  containers:
+    - name: app
+      image: nginx:latest
+      command: ["sh", "-c", "sleep 3600"]

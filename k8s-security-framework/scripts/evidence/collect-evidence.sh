@@ -6,18 +6,21 @@ set -euo pipefail
 # Kubernetes Events, runtime policy actions, and Prometheus snapshots.
 #
 # Usage:
-#   ./scripts/evidence/collect-evidence.sh
+#   ./k8s-security-framework/scripts/evidence/collect-evidence.sh
 #
 # Optional overrides:
 #   ENVIRONMENT=development \
 #   RUN_ID=manual-test \
 #   PROMETHEUS_URL=http://127.0.0.1:9090 \
 #   LOG_SINCE=10m \
-#   ./scripts/evidence/collect-evidence.sh
+#   ./k8s-security-framework/scripts/evidence/collect-evidence.sh
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
 
 RUN_ID="${RUN_ID:-$(date -u +%Y%m%d-%H%M%S)}"
 ENVIRONMENT="${ENVIRONMENT:-unspecified}"
-ARTIFACT_ROOT="${ARTIFACT_ROOT:-artifacts/e2e}"
+ARTIFACT_ROOT="${ARTIFACT_ROOT:-${REPO_ROOT}/artifacts/e2e}"
 KYVERNO_NAMESPACE="${KYVERNO_NAMESPACE:-kyverno}"
 PROMETHEUS_URL="${PROMETHEUS_URL:-http://127.0.0.1:9090}"
 LOG_SINCE="${LOG_SINCE:-10m}"

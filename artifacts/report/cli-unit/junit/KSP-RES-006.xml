@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="0">
+ <testsuite name="generate-limit-range" tests="13" failures="0">
+  <testcase classname="generate-limit-range" name="/container-resource-defaults">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: /container-resource-defaults
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="/container-resource-defaults">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: /container-resource-defaults
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="/container-resource-defaults">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: /container-resource-defaults
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="/container-resource-defaults">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: /container-resource-defaults
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="v1/Namespace/default/res-006-negative">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: v1/Namespace/default/res-006-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="v1/Namespace/default/res-006-opt-in-without-environment">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: v1/Namespace/default/res-006-opt-in-without-environment
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="v1/Namespace/default/ksp-res-006-unrelated-label">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: v1/Namespace/default/ksp-res-006-unrelated-label
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="v1/Namespace/default/res-006-invalid-environment-prod">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: v1/Namespace/default/res-006-invalid-environment-prod
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="v1/Namespace/default/res-006-invalid-environment-uppercase">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: v1/Namespace/default/res-006-invalid-environment-uppercase
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="v1/Namespace/default/res-006-empty-environment">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: v1/Namespace/default/res-006-empty-environment
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="/container-resource-defaults">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: /container-resource-defaults
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="v1/Namespace/default/ksp-res-006-exception">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: v1/Namespace/default/ksp-res-006-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-limit-range" name="/container-resource-defaults">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-limit-range
+    Rule: generate-limit-range
+    Resource: /container-resource-defaults
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

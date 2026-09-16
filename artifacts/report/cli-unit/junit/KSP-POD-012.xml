@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="11" failures="0">
+ <testsuite name="add-default-security-context" tests="11" failures="0">
+  <testcase classname="" name="v1/Pod/p012-boundary-pod-with-existing-security-defaults/pod-012-boundary-existing">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: add-default-security-context
+    Rule: 
+    Resource: v1/Pod/p012-boundary-pod-with-existing-security-defaults/pod-012-boundary-existing
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/p012-boundary-preserve-explicit-container-settings/pod-012-boundary-preserve-explicit">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: add-default-security-context
+    Rule: 
+    Resource: v1/Pod/p012-boundary-preserve-explicit-container-settings/pod-012-boundary-preserve-explicit
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/p012-positive-init-container-missing-defaults/pod-012-positive-init">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: add-default-security-context
+    Rule: 
+    Resource: v1/Pod/p012-positive-init-container-missing-defaults/pod-012-positive-init
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/p012-positive-opted-in-pod-missing-security-defaults/pod-012-positive">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: add-default-security-context
+    Rule: 
+    Resource: v1/Pod/p012-positive-opted-in-pod-missing-security-defaults/pod-012-positive
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/p012-positive-two-containers-missing-defaults/pod-012-positive-two-containers">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: add-default-security-context
+    Rule: 
+    Resource: v1/Pod/p012-positive-two-containers-missing-defaults/pod-012-positive-two-containers
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/p012-boundary-pass-additional-edge-case/pod-012-boundary-existing-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: add-default-security-context
+    Rule: 
+    Resource: v1/Pod/p012-boundary-pass-additional-edge-case/pod-012-boundary-existing-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/p012-partial-and-ephemeral/pod-012-partial-and-ephemeral">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: add-default-security-context
+    Rule: 
+    Resource: v1/Pod/p012-partial-and-ephemeral/pod-012-partial-and-ephemeral
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/security-test/ksp-pod-012-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: add-default-security-context
+    Rule: 
+    Resource: v1/Pod/security-test/ksp-pod-012-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/security-test/ksp-pod-012-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: add-default-security-context
+    Rule: exception
+    Resource: v1/Pod/security-test/ksp-pod-012-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="add-default-security-context" name="v1/Pod/p012-negative-pod-in-namespace-without-opt-in/pod-012-negative">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: add-default-security-context
+    Rule: add-default-security-context
+    Resource: v1/Pod/p012-negative-pod-in-namespace-without-opt-in/pod-012-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="add-default-security-context" name="v1/Pod/p012-boundary-fail-single-condition/pod-012-negative-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: add-default-security-context
+    Rule: add-default-security-context
+    Resource: v1/Pod/p012-boundary-fail-single-condition/pod-012-negative-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

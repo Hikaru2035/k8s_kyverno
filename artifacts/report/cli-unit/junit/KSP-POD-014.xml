@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="0">
+ <testsuite name="restrict-host-ports" tests="13" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-boundary-no-ports">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-boundary-no-ports
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-positive">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-positive
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-positive-two-container-ports">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-positive-two-container-ports
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-boundary-no-ports-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-boundary-no-ports-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-negative">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-negative-ephemeral-hostport">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-negative-ephemeral-hostport
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-negative-hostport-first">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-negative-hostport-first
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-negative-hostport-last">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-negative-hostport-last
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-negative-init-hostport">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-negative-init-hostport
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-014-negative-ephemeral-hostport-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-014-negative-ephemeral-hostport-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-014-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-014-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-014-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-014-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-014-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-host-ports
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-014-exception-tertiary
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

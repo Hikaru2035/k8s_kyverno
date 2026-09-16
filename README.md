@@ -8,4 +8,23 @@ Dự án hướng tới quy trình đầy đủ từ xây dựng policy, CLI Uni
 
 > Trạng thái: Đã hoàn thiện 29 policy và CLI Unit Test. Hiện chuyển sang giai đoạn Integration/E2E testing trên Kubernetes cluster.
 
-Version inventory: [versions.yaml](versions.yaml). Profile membership: [Security Profiles](k8s-security-framework/docs/catalog/SECURITY-PROFILES.md).
+## Repository paths
+
+Run validation and rendering from the repository root:
+
+```sh
+make policy-validate
+make policy-render-all
+bash k8s-security-framework/tests/policies/check-coverage.sh
+bash k8s-security-framework/tests/policies/profiles/run.sh baseline
+bash k8s-security-framework/tests/policies/regression/run.sh
+kyverno test k8s-security-framework/tests/e2e_env/production/tests/rendered --require-tests
+```
+
+Source policies, profiles, scripts, and templates are under `k8s-security-framework/`.
+Rendered environment bundles and their runbooks are under `k8s-security-framework/tests/e2e_env/`.
+Helm configuration is under `helm/kyverno/` and `helm/harbor/`; monitoring resources are under `monitoring/`; Cosign keys are under `image-security/cosign/`.
+CLI evidence is written under `artifacts/cli-unit/` and E2E evidence under `artifacts/e2e/`.
+CI validation, rendering, regression, integration, and aggregate reports retain their named subdirectories under repository-root `artifacts/`.
+
+See [the layout audit](docs/repository-layout-audit.md) for path mappings and verification results.

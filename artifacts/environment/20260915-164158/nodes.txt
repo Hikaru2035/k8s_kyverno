@@ -1,0 +1,14 @@
+NAME                 STATUS   AGE
+calico-system        Active   20d
+default              Active   20d
+harbor               Active   10d
+ksp-dev              Active   20d
+ksp-production       Active   20d
+ksp-staging          Active   20d
+kube-node-lease      Active   20d
+kube-public          Active   20d
+kube-system          Active   20d
+kyverno              Active   20d
+local-path-storage   Active   10d
+monitoring           Active   7d
+tigera-operator      Active   20d

@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: e2e-stg-job-valid
+  namespace: ksp-staging
+  labels:
+    app.kubernetes.io/name: e2e-stg-job
+    policies.ksp.io/owner: security-team
+spec:
+  template:
+    metadata:
+      labels:
+        app: e2e-stg-job-valid
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: harbor-registry-credentials
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: app
+          image: harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+          imagePullPolicy: Always
+          command: ["sh", "-c", "echo 'E2E Staging Job PASS'"]
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "32Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault

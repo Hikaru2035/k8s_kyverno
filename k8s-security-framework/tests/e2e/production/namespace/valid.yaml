@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-prod-ns-valid
+  labels:
+    ksp.io/environment: production
+    ksp.io/profile: baseline

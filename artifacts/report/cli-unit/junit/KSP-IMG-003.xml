@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="0">
+ <testsuite name="require-image-digest" tests="13" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/img-003-boundary-uppercase">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/img-003-boundary-uppercase
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-003-positive-two-images">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-003-positive-two-images
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/img-003-positive">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/img-003-positive
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/img-003-boundary-uppercase-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/img-003-boundary-uppercase-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-003-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-003-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-003-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-003-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-003-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-003-exception-tertiary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-003-negative-ephemeral-image">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-003-negative-ephemeral-image
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-003-negative-init-image">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-003-negative-init-image
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-003-negative-image-first">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-003-negative-image-first
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-003-negative-image-last">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-003-negative-image-last
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/img-003-negative">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/img-003-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-003-negative-ephemeral-image-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-image-digest
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-003-negative-ephemeral-image-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

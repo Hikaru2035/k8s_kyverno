@@ -1,5 +1,0 @@
-NAME                            READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                 SELECTOR
-kyverno-admission-controller    4/4     4            4           13d   kyverno      reg.kyverno.io/kyverno/kyverno:v1.18.2                 app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
-kyverno-background-controller   2/2     2            2           13d   controller   reg.kyverno.io/kyverno/background-controller:v1.18.2   app.kubernetes.io/component=background-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
-kyverno-cleanup-controller      2/2     2            2           13d   controller   reg.kyverno.io/kyverno/cleanup-controller:v1.18.2      app.kubernetes.io/component=cleanup-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
-kyverno-reports-controller      2/2     2            2           13d   controller   reg.kyverno.io/kyverno/reports-controller:v1.18.2      app.kubernetes.io/component=reports-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno

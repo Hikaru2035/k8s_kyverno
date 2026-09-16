@@ -1,0 +1,67 @@
+=== E2E STAGING PRECHECK ===
+Time: 2026-09-16T09:07:19+07:00
+Git: ea32704b688ff47b31af1f395b4a67cba915d044
+
+=== NODES ===
+NAME            STATUS   ROLES           AGE   VERSION   INTERNAL-IP       EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION       CONTAINER-RUNTIME
+control-plane   Ready    control-plane   20d   v1.35.8   171.244.199.140   <none>        Ubuntu 22.04.5 LTS   5.15.0-153-generic   containerd://2.2.1
+worker-node-1   Ready    <none>          20d   v1.35.8   171.244.199.186   <none>        Ubuntu 22.04.5 LTS   5.15.0-153-generic   containerd://2.2.1
+worker-node-2   Ready    <none>          20d   v1.35.8   171.244.199.112   <none>        Ubuntu 22.04.5 LTS   5.15.0-153-generic   containerd://2.2.1
+
+=== NAMESPACES ===
+NAME                 STATUS   AGE     LABELS
+calico-system        Active   20d     app.kubernetes.io/component=Installation.operator.tigera.io,app.kubernetes.io/instance=default,app.kubernetes.io/managed-by=tigera-operator,app.kubernetes.io/name=calico-system,app.kubernetes.io/part-of=Calico,k8s-app=calico-system,kubernetes.io/metadata.name=calico-system,name=calico-system,pod-security.kubernetes.io/enforce-version=latest,pod-security.kubernetes.io/enforce=privileged
+default              Active   20d     kubernetes.io/metadata.name=default
+harbor               Active   10d     kubernetes.io/metadata.name=harbor
+ksp-dev              Active   20d     kubernetes.io/metadata.name=ksp-dev
+ksp-production       Active   20d     kubernetes.io/metadata.name=ksp-production
+ksp-staging          Active   20d     kubernetes.io/metadata.name=ksp-staging
+kube-node-lease      Active   20d     kubernetes.io/metadata.name=kube-node-lease
+kube-public          Active   20d     kubernetes.io/metadata.name=kube-public
+kube-system          Active   20d     kubernetes.io/metadata.name=kube-system
+kyverno              Active   20d     kubernetes.io/metadata.name=kyverno,name=kyverno
+local-path-storage   Active   10d     kubernetes.io/metadata.name=local-path-storage
+monitoring           Active   7d15h   kubernetes.io/metadata.name=monitoring
+tigera-operator      Active   20d     kubernetes.io/metadata.name=tigera-operator
+
+=== VALIDATING POLICIES ===
+NAME                                    AGE   READY
+disallow-latest-tag                     72s   true
+disallow-run-as-user-zero               72s   true
+require-app-label                       72s   true
+require-cpu-limit                       72s   true
+require-cpu-request                     72s   true
+require-image-digest                    72s   true
+require-memory-limit                    72s   true
+require-memory-request                  72s   true
+require-namespace-environment-profile   63s   true
+require-owner-label                     72s   true
+require-seccomp                         72s   true
+
+=== IMAGE VALIDATING POLICIES ===
+NAME                   AGE   READY
+verify-signed-images   72s   true
+
+=== GENERATING POLICIES ===
+NAME                      AGE
+generate-resource-quota   72s
+
+=== MUTATING POLICIES ===
+No resources found
+
+=== KYVERNO ===
+NAME                                             READY   STATUS      RESTARTS       AGE   IP               NODE            NOMINATED NODE   READINESS GATES
+dns-debug                                        0/1     Completed   0              46h   10.244.212.93    worker-node-1   <none>           <none>
+harbor-debug                                     0/1     Completed   0              45h   10.244.212.102   worker-node-1   <none>           <none>
+kyverno-admission-controller-65d97f9d85-dg9vw    1/1     Running     1 (15h ago)    45h   10.244.19.163    worker-node-2   <none>           <none>
+kyverno-admission-controller-65d97f9d85-fzcdt    1/1     Running     8 (24m ago)    45h   10.244.19.162    worker-node-2   <none>           <none>
+kyverno-admission-controller-65d97f9d85-kpczd    1/1     Running     1 (18m ago)    45h   10.244.212.103   worker-node-1   <none>           <none>
+kyverno-admission-controller-65d97f9d85-mz6ct    1/1     Running     2 (15h ago)    45h   10.244.212.104   worker-node-1   <none>           <none>
+kyverno-background-controller-54c8547bdc-6qlqz   1/1     Running     32 (41m ago)   20d   10.244.212.67    worker-node-1   <none>           <none>
+kyverno-background-controller-54c8547bdc-pjj5l   1/1     Running     26 (15h ago)   20d   10.244.19.131    worker-node-2   <none>           <none>
+kyverno-cleanup-controller-86f44b75bc-7bx7w      1/1     Running     31 (15h ago)   20d   10.244.19.132    worker-node-2   <none>           <none>
+kyverno-cleanup-controller-86f44b75bc-tn8sc      1/1     Running     40 (18m ago)   20d   10.244.212.65    worker-node-1   <none>           <none>
+kyverno-migrate-resources-tvp42                  0/1     Completed   0              45h   10.244.19.158    worker-node-2   <none>           <none>
+kyverno-reports-controller-849f95d74f-4zgrr      1/1     Running     34 (15h ago)   20d   10.244.212.66    worker-node-1   <none>           <none>
+kyverno-reports-controller-849f95d74f-5krgq      1/1     Running     37 (41m ago)   20d   10.244.19.129    worker-node-2   <none>           <none>
+net-debug                                        0/1     Completed   0              45h   10.244.19.161    worker-node-2   <none>           <none>

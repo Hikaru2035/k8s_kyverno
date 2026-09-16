@@ -1,0 +1,34 @@
+Checking security-profile plus common-policy CLI test coverage...
+Profile source: /root/k8s_kyverno/k8s-security-framework/profiles/restricted/policy-ids.txt
+Policies declared: 29
+PASS KSP-IMG-001
+PASS KSP-IMG-002
+PASS KSP-IMG-003
+PASS KSP-IMG-004
+PASS KSP-META-001
+PASS KSP-META-002
+PASS KSP-META-003
+PASS KSP-META-004
+PASS KSP-NET-001
+PASS KSP-POD-001
+PASS KSP-POD-002
+PASS KSP-POD-003
+PASS KSP-POD-004
+PASS KSP-POD-005
+PASS KSP-POD-006
+PASS KSP-POD-007
+PASS KSP-POD-008
+PASS KSP-POD-009
+PASS KSP-POD-010
+PASS KSP-POD-011
+PASS KSP-POD-012
+PASS KSP-POD-013
+PASS KSP-POD-014
+PASS KSP-RES-001
+PASS KSP-RES-002
+PASS KSP-RES-003
+PASS KSP-RES-004
+PASS KSP-RES-005
+PASS KSP-RES-006
+
+Coverage check PASSED: 29/29 production-candidate policies meet the required CLI test structure.
