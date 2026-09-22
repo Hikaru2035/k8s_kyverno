@@ -1,0 +1,104 @@
+LAST SEEN   TYPE      REASON              OBJECT                                               MESSAGE
+2m9s        Normal    Scheduled           pod/kyverno-admission-controller-54d58cc467-r8lnt    Successfully assigned kyverno/kyverno-admission-controller-54d58cc467-r8lnt to worker-node-1
+3m14s       Normal    Scheduled           pod/kyverno-admission-controller-6fdd8c56c9-7s8f5    Successfully assigned kyverno/kyverno-admission-controller-6fdd8c56c9-7s8f5 to worker-node-1
+17m         Normal    Scheduled           pod/ft-adm-004-crash                                 Successfully assigned kyverno/ft-adm-004-crash to worker-node-2
+4m38s       Normal    Scheduled           pod/kyverno-admission-controller-6fdd8c56c9-mkxcc    Successfully assigned kyverno/kyverno-admission-controller-6fdd8c56c9-mkxcc to worker-node-2
+2m33s       Normal    Scheduled           pod/kyverno-admission-controller-54d58cc467-z24lv    Successfully assigned kyverno/kyverno-admission-controller-54d58cc467-z24lv to worker-node-1
+3m3s        Normal    Scheduled           pod/kyverno-admission-controller-54d58cc467-mk9nz    Successfully assigned kyverno/kyverno-admission-controller-54d58cc467-mk9nz to worker-node-2
+108s        Normal    Scheduled           pod/kyverno-admission-controller-54d58cc467-w8n68    Successfully assigned kyverno/kyverno-admission-controller-54d58cc467-w8n68 to worker-node-2
+14m         Normal    Scheduled           pod/kyverno-admission-controller-65d97f9d85-xsx6r    Successfully assigned kyverno/kyverno-admission-controller-65d97f9d85-xsx6r to worker-node-2
+3m39s       Normal    Scheduled           pod/kyverno-admission-controller-6fdd8c56c9-4f4l2    Successfully assigned kyverno/kyverno-admission-controller-6fdd8c56c9-4f4l2 to worker-node-2
+4m9s        Normal    Scheduled           pod/kyverno-admission-controller-6fdd8c56c9-425ds    Successfully assigned kyverno/kyverno-admission-controller-6fdd8c56c9-425ds to worker-node-1
+17m         Normal    Killing             pod/kyverno-admission-controller-65d97f9d85-78nfc    Stopping container kyverno
+17m         Warning   Unhealthy           pod/kyverno-admission-controller-65d97f9d85-78nfc    Readiness probe failed: Get "https://10.244.19.190:9443/health/readiness": dial tcp 10.244.19.190:9443: connect: invalid argument
+17m         Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-65d97f9d85   Deleted pod: kyverno-admission-controller-65d97f9d85-78nfc
+15m         Normal    Pulled              pod/ft-adm-004-crash                                 Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+15m         Normal    Created             pod/ft-adm-004-crash                                 Container created
+15m         Warning   Failed              pod/ft-adm-004-crash                                 Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: exec: "/bin/sh": stat /bin/sh: no such file or directory
+15m         Warning   BackOff             pod/ft-adm-004-crash                                 Back-off restarting failed container simulated-admission-controller in pod ft-adm-004-crash_kyverno(ff6c7a2b-e26d-479b-87bb-da7d177d041b)
+14m         Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled up replica set kyverno-admission-controller-65d97f9d85 from 3 to 4
+14m         Normal    SuccessfulCreate    replicaset/kyverno-admission-controller-65d97f9d85   Created pod: kyverno-admission-controller-65d97f9d85-xsx6r
+14m         Normal    Created             pod/kyverno-admission-controller-65d97f9d85-xsx6r    Container created
+14m         Normal    Started             pod/kyverno-admission-controller-65d97f9d85-xsx6r    Container started
+14m         Normal    Pulled              pod/kyverno-admission-controller-65d97f9d85-xsx6r    Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+13m         Normal    Pulled              pod/kyverno-admission-controller-65d97f9d85-xsx6r    Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+13m         Normal    Started             pod/kyverno-admission-controller-65d97f9d85-xsx6r    Container started
+13m         Normal    Created             pod/kyverno-admission-controller-65d97f9d85-xsx6r    Container created
+4m39s       Normal    Pulled              pod/kyverno-admission-controller-6fdd8c56c9-mkxcc    Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+4m39s       Normal    SuccessfulCreate    replicaset/kyverno-admission-controller-6fdd8c56c9   Created pod: kyverno-admission-controller-6fdd8c56c9-mkxcc
+4m39s       Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled up replica set kyverno-admission-controller-6fdd8c56c9 from 0 to 1
+4m38s       Normal    Started             pod/kyverno-admission-controller-6fdd8c56c9-mkxcc    Container started
+4m38s       Normal    Created             pod/kyverno-admission-controller-6fdd8c56c9-mkxcc    Container created
+4m24s       Normal    Pulled              pod/kyverno-admission-controller-6fdd8c56c9-mkxcc    Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+4m24s       Normal    Created             pod/kyverno-admission-controller-6fdd8c56c9-mkxcc    Container created
+4m24s       Normal    Started             pod/kyverno-admission-controller-6fdd8c56c9-mkxcc    Container started
+4m10s       Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled down replica set kyverno-admission-controller-65d97f9d85 from 4 to 3
+4m10s       Normal    Killing             pod/kyverno-admission-controller-65d97f9d85-xsx6r    Stopping container kyverno
+4m10s       Normal    SuccessfulCreate    replicaset/kyverno-admission-controller-6fdd8c56c9   Created pod: kyverno-admission-controller-6fdd8c56c9-425ds
+4m10s       Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-65d97f9d85   Deleted pod: kyverno-admission-controller-65d97f9d85-xsx6r
+4m10s       Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled up replica set kyverno-admission-controller-6fdd8c56c9 from 1 to 2
+4m9s        Normal    Pulled              pod/kyverno-admission-controller-6fdd8c56c9-425ds    Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+4m9s        Normal    Created             pod/kyverno-admission-controller-6fdd8c56c9-425ds    Container created
+4m8s        Normal    Started             pod/kyverno-admission-controller-6fdd8c56c9-425ds    Container started
+3m54s       Normal    Created             pod/kyverno-admission-controller-6fdd8c56c9-425ds    Container created
+3m54s       Normal    Pulled              pod/kyverno-admission-controller-6fdd8c56c9-425ds    Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+3m54s       Normal    Started             pod/kyverno-admission-controller-6fdd8c56c9-425ds    Container started
+3m40s       Normal    SuccessfulCreate    replicaset/kyverno-admission-controller-6fdd8c56c9   Created pod: kyverno-admission-controller-6fdd8c56c9-4f4l2
+3m40s       Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-65d97f9d85   Deleted pod: kyverno-admission-controller-65d97f9d85-464t6
+3m40s       Normal    Killing             pod/kyverno-admission-controller-65d97f9d85-464t6    Stopping container kyverno
+3m40s       Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled up replica set kyverno-admission-controller-6fdd8c56c9 from 2 to 3
+3m40s       Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled down replica set kyverno-admission-controller-65d97f9d85 from 3 to 2
+3m39s       Normal    Pulled              pod/kyverno-admission-controller-6fdd8c56c9-4f4l2    Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+3m39s       Normal    Created             pod/kyverno-admission-controller-6fdd8c56c9-4f4l2    Container created
+3m39s       Normal    Started             pod/kyverno-admission-controller-6fdd8c56c9-4f4l2    Container started
+3m22s       Normal    Created             pod/kyverno-admission-controller-6fdd8c56c9-4f4l2    Container created
+3m22s       Normal    Started             pod/kyverno-admission-controller-6fdd8c56c9-4f4l2    Container started
+3m22s       Normal    Pulled              pod/kyverno-admission-controller-6fdd8c56c9-4f4l2    Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+3m15s       Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-65d97f9d85   Deleted pod: kyverno-admission-controller-65d97f9d85-d4ct9
+3m15s       Normal    SuccessfulCreate    replicaset/kyverno-admission-controller-6fdd8c56c9   Created pod: kyverno-admission-controller-6fdd8c56c9-7s8f5
+3m15s       Normal    Killing             pod/kyverno-admission-controller-65d97f9d85-d4ct9    Stopping container kyverno
+3m15s       Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled down replica set kyverno-admission-controller-65d97f9d85 from 2 to 1
+3m15s       Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled up replica set kyverno-admission-controller-6fdd8c56c9 from 3 to 4
+3m14s       Normal    Started             pod/kyverno-admission-controller-6fdd8c56c9-7s8f5    Container started
+3m14s       Normal    Pulled              pod/kyverno-admission-controller-6fdd8c56c9-7s8f5    Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+3m14s       Normal    Created             pod/kyverno-admission-controller-6fdd8c56c9-7s8f5    Container created
+3m4s        Normal    SuccessfulCreate    replicaset/kyverno-admission-controller-54d58cc467   Created pod: kyverno-admission-controller-54d58cc467-mk9nz
+3m4s        Normal    Pulled              pod/kyverno-admission-controller-54d58cc467-mk9nz    Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+3m4s        Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-6fdd8c56c9   Deleted pod: kyverno-admission-controller-6fdd8c56c9-7s8f5
+3m4s        Normal    Killing             pod/kyverno-admission-controller-6fdd8c56c9-7s8f5    Stopping container kyverno-pre
+3m4s        Normal    Created             pod/kyverno-admission-controller-54d58cc467-mk9nz    Container created
+3m4s        Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled down replica set kyverno-admission-controller-6fdd8c56c9 from 4 to 3
+3m3s        Normal    Started             pod/kyverno-admission-controller-54d58cc467-mk9nz    Container started
+2m48s       Normal    Started             pod/kyverno-admission-controller-54d58cc467-mk9nz    Container started
+2m48s       Normal    Created             pod/kyverno-admission-controller-54d58cc467-mk9nz    Container created
+2m48s       Normal    Pulled              pod/kyverno-admission-controller-54d58cc467-mk9nz    Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+2m34s       Normal    SuccessfulCreate    replicaset/kyverno-admission-controller-54d58cc467   Created pod: kyverno-admission-controller-54d58cc467-z24lv
+2m34s       Normal    Killing             pod/kyverno-admission-controller-65d97f9d85-k5vdp    Stopping container kyverno
+2m34s       Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-65d97f9d85   Deleted pod: kyverno-admission-controller-65d97f9d85-k5vdp
+2m33s       Normal    Created             pod/kyverno-admission-controller-54d58cc467-z24lv    Container created
+2m33s       Normal    Started             pod/kyverno-admission-controller-54d58cc467-z24lv    Container started
+2m33s       Normal    Pulled              pod/kyverno-admission-controller-54d58cc467-z24lv    Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+2m17s       Normal    Pulled              pod/kyverno-admission-controller-54d58cc467-z24lv    Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+2m17s       Normal    Created             pod/kyverno-admission-controller-54d58cc467-z24lv    Container created
+2m17s       Normal    Started             pod/kyverno-admission-controller-54d58cc467-z24lv    Container started
+2m10s       Normal    SuccessfulCreate    replicaset/kyverno-admission-controller-54d58cc467   Created pod: kyverno-admission-controller-54d58cc467-r8lnt
+2m10s       Normal    Killing             pod/kyverno-admission-controller-6fdd8c56c9-4f4l2    Stopping container kyverno
+2m10s       Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-6fdd8c56c9   Deleted pod: kyverno-admission-controller-6fdd8c56c9-4f4l2
+2m9s        Normal    Pulled              pod/kyverno-admission-controller-54d58cc467-r8lnt    Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+2m9s        Normal    Started             pod/kyverno-admission-controller-54d58cc467-r8lnt    Container started
+2m9s        Normal    Created             pod/kyverno-admission-controller-54d58cc467-r8lnt    Container created
+114s        Normal    Created             pod/kyverno-admission-controller-54d58cc467-r8lnt    Container created
+114s        Normal    Pulled              pod/kyverno-admission-controller-54d58cc467-r8lnt    Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+114s        Normal    Started             pod/kyverno-admission-controller-54d58cc467-r8lnt    Container started
+109s        Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-6fdd8c56c9   Deleted pod: kyverno-admission-controller-6fdd8c56c9-425ds
+109s        Normal    Pulled              pod/kyverno-admission-controller-54d58cc467-w8n68    Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+109s        Normal    Created             pod/kyverno-admission-controller-54d58cc467-w8n68    Container created
+109s        Normal    SuccessfulCreate    replicaset/kyverno-admission-controller-54d58cc467   Created pod: kyverno-admission-controller-54d58cc467-w8n68
+109s        Normal    Killing             pod/kyverno-admission-controller-6fdd8c56c9-425ds    Stopping container kyverno
+108s        Normal    Started             pod/kyverno-admission-controller-54d58cc467-w8n68    Container started
+93s         Normal    Pulled              pod/kyverno-admission-controller-54d58cc467-w8n68    Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+93s         Normal    Created             pod/kyverno-admission-controller-54d58cc467-w8n68    Container created
+93s         Normal    Started             pod/kyverno-admission-controller-54d58cc467-w8n68    Container started
+79s         Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-6fdd8c56c9   Deleted pod: kyverno-admission-controller-6fdd8c56c9-mkxcc
+79s         Normal    Killing             pod/kyverno-admission-controller-6fdd8c56c9-mkxcc    Stopping container kyverno
+79s         Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              (combined from similar events): Scaled down replica set kyverno-admission-controller-6fdd8c56c9 from 1 to 0

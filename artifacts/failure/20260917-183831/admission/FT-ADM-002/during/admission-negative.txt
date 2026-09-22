@@ -1,0 +1,2 @@
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+EXIT_CODE=1

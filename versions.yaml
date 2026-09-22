@@ -50,7 +50,7 @@ image_security:
   harbor:
     version: null # harbor-values.yaml does not pin an application/chart version.
   cosign:
-    version: null # Public keys are present; no CLI installation pin is recorded.
+    version: "2.5.3" # Jenkins delivery key-based signing; existing public trust key retained.
 
 monitoring:
   prometheus:
@@ -96,3 +96,12 @@ cluster:
     worker_02:
       hostname: worker-node-2
       #ip: "192.168.101.82"
+
+# Jenkins additions. Existing GitLab/platform pins above remain unchanged.
+jenkins:
+  chart_version: "5.8.86" # Official chart; controller and default plugin pins come from it.
+  agent_image: "jenkins/inbound-agent:3327.v868139a_d00e0-7-jdk21"
+  trivy_version: "0.74.0"
+  buildkit_version: "0.23.2"
+  crane_version: "0.20.3"
+  kubectl_version: "1.35.7" # Jenkins uses the declared platform baseline, not stable.txt.

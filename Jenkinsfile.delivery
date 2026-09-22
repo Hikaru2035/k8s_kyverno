@@ -1,0 +1,62 @@
+// Configure as a separate trusted-branch job. Never expose deployment secrets to fork PRs.
+properties([
+    disableConcurrentBuilds(),
+    buildDiscarder(logRotator(daysToKeepStr: '30')),
+    parameters([string(name: 'BUILDKIT_HOST', defaultValue: 'tcp://buildkit.example.internal:1234', description: 'Operator-provisioned BuildKit mTLS endpoint')])
+])
+node('ksp-tools') {
+    timeout(time: 60, unit: 'MINUTES') {
+        def delivery = { step -> sh "bash jenkins/scripts/delivery.sh ${step}" }
+        def harbor = { body ->
+            withCredentials([usernamePassword(credentialsId: 'harbor-credentials', usernameVariable: 'HARBOR_USERNAME', passwordVariable: 'HARBOR_PASSWORD')]) {
+                body()
+            }
+        }
+        def registryStep = { step -> harbor { sh "bash jenkins/scripts/with-harbor.sh bash jenkins/scripts/delivery.sh ${step}" } }
+        def clusterStep = { step ->
+            withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) { delivery(step) }
+        }
+        try {
+            stage('Checkout') {
+                deleteDir(); checkout scm
+                sh 'python3 jenkins/scripts/prepare-artifacts.py delivery'
+            }
+            stage('Source Check') { delivery('source') }
+            stage('Security Scan') { delivery('security-scan') }
+            stage('Build Image') {
+                withCredentials([
+                    file(credentialsId: 'buildkit-ca', variable: 'BUILDKIT_CA'),
+                    file(credentialsId: 'buildkit-client-cert', variable: 'BUILDKIT_CERT'),
+                    file(credentialsId: 'buildkit-client-key', variable: 'BUILDKIT_KEY')
+                ]) { withEnv(["BUILDKIT_HOST=${params.BUILDKIT_HOST}"]) { delivery('build') } }
+            }
+            stage('Image Vulnerability Scan') { delivery('image-scan') }
+            stage('Push to Harbor') { registryStep('push') }
+            stage('Resolve Digest') { registryStep('digest') }
+            stage('Cosign Sign') {
+                withCredentials([
+                    file(credentialsId: 'cosign-private-key', variable: 'COSIGN_KEY'),
+                    string(credentialsId: 'cosign-password', variable: 'COSIGN_PASSWORD')
+                ]) { registryStep('sign') }
+            }
+            stage('Cosign Verify') { registryStep('verify') }
+            stage('Render Kubernetes Manifest') { delivery('render') }
+            stage('Pre-deployment Kyverno Test') { registryStep('preflight') }
+            stage('Kubernetes Deployment / Kyverno Admission') { clusterStep('admission') }
+            stage('Deployment Rollout Verification') { clusterStep('rollout') }
+            stage('PolicyReport Collection') { clusterStep('reports') }
+            stage('Application Health Check') { clusterStep('health') }
+        } finally {
+            stage('Archive Evidence') {
+                try {
+                    // Also capture failed rollout/admission diagnostics; never override a failure.
+                    if (fileExists("artifacts/delivery/${env.BUILD_ID}/deployment/rendered/deployment.yaml")) {
+                        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') { clusterStep('reports') }
+                    }
+                } finally {
+                    archiveArtifacts artifacts: "artifacts/delivery/${env.BUILD_ID}/**", excludes: '**/image.tar', allowEmptyArchive: true
+                }
+            }
+        }
+    }
+}

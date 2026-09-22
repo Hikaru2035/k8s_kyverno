@@ -1,0 +1,2 @@
+error: the path "/tmp/ft-adm-invalid.yaml" does not exist
+EXIT_CODE=1

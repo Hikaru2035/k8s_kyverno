@@ -1,6 +1,9 @@
 grafana:
   enabled: true
 
+  grafana.ini:
+    plugins:
+      preinstall_auto_update: false
 prometheus:
   enabled: true
   prometheusSpec:

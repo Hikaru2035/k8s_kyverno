@@ -1,0 +1,7 @@
+NAME                                          ADDRESSTYPE   PORTS   ENDPOINTS                                     AGE
+kyverno-background-controller-metrics-6bfv9   IPv4          8000    10.244.212.67,10.244.19.131                   22d
+kyverno-cleanup-controller-btmg2              IPv4          9443    10.244.212.65,10.244.19.132                   22d
+kyverno-cleanup-controller-metrics-m24kn      IPv4          8000    10.244.212.65,10.244.19.132                   22d
+kyverno-reports-controller-metrics-f7bqf      IPv4          8000    10.244.19.129,10.244.212.66                   22d
+kyverno-svc-986g8                             IPv4          9443    10.244.19.191,10.244.212.123,10.244.212.122   22d
+kyverno-svc-metrics-zfn8g                     IPv4          8000    10.244.19.191,10.244.212.123,10.244.212.122   22d

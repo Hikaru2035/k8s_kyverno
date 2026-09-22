@@ -1,0 +1,7 @@
+NAME                                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+kyverno-background-controller-metrics   ClusterIP   10.107.63.253    <none>        8000/TCP   22d
+kyverno-cleanup-controller              ClusterIP   10.110.91.111    <none>        443/TCP    22d
+kyverno-cleanup-controller-metrics      ClusterIP   10.100.21.143    <none>        8000/TCP   22d
+kyverno-reports-controller-metrics      ClusterIP   10.107.183.80    <none>        8000/TCP   22d
+kyverno-svc                             ClusterIP   10.105.178.93    <none>        443/TCP    22d
+kyverno-svc-metrics                     ClusterIP   10.111.119.194   <none>        8000/TCP   22d

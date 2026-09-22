@@ -1,3 +1,16 @@
 # Cosign private keys
 image-security/cosign/**/*.key
 image-security/cosign/*.key
+
+# Jenkins-generated evidence (existing tracked evidence remains tracked).
+artifacts/delivery/
+artifacts/jenkins-helm/
+artifacts/validate/
+artifacts/check-policy/
+artifacts/cli-unit/
+artifacts/rendered-policy-test/
+artifacts/integration-kind/
+artifacts/report/
+**/__pycache__/
+# Site configuration may contain sensitive operational data.
+helm/jenkins/site-values.yaml

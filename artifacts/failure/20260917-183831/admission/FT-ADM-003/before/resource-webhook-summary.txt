@@ -1,0 +1,13 @@
+WEBHOOK=gpol.validate.kyverno.svc-ignore-finegrained-generate-resource-quota FAILURE_POLICY=Ignore
+WEBHOOK=ivpol.validate.kyverno.svc-fail-finegrained-verify-signed-images FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-disallow-run-as-user-zero FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-require-app-label FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-require-image-digest FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-require-memory-request FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-require-namespace-environment-profile FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-require-owner-label FAILURE_POLICY=Fail
+WEBHOOK=vpol.validate.kyverno.svc-fail-finegrained-require-seccomp FAILURE_POLICY=Fail

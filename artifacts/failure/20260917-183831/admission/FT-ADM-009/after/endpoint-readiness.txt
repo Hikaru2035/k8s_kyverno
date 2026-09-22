@@ -1,0 +1,4 @@
+10.244.212.126 ready=true target=kyverno-admission-controller-54d58cc467-z24lv
+10.244.212.127 ready=true target=kyverno-admission-controller-54d58cc467-r8lnt
+10.244.19.146 ready=true target=kyverno-admission-controller-54d58cc467-t2qwb
+10.244.19.152 ready=true target=kyverno-admission-controller-54d58cc467-9j4kg

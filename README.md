@@ -28,3 +28,15 @@ CLI evidence is written under `artifacts/cli-unit/` and E2E evidence under `arti
 CI validation, rendering, regression, integration, and aggregate reports retain their named subdirectories under repository-root `artifacts/`.
 
 See [the layout audit](docs/repository-layout-audit.md) for path mappings and verification results.
+
+## Jenkins migration
+
+Two independent pipelines are available: [framework CI](Jenkinsfile.ci) and
+[secure application delivery](Jenkinsfile.delivery). See the
+[Jenkins runbook](jenkins/README.md) for agents, credentials, job setup, evidence,
+and the Harbor registry policy conflict that currently blocks Restricted delivery.
+[Jenkins Helm preflight](helm/jenkins/README.md) renders and evaluates the official
+chart before installation. No cluster installation is performed by repository setup.
+
+**Keep `.gitlab-ci.yml` until Jenkins Pipeline 1 has demonstrated equivalent CI
+coverage**, including all 29 CLI suites, rendered policy tests and Kind admission.

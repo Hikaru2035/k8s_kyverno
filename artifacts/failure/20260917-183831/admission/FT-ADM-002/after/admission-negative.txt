@@ -1,0 +1,2 @@
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+EXIT_CODE=1

@@ -1,0 +1,120 @@
+2026-09-18T10:43:53+07:00 request=1 rc=1 latency_ms=222 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:43:54+07:00 request=2 rc=1 latency_ms=285 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:43:56+07:00 request=3 rc=1 latency_ms=211 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit" denied the request: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container. 
+2026-09-18T10:43:57+07:00 request=4 rc=1 latency_ms=180 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit" denied the request: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container. 
+2026-09-18T10:43:58+07:00 request=5 rc=1 latency_ms=210 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:43:59+07:00 request=6 rc=1 latency_ms=197 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:44:00+07:00 request=7 rc=1 latency_ms=165 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:44:01+07:00 request=8 rc=1 latency_ms=172 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:44:03+07:00 request=9 rc=1 latency_ms=154 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:44:04+07:00 request=10 rc=1 latency_ms=232 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:44:05+07:00 request=11 rc=1 latency_ms=162 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:44:06+07:00 request=12 rc=1 latency_ms=197 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-request" denied the request: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container. 
+2026-09-18T10:44:07+07:00 request=13 rc=1 latency_ms=176 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:44:09+07:00 request=14 rc=1 latency_ms=204 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:44:10+07:00 request=15 rc=1 latency_ms=179 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:44:11+07:00 request=16 rc=1 latency_ms=184 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:44:12+07:00 request=17 rc=1 latency_ms=175 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:44:13+07:00 request=18 rc=1 latency_ms=177 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:44:15+07:00 request=19 rc=1 latency_ms=205 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-request" denied the request: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container. 
+2026-09-18T10:44:16+07:00 request=20 rc=1 latency_ms=157 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:44:17+07:00 request=21 rc=1 latency_ms=199 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:44:18+07:00 request=22 rc=1 latency_ms=200 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:44:19+07:00 request=23 rc=1 latency_ms=180 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit" denied the request: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container. 
+2026-09-18T10:44:21+07:00 request=24 rc=1 latency_ms=170 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:44:22+07:00 request=25 rc=1 latency_ms=178 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:44:23+07:00 request=26 rc=1 latency_ms=202 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:44:24+07:00 request=27 rc=1 latency_ms=222 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit" denied the request: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container. 
+2026-09-18T10:44:25+07:00 request=28 rc=1 latency_ms=204 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:44:27+07:00 request=29 rc=1 latency_ms=146 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:44:28+07:00 request=30 rc=1 latency_ms=159 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:46:03+07:00 request=1 rc=1 latency_ms=236 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit" denied the request: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container. 
+2026-09-18T10:46:04+07:00 request=2 rc=1 latency_ms=193 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:46:06+07:00 request=3 rc=1 latency_ms=195 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:46:07+07:00 request=4 rc=1 latency_ms=167 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:46:08+07:00 request=5 rc=1 latency_ms=181 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit" denied the request: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container. 
+2026-09-18T10:46:09+07:00 request=6 rc=1 latency_ms=187 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:46:10+07:00 request=7 rc=1 latency_ms=195 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:46:12+07:00 request=8 rc=1 latency_ms=209 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:46:13+07:00 request=9 rc=1 latency_ms=149 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:46:14+07:00 request=10 rc=1 latency_ms=188 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:46:15+07:00 request=11 rc=1 latency_ms=178 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit" denied the request: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container. 
+2026-09-18T10:46:16+07:00 request=12 rc=1 latency_ms=169 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:46:17+07:00 request=13 rc=1 latency_ms=172 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:46:19+07:00 request=14 rc=1 latency_ms=162 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:46:20+07:00 request=15 rc=1 latency_ms=160 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:46:21+07:00 request=16 rc=1 latency_ms=181 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:46:22+07:00 request=17 rc=1 latency_ms=184 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:46:23+07:00 request=18 rc=1 latency_ms=174 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit" denied the request: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container. 
+2026-09-18T10:46:25+07:00 request=19 rc=1 latency_ms=177 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:46:26+07:00 request=20 rc=1 latency_ms=176 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:46:27+07:00 request=21 rc=1 latency_ms=185 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:46:28+07:00 request=22 rc=1 latency_ms=183 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:46:29+07:00 request=23 rc=1 latency_ms=179 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:46:31+07:00 request=24 rc=1 latency_ms=184 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:46:32+07:00 request=25 rc=1 latency_ms=158 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant. 
+2026-09-18T10:46:33+07:00 request=26 rc=1 latency_ms=169 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 
+2026-09-18T10:46:34+07:00 request=27 rc=1 latency_ms=170 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container. 
+2026-09-18T10:46:35+07:00 request=28 rc=1 latency_ms=159 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container. 
+2026-09-18T10:46:36+07:00 request=29 rc=1 latency_ms=159 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-request" denied the request: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container. 
+2026-09-18T10:46:38+07:00 request=30 rc=1 latency_ms=167 result=EXPECTED_DENY
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>. 

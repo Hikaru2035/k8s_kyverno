@@ -1,0 +1,31 @@
+node/worker-node-2 already cordoned
+Warning: ignoring DaemonSet-managed Pods: calico-system/calico-node-qv545, kube-system/kube-proxy-9s6l5, monitoring/monitoring-prometheus-node-exporter-rxs5q
+evicting pod kyverno/kyverno-admission-controller-54d58cc467-w8n68
+evicting pod kyverno/kyverno-background-controller-54c8547bdc-pjj5l
+evicting pod harbor/harbor-redis-0
+evicting pod kyverno/kyverno-migrate-resources-tvp42
+evicting pod kyverno/kyverno-reports-controller-849f95d74f-5krgq
+evicting pod kyverno/net-debug
+evicting pod harbor/harbor-portal-677b5d5455-zsr4z
+evicting pod calico-system/calico-typha-7b99d88765-pcp5x
+evicting pod kyverno/kyverno-admission-controller-54d58cc467-mk9nz
+evicting pod harbor/harbor-registry-8464c694b4-8fflh
+evicting pod kyverno/kyverno-cleanup-controller-86f44b75bc-7bx7w
+evicting pod monitoring/alertmanager-monitoring-kube-prometheus-alertmanager-0
+evicting pod monitoring/monitoring-grafana-7dcf4fc76f-mgx2l
+pod/kyverno-migrate-resources-tvp42 evicted
+pod/net-debug evicted
+I0918 11:00:43.297142  206002 request.go:752] "Waited before sending request" delay="1.05298652s" reason="client-side throttling, not priority and fairness" verb="GET" URL="https://171.244.199.140:6443/api/v1/namespaces/kyverno/pods/kyverno-background-controller-54c8547bdc-pjj5l"
+pod/kyverno-cleanup-controller-86f44b75bc-7bx7w evicted
+pod/harbor-portal-677b5d5455-zsr4z evicted
+pod/harbor-redis-0 evicted
+pod/monitoring-grafana-7dcf4fc76f-mgx2l evicted
+pod/kyverno-admission-controller-54d58cc467-mk9nz evicted
+pod/kyverno-reports-controller-849f95d74f-5krgq evicted
+pod/kyverno-background-controller-54c8547bdc-pjj5l evicted
+pod/harbor-registry-8464c694b4-8fflh evicted
+pod/kyverno-admission-controller-54d58cc467-w8n68 evicted
+pod/alertmanager-monitoring-kube-prometheus-alertmanager-0 evicted
+pod/calico-typha-7b99d88765-pcp5x evicted
+node/worker-node-2 drained
+EXIT_CODE=0

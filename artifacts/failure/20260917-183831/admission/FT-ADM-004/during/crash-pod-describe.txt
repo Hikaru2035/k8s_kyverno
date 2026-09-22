@@ -1,0 +1,66 @@
+Name:             ft-adm-004-crash
+Namespace:        kyverno
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Fri, 18 Sep 2026 10:31:41 +0700
+Labels:           failure-test=ft-adm-004
+Annotations:      cni.projectcalico.org/containerID: 9fa13f32a846a6b3461d3a9aab52acfbee01d9277fa3029fa2b2acbbef834d95
+                  cni.projectcalico.org/podIP: 10.244.19.133/32
+                  cni.projectcalico.org/podIPs: 10.244.19.133/32
+Status:           Running
+IP:               10.244.19.133
+IPs:
+  IP:  10.244.19.133
+Containers:
+  simulated-admission-controller:
+    Container ID:  containerd://461f02c9be2da6cf3ee96137fa5cb2cc4490734ec7524f8dae43ae6450e88201
+    Image:         reg.kyverno.io/kyverno/kyverno:v1.18.2
+    Image ID:      reg.kyverno.io/kyverno/kyverno@sha256:0a540e2ddf74d0d2d3d45f9ef248d7dbc96576accdbcc6a2dd7eaff9fea56504
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+      -c
+      echo "FT-ADM-004 intentional startup failure"
+      exit 1
+      
+    State:          Waiting
+      Reason:       RunContainerError
+    Last State:     Terminated
+      Reason:       StartError
+      Message:      failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: exec: "/bin/sh": stat /bin/sh: no such file or directory
+      Exit Code:    128
+      Started:      Thu, 01 Jan 1970 08:00:00 +0800
+      Finished:     Fri, 18 Sep 2026 10:32:21 +0700
+    Ready:          False
+    Restart Count:  3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-nngkh (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-nngkh:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  73s                default-scheduler  Successfully assigned kyverno/ft-adm-004-crash to worker-node-2
+  Normal   Pulled     34s (x4 over 73s)  kubelet            spec.containers{simulated-admission-controller}: Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+  Normal   Created    34s (x4 over 73s)  kubelet            spec.containers{simulated-admission-controller}: Container created
+  Warning  Failed     34s (x4 over 73s)  kubelet            spec.containers{simulated-admission-controller}: Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: exec: "/bin/sh": stat /bin/sh: no such file or directory
+  Warning  BackOff    34s (x4 over 72s)  kubelet            spec.containers{simulated-admission-controller}: Back-off restarting failed container simulated-admission-controller in pod ft-adm-004-crash_kyverno(ff6c7a2b-e26d-479b-87bb-da7d177d041b)

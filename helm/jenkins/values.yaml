@@ -1,0 +1,128 @@
+# Version source: versions.yaml. See README.md before installing under enforcement.
+controller:
+  numExecutors: 0
+  serviceType: NodePort
+  nodePort: 30080
+  admin:
+    createSecret: false
+    existingSecret: jenkins-admin
+  podLabels:
+    policies.ksp.io/owner: platform-team
+  podSecurityContextOverride:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
+    fsGroup: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  containerSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
+    privileged: false
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: [ALL]
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: '2'
+      memory: 2Gi
+  initContainerResources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: '1'
+      memory: 1Gi
+  sidecars:
+    configAutoReload:
+      enabled: false
+  # Default plugin versions are pinned by the chart. Review compatible additions
+  # listed in jenkins/README.md; do not float dependencies on every restart.
+  installLatestPlugins: true
+  initializeOnce: false
+  JCasC:
+    defaultConfig: true
+persistence:
+  enabled: true
+  storageClass: local-path
+  size: 10Gi
+agent:
+  enabled: true
+  namespace: jenkins
+  image:
+    repository: harbor-public:30003/ksp-test/ksp-tools
+    tag: "0.1.1@sha256:42c7bdbd936e3e63ecf5c89b1f4fefb1aa596143ad2e08f149c7e9ea8133fe56"
+  customJenkinsLabels: [ksp-tools]
+  privileged: false
+  hostNetworking: false
+  runAsUser: 1000
+  runAsGroup: 1000
+  restrictedPssSecurityContext: true
+  showRawYaml: false
+
+  podLabels:
+    app.kubernetes.io/name: jenkins-agent
+    policies.ksp.io/owner: platform-team
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: '2'
+      memory: 4Gi
+
+  yamlMergeStrategy: merge
+  yamlTemplate: |-
+    apiVersion: v1
+    kind: Pod
+    spec:
+      automountServiceAccountToken: false
+
+      imagePullSecrets:
+      - name: harbor-pull
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+
+      containers:
+      - name: jnlp
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: [ALL]
+        volumeMounts:
+        - name: workspace
+          mountPath: /home/jenkins/agent
+        - name: jenkins-cache
+          mountPath: /home/jenkins/.jenkins
+        - name: tmp
+          mountPath: /tmp
+
+      volumes:
+      - name: workspace
+        emptyDir: {}
+      - name: jenkins-cache
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+
+serviceAccountAgent:
+  create: true
+  name: jenkins-agent
+  automountServiceAccountToken: false
+rbac:
+  create: true
+extraLabels:
+  policies.ksp.io/owner: platform-team

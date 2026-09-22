@@ -1,0 +1,2 @@
+NAME               READY   STATUS              RESTARTS      AGE   IP              NODE            NOMINATED NODE   READINESS GATES
+ft-adm-004-crash   0/1     RunContainerError   3 (34s ago)   74s   10.244.19.133   worker-node-2   <none>           <none>

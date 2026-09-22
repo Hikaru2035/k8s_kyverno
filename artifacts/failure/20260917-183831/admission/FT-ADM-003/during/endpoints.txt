@@ -1,0 +1,15 @@
+NAME                                              ENDPOINTS                               AGE
+endpoints/kyverno-background-controller-metrics   10.244.19.131:8000,10.244.212.67:8000   22d
+endpoints/kyverno-cleanup-controller              10.244.19.132:9443,10.244.212.65:9443   22d
+endpoints/kyverno-cleanup-controller-metrics      10.244.19.132:8000,10.244.212.65:8000   22d
+endpoints/kyverno-reports-controller-metrics      10.244.19.129:8000,10.244.212.66:8000   22d
+endpoints/kyverno-svc                             <none>                                  22d
+endpoints/kyverno-svc-metrics                     <none>                                  22d
+
+NAME                                                                         ADDRESSTYPE   PORTS     ENDPOINTS                     AGE
+endpointslice.discovery.k8s.io/kyverno-background-controller-metrics-6bfv9   IPv4          8000      10.244.212.67,10.244.19.131   22d
+endpointslice.discovery.k8s.io/kyverno-cleanup-controller-btmg2              IPv4          9443      10.244.212.65,10.244.19.132   22d
+endpointslice.discovery.k8s.io/kyverno-cleanup-controller-metrics-m24kn      IPv4          8000      10.244.212.65,10.244.19.132   22d
+endpointslice.discovery.k8s.io/kyverno-reports-controller-metrics-f7bqf      IPv4          8000      10.244.19.129,10.244.212.66   22d
+endpointslice.discovery.k8s.io/kyverno-svc-986g8                             IPv4          <unset>   <unset>                       22d
+endpointslice.discovery.k8s.io/kyverno-svc-metrics-zfn8g                     IPv4          <unset>   <unset>                       22d

@@ -1,0 +1,3 @@
+NAME                ADDRESSTYPE   PORTS     ENDPOINTS                                     AGE
+kyverno-svc-5c8lr   IPv4          <unset>   10.244.19.153                                 57s
+kyverno-svc-986g8   IPv4          9443      10.244.212.126,10.244.212.127,10.244.19.146   23d

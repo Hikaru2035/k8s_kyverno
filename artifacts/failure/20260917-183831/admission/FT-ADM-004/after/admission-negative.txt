@@ -1,0 +1,2 @@
+Error from server: error when creating "/tmp/ft-adm-invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit" denied the request: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+EXIT_CODE=1

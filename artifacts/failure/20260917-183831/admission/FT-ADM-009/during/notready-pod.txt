@@ -1,0 +1,2 @@
+NAME                  READY   STATUS    RESTARTS   AGE   IP              NODE            NOMINATED NODE   READINESS GATES
+ft-adm-009-notready   0/1     Running   0          49s   10.244.19.153   worker-node-2   <none>           <none>

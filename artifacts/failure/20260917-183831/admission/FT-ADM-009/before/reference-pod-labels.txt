@@ -1,0 +1,2 @@
+NAME                                            READY   STATUS    RESTARTS   AGE     LABELS
+kyverno-admission-controller-54d58cc467-r8lnt   1/1     Running   0          3h55m   app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/managed-by=Helm,app.kubernetes.io/name=kyverno-admission-controller,app.kubernetes.io/part-of=kyverno,app.kubernetes.io/version=3.8.2,helm.sh/chart=kyverno-3.8.2,pod-template-hash=54d58cc467

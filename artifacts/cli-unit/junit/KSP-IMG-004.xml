@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="13" failures="0">
- <testsuite name="verify-signed-images" tests="13" failures="0">
+<testsuites tests="13" failures="7">
+ <testsuite name="verify-signed-images" tests="13" failures="7">
   <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-boundary-out-of-scope">
    <system-out><![CDATA[
     Reason: Ok
@@ -49,61 +49,47 @@
     Resource: v1/Pod/policy-test/ksp-img-004-exception-secondary
    ]]></system-out>
   </testcase>
-  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-ephemeral-unsigned">
-   <system-out><![CDATA[
-    Reason: Ok
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-ephemeral-unsigned">
+   <failure message="Want fail, got error" />
     Policy: verify-signed-images
-    Rule: verify-signed-images
+    Rule: evaluation
     Resource: v1/Pod/policy-test/img-004-negative-ephemeral-unsigned
-   ]]></system-out>
-  </testcase>
-  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-init-unsigned">
-   <system-out><![CDATA[
-    Reason: Ok
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-init-unsigned">
+   <failure message="Want fail, got error" />
     Policy: verify-signed-images
-    Rule: verify-signed-images
+    Rule: evaluation
     Resource: v1/Pod/policy-test/img-004-negative-init-unsigned
-   ]]></system-out>
-  </testcase>
-  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-two-unsigned">
-   <system-out><![CDATA[
-    Reason: Ok
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-two-unsigned">
+   <failure message="Want fail, got error" />
     Policy: verify-signed-images
-    Rule: verify-signed-images
+    Rule: evaluation
     Resource: v1/Pod/policy-test/img-004-negative-two-unsigned
-   ]]></system-out>
-  </testcase>
-  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-unsigned">
-   <system-out><![CDATA[
-    Reason: Ok
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-unsigned">
+   <failure message="Want fail, got error" />
     Policy: verify-signed-images
-    Rule: verify-signed-images
+    Rule: evaluation
     Resource: v1/Pod/policy-test/img-004-negative-unsigned
-   ]]></system-out>
-  </testcase>
-  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-ephemeral-unsigned-additional-boundary-fail">
-   <system-out><![CDATA[
-    Reason: Ok
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-ephemeral-unsigned-additional-boundary-fail">
+   <failure message="Want fail, got error" />
     Policy: verify-signed-images
-    Rule: verify-signed-images
+    Rule: evaluation
     Resource: v1/Pod/policy-test/img-004-negative-ephemeral-unsigned-additional-boundary-fail
-   ]]></system-out>
-  </testcase>
-  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-positive-trusted-signed">
-   <system-out><![CDATA[
-    Reason: Ok
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-positive-trusted-signed">
+   <failure message="Want pass, got error" />
     Policy: verify-signed-images
-    Rule: verify-signed-images
+    Rule: evaluation
     Resource: v1/Pod/policy-test/img-004-positive-trusted-signed
-   ]]></system-out>
-  </testcase>
-  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-wrong-key-signed">
-   <system-out><![CDATA[
-    Reason: Ok
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-wrong-key-signed">
+   <failure message="Want fail, got error" />
     Policy: verify-signed-images
-    Rule: verify-signed-images
+    Rule: evaluation
     Resource: v1/Pod/policy-test/img-004-negative-wrong-key-signed
-   ]]></system-out>
-  </testcase>
+    Result: Fail  </testcase>
  </testsuite>
 </testsuites>

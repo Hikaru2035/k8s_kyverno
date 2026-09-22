@@ -1,0 +1,168 @@
+apiVersion: v1
+items:
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2026-09-17T12:45:14Z"
+    generation: 1
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-cleanup-validating-webhook-cfg
+    resourceVersion: "14559232"
+    uid: 3e98d7d1-5c54-4ae4-b365-da36eb865641
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16Y3dNbG9YRFRJM01EZ3lOakEwTXpjd01sb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBT3dFbkx1RHU1V2ZUS2JURDRWaWhUeXRqUE5iSEZ0SXRzZmZqOTNHdkpqbnYrYXdpNzlWNWwzUVpWYXYKOHl3UzlqYjFwTHZHWTlFVkNYUkRrNkphSXpUOTR2QkNDNnQ1V0RrMWlzdm5BMEZnN0h6dS9rMGJnWE1Yd2gyRQp2ajdwSDl6SnltWkVpT1crTHUzcnh1aUczcWFSSEZHbDBLbGZIaGpVZk5KSTFMeGFmRFNxNDNJbHFYV0FyQUNuCkJ5YURkL2xvaTZqYUtKck4wa0tZQVg5MEJjSWhhbHYyY3RhN0YwMGhXRFJjcHpXY1R3Q1FxNkoxN1lkb2FsS3EKL0Fpa3BzZlhoeTQ4WHowbWdzMm9WVGg3b3lkMjhFQXMwcGxCcnZxZzFxRkZmWUwwRlBLaVdYejREeTBGMTNLbAoyMXZWazV0RTVON0Y2SE1nc1V3ZTdDL01FeUVDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRklPcm8wL3VFdktHODBoTEdvcC9nZjdWcEJ3RE1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFyUXd6cG0xYlQ4UzRoSkNySWNaVWUvZ3YzYzIvWW9tdWF0OU5pbFdDNApnVkdIcFZDblZQQkFtYUVRdjhFZUc4bFE3cDM5VHFGeWsyYWd4blRQYjNIK1RIYVV4cmZwMWNKbEJYNW14V3lsCmdoc2hGZ0ExTTRoVUx0eUFwOXJlb0JlVnkzVTF1eC9CbG9rWG4ycGtCQlNCRlFkUXJVUXhUMDFWNmtPd0RHVFAKUmhzdVdtdmlwazRkSlNOTzR5VWJjNmM0cnFudjR0eU1pQVVzVzgzeE81SnVNTkpscWEyWjRiOWZnS3lWWVJmVQpHcExPVHpVYTIvSEtVV0p4VVpWdU0xTyt3ZEpyZU5nbDByYzZyNkhvMWh4WWdHR3lwNmwzLzl3bGZhbDJnVWxJCk05dmprUjIxWDl4WjRacHhMWnJBczVBWCt5dGVOQlhOdTJ4cXBiZndGY0lCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-cleanup-controller
+        namespace: kyverno
+        path: /validate
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: kyverno-cleanup-controller.kyverno.svc
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - kyverno.io
+      apiVersions:
+      - v2beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - cleanuppolicies/*
+      - clustercleanuppolicies/*
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2026-09-17T12:45:14Z"
+    generation: 1
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-ttl-validating-webhook-cfg
+    resourceVersion: "14559242"
+    uid: c1218c81-598f-488a-9265-916b77d80dd7
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16Y3dNbG9YRFRJM01EZ3lOakEwTXpjd01sb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBT3dFbkx1RHU1V2ZUS2JURDRWaWhUeXRqUE5iSEZ0SXRzZmZqOTNHdkpqbnYrYXdpNzlWNWwzUVpWYXYKOHl3UzlqYjFwTHZHWTlFVkNYUkRrNkphSXpUOTR2QkNDNnQ1V0RrMWlzdm5BMEZnN0h6dS9rMGJnWE1Yd2gyRQp2ajdwSDl6SnltWkVpT1crTHUzcnh1aUczcWFSSEZHbDBLbGZIaGpVZk5KSTFMeGFmRFNxNDNJbHFYV0FyQUNuCkJ5YURkL2xvaTZqYUtKck4wa0tZQVg5MEJjSWhhbHYyY3RhN0YwMGhXRFJjcHpXY1R3Q1FxNkoxN1lkb2FsS3EKL0Fpa3BzZlhoeTQ4WHowbWdzMm9WVGg3b3lkMjhFQXMwcGxCcnZxZzFxRkZmWUwwRlBLaVdYejREeTBGMTNLbAoyMXZWazV0RTVON0Y2SE1nc1V3ZTdDL01FeUVDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRklPcm8wL3VFdktHODBoTEdvcC9nZjdWcEJ3RE1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFyUXd6cG0xYlQ4UzRoSkNySWNaVWUvZ3YzYzIvWW9tdWF0OU5pbFdDNApnVkdIcFZDblZQQkFtYUVRdjhFZUc4bFE3cDM5VHFGeWsyYWd4blRQYjNIK1RIYVV4cmZwMWNKbEJYNW14V3lsCmdoc2hGZ0ExTTRoVUx0eUFwOXJlb0JlVnkzVTF1eC9CbG9rWG4ycGtCQlNCRlFkUXJVUXhUMDFWNmtPd0RHVFAKUmhzdVdtdmlwazRkSlNOTzR5VWJjNmM0cnFudjR0eU1pQVVzVzgzeE81SnVNTkpscWEyWjRiOWZnS3lWWVJmVQpHcExPVHpVYTIvSEtVV0p4VVpWdU0xTyt3ZEpyZU5nbDByYzZyNkhvMWh4WWdHR3lwNmwzLzl3bGZhbDJnVWxJCk05dmprUjIxWDl4WjRacHhMWnJBczVBWCt5dGVOQlhOdTJ4cXBiZndGY0lCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-cleanup-controller
+        namespace: kyverno
+        path: /verifyttl
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: kyverno-cleanup-controller.kyverno.svc
+    namespaceSelector: {}
+    objectSelector:
+      matchExpressions:
+      - key: cleanup.kyverno.io/ttl
+        operator: Exists
+    rules:
+    - apiGroups:
+      - '*'
+      apiVersions:
+      - '*'
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - '*'
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitoring
+      meta.helm.sh/release-namespace: monitoring
+    creationTimestamp: "2026-09-08T10:19:50Z"
+    generation: 2
+    labels:
+      app: kube-prometheus-stack-admission
+      app.kubernetes.io/component: prometheus-operator-webhook
+      app.kubernetes.io/instance: monitoring
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
+      app.kubernetes.io/part-of: kube-prometheus-stack
+      app.kubernetes.io/version: 89.2.4
+      chart: kube-prometheus-stack-89.2.4
+      heritage: Helm
+      release: monitoring
+    name: monitoring-kube-prometheus-admission
+    resourceVersion: "4700890"
+    uid: 14e87dfa-a93f-4251-b13b-42a6818e1ff3
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    - v1beta1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJkRENDQVJ1Z0F3SUJBZ0lRYm4yRi83L3ZCVEhYa3VZbzZHY2ZuekFLQmdncWhrak9QUVFEQWpBUE1RMHcKQ3dZRFZRUUtFd1J1YVd3eE1DQVhEVEkyTURrd09ERXdNVFEwTlZvWUR6SXhNall3T0RFMU1UQXhORFExV2pBUApNUTB3Q3dZRFZRUUtFd1J1YVd3eE1Ga3dFd1lIS29aSXpqMENBUVlJS29aSXpqMERBUWNEUWdBRXQ0SnpsSFVQCjBCWWgwaWVUb0NpUU9QcDkrbU8wZmxCYkdMNnpEeUVPUXVjTVZzZHh0Y1grdFcwTCsxQ3FZdWVJdmtWVUNRaHoKdGsxc3FUVW1MMGpnRGFOWE1GVXdEZ1lEVlIwUEFRSC9CQVFEQWdJRU1CTUdBMVVkSlFRTU1Bb0dDQ3NHQVFVRgpCd01CTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5XcVRSekNuNGVWQTNzZ1dYYUxwZDkvCm95Tm9NQW9HQ0NxR1NNNDlCQU1DQTBjQU1FUUNJQmhOYmpHTmQ0eUo5U1ZadDBveW92NTVIcDltRjBqcUV3UDQKRE0zaEJzcFdBaUJIZEZmM0cvQnRMTFg1ZzF4TjlrS0xYejM1M3pLQW9SdER2WW02NjNqZmx3PT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+      service:
+        name: monitoring-kube-prometheus-operator
+        namespace: monitoring
+        path: /admission-prometheusrules/validate
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: prometheusrulevalidate.monitoring.coreos.com
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - monitoring.coreos.com
+      apiVersions:
+      - '*'
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - prometheusrules
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+  - admissionReviewVersions:
+    - v1
+    - v1beta1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJkRENDQVJ1Z0F3SUJBZ0lRYm4yRi83L3ZCVEhYa3VZbzZHY2ZuekFLQmdncWhrak9QUVFEQWpBUE1RMHcKQ3dZRFZRUUtFd1J1YVd3eE1DQVhEVEkyTURrd09ERXdNVFEwTlZvWUR6SXhNall3T0RFMU1UQXhORFExV2pBUApNUTB3Q3dZRFZRUUtFd1J1YVd3eE1Ga3dFd1lIS29aSXpqMENBUVlJS29aSXpqMERBUWNEUWdBRXQ0SnpsSFVQCjBCWWgwaWVUb0NpUU9QcDkrbU8wZmxCYkdMNnpEeUVPUXVjTVZzZHh0Y1grdFcwTCsxQ3FZdWVJdmtWVUNRaHoKdGsxc3FUVW1MMGpnRGFOWE1GVXdEZ1lEVlIwUEFRSC9CQVFEQWdJRU1CTUdBMVVkSlFRTU1Bb0dDQ3NHQVFVRgpCd01CTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5XcVRSekNuNGVWQTNzZ1dYYUxwZDkvCm95Tm9NQW9HQ0NxR1NNNDlCQU1DQTBjQU1FUUNJQmhOYmpHTmQ0eUo5U1ZadDBveW92NTVIcDltRjBqcUV3UDQKRE0zaEJzcFdBaUJIZEZmM0cvQnRMTFg1ZzF4TjlrS0xYejM1M3pLQW9SdER2WW02NjNqZmx3PT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+      service:
+        name: monitoring-kube-prometheus-operator
+        namespace: monitoring
+        path: /admission-alertmanagerconfigs/validate
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: alertmanagerconfigsvalidate.monitoring.coreos.com
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - monitoring.coreos.com
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - alertmanagerconfigs
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+kind: List
+metadata:
+  resourceVersion: ""
