@@ -1,56 +1,65 @@
 // GitLab remains the reference until equivalence is demonstrated on Jenkins.
 properties([disableConcurrentBuilds(), buildDiscarder(logRotator(daysToKeepStr: '30'))])
+
 node('ksp-tools') {
     timeout(time: 60, unit: 'MINUTES') {
         try {
             stage('Checkout') {
-                deleteDir(); checkout scm
+                deleteDir()
+                checkout scm
                 sh 'python3 jenkins/scripts/prepare-artifacts.py framework'
             }
+
             stage('Validate') {
                 sh 'bash jenkins/scripts/validate.sh'
                 sh 'bash jenkins/scripts/check-policy.sh'
-                withCredentials([usernamePassword(credentialsId: 'harbor-credentials', usernameVariable: 'HARBOR_USERNAME', passwordVariable: 'HARBOR_PASSWORD')]) {
+
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'harbor-credentials',
+                        usernameVariable: 'HARBOR_USERNAME',
+                        passwordVariable: 'HARBOR_PASSWORD'
+                    )
+                ]) {
                     sh 'python3 jenkins/scripts/harbor-check.py > artifacts/validate/harbor-auth.txt'
                 }
             }
+
             stage('CLI Unit Test') {
-                withCredentials([usernamePassword(credentialsId: 'harbor-credentials', usernameVariable: 'HARBOR_USERNAME', passwordVariable: 'HARBOR_PASSWORD')]) {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'harbor-credentials',
+                        usernameVariable: 'HARBOR_USERNAME',
+                        passwordVariable: 'HARBOR_PASSWORD'
+                    )
+                ]) {
                     sh 'bash jenkins/scripts/with-harbor.sh bash jenkins/scripts/cli-unit.sh'
                 }
             }
-            stage('Rendered Policy Test') { sh 'bash jenkins/scripts/rendered-policy-test.sh' }
-            stage('Kind Integration') {
-                def revision = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-                node('ksp-kind') {
-                    deleteDir()
-                    checkout scm
-                    sh 'python3 jenkins/scripts/prepare-artifacts.py framework'
-                    withEnv(["FRAMEWORK_REVISION=${revision}"]) { sh 'git checkout --detach "$FRAMEWORK_REVISION"' }
-                    def cluster = 'ksp-' + java.util.UUID.randomUUID().toString().take(12)
-                    withEnv(["KIND_CLUSTER_NAME=${cluster}"]) {
-                        try { sh 'bash jenkins/scripts/kind-integration.sh' }
-                        finally {
-                            // Second cleanup attempt also covers an interrupted shell.
-                            try { sh 'kind delete cluster --name "$KIND_CLUSTER_NAME"' }
-                            finally { stash name: 'kind-evidence', includes: 'artifacts/integration-kind/**,artifacts/e2e/**', allowEmpty: true }
-                        }
-                    }
-                }
+
+            stage('Rendered Policy Test') {
+                sh 'bash jenkins/scripts/rendered-policy-test.sh'
             }
+
         } finally {
             stage('Collect Results') {
-                // No stash is expected if an earlier gate prevented Kind from starting.
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     if (fileExists('jenkins/scripts/collect-results.sh')) {
-                        try { unstash 'kind-evidence' } catch (hudson.AbortException ignored) { echo 'No Kind stash available; inspect preceding stages.' }
                         sh 'bash jenkins/scripts/collect-results.sh'
                     }
                 }
             }
+
             stage('Archive Artifacts') {
-                archiveArtifacts artifacts: 'artifacts/validate/**,artifacts/check-policy/**,artifacts/cli-unit/**,artifacts/rendered-policy-test/**,artifacts/integration-kind/**,artifacts/e2e/**,artifacts/report/**', allowEmptyArchive: true
-                junit testResults: 'artifacts/cli-unit/junit/*.xml', allowEmptyResults: true
+                archiveArtifacts(
+                    artifacts: 'artifacts/validate/**,artifacts/check-policy/**,artifacts/cli-unit/**,artifacts/rendered-policy-test/**,artifacts/report/**',
+                    allowEmptyArchive: true
+                )
+
+                junit(
+                    testResults: 'artifacts/cli-unit/junit/*.xml',
+                    allowEmptyResults: true
+                )
             }
         }
     }

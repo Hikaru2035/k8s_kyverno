@@ -43,9 +43,7 @@ controller:
       enabled: false
   # Default plugin versions are pinned by the chart. Review compatible additions
   # listed in jenkins/README.md; do not float dependencies on every restart.
-  installLatestPlugins: false
-  additionalPlugins:
-    - junit
+  installLatestPlugins: true
   initializeOnce: false
   JCasC:
     defaultConfig: true
@@ -58,7 +56,7 @@ agent:
   namespace: jenkins
   image:
     repository: harbor-public:30003/ksp-test/ksp-tools
-    tag: "0.1.2@sha256:d3cceba7c741dcad03b828b0b197512741f3fa79b3441a4bfbf839ac9d45f09d"
+    tag: "0.1.1@sha256:42c7bdbd936e3e63ecf5c89b1f4fefb1aa596143ad2e08f149c7e9ea8133fe56"
   customJenkinsLabels: [ksp-tools]
   privileged: false
   hostNetworking: false
@@ -85,7 +83,7 @@ agent:
     kind: Pod
     spec:
       automountServiceAccountToken: false
-
+      
       dnsConfig:
         options:
         - name: ndots
@@ -104,13 +102,6 @@ agent:
 
       containers:
       - name: jnlp
-        env:
-        - name: HOME
-          value: /home/jenkins/agent
-        - name: SSL_CERT_FILE
-          value: /etc/ksp-ca/ca-certificates.crt
-        - name: REQUESTS_CA_BUNDLE
-          value: /etc/ksp-ca/ca-certificates.crt
         securityContext:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
@@ -123,9 +114,6 @@ agent:
           mountPath: /home/jenkins/.jenkins
         - name: tmp
           mountPath: /tmp
-        - name: ksp-ca-bundle
-          mountPath: /etc/ksp-ca
-          readOnly: true
 
       volumes:
       - name: workspace
@@ -134,9 +122,6 @@ agent:
         emptyDir: {}
       - name: tmp
         emptyDir: {}
-      - name: ksp-ca-bundle
-        configMap:
-          name: ksp-ca-bundle
 
 serviceAccountAgent:
   create: true
