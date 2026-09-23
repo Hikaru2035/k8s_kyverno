@@ -325,9 +325,31 @@ Delivery does not automatically uninstall or roll back a deployed application.
 | No report results | Reporting is asynchronous; inspect UIDs, background settings and controller health; do not call this compliance |
 | Service health fails | Check EndpointSlices, probes, Service selector and Jenkins-to-app NetworkPolicy/DNS |
 
+Policy CI exposes `POLICY_ENVIRONMENT` with `development` (default), `staging`,
+and `production`. One run renders the selected environment once, tests its
+offline admission configuration and applicable cases, then packages
+`artifacts/approved-policies-<environment>/`. The source CLI Unit gate is unchanged.
+Rendered evidence distinguishes evaluation results from admission dispositions:
+an Audit/Warn violation still expects CLI evaluation `fail`, but permits admission
+with audit/warning rather than Deny. POD-012 disabled admission is structurally
+verified and its canonical cases explicitly classified as non-applicable to
+rendered admission. IMG-004 external signature cases remain deferred, while its
+offline-safe cases execute. Neither classification means PASS.
+
+`artifacts/rendered-policy-test/` contains the case plan, case coverage,
+configuration assertions, runtime scenario ownership inventory, raw CLI results,
+render receipt, and environment-bound success attestation. Packaging verifies
+inputs, environment, evidence and exact policy bytes, and never renders again.
+The 18 runtime scenarios remain E2E/Delivery-owned; they are not rendered skips.
+See [design and implementation notes](../docs/environment-aware-policy-ci.md).
+
 Local checks: `python3 -m unittest discover -s jenkins/tests -v`,
-`bash jenkins/scripts/validate.sh`, `bash jenkins/scripts/check-policy.sh`,
-`bash jenkins/scripts/rendered-policy-test.sh`. The CLI runner writes its normal
+`python3 -B jenkins/scripts/test-approved-policies.py`,
+`bash jenkins/scripts/validate.sh`, and
+`POLICY_ENVIRONMENT=staging bash jenkins/scripts/rendered-policy-test.sh`, followed
+by `POLICY_ENVIRONMENT=staging bash jenkins/scripts/package-approved-policies.sh`.
+Do not run `check-policy.sh` separately before the rendered runner: the runner
+already owns the single render. The CLI runner writes its normal
 artifact paths; use a disposable checkout when running it because historical
 reports are tracked in this repository. See [verification record](verification.md)
 for actual executed checks. No Jenkins job, container build, Kind run, signing,

@@ -1,42 +1,22 @@
 #!/usr/bin/env bash
-# Extracted from .gitlab-ci.yml; preserve test decisions and report conventions.
+# Render and drift-check exactly one environment selected by Policy CI.
 set -euo pipefail
 export CI_PROJECT_DIR="${CI_PROJECT_DIR:-$(pwd)}"
-export FRAMEWORK_ROOT=k8s-security-framework
-mkdir -p "$CI_PROJECT_DIR/artifacts/check-policy"
-set -eu
-
-cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
-python3 ./scripts/render-policies.py development \
-  > ../artifacts/check-policy/render-development.txt \
-  2>&1
-python3 ./scripts/render-policies.py staging \
-  > ../artifacts/check-policy/render-staging.txt \
-  2>&1
-python3 ./scripts/render-policies.py production \
-  > ../artifacts/check-policy/render-production.txt \
-  2>&1
-
-cat ../artifacts/check-policy/render-development.txt
-cat ../artifacts/check-policy/render-staging.txt
-cat ../artifacts/check-policy/render-production.txt
-
-set -eu
-
-cd "$CI_PROJECT_DIR/$FRAMEWORK_ROOT"
-
-git status --porcelain -- tests/e2e_env \
-  > ../artifacts/check-policy/render-drift.txt
-
-cat ../artifacts/check-policy/render-drift.txt
-
-if test -s ../artifacts/check-policy/render-drift.txt
-then
-  echo "ERROR: rendered tests/e2e_env policy bundle is stale."
-  echo "Source of truth and deployable policies are not synchronized."
+policy_environment="${1:-${POLICY_ENVIRONMENT:-development}}"
+case "$policy_environment" in
+  development|staging|production) ;;
+  *) echo "Invalid POLICY_ENVIRONMENT: $policy_environment" >&2; exit 1 ;;
+esac
+cd "$CI_PROJECT_DIR"
+mkdir -p artifacts/check-policy
+bash k8s-security-framework/scripts/render-policies.sh "$policy_environment" \
+  > "artifacts/check-policy/render-$policy_environment.txt" 2>&1
+cat "artifacts/check-policy/render-$policy_environment.txt"
+git status --porcelain -- "k8s-security-framework/tests/e2e_env/$policy_environment/policies" \
+  > artifacts/check-policy/render-drift.txt
+cat artifacts/check-policy/render-drift.txt
+if test -s artifacts/check-policy/render-drift.txt; then
+  echo "ERROR: selected environment rendered policy bundle is stale."
   exit 1
 fi
-
-echo "CHECK POLICY PASSED."
-echo "tests/e2e_env is synchronized with policies/."
-
+python3 jenkins/scripts/approved-policies.py record-render "$policy_environment"

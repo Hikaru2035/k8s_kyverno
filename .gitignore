@@ -11,6 +11,8 @@ artifacts/cli-unit/
 artifacts/rendered-policy-test/
 artifacts/integration-kind/
 artifacts/report/
+artifacts/approved-policies-*/
+artifacts/environment-ci-verification/
 **/__pycache__/
 # Site configuration may contain sensitive operational data.
 helm/jenkins/site-values.yaml

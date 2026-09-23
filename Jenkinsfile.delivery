@@ -1,8 +1,7 @@
 // Configure as a separate trusted-branch job. Never expose deployment secrets to fork PRs.
 properties([
     disableConcurrentBuilds(),
-    buildDiscarder(logRotator(daysToKeepStr: '30')),
-    parameters([string(name: 'BUILDKIT_HOST', defaultValue: 'tcp://buildkit.example.internal:1234', description: 'Operator-provisioned BuildKit mTLS endpoint')])
+    buildDiscarder(logRotator(daysToKeepStr: '30'))
 ])
 node('ksp-tools') {
     timeout(time: 60, unit: 'MINUTES') {
@@ -23,13 +22,7 @@ node('ksp-tools') {
             }
             stage('Source Check') { delivery('source') }
             stage('Security Scan') { delivery('security-scan') }
-            stage('Build Image') {
-                withCredentials([
-                    file(credentialsId: 'buildkit-ca', variable: 'BUILDKIT_CA'),
-                    file(credentialsId: 'buildkit-client-cert', variable: 'BUILDKIT_CERT'),
-                    file(credentialsId: 'buildkit-client-key', variable: 'BUILDKIT_KEY')
-                ]) { withEnv(["BUILDKIT_HOST=${params.BUILDKIT_HOST}"]) { delivery('build') } }
-            }
+            stage('Build Image') { delivery('build') }
             stage('Image Vulnerability Scan') { delivery('image-scan') }
             stage('Push to Harbor') { registryStep('push') }
             stage('Resolve Digest') { registryStep('digest') }
@@ -40,6 +33,12 @@ node('ksp-tools') {
                 ]) { registryStep('sign') }
             }
             stage('Cosign Verify') { registryStep('verify') }
+            // Consume the immutable artifact from successful Policy CI; record its identity/version/commit in evidence.
+            // Promote those exact tested policies; never substitute re-rendered source policies.
+            stage('Obtain Approved Policy Artifact') { delivery('policy-artifact') }
+            stage('Deploy Approved Policies') { clusterStep('deploy-policies') }
+            stage('Verify Deployed Policies') { clusterStep('verify-policies') }
+            // Render only demo application manifests; policies come from the approved artifact.
             stage('Render Kubernetes Manifest') { delivery('render') }
             stage('Pre-deployment Kyverno Test') { registryStep('preflight') }
             stage('Kubernetes Deployment / Kyverno Admission') { clusterStep('admission') }

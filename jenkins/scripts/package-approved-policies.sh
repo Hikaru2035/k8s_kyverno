@@ -7,7 +7,5 @@ case "$policy_environment" in
   *) echo "Invalid POLICY_ENVIRONMENT: $policy_environment" >&2; exit 1 ;;
 esac
 cd "$CI_PROJECT_DIR"
-rm -rf -- artifacts/rendered-policy-test
-mkdir -p artifacts/rendered-policy-test
-bash jenkins/scripts/check-policy.sh "$policy_environment"
-python3 jenkins/scripts/approved-policies.py test "$policy_environment"
+# Verify environment, evidence, and bytes. Never invoke the renderer here.
+python3 jenkins/scripts/approved-policies.py package "$policy_environment"

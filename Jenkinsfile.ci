@@ -1,18 +1,30 @@
 // GitLab remains the reference until equivalence is demonstrated on Jenkins.
-properties([disableConcurrentBuilds(), buildDiscarder(logRotator(daysToKeepStr: '30'))])
+properties([
+    disableConcurrentBuilds(),
+    buildDiscarder(logRotator(daysToKeepStr: '30')),
+    parameters([choice(name: 'POLICY_ENVIRONMENT',
+        choices: ['development', 'staging', 'production'],
+        description: 'Render, test, and package one policy environment')])
+])
 
 node('ksp-tools') {
     timeout(time: 60, unit: 'MINUTES') {
+        def approvedPolicies = false
+        def policyEnvironment = params.POLICY_ENVIRONMENT ?: 'development'
+        if (!(policyEnvironment in ['development', 'staging', 'production'])) {
+            error('Invalid POLICY_ENVIRONMENT')
+        }
+        env.POLICY_ENVIRONMENT = policyEnvironment
         try {
             stage('Checkout') {
                 deleteDir()
                 checkout scm
+                dir("artifacts/approved-policies-${policyEnvironment}") { deleteDir() }
                 sh 'python3 jenkins/scripts/prepare-artifacts.py framework'
             }
 
             stage('Validate') {
                 sh 'bash jenkins/scripts/validate.sh'
-                sh 'bash jenkins/scripts/check-policy.sh'
 
                 withCredentials([
                     usernamePassword(
@@ -38,7 +50,20 @@ node('ksp-tools') {
             }
 
             stage('Rendered Policy Test') {
-                sh 'bash jenkins/scripts/rendered-policy-test.sh'
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'harbor-credentials',
+                        usernameVariable: 'HARBOR_USERNAME',
+                        passwordVariable: 'HARBOR_PASSWORD'
+                    )
+                ]) {
+                    sh 'bash jenkins/scripts/with-harbor.sh bash jenkins/scripts/rendered-policy-test.sh'
+                }
+            }
+
+            stage('Package Approved Policies') {
+                sh 'bash jenkins/scripts/package-approved-policies.sh'
+                approvedPolicies = true
             }
 
         } finally {
@@ -52,7 +77,8 @@ node('ksp-tools') {
 
             stage('Archive Artifacts') {
                 archiveArtifacts(
-                    artifacts: 'artifacts/validate/**,artifacts/check-policy/**,artifacts/cli-unit/**,artifacts/rendered-policy-test/**,artifacts/report/**',
+                    artifacts: 'artifacts/validate/**,artifacts/check-policy/**,artifacts/cli-unit/**,artifacts/rendered-policy-test/**,artifacts/report/**' +
+                        (approvedPolicies ? ",artifacts/approved-policies-${policyEnvironment}/**" : ''),
                     allowEmptyArchive: true
                 )
 
