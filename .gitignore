@@ -4,6 +4,7 @@ image-security/cosign/*.key
 
 # Jenkins-generated evidence (existing tracked evidence remains tracked).
 artifacts/delivery/
+artifacts/delivery-implementation/
 artifacts/jenkins-helm/
 artifacts/validate/
 artifacts/check-policy/

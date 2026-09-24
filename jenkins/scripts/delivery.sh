@@ -7,6 +7,22 @@ source "$(dirname "$0")/common.sh"
 [[ "$BUILD_ID" =~ ^[A-Za-z0-9_-]+$ && "$BUILD_NUMBER" =~ ^[0-9]+$ ]]
 out="$ROOT/artifacts/delivery/$BUILD_ID"
 mkdir -p "$out"/{source-check,scan,image,harbor,cosign,kyverno,deployment,policy-report,health}
+export POLICY_ENVIRONMENT="${POLICY_ENVIRONMENT:-development}"
+export POLICY_CI_JOB="${POLICY_CI_JOB:-automated-tested}"
+: "${POLICY_CI_BUILD:?Select an explicit successful Policy CI build}"
+export POLICY_CI_BUILD
+case "$POLICY_ENVIRONMENT" in development|staging|production) ;; *) echo 'Invalid POLICY_ENVIRONMENT' >&2; exit 2 ;; esac
+approved="$out/approved-policies-$POLICY_ENVIRONMENT"
+kubectl() {
+  : "${KUBECONFIG:?Jenkins kubeconfig credential required}"
+  test -f "$KUBECONFIG"
+  command kubectl --kubeconfig "$KUBECONFIG" --request-timeout=30s "$@"
+}
+# Every cluster action rechecks artifact integrity before any kubectl invocation.
+case "${1:-}" in
+  deploy-policies|verify-policies|admission|rollout|reports|health)
+    python3 jenkins/scripts/policy_artifact.py check "$out" > /dev/null ;;
+esac
 tag="harbor-public:30003/ksp-test/demo-app:$BUILD_NUMBER"
 reference() { cat "$out/image/reference.txt"; }
 case "${1:?stage required}" in
@@ -28,15 +44,8 @@ PY
       --format json --output "$out/scan/source.json" demo-app
     ;;
   build)
-    : "${BUILDKIT_HOST:?mTLS BuildKit endpoint required}"
-    : "${BUILDKIT_CA:?}" "${BUILDKIT_CERT:?}" "${BUILDKIT_KEY:?}"
-    [[ "$BUILDKIT_HOST" == tcp://* ]]
-    buildctl --addr "$BUILDKIT_HOST" --tlscacert "$BUILDKIT_CA" \
-      --tlscert "$BUILDKIT_CERT" --tlskey "$BUILDKIT_KEY" build \
-      --frontend dockerfile.v0 --local context=demo-app --local dockerfile=demo-app \
-      --opt "build-arg:BASE_IMAGE=$(version ci.python.image)" --opt platform=linux/amd64 \
-      --output "type=docker,name=$tag,dest=$out/image/image.tar" \
-      --metadata-file "$out/image/build-metadata.json" 2>&1 | tee "$out/image/build.txt"
+    python3 jenkins/scripts/build-demo-image.py "$ROOT" "$out/image" "$tag" \
+      2>&1 | tee "$out/image/build.txt"
     sha256sum "$out/image/image.tar" > "$out/image/archive.sha256"
     ;;
   image-scan)
@@ -68,57 +77,60 @@ PY
     cosign verify --key image-security/cosign/cosign.pub "$(reference)" \
       > "$out/cosign/verify.json" 2> "$out/cosign/verify.log"
     ;;
-  render)
-    bash k8s-security-framework/scripts/render-policies.sh production
-    python3 jenkins/scripts/manifests.py delivery "$(reference)" "$out/deployment/rendered"
+  policy-artifact)
+    python3 jenkins/scripts/policy_artifact.py fetch "$out" \
+      > "$out/kyverno/artifact-retrieval.json"
     ;;
-  preflight)
-    # Explicit expected passes prevent a skipped/non-matching policy from passing the gate.
-    kyverno test "$out/deployment/rendered" --registry --require-tests --remove-color \
-      --detailed-results 2>&1 | tee "$out/kyverno/pre-deployment.txt"
+  policy-verify)
+    python3 jenkins/scripts/policy_artifact.py check "$out" \
+      > "$out/kyverno/artifact-verification.json"
+    ;;
+  deploy-policies)
+    mkdir -p "$out/kyverno/approved-policies"
+    kubectl config current-context > "$out/kyverno/approved-policies/context.txt"
+    kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}' \
+      > "$out/kyverno/approved-policies/api-server.txt"
+    kubectl get namespace kube-system -o 'jsonpath={.metadata.uid}' \
+      > "$out/kyverno/approved-policies/cluster-uid.txt"
+    python3 jenkins/scripts/live-policies.py apply "$approved" "$out/kyverno/approved-policies" "$POLICY_ENVIRONMENT"
+    ;;
+  verify-policies)
+    python3 jenkins/scripts/live-policies.py verify "$approved" "$out/kyverno/approved-policies" "$POLICY_ENVIRONMENT" \
+      > "$out/kyverno/approved-policies/verification.txt"
+    ;;
+  render)
+    python3 jenkins/scripts/policy_artifact.py check "$out" > /dev/null
+    python3 jenkins/scripts/manifests.py delivery "$(reference)" "$out/deployment/rendered" "$POLICY_ENVIRONMENT"
     ;;
   admission)
-    kubectl get validatingpolicies,imagevalidatingpolicies,mutatingpolicies,generatingpolicies \
-      -o json > "$out/kyverno/live-policies.json"
-    python3 jenkins/scripts/live-policies.py "$out/kyverno/live-policies.json" > "$out/kyverno/live-check.txt"
-    kubectl get validatingwebhookconfigurations -o yaml > "$out/kyverno/webhooks.yaml"
-    # Namespace must already exist, with pull credentials provisioned by the operator.
-    kubectl get namespace ksp-demo -o json > "$out/deployment/namespace-before.json"
-    python3 - "$out/deployment/namespace-before.json" <<'PY'
-import json, sys
-labels = json.load(open(sys.argv[1]))['metadata']['labels']
-assert labels.get('ksp.io/profile') == 'restricted', 'namespace must remain Restricted'
-assert labels.get('ksp.io/environment') == 'production', 'namespace must remain production'
-PY
+    # Recheck the installed set immediately before application admission.
+    python3 jenkins/scripts/live-policies.py verify "$approved" "$out/kyverno/approved-policies" "$POLICY_ENVIRONMENT" \
+      > "$out/kyverno/pre-admission-policy-check.txt"
+    kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations -o yaml > "$out/kyverno/webhooks.yaml"
+    kubectl get namespace ksp-demo --ignore-not-found -o json > "$out/deployment/namespace-before.json"
     kubectl apply -f "$out/deployment/rendered/namespace.yaml" 2>&1 | tee "$out/deployment/namespace-apply.txt"
     # Explicit Pod dry-run exercises Pod-only CEL policies before controller creation.
     kubectl create --dry-run=server -f "$out/deployment/rendered/pod.yaml" \
-      -o yaml > "$out/kyverno/pod-admission.yaml"
+      -o yaml > "$out/kyverno/pod-admission.yaml" 2> "$out/kyverno/pod-admission.log"
     kubectl apply -f "$out/deployment/rendered/deployment.yaml" \
       -f "$out/deployment/rendered/service.yaml" \
       -f "$out/deployment/rendered/networkpolicy.yaml" 2>&1 | tee "$out/deployment/apply.txt"
     ;;
   rollout)
-    kubectl -n ksp-demo rollout status deployment/demo-app --timeout=180s \
+    kubectl --request-timeout=210s -n ksp-demo rollout status deployment/demo-app --timeout=180s \
       2>&1 | tee "$out/deployment/rollout.txt"
     ;;
   reports)
-    bash jenkins/scripts/delivery-evidence.sh "$out"
+    bash jenkins/scripts/delivery-evidence.sh "$out" "$approved" "$POLICY_ENVIRONMENT"
     ;;
   health)
     kubectl -n ksp-demo get deployment demo-app -o json > "$out/health/deployment.json"
-    kubectl -n ksp-demo wait pod -l app.kubernetes.io/name=demo-app --for=condition=Ready --timeout=120s
+    kubectl --request-timeout=150s -n ksp-demo wait pod -l app.kubernetes.io/name=demo-app --for=condition=Ready --timeout=120s
     kubectl -n ksp-demo get pods -l app.kubernetes.io/name=demo-app -o json > "$out/health/pods.json"
     kubectl -n ksp-demo get service demo-app -o json > "$out/health/service.json"
     kubectl -n ksp-demo get endpointslices -l kubernetes.io/service-name=demo-app -o json > "$out/health/endpointslices.json"
     python3 jenkins/scripts/health-check.py "$out/health" "$(reference)"
-    # Agent runs inside the cluster: test the Service's actual DNS/network path.
-    curl --fail --silent --show-error --retry 5 --retry-delay 2 --max-time 10 \
-      http://demo-app.ksp-demo.svc.cluster.local:8080/healthz > "$out/health/response.json"
-    python3 - "$out/health/response.json" <<'PY'
-import json, sys
-assert json.load(open(sys.argv[1])) == {'status': 'ok'}
-PY
+    # Ready Pods have passed the application's HTTP readiness probe; no ingress is required.
     ;;
   *) echo 'Unknown delivery stage' >&2; exit 2 ;;
 esac

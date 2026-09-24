@@ -1,10 +1,18 @@
 // Configure as a separate trusted-branch job. Never expose deployment secrets to fork PRs.
 properties([
     disableConcurrentBuilds(),
-    buildDiscarder(logRotator(daysToKeepStr: '30'))
+    buildDiscarder(logRotator(daysToKeepStr: '30')),
+    parameters([
+        string(name: 'POLICY_CI_JOB', defaultValue: 'automated-tested', description: 'Source Policy CI job (folder/job supported)'),
+        string(name: 'POLICY_CI_BUILD', defaultValue: '21', description: 'Explicit successful build to promote; never latest/workspace'),
+        choice(name: 'POLICY_ENVIRONMENT', choices: ['development', 'staging', 'production'], description: 'Approved policy environment')
+    ])
 ])
 node('ksp-tools') {
     timeout(time: 60, unit: 'MINUTES') {
+        env.POLICY_CI_JOB = params.POLICY_CI_JOB ?: 'automated-tested'
+        env.POLICY_CI_BUILD = params.POLICY_CI_BUILD ?: '21'
+        env.POLICY_ENVIRONMENT = params.POLICY_ENVIRONMENT ?: 'development'
         def delivery = { step -> sh "bash jenkins/scripts/delivery.sh ${step}" }
         def harbor = { body ->
             withCredentials([usernamePassword(credentialsId: 'harbor-credentials', usernameVariable: 'HARBOR_USERNAME', passwordVariable: 'HARBOR_PASSWORD')]) {
@@ -35,12 +43,17 @@ node('ksp-tools') {
             stage('Cosign Verify') { registryStep('verify') }
             // Consume the immutable artifact from successful Policy CI; record its identity/version/commit in evidence.
             // Promote those exact tested policies; never substitute re-rendered source policies.
-            stage('Obtain Approved Policy Artifact') { delivery('policy-artifact') }
+            stage('Obtain Approved Policy Artifact') {
+                withCredentials([usernamePassword(credentialsId: 'jenkins-artifact-reader',
+                    usernameVariable: 'JENKINS_ARTIFACT_USER', passwordVariable: 'JENKINS_ARTIFACT_TOKEN')]) {
+                    delivery('policy-artifact')
+                }
+            }
+            stage('Verify Approved Policy Artifact') { delivery('policy-verify') }
             stage('Deploy Approved Policies') { clusterStep('deploy-policies') }
             stage('Verify Deployed Policies') { clusterStep('verify-policies') }
             // Render only demo application manifests; policies come from the approved artifact.
             stage('Render Kubernetes Manifest') { delivery('render') }
-            stage('Pre-deployment Kyverno Test') { registryStep('preflight') }
             stage('Kubernetes Deployment / Kyverno Admission') { clusterStep('admission') }
             stage('Deployment Rollout Verification') { clusterStep('rollout') }
             stage('PolicyReport Collection') { clusterStep('reports') }

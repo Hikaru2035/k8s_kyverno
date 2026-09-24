@@ -22,45 +22,24 @@ def pod_for(workload, namespace):
             'spec': copy.deepcopy(template['spec'])}
 
 
-def delivery(reference, destination):
+def delivery(reference, destination, environment='development'):
+    from policy_artifact import ENVIRONMENTS
+    if environment not in ENVIRONMENTS:
+        raise SystemExit('Invalid POLICY_ENVIRONMENT')
     if not re.fullmatch(r'harbor-public:30003/ksp-test/demo-app@sha256:[0-9a-f]{64}', reference):
         raise SystemExit('Expected the immutable Harbor demo-app SHA256 reference')
     out = Path(destination)
     out.mkdir(parents=True, exist_ok=True)
-    for path in (ROOT / 'demo-app/k8s').glob('*.yaml'):
-        resource = yaml.safe_load(path.read_text())
+    if any(out.iterdir()):
+        raise SystemExit('Application render output must be fresh')
+    for name in ('namespace.yaml', 'deployment.yaml', 'service.yaml', 'networkpolicy.yaml'):
+        resource = yaml.safe_load((ROOT / 'demo-app/k8s' / name).read_text())
+        if resource['kind'] == 'Namespace':
+            resource['metadata']['labels']['ksp.io/environment'] = ENVIRONMENTS[environment]
         if resource['kind'] == 'Deployment':
             resource['spec']['template']['spec']['containers'][0]['image'] = reference
             write(out / 'pod.yaml', pod_for(resource, 'ksp-demo'))
-        write(out / path.name, resource)
-    write(out / 'values.yaml', {
-        'apiVersion': 'cli.kyverno.io/v1alpha1', 'kind': 'Values',
-        'metadata': {'name': 'delivery'},
-        'namespaceSelector': [{'name': 'ksp-demo', 'labels': {
-            'ksp.io/environment': 'production', 'ksp.io/profile': 'restricted'}}]})
-    policies = sorted((FRAMEWORK / 'tests/e2e_env/production/policies').glob('*/*.yaml'))
-    if len(policies) != 29:
-        raise SystemExit('Expected 29 production policies including common META-003')
-    results = []
-    kinds = {'pods': ('Pod', 'demo-app-preflight'),
-             'deployments': ('Deployment', 'demo-app'),
-             'namespaces': ('Namespace', 'ksp-demo')}
-    for path in policies:
-        policy = yaml.safe_load(path.read_text())
-        if policy['kind'] not in ('ValidatingPolicy', 'ImageValidatingPolicy'):
-            continue  # Opt-in generation/mutation is still loaded, but not enabled for this namespace.
-        matched = {r for rule in policy['spec']['matchConstraints']['resourceRules'] for r in rule['resources']}
-        for resource_type, (kind, name) in kinds.items():
-            if resource_type in matched:
-                results.append({'policy': policy['metadata']['name'],
-                                'rule': policy['metadata']['name'], 'kind': kind,
-                                'resources': [name], 'result': 'pass'})
-    write(out / 'kyverno-test.yaml', {
-        'apiVersion': 'cli.kyverno.io/v1alpha1', 'kind': 'Test',
-        'metadata': {'name': 'delivery-production-restricted'},
-        'policies': [str(p.resolve()) for p in policies],
-        'resources': ['namespace.yaml', 'deployment.yaml', 'pod.yaml', 'service.yaml'],
-        'variables': 'values.yaml', 'results': results})
+        write(out / name, resource)
 
 
 def helm_resources(source, destination):

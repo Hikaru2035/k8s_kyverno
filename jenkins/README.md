@@ -122,9 +122,7 @@ delivery; folder-local credentials may share the same ID with different permissi
 | `cosign-private-key` | Secret file | Encrypted Cosign private key corresponding to committed `image-security/cosign/cosign.pub` |
 | `cosign-password` | Secret text | Cosign key password (`COSIGN_PASSWORD`) |
 | `kubeconfig` | Secret file | Dedicated deployment identity with trusted server CA |
-| `buildkit-ca` | Secret file | BuildKit server CA certificate |
-| `buildkit-client-cert` | Secret file | BuildKit mTLS client certificate |
-| `buildkit-client-key` | Secret file | BuildKit mTLS private key |
+| `jenkins-artifact-reader` | Username with password (Jenkins API token as password) | Read successful Policy CI build metadata and archived artifacts |
 
 `jenkins-admin` is a **Kubernetes Secret**, not a Jenkins credential. Provision it
 outside Git in namespace `jenkins`, with keys `jenkins-admin-user` and
@@ -176,104 +174,145 @@ JUnit is published, all evidence is archived even after failed gates, retention 
 records controller/report/event evidence; optional Prometheus snapshots can be
 unavailable without invalidating admission tests.
 
-## Pipeline 2: delivery
+## Pipeline 2: Delivery PoC on the existing kubeadm cluster
+
+First manual run parameters (the build number is selectable, not a fixed source):
+
+```text
+POLICY_CI_JOB=automated-tested
+POLICY_CI_BUILD=21
+POLICY_ENVIRONMENT=development
+```
 
 ```text
 Checkout -> Source Check -> Security Scan -> Build Image -> Image Vulnerability Scan
  -> Push to Harbor -> Resolve Digest -> Cosign Sign -> Cosign Verify
- -> Render Kubernetes Manifest -> Pre-deployment Kyverno Test
+ -> Obtain Approved Policy Artifact -> Verify Approved Policy Artifact
+ -> Deploy Approved Policies -> Verify Deployed Policies
+ -> Render Kubernetes Manifest (demo app only)
  -> Kubernetes Deployment / Kyverno Admission -> Rollout Verification
  -> PolicyReport Collection -> Application Health Check -> Archive Evidence
 ```
 
-Trivy is selected because one open-source CLI scans source secrets/configuration,
-dependency inventories when present, and a local container archive. This app uses
-only Python's standard library, so there is no third-party dependency lockfile.
-Both scan gates fail on **HIGH or CRITICAL**, including unfixed findings; scanner
-errors also fail. No ignore file, skip-scan switch or severity downgrade is supplied.
-The older preserved Python base may require a separately reviewed version update
-if the vulnerability gate rejects it. Source checks parse Python and Kubernetes YAML.
+**Artifact source.** There is no evidence of Copy Artifact in the repository's
+plugin configuration. Delivery uses the Jenkins core JSON/archived-artifact API
+and Python standard-library HTTP Basic authentication, with the existing
+Credentials Binding plugin. Provision `jenkins-artifact-reader` as a username/API
+-token credential with Overall/Read and Job/Read access to the source job (plus
+artifact access if the installation restricts it). `JENKINS_URL` must be the
+canonical URL reachable from the agent, with trusted TLS when HTTPS is configured.
+HTTP remains supported for the current NodePort installation. Redirects are rejected
+so credentials cannot be forwarded to another endpoint. Folder/job names work.
+No controller filesystem, Policy CI workspace, Git policies, or latest-build
+fallback is used. Only a completed `SUCCESS` build is accepted.
 
-BuildKit produces one local Docker-format image archive named
-`harbor-public:30003/ksp-test/demo-app:${BUILD_NUMBER}`. Trivy scans that archive;
-Crane pushes the same bytes. The remote manifest digest must match the archive's
-manifest digest, protecting against tag replacement. After that comparison, every
-sign/verify/render/deploy operation uses `image@sha256`. The archive checksum,
-build metadata, remote manifest and immutable reference are evidence.
+The archive may retain either Jenkins path
+`artifacts/approved-policies-development/` or `approved-policies-development/`.
+Exactly one matching prefix must exist. The downloaded package is verified before
+any kubectl call: exact files/directories, no symlinks, environment annotations,
+policy count, individual and aggregate SHA-256 inventory, `approval_mode=poc`,
+coverage summary, and allowed deferral/non-applicability metadata. A receipt binds
+all package files to source job/build and is rechecked before every cluster stage.
+IMG-004's external-signature deferrals remain explicit in provenance; Cosign
+verification of this demo image does not erase the Policy CI deferrals.
 
-Cosign compares the credential's public key to the committed key before signing,
-then signs and independently verifies the digest. Normal transparency logging and
-verification are enabled; Rekor/Sigstore connectivity is required. The existing
-Kyverno IMG-004 `insecureIgnoreTlog: true` is left unchanged: it concerns log
-verification, **not TLS verification**. Harbor must allow the signature objects
-written by the pinned Cosign release. Do not garbage-collect those signatures while
-images remain in use.
+**Image assembly.** The existing agent already includes Python, tar support, and
+`crane`. This demo has one standard-library Python file and needs no package
+installation or Dockerfile RUN instruction. Delivery resolves the repository's
+`ci.python.image` to its linux/amd64 digest, adds a deterministic non-root-owned
+`/app/app.py` layer with `crane mutate --append --output`, and sets the non-root
+user, command, workdir, environment, and port in a local Docker-format archive.
+This is a dedicated demo assembler, not a general Dockerfile executor. The
+Dockerfile remains an alternative operator build; Kubernetes HTTP readiness and
+liveness probes supply health checks for the assembled image. Application code
+changes are included automatically; adding dependencies or changing the runtime
+contract requires updating the assembler. No Docker socket, root filesystem
+writes, privileged agent, new agent image, or BuildKit service is needed.
 
-Manifest rendering preserves source YAML and emits a Deployment, Namespace,
-Service, NetworkPolicy and representative Pod under the build artifacts. The Pod
-is explicitly tested because many repository CEL rules match Pods directly. The
-Kyverno test loads all 29 rendered production policies, supplies Restricted namespace
-labels and expects passes for every applicable validating/image policy; it does
-not infer success from a zero-match run. Existing opt-in generation/defaulting is
-not enabled for this application. Every relevant validation is explicitly configured
-in the workload, including labels, non-root execution, seccomp, capabilities,
-read-only filesystem and resources.
+Trivy scans the local archive before Crane pushes it. Existing HIGH/CRITICAL
+scan gates, Harbor credentials, archive checksum, remote/local manifest digest
+comparison, and Cosign key check/sign/verify are retained. No scan exceptions are
+added. The Python base remains pinned in `versions.yaml`; a real Trivy finding
+must be remediated, not bypassed. The local test host's Crane version is not proof
+of the deployed agent version; flags were checked against the repository-pinned
+Crane 0.20.3 implementation.
 
-Deployment checks that live policies match the rendered production specs and are
-Ready, records webhooks, confirms the namespace is already Production/Restricted,
-runs **server-side Pod dry-run**, then `kubectl apply`. The actual ReplicaSet Pods
-still go through Kyverno admission. The pipeline waits for rollout and verifies
-replicas, Pod readiness/image references, ready EndpointSlices, then HTTP `/healthz`
-through the Service DNS path from the in-cluster agent. No Jenkins `docker pull`
-is involved: kubelet/containerd authenticates to Harbor and pulls the image.
+**Exact deployment path.** All policy apply arguments point under:
 
-PolicyReports and ClusterPolicyReports are archived with workload UIDs and timestamps
-in their native objects. Summary correlation uses Pod/ReplicaSet/Deployment UIDs;
-relevant fail/error results fail the report stage. Empty/asynchronous reports, skips
-or the mere existence of a report do **not** prove all policies passed. IMG-004
-background evaluation is disabled by the existing policy, so signature evidence
-comes from CLI, Cosign and admission as well. Finalization collects diagnostic
-reports/events even after a deployment failure. Report/API permission failures are
-recorded and fail the collection stage.
+```text
+$WORKSPACE/artifacts/delivery/$BUILD_ID/approved-policies-$POLICY_ENVIRONMENT/policies/
+```
 
-Evidence: `artifacts/delivery/<BUILD_ID>/{source-check,scan,image,harbor,cosign,kyverno,deployment,policy-report,health}`.
-Jenkins archives it for 30 days; the potentially large `image.tar` stays in the
-workspace only, with its checksum archived. Credentials/kubeconfigs are excluded.
-Delivery does not automatically uninstall or roll back a deployed application.
+Apply order is common, baseline, standard, restricted. Every kubectl command
+uses the `kubeconfig` secret-file credential explicitly; there is no in-cluster
+service-account or default-config fallback. The selected kubeconfig context must
+target the existing kubeadm cluster. Context name, API server and kube-system UID
+are recorded without exporting the kubeconfig. Delivery changes the approved
+cluster-wide policy set; use one trusted Delivery job per target cluster and avoid
+concurrent external policy edits.
 
-## Harbor, Kubernetes and monitoring prerequisites
+Verification compares approved identities and complete specs (allowing CRD defaults) against all four
+`policies.kyverno.io` resource kinds. It rejects missing or unexpected KSP-labelled
+policies, records other cluster policies, and reads CRD schemas for readiness.
+It supports `status.conditionStatus.ready`, top-level ready, and Ready conditions;
+no readiness field is required when the CRD exposes none. Six attempts, five
+seconds apart, bound reconciliation waiting. Actual policy snapshots and readiness
+comparisons are archived. No policy renderer is invoked by Delivery.
 
-- Create Harbor project `ksp-test`, robot permissions, DNS resolution for
-  `harbor-public`, and a valid TLS certificate with that SAN. Existing Harbor
-  `externalURL` points to an IP; reconcile token-service URL/DNS/certificates.
-  Trust its CA on agents, BuildKit, Kyverno and all containerd nodes. The existing
-  `helm/harbor/values-harbor-ca.yaml` describes Kyverno's CA mount; it must contain
-  the full required trust bundle. Harbor's bundled Trivy is currently disabled;
-  Jenkins scanning does not depend on it.
-- A cluster administrator installs the existing production Kyverno bundle. The
-  deployment credential must not create/update/delete policies or exceptions.
-  Verify Kyverno configuration/resource filters and webhook selectors cover
-  `ksp-demo`, failure behavior is closed, and no exception bypasses its workloads.
-- Before running delivery, an administrator applies `demo-app/k8s/namespace.yaml`
-  and provisions `harbor-registry-credentials` in `ksp-demo` for containerd pulls,
-  and in Kyverno's namespace for IMG-004's registry verification. These are
-  Kubernetes image-pull Secrets created through the site's secret-management
-  process, not committed YAML and not copied from Jenkins into artifacts.
-- Grant the kubeconfig identity get/patch/update on the existing `ksp-demo`
-  namespace; get/list/watch/create/patch/update on its Deployments, Services and
-  NetworkPolicies; get/list/watch Pods, ReplicaSets, events, EndpointSlices and
-  PolicyReports; create Pods for server dry-run; read-only list/get for the four
-  Kyverno policy types, validating webhooks and ClusterPolicyReports. A pre-existing
-  namespace avoids granting broad namespace creation. No Secret-read permission
-  is needed. Admission must handle dry-run requests normally.
-- Agent Pods need outbound API, Harbor, BuildKit, GitHub/release, Trivy database,
-  Sigstore/Rekor and app Service connectivity. NetworkPolicy permits app ingress
-  from labeled Jenkins agents only and denies app egress; it assumes a CNI that
-  enforces NetworkPolicy. If the Jenkins namespace also has default-deny egress,
-  the platform operator must supply narrow egress rules.
-- Existing Prometheus/Grafana configuration is preserved. No monitoring files are
-  moved or changed. Review admission latency, rejection and controller metrics
-  alongside the archived evidence; successful HTTP alone is not policy evidence.
+Only the four demo source manifests plus a representative Pod for server dry-run
+are rendered. Namespace environment is `dev`, `staging`, or `production` while
+the existing Restricted profile is preserved. Delivery applies the namespace,
+performs server-side Pod admission dry-run, then applies the Deployment, Service,
+and NetworkPolicy. The actual ReplicaSet Pods also undergo admission. Rollout,
+replica counts, digest-pinned ready Pods, and ready Service EndpointSlices establish
+application health; the Pod's HTTP readiness/liveness probes exercise `/healthz`.
+No external ingress or agent-to-Service HTTP dependency is required.
+
+Reports/events are correlated with workload UIDs. PolicyReports are sampled up to
+six times at five-second intervals. Missing asynchronous results are explicitly
+reported as unobserved, never PASS. Audit/Warn fail/error findings are retained as
+findings; approved Deny-policy fail/error findings fail the report stage. API or
+permission errors fail collection. The old production-only, all-pass offline
+preflight was removed: source/rendered policy testing belongs to Policy CI, and
+Delivery uses the actual kubeadm admission path. Applying a resource alone is not
+claimed as proof that every webhook or policy evaluated it.
+
+**Before the first manual run:**
+
+- Keep `harbor-credentials`, `cosign-private-key`, `cosign-password`, and
+  `kubeconfig`; add `jenkins-artifact-reader` as described above. Preserve the
+  successful source build and its archived environment package.
+- The kubeconfig identity now needs get/list/create/patch/update on all four
+  cluster-scoped Kyverno policy kinds, and get on their CRDs. Previous read-only
+  policy permissions are insufficient. It also needs namespace get/create/patch,
+  app Deployment/Service/NetworkPolicy get/list/watch/create/patch/update,
+  Pod create (dry-run), Pod/ReplicaSet/Event/EndpointSlice reads, report reads,
+  and read access to validating/mutating webhook configurations. Do not grant
+  Secret reads for this evidence collector.
+- Provision `harbor-registry-credentials` in `ksp-demo` for kubelet pulls, and in
+  Kyverno's namespace for IMG-004, through the existing secret-management process.
+  Namespace creation by Delivery does not provision these secrets. Keep Harbor
+  DNS/token-service URL/certificates and full CA trust correct for agents,
+  Kyverno, and containerd nodes. Existing Kyverno and report CRDs/controllers must
+  already be installed. No cluster is created by this pipeline.
+- Allow agent access to Jenkins artifacts, the Python base registry, Trivy's DB,
+  Harbor, Sigstore/Rekor, and the kubeadm API. Cosign's trusted key must match
+  `image-security/cosign/cosign.pub` and the policy's key.
+- **Known environment difference:** IMG-002's current approved allowlist names
+  `harbor.example.com`, while the demo uses `harbor-public:30003`. Development and
+  staging retain Audit/Warn; production Deny can reject this demo. Delivery must
+  not repair this by weakening policies. A production run needs a separately
+  approved framework/registry change and a new Policy CI artifact.
+
+Evidence lives under `artifacts/delivery/<BUILD_ID>/`, including the exact
+approved package, source provenance, policy apply/readiness snapshots, image
+reference/signature results, app admission/rollout, reports and health. The image
+archive is excluded from Jenkins archival; credentials and kubeconfigs are never
+copied into evidence. No automatic rollback/uninstall is performed.
+
+Offline checks: `python3 -B -m unittest discover -s jenkins/tests -v`.
+These use synthetic Jenkins/registry/kubectl responses; they never contact a real
+cluster. Actual build/scan/push/admission remains the user's manual Jenkins run.
 
 ## Jobs, GitHub and migration
 
@@ -283,8 +322,8 @@ Delivery does not automatically uninstall or roll back a deployed application.
    `github-credentials`, trusted branch, script path **`Jenkinsfile.ci`**. For
    multibranch, use GitHub Branch Source and configure that script path.
 3. Create an independent trusted-branch Pipeline-from-SCM job `ksp-delivery`, same
-   repository, script path **`Jenkinsfile.delivery`**. Set `BUILDKIT_HOST` to the
-   real mTLS endpoint. Keep one deployment job per `ksp-demo` target; concurrent
+   repository, script path **`Jenkinsfile.delivery`**. Select the explicit successful
+   Policy CI job/build/environment and provision `jenkins-artifact-reader`. Keep one deployment job per `ksp-demo` target; concurrent
    builds are disabled. Do not expose this job to untrusted PR Jenkinsfiles.
 4. Set the externally reachable Jenkins HTTPS URL. Configure GitHub's webhook
    for `<JENKINS_URL>/github-webhook/`, JSON payload, shared webhook secret managed
