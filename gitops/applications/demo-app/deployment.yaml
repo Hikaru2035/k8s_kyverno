@@ -29,8 +29,8 @@ spec:
       - name: harbor-registry-credentials
       containers:
       - name: app
-        # Rendering replaces this non-deployable marker; never apply this source.
-        image: harbor-public:30003/ksp-test/demo-app:BUILD_NUMBER
+        # Bootstrap sentinel: run App CI before enabling Argo CD sync.
+        image: harbor-public:30003/ksp-test/demo-app@sha256:0000000000000000000000000000000000000000000000000000000000000000
         imagePullPolicy: IfNotPresent
         ports:
         - name: http

@@ -1,0 +1,51 @@
+// Trusted manual promotion job. Never select latest or an untrusted PR workspace.
+properties([
+    disableConcurrentBuilds(),
+    buildDiscarder(logRotator(daysToKeepStr: '30')),
+    parameters([
+        string(name: 'POLICY_CI_JOB', defaultValue: 'automated-tested', description: 'Successful Policy CI source job'),
+        string(name: 'POLICY_CI_BUILD', defaultValue: '', description: 'Required explicit successful build number'),
+        choice(name: 'POLICY_ENVIRONMENT', choices: ['development'], description: 'PoC target environment'),
+        choice(name: 'POLICY_PROFILE', choices: ['baseline', 'standard', 'restricted'], description: 'Cumulative profile')
+    ])
+])
+node('ksp-tools') {
+    timeout(time: 30, unit: 'MINUTES') {
+        env.POLICY_CI_JOB = params.POLICY_CI_JOB
+        env.POLICY_CI_BUILD = params.POLICY_CI_BUILD
+        env.POLICY_ENVIRONMENT = params.POLICY_ENVIRONMENT ?: 'development'
+        env.POLICY_PROFILE = params.POLICY_PROFILE ?: 'baseline'
+        def step = { name -> sh "bash jenkins/scripts/policy-promote.sh ${name}" }
+        try {
+            stage('Checkout') {
+                deleteDir(); checkout scm
+                step('initialize')
+            }
+            stage('Obtain Approved Policy Artifact') {
+                withCredentials([usernamePassword(credentialsId: 'jenkins-artifact-reader',
+                    usernameVariable: 'JENKINS_ARTIFACT_USER', passwordVariable: 'JENKINS_ARTIFACT_TOKEN')]) {
+                    step('fetch')
+                }
+            }
+            stage('Verify Approved Policy Artifact') { step('verify') }
+            stage('Select Profile and Update Policy GitOps Desired State') {
+                withCredentials([usernamePassword(credentialsId: 'gitops-git-credentials',
+                    usernameVariable: 'GITOPS_USERNAME', passwordVariable: 'GITOPS_PASSWORD')]) {
+                    step('prepare')
+                }
+                // Copies exact bytes, generates separate provenance and verifies the copies.
+                step('promote')
+            }
+            stage('Commit and Push GitOps Change') {
+                withCredentials([usernamePassword(credentialsId: 'gitops-git-credentials',
+                    usernameVariable: 'GITOPS_USERNAME', passwordVariable: 'GITOPS_PASSWORD')]) {
+                    step('publish')
+                }
+            }
+        } finally {
+            stage('Archive Promotion Evidence') {
+                archiveArtifacts artifacts: "artifacts/policy-promotion/${env.BUILD_ID}/**", allowEmptyArchive: true
+            }
+        }
+    }
+}

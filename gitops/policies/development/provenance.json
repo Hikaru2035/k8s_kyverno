@@ -1,0 +1,18 @@
+{
+  "approval_mode": "poc",
+  "approved_artifact_sha256": "019d5af32e22b2fe422a28663cb3d7dfe3010f963eed980a4b0db920d4f5d583",
+  "deferrals": {
+    "count": 7,
+    "policy": "KSP-IMG-004",
+    "reason": "external-registry-signature-verification-deferred-for-poc"
+  },
+  "jenkins_origin_verified": false,
+  "origin": "local-approved-artifact-bootstrap",
+  "policy_ci_build": null,
+  "policy_ci_job": null,
+  "policy_count": 13,
+  "policy_environment": "development",
+  "policy_profile": "baseline",
+  "promotion_timestamp": "2026-09-24T02:33:48.067876+00:00",
+  "source_commit": "9c51c23b60b6bfe3d34d9737f6a440e3309d0b76"
+}

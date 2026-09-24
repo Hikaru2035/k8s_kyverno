@@ -33,7 +33,7 @@ def delivery(reference, destination, environment='development'):
     if any(out.iterdir()):
         raise SystemExit('Application render output must be fresh')
     for name in ('namespace.yaml', 'deployment.yaml', 'service.yaml', 'networkpolicy.yaml'):
-        resource = yaml.safe_load((ROOT / 'demo-app/k8s' / name).read_text())
+        resource = yaml.safe_load((ROOT / 'gitops/applications/demo-app' / name).read_text())
         if resource['kind'] == 'Namespace':
             resource['metadata']['labels']['ksp.io/environment'] = ENVIRONMENTS[environment]
         if resource['kind'] == 'Deployment':

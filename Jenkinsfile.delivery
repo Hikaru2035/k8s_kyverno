@@ -1,18 +1,10 @@
-// Configure as a separate trusted-branch job. Never expose deployment secrets to fork PRs.
+// Configure as a separate trusted-branch job. Never expose publication secrets to fork PRs.
 properties([
     disableConcurrentBuilds(),
-    buildDiscarder(logRotator(daysToKeepStr: '30')),
-    parameters([
-        string(name: 'POLICY_CI_JOB', defaultValue: 'automated-tested', description: 'Source Policy CI job (folder/job supported)'),
-        string(name: 'POLICY_CI_BUILD', defaultValue: '21', description: 'Explicit successful build to promote; never latest/workspace'),
-        choice(name: 'POLICY_ENVIRONMENT', choices: ['development', 'staging', 'production'], description: 'Approved policy environment')
-    ])
+    buildDiscarder(logRotator(daysToKeepStr: '30'))
 ])
 node('ksp-tools') {
     timeout(time: 60, unit: 'MINUTES') {
-        env.POLICY_CI_JOB = params.POLICY_CI_JOB ?: 'automated-tested'
-        env.POLICY_CI_BUILD = params.POLICY_CI_BUILD ?: '21'
-        env.POLICY_ENVIRONMENT = params.POLICY_ENVIRONMENT ?: 'development'
         def delivery = { step -> sh "bash jenkins/scripts/delivery.sh ${step}" }
         def harbor = { body ->
             withCredentials([usernamePassword(credentialsId: 'harbor-credentials', usernameVariable: 'HARBOR_USERNAME', passwordVariable: 'HARBOR_PASSWORD')]) {
@@ -20,9 +12,6 @@ node('ksp-tools') {
             }
         }
         def registryStep = { step -> harbor { sh "bash jenkins/scripts/with-harbor.sh bash jenkins/scripts/delivery.sh ${step}" } }
-        def clusterStep = { step ->
-            withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) { delivery(step) }
-        }
         try {
             stage('Checkout') {
                 deleteDir(); checkout scm
@@ -41,33 +30,17 @@ node('ksp-tools') {
                 ]) { registryStep('sign') }
             }
             stage('Cosign Verify') { registryStep('verify') }
-            // Consume the immutable artifact from successful Policy CI; record its identity/version/commit in evidence.
-            // Promote those exact tested policies; never substitute re-rendered source policies.
-            stage('Obtain Approved Policy Artifact') {
-                withCredentials([usernamePassword(credentialsId: 'jenkins-artifact-reader',
-                    usernameVariable: 'JENKINS_ARTIFACT_USER', passwordVariable: 'JENKINS_ARTIFACT_TOKEN')]) {
-                    delivery('policy-artifact')
+            stage('Update Application GitOps Desired State') {
+                withCredentials([usernamePassword(credentialsId: 'gitops-git-credentials',
+                    usernameVariable: 'GITOPS_USERNAME', passwordVariable: 'GITOPS_PASSWORD')]) {
+                    sh 'python3 jenkins/scripts/gitops_publish.py prepare app "artifacts/delivery/$BUILD_ID/gitops"'
+                    delivery('gitops-update')
+                    sh 'python3 jenkins/scripts/gitops_publish.py publish app "artifacts/delivery/$BUILD_ID/gitops"'
                 }
             }
-            stage('Verify Approved Policy Artifact') { delivery('policy-verify') }
-            stage('Deploy Approved Policies') { clusterStep('deploy-policies') }
-            stage('Verify Deployed Policies') { clusterStep('verify-policies') }
-            // Render only demo application manifests; policies come from the approved artifact.
-            stage('Render Kubernetes Manifest') { delivery('render') }
-            stage('Kubernetes Deployment / Kyverno Admission') { clusterStep('admission') }
-            stage('Deployment Rollout Verification') { clusterStep('rollout') }
-            stage('PolicyReport Collection') { clusterStep('reports') }
-            stage('Application Health Check') { clusterStep('health') }
         } finally {
             stage('Archive Evidence') {
-                try {
-                    // Also capture failed rollout/admission diagnostics; never override a failure.
-                    if (fileExists("artifacts/delivery/${env.BUILD_ID}/deployment/rendered/deployment.yaml")) {
-                        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') { clusterStep('reports') }
-                    }
-                } finally {
-                    archiveArtifacts artifacts: "artifacts/delivery/${env.BUILD_ID}/**", excludes: '**/image.tar', allowEmptyArchive: true
-                }
+                archiveArtifacts artifacts: "artifacts/delivery/${env.BUILD_ID}/**", excludes: '**/image.tar', allowEmptyArchive: true
             }
         }
     }

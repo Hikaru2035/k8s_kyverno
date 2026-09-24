@@ -46,7 +46,7 @@ fi
             self.assertFalse((work / 'calls').exists())
 
     def test_render_requires_digest_and_preserves_source(self):
-        source = ROOT / 'demo-app/k8s/deployment.yaml'
+        source = ROOT / 'gitops/applications/demo-app/deployment.yaml'
         self.assertTrue(source.exists(), 'demo source manifest missing')
         before = source.read_bytes()
         with tempfile.TemporaryDirectory() as tmp:

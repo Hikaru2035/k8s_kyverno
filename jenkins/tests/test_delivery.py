@@ -115,7 +115,7 @@ class ArtifactTests(unittest.TestCase):
 
     def test_only_demo_manifests_render_and_environment_label_is_selected(self):
         manifests=load('manifests')
-        before={p:p.read_bytes() for p in (ROOT/'demo-app/k8s').glob('*.yaml')}
+        before={p:p.read_bytes() for p in (ROOT/'gitops/applications/demo-app').glob('*.yaml')}
         for env,label in [('development','dev'),('staging','staging'),('production','production')]:
             target=self.base/env
             manifests.delivery('harbor-public:30003/ksp-test/demo-app@sha256:'+'a'*64,str(target),env)
@@ -131,6 +131,8 @@ class DeliveryFlowTests(unittest.TestCase):
         self.root=Path(self.tmp.name)
         shutil.copytree(ROOT/'jenkins/scripts',self.root/'jenkins/scripts')
         shutil.copytree(ROOT/'demo-app',self.root/'demo-app')
+        shutil.copytree(ROOT/'gitops',self.root/'gitops')
+        shutil.copytree(ROOT/'gitops',self.root/'.gitops-publish/gitops')
         shutil.copyfile(ROOT/'versions.yaml',self.root/'versions.yaml')
         (self.root/'image-security/cosign').mkdir(parents=True)
         shutil.copyfile(ROOT/'image-security/cosign/cosign.pub',self.root/'image-security/cosign/cosign.pub')
@@ -207,38 +209,30 @@ raise SystemExit('Unexpected external tool')
         else: self.assertNotEqual(run.returncode,0)
         return run
 
-    def test_complete_offline_flow_uses_artifact_kubeconfig_and_local_archive(self):
-        for stage in ('security-scan','build','image-scan','push','digest','sign','verify','policy-verify',
-                      'deploy-policies','verify-policies','render','admission','rollout','reports','health'):
-            self.run_stage(stage)
+    def test_complete_offline_image_flow_needs_no_policy_or_cluster(self):
+        shutil.rmtree(self.artifact)
+        for stage in ('security-scan','build','image-scan','push','digest','sign','verify','gitops-update'):
+            self.run_stage(stage, POLICY_CI_BUILD='', KUBECONFIG='')
         calls=[json.loads(line) for line in (self.root/'calls.jsonl').read_text().splitlines()]
-        policy_applies=[c for c in calls if c[0]=='kubectl' and 'apply' in c and '/policies/' in ' '.join(c)]
-        self.assertEqual(len(policy_applies),29)
-        paths=[c[c.index('-f')+1] for c in policy_applies]
-        self.assertTrue(all(p.startswith(str(self.artifact/'policies')) for p in paths))
-        self.assertIn('/common/',paths[0])
-        self.assertEqual(json.loads((self.out/'kyverno/approved-policies/identity-readiness.json').read_text())['actual_count'],29)
-        summary=json.loads((self.out/'policy-report/summary.json').read_text())
-        self.assertEqual(summary['enforcedFailures'],0)
-        self.assertEqual(summary['results'][0]['validationActions'],['Audit','Warn'])
-        self.assertEqual({p.name for p in (self.out/'deployment/rendered').iterdir()},
-                         {'namespace.yaml','deployment.yaml','service.yaml','networkpolicy.yaml','pod.yaml'})
+        self.assertFalse(any(c[0]=='kubectl' for c in calls))
         self.assertTrue((self.out/'image/image.tar').is_file())
         mutate=next(c for c in calls if c[:2]==['crane','mutate'])
         self.assertIn('--output',mutate);self.assertIn('--append',mutate)
-        self.assertFalse((self.root/'k8s-security-framework').exists())  # No Git-policy or renderer dependency.
+        image=yaml.safe_load((self.root/'.gitops-publish/gitops/applications/demo-app/deployment.yaml').read_text())['spec']['template']['spec']['containers'][0]['image']
+        self.assertEqual(image,(self.out/'image/reference.txt').read_text().strip())
+        self.assertFalse((self.root/'k8s-security-framework').exists())
 
-    def test_changed_artifact_blocks_all_kubectl(self):
-        p=next((self.artifact/'policies').rglob('*.yaml'));p.write_bytes(p.read_bytes()+b'\n')
-        self.run_stage('deploy-policies',False)
+    def test_removed_operational_stages_cannot_invoke_tools(self):
+        for stage in ('deploy-policies','verify-policies','admission','rollout','reports','health','render','policy-artifact','policy-verify'):
+            self.run_stage(stage,False)
         self.assertFalse((self.root/'calls.jsonl').exists())
 
-    def test_kubeconfig_is_mandatory_and_apply_failure_stops(self):
-        self.run_stage('deploy-policies',False,KUBECONFIG='')
-        self.assertFalse((self.root/'calls.jsonl').exists())
-        self.run_stage('deploy-policies',False,FAIL_APPLY='yes')
-        calls=[json.loads(x) for x in (self.root/'calls.jsonl').read_text().splitlines()]
-        self.assertEqual(sum('apply' in c for c in calls),1)
+    def test_changed_archive_blocks_push(self):
+        self.run_stage('build')
+        image=self.out/'image/image.tar';image.write_bytes(image.read_bytes()+b'tamper')
+        self.run_stage('push',False)
+        calls=[json.loads(line) for line in (self.root/'calls.jsonl').read_text().splitlines()]
+        self.assertFalse(any(c[:2]==['crane','push'] for c in calls))
 
     def test_report_actions_and_absence_are_not_synthetic_compliance(self):
         module=load('delivery-reports')
