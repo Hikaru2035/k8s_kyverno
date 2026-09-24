@@ -69,7 +69,7 @@ ci:
     version: null
     source: "https://dl.k8s.io/release/stable.txt" # Existing rolling selection; not reproducible.
   python:
-    image: "python:3.12.11-slim-bookworm"
+    image: "python:3.12.14-slim-bookworm"
   pyyaml:
     version: "6.0.2"
   alpine:
