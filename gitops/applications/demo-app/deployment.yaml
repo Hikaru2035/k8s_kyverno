@@ -30,7 +30,7 @@ spec:
       containers:
       - name: app
         # Bootstrap sentinel: run App CI before enabling Argo CD sync.
-        image: harbor-public:30003/ksp-test/demo-app@sha256:0000000000000000000000000000000000000000000000000000000000000000
+        image: harbor-public:30003/ksp-test/demo-app@sha256:33ffc169f5ecea3d62805346a784369a945b89f6524c435b0e4b69fdfa149814
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
