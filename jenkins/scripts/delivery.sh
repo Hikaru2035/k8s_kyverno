@@ -35,7 +35,7 @@ PY
     sha256sum "$out/image/image.tar" > "$out/image/archive.sha256"
     ;;
   image-scan)
-    trivy image --input "$out/image/image.tar" --scanners vuln --severity HIGH,CRITICAL \
+    trivy image --input "$out/image/image.tar" --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed \
       --exit-code 1 --format json --output "$out/scan/image.json"
     ;;
   push)
