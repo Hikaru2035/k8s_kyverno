@@ -13,4 +13,5 @@ resources:
   - baseline/KSP-RES-003-require-cpu-limit.yaml
   - baseline/KSP-RES-004-require-memory-limit.yaml
   - baseline/KSP-RES-005-generate-resource-quota.yaml
+  - baseline/ksp-resource-quota-sizing-configmap.yaml
   - common/KSP-META-003-require-environment-label.yaml

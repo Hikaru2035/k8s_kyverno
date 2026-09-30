@@ -1,18 +1,18 @@
 {
   "approval_mode": "poc",
-  "approved_artifact_sha256": "419d0ea0419469361950898bc1ffe61089e34403ce2479dff090ae37c5beaae7",
+  "approved_artifact_sha256": "1153e6927042fb2d15b60f6d18d8f3c7d8a752c6101d2c67a60f3fa5c556643e",
   "deferrals": {
     "count": 7,
     "policy": "KSP-IMG-004",
     "reason": "external-registry-signature-verification-deferred-for-poc"
   },
   "origin": "successful-jenkins-archive",
-  "policy_ci_build": 29,
+  "policy_ci_build": 32,
   "policy_ci_job": "automated-tested",
-  "policy_count": 13,
+  "policy_count": 14,
   "policy_environment": "development",
   "policy_profile": "baseline",
-  "promotion_timestamp": "2026-09-30T07:17:15.126749+00:00",
-  "source_build_url": "http://171.244.199.140:30080/job/automated-tested/29/",
-  "source_commit": "9e7fb08ccadf73a7c5f00d94459e8fe33d83261c"
+  "promotion_timestamp": "2026-09-30T11:29:46.766289+00:00",
+  "source_build_url": "http://171.244.199.140:30080/job/automated-tested/32/",
+  "source_commit": "0317e70b7b994ad320c3abdf7d0a352d175cd99d"
 }
