@@ -76,6 +76,17 @@ def main():
     for level, policy_id in jobs:
         content = render(policy_id, level, env_name)
         if content is not None: (out / "policies" / level / source(policy_id).name).write_text(content)
+
+    # KSP-RES-005 runtime dependency. This is not a 30th policy; it is a
+    # support manifest shipped with the baseline policy bundle.
+    quota_config = ROOT / "policies" / "resource-governance" / "KSP-RES-005" / "ksp-resource-quota-sizing-configmap.yaml"
+    if not quota_config.is_file():
+        raise SystemExit(f"missing KSP-RES-005 support manifest: {quota_config}")
+    shutil.copyfile(
+        quota_config,
+        out / "policies" / "baseline" / quota_config.name,
+    )
+
     print(f"rendered {env_name}: common={len(common)} baseline={len(incremental['baseline']) - len(common)} standard={len(incremental['standard'])} restricted={len(incremental['restricted'])}")
 
 if __name__ == "__main__": main()

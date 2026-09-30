@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ksp-resource-quota-sizing
+  namespace: kyverno
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/component: resource-governance
+data:
+  dev.small.requestsCpu: "2"
+  dev.small.requestsMemory: "4Gi"
+  dev.small.limitsCpu: "4"
+  dev.small.limitsMemory: "8Gi"
+  dev.small.pods: "25"
+  dev.medium.requestsCpu: "4"
+  dev.medium.requestsMemory: "8Gi"
+  dev.medium.limitsCpu: "8"
+  dev.medium.limitsMemory: "16Gi"
+  dev.medium.pods: "50"
+  dev.large.requestsCpu: "8"
+  dev.large.requestsMemory: "16Gi"
+  dev.large.limitsCpu: "16"
+  dev.large.limitsMemory: "32Gi"
+  dev.large.pods: "100"
+
+  staging.small.requestsCpu: "3"
+  staging.small.requestsMemory: "6Gi"
+  staging.small.limitsCpu: "6"
+  staging.small.limitsMemory: "12Gi"
+  staging.small.pods: "30"
+  staging.medium.requestsCpu: "6"
+  staging.medium.requestsMemory: "12Gi"
+  staging.medium.limitsCpu: "12"
+  staging.medium.limitsMemory: "24Gi"
+  staging.medium.pods: "75"
+  staging.large.requestsCpu: "12"
+  staging.large.requestsMemory: "24Gi"
+  staging.large.limitsCpu: "24"
+  staging.large.limitsMemory: "48Gi"
+  staging.large.pods: "150"
+  
+  production.small.requestsCpu: "4"
+  production.small.requestsMemory: "8Gi"
+  production.small.limitsCpu: "8"
+  production.small.limitsMemory: "16Gi"
+  production.small.pods: "50"
+  production.medium.requestsCpu: "8"
+  production.medium.requestsMemory: "16Gi"
+  production.medium.limitsCpu: "16"
+  production.medium.limitsMemory: "32Gi"
+  production.medium.pods: "100"
+  production.large.requestsCpu: "16"
+  production.large.requestsMemory: "32Gi"
+  production.large.limitsCpu: "32"
+  production.large.limitsMemory: "64Gi"
+  production.large.pods: "200"

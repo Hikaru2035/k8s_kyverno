@@ -89,6 +89,28 @@ def expected_policies(root):
     return dict(sorted(result.items()))
 
 
+def expected_support_manifests(root):
+    """Non-policy resources required by the rendered policy bundle."""
+    framework = root / FRAMEWORK
+    quota_config = (
+        framework / 'policies' / 'resource-governance' / 'KSP-RES-005'
+        / 'ksp-resource-quota-sizing-configmap.yaml'
+    )
+    require(quota_config.is_file(), 'KSP-RES-005 quota sizing ConfigMap missing')
+    return {
+        'baseline/ksp-resource-quota-sizing-configmap.yaml': quota_config,
+    }
+
+
+def expected_bundle(root):
+    """All deployable YAML: 29 Kyverno policies plus support manifests."""
+    result = dict(expected_policies(root))
+    for relative, source in expected_support_manifests(root).items():
+        require(relative not in result, f'Duplicate bundle path: {relative}')
+        result[relative] = source
+    return dict(sorted(result.items()))
+
+
 def inventory(directory, expected):
     require(directory.is_dir(), f'Missing bundle: {directory}')
     files = sorted(p for p in directory.rglob('*') if p.is_file())
@@ -355,9 +377,10 @@ def summary_text(env, summary):
 
 
 def record_render(root, env):
-    expected = expected_policies(root)
+    policies = expected_policies(root)
+    expected = expected_bundle(root)
     bundle = bundle_path(root, env)
-    for relative, source in expected.items():
+    for relative, source in policies.items():
         verify_configuration(root, source, bundle / relative, env)
     evidence = root / 'artifacts/rendered-policy-test'
     evidence.mkdir(parents=True, exist_ok=True)
@@ -373,7 +396,7 @@ def verify_receipt(root, env):
     require(receipt['environment'] == env, 'Rendered environment differs from selected environment')
     require(receipt['git_commit'] == commit(root), 'Rendered commit differs from checkout')
     require(receipt['inputs_sha256'] == input_digest(root, env), 'Framework/test inputs changed since rendering')
-    require(receipt['inventory_sha256'] == sha(inventory(bundle_path(root, env), expected_policies(root)).encode()),
+    require(receipt['inventory_sha256'] == sha(inventory(bundle_path(root, env), expected_bundle(root)).encode()),
             'Rendered bytes differ from render receipt')
     return receipt
 def check_output(output, manifest, suite):
@@ -412,7 +435,7 @@ def test(root, env):
     evidence.mkdir(parents=True, exist_ok=True)
     (evidence / 'success.json').unlink(missing_ok=True)
     receipt = verify_receipt(root, env)
-    expected = expected_policies(root)
+    expected = expected_bundle(root)
     before = inventory(bundle_path(root, env), expected)
     (evidence / 'policy-inventory.txt').write_text(before)
     suites = evidence / 'suites'
@@ -468,7 +491,8 @@ def package(root, env):
     receipt = verify_receipt(root, env)
     require(success['git_commit'] == commit(root) and success['inputs_sha256'] == receipt['inputs_sha256'], 'Tested inputs differ')
     require(evidence_digest(evidence) == success['test_evidence_sha256'], 'Test evidence is missing or modified')
-    expected = expected_policies(root)
+    policies = expected_policies(root)
+    expected = expected_bundle(root)
     tested = (evidence / 'policy-inventory.txt').read_text()
     require(sha(tested.encode()) == success['inventory_sha256'] == receipt['inventory_sha256'], 'Tested inventory was modified')
     bundle = bundle_path(root, env)
@@ -492,7 +516,7 @@ def package(root, env):
         (staged / 'policy-inventory.txt').write_text(tested)
         (staged / 'test-coverage-summary.txt').write_text(summary_text(env, summary))
         metadata = dict(git_commit=success['git_commit'], environment=env, framework_version=version,
-                        policy_count=len(expected), policy_inventory_sha256=success['inventory_sha256'],
+                        policy_count=len(policies), policy_inventory_sha256=success['inventory_sha256'],
                         test_evidence_sha256=success['test_evidence_sha256'], approval_mode='poc', **summary)
         if summary['deferred']:
             metadata.update(deferred_policy=DEFERRED_POLICY, deferred_reason=DEFERRED_REASON)

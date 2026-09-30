@@ -67,6 +67,17 @@ def verify(path, env):
         content = (path/'policies'/relative).read_bytes()
         require(digest(content) == sha, f'Policy hash mismatch: {relative}')
         policy = yaml.safe_load(content)
+
+        if relative == 'baseline/ksp-resource-quota-sizing-configmap.yaml':
+            require(
+                policy.get('apiVersion') == 'v1'
+                and policy.get('kind') == 'ConfigMap'
+                and policy.get('metadata', {}).get('name') == 'ksp-resource-quota-sizing'
+                and policy.get('metadata', {}).get('namespace') == 'kyverno',
+                'Invalid KSP-RES-005 support ConfigMap'
+            )
+            continue
+
         require(policy['apiVersion'] == 'policies.kyverno.io/v1' and policy['kind'] in KINDS, 'Unsupported policy resource')
         md = policy['metadata']; name = md['name']
         require(re.fullmatch('[a-z0-9][a-z0-9.-]*',name) and not md.get('namespace'), 'Invalid cluster policy identity')
@@ -74,7 +85,8 @@ def verify(path, env):
         identity = (policy['apiVersion'],policy['kind'],name)
         require(identity not in identities, 'Duplicate policy identity')
         identities.add(identity); documents.append(policy)
-    count = len(expected)
+
+    count = len(identities)
     require(count > 0 and meta.get('policy_count') == str(count), 'Policy count mismatch')
     summary = fields(path/'test-coverage-summary.txt')
     require(summary.get('environment') == env, 'Coverage environment mismatch')
