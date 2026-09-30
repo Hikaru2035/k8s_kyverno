@@ -321,13 +321,17 @@ def prepare_suite(root, source, policy_path, env, destination, origin='canonical
 
 def build_plan(root, env, suites):
     environment(root, env)
-    expected = expected_policies(root)
+    policies = expected_policies(root)
     bundle = bundle_path(root, env)
-    inventory(bundle, expected)
+
+    # Validate the complete deployable bundle: 29 Kyverno policies plus
+    # non-policy runtime support manifests such as the KSP-RES-005 sizing ConfigMap.
+    inventory(bundle, expected_bundle(root))
+
     require(not suites.exists(), 'Suite destination must be fresh')
     suites.mkdir(parents=True)
     plan = dict(environment=env, policies=[], cases=[], configuration=[], runtime_e2e=[])
-    for relative, source in expected.items():
+    for relative, source in policies.items():
         pid, policy = source.parent.name, bundle / relative
         plan['policies'].append(dict(policy=pid, path=relative))
         plan['configuration'].extend(verify_configuration(root, source, policy, env))

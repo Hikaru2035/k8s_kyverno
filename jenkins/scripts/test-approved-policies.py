@@ -178,7 +178,7 @@ class RealPipelineTests(unittest.TestCase):
             self.assertTrue((output / 'test-coverage-summary.txt').is_file())
             self.assertEqual((root / 'render-calls.txt').read_text().splitlines(), [env])
             before = (evidence / 'policy-inventory.txt').read_text()
-            self.assertEqual(a.inventory(output / 'policies', a.expected_policies(root)), before)
+            self.assertEqual(a.inventory(output / 'policies', a.expected_bundle(root)), before)
             coverage = json.loads((evidence / 'coverage.json').read_text())
             mutation = [c for c in coverage['cases'] if c['policy'] == 'KSP-POD-012']
             self.assertEqual(sum(c['status'] == 'EXECUTED' for c in mutation), 11 if env == 'development' else 0)
