@@ -15,8 +15,17 @@ SCOPES = {'app':'gitops/applications/demo-app/deployment.yaml', 'policy':'gitops
 
 def git(root, *args, env=None):
     result = subprocess.run(['git','-C',str(root),*args],env=env,text=True,capture_output=True)
-    # Never relay remote error text: it can contain credentials or HTTP headers.
-    require(result.returncode == 0, f'Git {args[0]} failed; check access, branch, or concurrent publication')
+    if result.returncode != 0:
+        # Remote operations may expose credentials/HTTP details, so keep their
+        # stderr hidden. Local Git operations are safe and need actionable CI diagnostics.
+        if args[0] in ('clone', 'fetch', 'pull', 'push'):
+            raise ValueError(
+                f'Git {args[0]} failed; check access, branch, or concurrent publication'
+            )
+        detail = result.stderr.strip() or 'no stderr'
+        raise ValueError(
+            f'Git {args[0]} failed (exit={result.returncode}): {detail}'
+        )
     return result.stdout.strip()
 
 
