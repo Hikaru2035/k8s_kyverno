@@ -38,7 +38,7 @@ data:
   staging.large.limitsCpu: "24"
   staging.large.limitsMemory: "48Gi"
   staging.large.pods: "150"
-  
+
   production.small.requestsCpu: "4"
   production.small.requestsMemory: "8Gi"
   production.small.limitsCpu: "8"
