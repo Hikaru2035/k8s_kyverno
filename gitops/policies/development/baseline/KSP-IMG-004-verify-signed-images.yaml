@@ -42,6 +42,8 @@ spec:
       resources:
       - pods
   credentials:
+    providers:
+    - default
     secrets:
     - harbor-registry-credentials
   matchImageReferences:
