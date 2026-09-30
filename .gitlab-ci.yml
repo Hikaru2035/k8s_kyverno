@@ -46,7 +46,7 @@ harbor_auth_check:
 
 validate:
   stage: validate
-  image: python:3.12.11-slim-bookworm
+  image: python:3.12.14-slim-bookworm
   before_script:
     - python3 -m pip install --no-cache-dir PyYAML==6.0.2
     - mkdir -p "$CI_PROJECT_DIR/artifacts/validate"
@@ -435,7 +435,7 @@ validate:
 
 check-policy:
   stage: validate
-  image: python:3.12.11-slim-bookworm
+  image: python:3.12.14-slim-bookworm
   needs:
     - job: validate
       artifacts: false
