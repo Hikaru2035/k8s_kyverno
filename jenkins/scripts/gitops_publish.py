@@ -23,8 +23,9 @@ def git(root, *args, env=None):
                 f'Git {args[0]} failed; check access, branch, or concurrent publication'
             )
         detail = result.stderr.strip() or 'no stderr'
+        safe_args = ' '.join(args)
         raise ValueError(
-            f'Git {args[0]} failed (exit={result.returncode}): {detail}'
+            f'Git {safe_args} failed (exit={result.returncode}): {detail}'
         )
     return result.stdout.strip()
 
