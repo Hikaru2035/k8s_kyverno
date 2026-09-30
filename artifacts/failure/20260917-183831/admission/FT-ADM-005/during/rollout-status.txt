@@ -1,0 +1,1 @@
+deployment "kyverno-admission-controller" successfully rolled out

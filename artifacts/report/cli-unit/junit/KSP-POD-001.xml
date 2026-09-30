@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="20" failures="0">
+ <testsuite name="require-run-as-non-root" tests="20" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-boundary-containers">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-boundary-containers
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-positive-all-container-types">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-positive-all-container-types
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-positive-one-container-non-root">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-positive-one-container-non-root
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-positive">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-positive
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-positive-pod-level-two-containers">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-positive-pod-level-two-containers
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-positive-two-containers-non-root">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-positive-two-containers-non-root
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-boundary-containers-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-boundary-containers-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-negative-false-first">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-negative-false-first
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-negative-false-last">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-negative-false-last
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-negative-ephemeral-container-false">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-negative-ephemeral-container-false
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-negative-init-container-unset">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-negative-init-container-unset
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-negative-init-container-false">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-negative-init-container-false
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-negative-one-container-missing-context">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-negative-one-container-missing-context
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-negative-pod-level-false">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-negative-pod-level-false
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-negative">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-boundary-false-first-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-boundary-false-first-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-001-boundary-pod-level-container-false">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-001-boundary-pod-level-container-false
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-001-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-001-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-001-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-001-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-001-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-run-as-non-root
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-001-exception-tertiary
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

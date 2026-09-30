@@ -1,0 +1,4 @@
+NAME            STATUS   ROLES           AGE   VERSION   INTERNAL-IP       EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION       CONTAINER-RUNTIME
+control-plane   Ready    control-plane   23d   v1.35.8   171.244.199.140   <none>        Ubuntu 22.04.5 LTS   5.15.0-153-generic   containerd://2.2.1
+worker-node-1   Ready    <none>          23d   v1.35.8   171.244.199.186   <none>        Ubuntu 22.04.5 LTS   5.15.0-153-generic   containerd://2.2.1
+worker-node-2   Ready    <none>          23d   v1.35.8   171.244.199.112   <none>        Ubuntu 22.04.5 LTS   5.15.0-153-generic   containerd://2.2.1

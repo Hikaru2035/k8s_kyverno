@@ -1,0 +1,17 @@
+=== VALIDATING WEBHOOKS ===
+NAME                                            WEBHOOKS   AGE
+kyverno-cel-exception-validating-webhook-cfg    1          20d
+kyverno-cleanup-validating-webhook-cfg          1          20d
+kyverno-exception-validating-webhook-cfg        1          20d
+kyverno-global-context-validating-webhook-cfg   1          20d
+kyverno-policy-validating-webhook-cfg           1          20d
+kyverno-resource-validating-webhook-cfg         13         20d
+kyverno-ttl-validating-webhook-cfg              1          20d
+monitoring-kube-prometheus-admission            2          6d23h
+
+=== MUTATING WEBHOOKS ===
+NAME                                    WEBHOOKS   AGE
+kyverno-policy-mutating-webhook-cfg     1          20d
+kyverno-resource-mutating-webhook-cfg   1          20d
+kyverno-verify-mutating-webhook-cfg     1          20d
+monitoring-kube-prometheus-admission    1          6d23h

@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kyverno-controller-replicas
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: kyverno.controller-replicas
+      rules:
+        - alert: KyvernoControllerReplicasUnavailable
+          expr: |
+            kube_deployment_status_replicas_available{
+              namespace="kyverno"
+            }
+            <
+            kube_deployment_spec_replicas{
+              namespace="kyverno"
+            }
+          for: 5m
+          labels:
+            severity: critical
+            component: kyverno
+          annotations:
+            summary: "Kyverno controller has unavailable replicas"
+            description: "Deployment {{ $labels.deployment }} has fewer available replicas than desired for more than 5 minutes."

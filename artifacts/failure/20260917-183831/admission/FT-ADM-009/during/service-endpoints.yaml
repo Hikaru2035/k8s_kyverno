@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  creationTimestamp: "2026-08-26T04:36:07Z"
+  labels:
+    app.kubernetes.io/component: admission-controller
+    app.kubernetes.io/instance: kyverno
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kyverno-admission-controller
+    app.kubernetes.io/part-of: kyverno
+    app.kubernetes.io/version: 3.8.2
+    endpoints.kubernetes.io/managed-by: endpoint-controller
+    helm.sh/chart: kyverno-3.8.2
+  name: kyverno-svc
+  namespace: kyverno
+  resourceVersion: "16138738"
+  uid: ff2c7f0d-5d87-4377-87aa-0002f3124060
+subsets:
+- addresses:
+  - ip: 10.244.19.146
+    nodeName: worker-node-2
+    targetRef:
+      kind: Pod
+      name: kyverno-admission-controller-54d58cc467-t2qwb
+      namespace: kyverno
+      uid: e083d4e0-359d-43d7-b08e-9834b293ef8f
+  - ip: 10.244.212.126
+    nodeName: worker-node-1
+    targetRef:
+      kind: Pod
+      name: kyverno-admission-controller-54d58cc467-z24lv
+      namespace: kyverno
+      uid: 867eef31-ed3e-4149-a5dd-1a9921adbc76
+  - ip: 10.244.212.127
+    nodeName: worker-node-1
+    targetRef:
+      kind: Pod
+      name: kyverno-admission-controller-54d58cc467-r8lnt
+      namespace: kyverno
+      uid: c9ca0281-42d5-40fc-be90-0df51b7ad58e
+  ports:
+  - appProtocol: https
+    name: https
+    port: 9443
+    protocol: TCP

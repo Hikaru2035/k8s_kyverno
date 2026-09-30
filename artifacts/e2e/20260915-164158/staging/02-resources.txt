@@ -1,0 +1,33 @@
+=== TEST NAMESPACES ===
+e2e-stg-ns-invalid   Active   54s
+e2e-stg-ns-valid     Active   54s
+ksp-staging          Active   20d
+
+=== PODS ===
+NAME                                        READY   STATUS             RESTARTS   AGE   IP               NODE            NOMINATED NODE   READINESS GATES
+e2e-stg-daemonset-valid-9cc5w               0/1     ErrImagePull       0          31s   10.244.19.178    worker-node-2   <none>           <none>
+e2e-stg-daemonset-valid-zplbd               0/1     ErrImagePull       0          34s   10.244.212.115   worker-node-1   <none>           <none>
+e2e-stg-deployment-valid-756d5967df-v464z   0/1     ImagePullBackOff   0          43s   10.244.212.114   worker-node-1   <none>           <none>
+e2e-stg-job-valid-xfgq6                     0/1     ErrImagePull       0          30s   10.244.212.116   worker-node-1   <none>           <none>
+e2e-stg-pod-valid                           0/1     ImagePullBackOff   0          50s   10.244.19.176    worker-node-2   <none>           <none>
+e2e-stg-statefulset-valid-0                 0/1     ErrImagePull       0          38s   10.244.19.177    worker-node-2   <none>           <none>
+
+=== DEPLOYMENTS ===
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                                                        SELECTOR
+e2e-stg-deployment-valid   0/1     1            0           46s   app          harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f   app=e2e-stg-deployment-valid
+
+=== STATEFULSETS ===
+NAME                        READY   AGE   CONTAINERS   IMAGES
+e2e-stg-statefulset-valid   0/1     41s   app          harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+
+=== DAEMONSETS ===
+NAME                      DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE   CONTAINERS   IMAGES                                                                                                        SELECTOR
+e2e-stg-daemonset-valid   2         2         0       2            0           <none>          38s   app          harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f   app=e2e-stg-daemonset-valid
+
+=== JOBS ===
+NAME                STATUS    COMPLETIONS   DURATION   AGE
+e2e-stg-job-valid   Running   0/1           34s        34s
+
+=== CRONJOBS ===
+NAME                    SCHEDULE       TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+e2e-stg-cronjob-valid   */10 * * * *   <none>     False     0        <none>          31s

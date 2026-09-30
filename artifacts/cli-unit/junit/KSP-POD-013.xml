@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="14" failures="0">
+ <testsuite name="disallow-run-as-user-zero" tests="14" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/pod-013-boundary-unset">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-013-boundary-unset
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-pod-013-positive-all-types">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-pod-013-positive-all-types
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-013-positive">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-013-positive
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-pod-013-positive-two-compliant">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-pod-013-positive-two-compliant
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-013-boundary-unset-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-013-boundary-unset-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-pod-013-negative-ephemeral">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-pod-013-negative-ephemeral
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-pod-013-negative-init">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-pod-013-negative-init
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-pod-013-negative-first">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-pod-013-negative-first
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-pod-013-negative-last">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-pod-013-negative-last
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-013-negative">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-013-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-pod-013-negative-ephemeral-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-pod-013-negative-ephemeral-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-013-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-013-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-013-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-013-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-013-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-run-as-user-zero
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-013-exception-tertiary
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

@@ -1,0 +1,17 @@
+NAMESPACE       NAME                                                     READY   STATUS      RESTARTS       AGE     IP                NODE            NOMINATED NODE   READINESS GATES
+calico-system   calico-node-qv545                                        1/1     Running     0              23d     171.244.199.112   worker-node-2   <none>           <none>
+calico-system   calico-typha-7b99d88765-pcp5x                            1/1     Running     0              23d     171.244.199.112   worker-node-2   <none>           <none>
+harbor          harbor-portal-677b5d5455-zsr4z                           1/1     Running     0              12d     10.244.19.136     worker-node-2   <none>           <none>
+harbor          harbor-redis-0                                           1/1     Running     0              12d     10.244.19.140     worker-node-2   <none>           <none>
+harbor          harbor-registry-8464c694b4-8fflh                         2/2     Running     0              12d     10.244.19.139     worker-node-2   <none>           <none>
+kube-system     kube-proxy-9s6l5                                         1/1     Running     0              23d     171.244.199.112   worker-node-2   <none>           <none>
+kyverno         kyverno-admission-controller-54d58cc467-mk9nz            1/1     Running     0              14m     10.244.19.142     worker-node-2   <none>           <none>
+kyverno         kyverno-admission-controller-54d58cc467-w8n68            1/1     Running     0              13m     10.244.19.141     worker-node-2   <none>           <none>
+kyverno         kyverno-background-controller-54c8547bdc-pjj5l           1/1     Running     30 (43h ago)   22d     10.244.19.131     worker-node-2   <none>           <none>
+kyverno         kyverno-cleanup-controller-86f44b75bc-7bx7w              1/1     Running     38 (43h ago)   22d     10.244.19.132     worker-node-2   <none>           <none>
+kyverno         kyverno-migrate-resources-tvp42                          0/1     Completed   0              3d23h   10.244.19.158     worker-node-2   <none>           <none>
+kyverno         kyverno-reports-controller-849f95d74f-5krgq              1/1     Running     43 (43h ago)   22d     10.244.19.129     worker-node-2   <none>           <none>
+kyverno         net-debug                                                0/1     Completed   0              3d23h   10.244.19.161     worker-node-2   <none>           <none>
+monitoring      alertmanager-monitoring-kube-prometheus-alertmanager-0   2/2     Running     0              9d      10.244.19.144     worker-node-2   <none>           <none>
+monitoring      monitoring-grafana-7dcf4fc76f-mgx2l                      3/3     Running     0              9d      10.244.19.143     worker-node-2   <none>           <none>
+monitoring      monitoring-prometheus-node-exporter-rxs5q                1/1     Running     0              9d      171.244.199.112   worker-node-2   <none>           <none>

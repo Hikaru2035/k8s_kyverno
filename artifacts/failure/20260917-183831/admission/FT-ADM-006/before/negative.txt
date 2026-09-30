@@ -1,0 +1,2 @@
+Error from server: error when creating "/root/k8s_kyverno/k8s-security-framework/tests/e2e/production/pod/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-request" denied the request: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+EXIT_CODE=1

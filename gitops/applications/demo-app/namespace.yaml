@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ksp-demo
+  labels:
+    ksp.io/environment: dev
+    ksp.io/profile: baseline
+    app.kubernetes.io/name: demo-app
+    policies.ksp.io/owner: platform-team

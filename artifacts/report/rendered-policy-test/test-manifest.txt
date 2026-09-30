@@ -1,0 +1,1 @@
+tests/e2e_env/production/tests/rendered/KSP-META-003/kyverno-test.yaml

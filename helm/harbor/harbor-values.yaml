@@ -1,0 +1,37 @@
+expose:
+  type: nodePort
+  tls:
+    enabled: true
+    certSource: auto
+    auto:
+      commonName: harbor-public
+  nodePort:
+    ports:
+      http:
+        port: 80
+        nodePort: 30002
+      https:
+        port: 443
+        nodePort: 30003
+
+externalURL: https://171.244.199.186:30003
+
+persistence:
+  enabled: true
+  persistentVolumeClaim:
+    registry:
+      storageClass: local-path
+      size: 10Gi
+    jobservice:
+      jobLog:
+        storageClass: local-path
+        size: 1Gi
+    database:
+      storageClass: local-path
+      size: 2Gi
+    redis:
+      storageClass: local-path
+      size: 1Gi
+
+trivy:
+  enabled: false

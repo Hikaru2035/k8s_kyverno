@@ -1,0 +1,2 @@
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+kyverno-admission-controller   3/3     3            3           23d

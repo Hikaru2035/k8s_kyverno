@@ -1,0 +1,1 @@
+ADMISSION_IMAGE=reg.kyverno.io/kyverno/kyverno:v1.18.2

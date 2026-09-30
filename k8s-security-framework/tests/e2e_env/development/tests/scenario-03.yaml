@@ -1,0 +1,7 @@
+# Scenario 03: missing environment
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-missing-environment
+  labels:
+    ksp.io/profile: baseline

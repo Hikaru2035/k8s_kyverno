@@ -1,0 +1,16 @@
+# Scenario 12: promote canary to Standard while retaining Baseline control
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-canary
+  labels:
+    ksp.io/environment: staging
+    ksp.io/profile: standard
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-alpha
+  labels:
+    ksp.io/environment: staging
+    ksp.io/profile: baseline

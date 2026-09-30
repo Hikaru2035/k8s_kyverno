@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: e2e-dev-cronjob-invalid
+  namespace: ksp-dev
+spec:
+  schedule: "*/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: e2e-dev-cronjob-invalid
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: app
+              image: nginx:latest
+              command: ["sh", "-c", "echo invalid"]

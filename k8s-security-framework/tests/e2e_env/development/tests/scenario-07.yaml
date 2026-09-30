@@ -1,0 +1,8 @@
+# Scenario 07: independent environment/profile
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-independent-profile
+  labels:
+    ksp.io/environment: dev
+    ksp.io/profile: restricted

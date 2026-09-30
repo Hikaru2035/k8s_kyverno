@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: e2e-stg-cronjob-invalid
+  namespace: ksp-staging
+spec:
+  schedule: "*/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: e2e-stg-cronjob-invalid
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: app
+              image: nginx:latest
+              command: ["sh", "-c", "echo invalid"]

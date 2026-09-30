@@ -1,0 +1,1780 @@
+apiVersion: v1
+items:
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/image-security/KSP-IMG-001/KSP-IMG-001-disallow-latest-tag.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Enforce","policies.kyverno.io/category":"KSP Image Security","policies.kyverno.io/description":"Requires an explicit non-latest tag or digest for every image.","policies.kyverno.io/severity":"medium","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Disallow Latest Tag"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-img-001"},"name":"disallow-latest-tag"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"variables.allContainers.all(container, container.image.matches('^.+@.+$') || (container.image.matches('^.+:[^/]+$') \u0026\u0026 !container.image.endsWith(':latest')))","message":"Use an explicit version tag or sha256 digest; latest and untagged images are prohibited."}],"variables":[{"expression":"object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])","name":"allContainers"}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: controlled
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/image-security/KSP-IMG-001/KSP-IMG-001-disallow-latest-tag.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Enforce
+      policies.kyverno.io/category: KSP Image Security
+      policies.kyverno.io/description: Requires an explicit non-latest tag or digest
+        for every image.
+      policies.kyverno.io/severity: medium
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Disallow Latest Tag
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-img-001
+    name: disallow-latest-tag
+    resourceVersion: "8462190"
+    uid: 8bced380-0e3b-4cb4-b6e0-0ee9818b0028
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - pods
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: variables.allContainers.all(container, container.image.matches('^.+@.+$')
+        || (container.image.matches('^.+:[^/]+$') && !container.image.endsWith(':latest')))
+      message: Use an explicit version tag or sha256 digest; latest and untagged images
+        are prohibited.
+    variables:
+    - expression: object.spec.containers + object.spec.?initContainers.orValue([])
+        + object.spec.?ephemeralContainers.orValue([])
+      name: allContainers
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen:
+      configs:
+        cronjobs:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - cronjobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.image.matches('^.+@.+$')
+                || (container.image.matches('^.+:[^/]+$') && !container.image.endsWith(':latest')))
+              message: Use an explicit version tag or sha256 digest; latest and untagged
+                images are prohibited.
+            variables:
+            - expression: object.spec.jobTemplate.spec.template.spec.containers +
+                object.spec.jobTemplate.spec.template.spec.?initContainers.orValue([])
+                + object.spec.jobTemplate.spec.template.spec.?ephemeralContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: batch
+            kind: CronJob
+            resource: cronjobs
+            version: v1
+        defaults:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - apps
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - jobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.image.matches('^.+@.+$')
+                || (container.image.matches('^.+:[^/]+$') && !container.image.endsWith(':latest')))
+              message: Use an explicit version tag or sha256 digest; latest and untagged
+                images are prohibited.
+            variables:
+            - expression: object.spec.template.spec.containers + object.spec.template.spec.?initContainers.orValue([])
+                + object.spec.template.spec.?ephemeralContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: apps
+            kind: DaemonSet
+            resource: daemonsets
+            version: v1
+          - group: apps
+            kind: Deployment
+            resource: deployments
+            version: v1
+          - group: apps
+            kind: ReplicaSet
+            resource: replicasets
+            version: v1
+          - group: apps
+            kind: StatefulSet
+            resource: statefulsets
+            version: v1
+          - group: batch
+            kind: Job
+            resource: jobs
+            version: v1
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:05Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-13T12:38:05Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/pod-security/KSP-POD-013/KSP-POD-013-disallow-run-as-user-zero.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Pod Security","policies.kyverno.io/description":"Rejects explicit UID zero at Pod or container level.","policies.kyverno.io/severity":"high","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Disallow Run As User 0"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-pod-013"},"name":"disallow-run-as-user-zero"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"variables.podRunAsUser \u003e 0 \u0026\u0026 variables.allContainers.all(\n  container,\n  container.?securityContext.?runAsUser.orValue(1) \u003e 0\n)\n","message":"runAsUser must be greater than zero when explicitly configured."}],"variables":[{"expression":"object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])","name":"allContainers"},{"expression":"object.spec.?securityContext.?runAsUser.orValue(1)","name":"podRunAsUser"}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: controlled
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/pod-security/KSP-POD-013/KSP-POD-013-disallow-run-as-user-zero.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Pod Security
+      policies.kyverno.io/description: Rejects explicit UID zero at Pod or container
+        level.
+      policies.kyverno.io/severity: high
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Disallow Run As User 0
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-pod-013
+    name: disallow-run-as-user-zero
+    resourceVersion: "8292378"
+    uid: c85272cd-0067-4b41-b170-89b596c5b6b2
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - pods
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: |
+        variables.podRunAsUser > 0 && variables.allContainers.all(
+          container,
+          container.?securityContext.?runAsUser.orValue(1) > 0
+        )
+      message: runAsUser must be greater than zero when explicitly configured.
+    variables:
+    - expression: object.spec.containers + object.spec.?initContainers.orValue([])
+        + object.spec.?ephemeralContainers.orValue([])
+      name: allContainers
+    - expression: object.spec.?securityContext.?runAsUser.orValue(1)
+      name: podRunAsUser
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen:
+      configs:
+        cronjobs:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - cronjobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: |
+                variables.podRunAsUser > 0 && variables.allContainers.all(
+                  container,
+                  container.?securityContext.?runAsUser.orValue(1) > 0
+                )
+              message: runAsUser must be greater than zero when explicitly configured.
+            variables:
+            - expression: object.spec.jobTemplate.spec.template.spec.containers +
+                object.spec.jobTemplate.spec.template.spec.?initContainers.orValue([])
+                + object.spec.jobTemplate.spec.template.spec.?ephemeralContainers.orValue([])
+              name: allContainers
+            - expression: object.spec.jobTemplate.spec.template.spec.?securityContext.?runAsUser.orValue(1)
+              name: podRunAsUser
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: batch
+            kind: CronJob
+            resource: cronjobs
+            version: v1
+        defaults:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - apps
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - jobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: |
+                variables.podRunAsUser > 0 && variables.allContainers.all(
+                  container,
+                  container.?securityContext.?runAsUser.orValue(1) > 0
+                )
+              message: runAsUser must be greater than zero when explicitly configured.
+            variables:
+            - expression: object.spec.template.spec.containers + object.spec.template.spec.?initContainers.orValue([])
+                + object.spec.template.spec.?ephemeralContainers.orValue([])
+              name: allContainers
+            - expression: object.spec.template.spec.?securityContext.?runAsUser.orValue(1)
+              name: podRunAsUser
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: apps
+            kind: DaemonSet
+            resource: daemonsets
+            version: v1
+          - group: apps
+            kind: Deployment
+            resource: deployments
+            version: v1
+          - group: apps
+            kind: ReplicaSet
+            resource: replicasets
+            version: v1
+          - group: apps
+            kind: StatefulSet
+            resource: statefulsets
+            version: v1
+          - group: batch
+            kind: Job
+            resource: jobs
+            version: v1
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-14T02:17:07Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"limited","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/metadata/KSP-META-001/KSP-META-001-require-app-label.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Metadata","policies.kyverno.io/description":"Requires the Kubernetes recommended application name label.","policies.kyverno.io/severity":"low","policies.kyverno.io/subject":"Workload","policies.kyverno.io/title":"Require App Label"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-meta-001"},"name":"require-app-label"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":["apps"],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["deployments","statefulsets","daemonsets"]},{"apiGroups":["batch"],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["jobs","cronjobs"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"object.metadata.?labels['app.kubernetes.io/name'].orValue('') != ''","message":"Add metadata.labels.app.kubernetes.io/name with a meaningful application name."}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: limited
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/metadata/KSP-META-001/KSP-META-001-require-app-label.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Metadata
+      policies.kyverno.io/description: Requires the Kubernetes recommended application
+        name label.
+      policies.kyverno.io/severity: low
+      policies.kyverno.io/subject: Workload
+      policies.kyverno.io/title: Require App Label
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-meta-001
+    name: require-app-label
+    resourceVersion: "8292401"
+    uid: d8c8c5c1-fe90-4a87-8961-31a2ad18c6c2
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - apps
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - deployments
+        - statefulsets
+        - daemonsets
+      - apiGroups:
+        - batch
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - jobs
+        - cronjobs
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: object.metadata.?labels['app.kubernetes.io/name'].orValue('') !=
+        ''
+      message: Add metadata.labels.app.kubernetes.io/name with a meaningful application
+        name.
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen: {}
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:05Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-14T02:17:07Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Audit/Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/resource-governance/KSP-RES-003/KSP-RES-003-require-cpu-limit.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Resource Governance","policies.kyverno.io/description":"Requires a CPU limit where the selected workload profile mandates it.","policies.kyverno.io/severity":"medium","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Require CPU Limit"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-res-003"},"name":"require-cpu-limit"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"variables.allContainers.all(container, container.?resources.?limits.?cpu.orValue('') != '')","message":"Set resources.limits.cpu on every regular and init container."}],"variables":[{"expression":"object.spec.containers + object.spec.?initContainers.orValue([])","name":"allContainers"}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: controlled
+      policies.ksp.io/prod-mode: Audit/Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/resource-governance/KSP-RES-003/KSP-RES-003-require-cpu-limit.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Resource Governance
+      policies.kyverno.io/description: Requires a CPU limit where the selected workload
+        profile mandates it.
+      policies.kyverno.io/severity: medium
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Require CPU Limit
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-res-003
+    name: require-cpu-limit
+    resourceVersion: "6557394"
+    uid: d10a46d6-1652-4afb-b9af-b7bed68d6a24
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - pods
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: variables.allContainers.all(container, container.?resources.?limits.?cpu.orValue('')
+        != '')
+      message: Set resources.limits.cpu on every regular and init container.
+    variables:
+    - expression: object.spec.containers + object.spec.?initContainers.orValue([])
+      name: allContainers
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen:
+      configs:
+        cronjobs:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - cronjobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.?resources.?limits.?cpu.orValue('')
+                != '')
+              message: Set resources.limits.cpu on every regular and init container.
+            variables:
+            - expression: object.spec.jobTemplate.spec.template.spec.containers +
+                object.spec.jobTemplate.spec.template.spec.?initContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: batch
+            kind: CronJob
+            resource: cronjobs
+            version: v1
+        defaults:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - apps
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - jobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.?resources.?limits.?cpu.orValue('')
+                != '')
+              message: Set resources.limits.cpu on every regular and init container.
+            variables:
+            - expression: object.spec.template.spec.containers + object.spec.template.spec.?initContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: apps
+            kind: DaemonSet
+            resource: daemonsets
+            version: v1
+          - group: apps
+            kind: Deployment
+            resource: deployments
+            version: v1
+          - group: apps
+            kind: ReplicaSet
+            resource: replicasets
+            version: v1
+          - group: apps
+            kind: StatefulSet
+            resource: statefulsets
+            version: v1
+          - group: batch
+            kind: Job
+            resource: jobs
+            version: v1
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/resource-governance/KSP-RES-001/KSP-RES-001-require-cpu-request.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Resource Governance","policies.kyverno.io/description":"Requires a CPU request on regular and init containers.","policies.kyverno.io/severity":"medium","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Require CPU Request"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-res-001"},"name":"require-cpu-request"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"variables.allContainers.all(container, container.?resources.?requests.?cpu.orValue('') != '')","message":"Set resources.requests.cpu on every regular and init container."}],"variables":[{"expression":"object.spec.containers + object.spec.?initContainers.orValue([])","name":"allContainers"}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: controlled
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/resource-governance/KSP-RES-001/KSP-RES-001-require-cpu-request.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Resource Governance
+      policies.kyverno.io/description: Requires a CPU request on regular and init
+        containers.
+      policies.kyverno.io/severity: medium
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Require CPU Request
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-res-001
+    name: require-cpu-request
+    resourceVersion: "6557382"
+    uid: f235b204-48cb-45eb-91d6-714482871f6b
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - pods
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: variables.allContainers.all(container, container.?resources.?requests.?cpu.orValue('')
+        != '')
+      message: Set resources.requests.cpu on every regular and init container.
+    variables:
+    - expression: object.spec.containers + object.spec.?initContainers.orValue([])
+      name: allContainers
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen:
+      configs:
+        cronjobs:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - cronjobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.?resources.?requests.?cpu.orValue('')
+                != '')
+              message: Set resources.requests.cpu on every regular and init container.
+            variables:
+            - expression: object.spec.jobTemplate.spec.template.spec.containers +
+                object.spec.jobTemplate.spec.template.spec.?initContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: batch
+            kind: CronJob
+            resource: cronjobs
+            version: v1
+        defaults:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - apps
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - jobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.?resources.?requests.?cpu.orValue('')
+                != '')
+              message: Set resources.requests.cpu on every regular and init container.
+            variables:
+            - expression: object.spec.template.spec.containers + object.spec.template.spec.?initContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: apps
+            kind: DaemonSet
+            resource: daemonsets
+            version: v1
+          - group: apps
+            kind: Deployment
+            resource: deployments
+            version: v1
+          - group: apps
+            kind: ReplicaSet
+            resource: replicasets
+            version: v1
+          - group: apps
+            kind: StatefulSet
+            resource: statefulsets
+            version: v1
+          - group: batch
+            kind: Job
+            resource: jobs
+            version: v1
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/image-security/KSP-IMG-003/KSP-IMG-003-require-image-digest.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Image Security","policies.kyverno.io/description":"Requires immutable sha256 image references.","policies.kyverno.io/severity":"high","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Require Image Digest"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-img-003"},"name":"require-image-digest"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"variables.allContainers.all(container, container.image.matches('^.+@sha256:[a-fA-F0-9]{64}$'))","message":"Reference every image as image@sha256:\u003c64-hex-digest\u003e."}],"variables":[{"expression":"object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])","name":"allContainers"}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: controlled
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/image-security/KSP-IMG-003/KSP-IMG-003-require-image-digest.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Image Security
+      policies.kyverno.io/description: Requires immutable sha256 image references.
+      policies.kyverno.io/severity: high
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Require Image Digest
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-img-003
+    name: require-image-digest
+    resourceVersion: "6557332"
+    uid: 34b1ea43-d1fe-45df-8902-ddef12ecd6a2
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - pods
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: variables.allContainers.all(container, container.image.matches('^.+@sha256:[a-fA-F0-9]{64}$'))
+      message: Reference every image as image@sha256:<64-hex-digest>.
+    variables:
+    - expression: object.spec.containers + object.spec.?initContainers.orValue([])
+        + object.spec.?ephemeralContainers.orValue([])
+      name: allContainers
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen:
+      configs:
+        cronjobs:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - cronjobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.image.matches('^.+@sha256:[a-fA-F0-9]{64}$'))
+              message: Reference every image as image@sha256:<64-hex-digest>.
+            variables:
+            - expression: object.spec.jobTemplate.spec.template.spec.containers +
+                object.spec.jobTemplate.spec.template.spec.?initContainers.orValue([])
+                + object.spec.jobTemplate.spec.template.spec.?ephemeralContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: batch
+            kind: CronJob
+            resource: cronjobs
+            version: v1
+        defaults:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - apps
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - jobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.image.matches('^.+@sha256:[a-fA-F0-9]{64}$'))
+              message: Reference every image as image@sha256:<64-hex-digest>.
+            variables:
+            - expression: object.spec.template.spec.containers + object.spec.template.spec.?initContainers.orValue([])
+                + object.spec.template.spec.?ephemeralContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: apps
+            kind: DaemonSet
+            resource: daemonsets
+            version: v1
+          - group: apps
+            kind: Deployment
+            resource: deployments
+            version: v1
+          - group: apps
+            kind: ReplicaSet
+            resource: replicasets
+            version: v1
+          - group: apps
+            kind: StatefulSet
+            resource: statefulsets
+            version: v1
+          - group: batch
+            kind: Job
+            resource: jobs
+            version: v1
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:05Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-13T12:38:05Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/resource-governance/KSP-RES-004/KSP-RES-004-require-memory-limit.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Resource Governance","policies.kyverno.io/description":"Requires a memory limit on regular and init containers.","policies.kyverno.io/severity":"high","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Require Memory Limit"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-res-004"},"name":"require-memory-limit"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"variables.allContainers.all(container, container.?resources.?limits.?memory.orValue('') != '')","message":"Set resources.limits.memory on every regular and init container."}],"variables":[{"expression":"object.spec.containers + object.spec.?initContainers.orValue([])","name":"allContainers"}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: controlled
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/resource-governance/KSP-RES-004/KSP-RES-004-require-memory-limit.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Resource Governance
+      policies.kyverno.io/description: Requires a memory limit on regular and init
+        containers.
+      policies.kyverno.io/severity: high
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Require Memory Limit
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-res-004
+    name: require-memory-limit
+    resourceVersion: "6557401"
+    uid: ba537fe9-13f5-44e5-abd6-65b764eba797
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - pods
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: variables.allContainers.all(container, container.?resources.?limits.?memory.orValue('')
+        != '')
+      message: Set resources.limits.memory on every regular and init container.
+    variables:
+    - expression: object.spec.containers + object.spec.?initContainers.orValue([])
+      name: allContainers
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen:
+      configs:
+        cronjobs:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - cronjobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.?resources.?limits.?memory.orValue('')
+                != '')
+              message: Set resources.limits.memory on every regular and init container.
+            variables:
+            - expression: object.spec.jobTemplate.spec.template.spec.containers +
+                object.spec.jobTemplate.spec.template.spec.?initContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: batch
+            kind: CronJob
+            resource: cronjobs
+            version: v1
+        defaults:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - apps
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - jobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.?resources.?limits.?memory.orValue('')
+                != '')
+              message: Set resources.limits.memory on every regular and init container.
+            variables:
+            - expression: object.spec.template.spec.containers + object.spec.template.spec.?initContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: apps
+            kind: DaemonSet
+            resource: daemonsets
+            version: v1
+          - group: apps
+            kind: Deployment
+            resource: deployments
+            version: v1
+          - group: apps
+            kind: ReplicaSet
+            resource: replicasets
+            version: v1
+          - group: apps
+            kind: StatefulSet
+            resource: statefulsets
+            version: v1
+          - group: batch
+            kind: Job
+            resource: jobs
+            version: v1
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-13T12:38:07Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/resource-governance/KSP-RES-002/KSP-RES-002-require-memory-request.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Resource Governance","policies.kyverno.io/description":"Requires a memory request on regular and init containers.","policies.kyverno.io/severity":"medium","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Require Memory Request"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-res-002"},"name":"require-memory-request"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"variables.allContainers.all(container, container.?resources.?requests.?memory.orValue('') != '')","message":"Set resources.requests.memory on every regular and init container."}],"variables":[{"expression":"object.spec.containers + object.spec.?initContainers.orValue([])","name":"allContainers"}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: controlled
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/resource-governance/KSP-RES-002/KSP-RES-002-require-memory-request.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Resource Governance
+      policies.kyverno.io/description: Requires a memory request on regular and init
+        containers.
+      policies.kyverno.io/severity: medium
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Require Memory Request
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-res-002
+    name: require-memory-request
+    resourceVersion: "6557390"
+    uid: 485515ab-7390-4de3-b670-58fbd9ef7805
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - pods
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: variables.allContainers.all(container, container.?resources.?requests.?memory.orValue('')
+        != '')
+      message: Set resources.requests.memory on every regular and init container.
+    variables:
+    - expression: object.spec.containers + object.spec.?initContainers.orValue([])
+      name: allContainers
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen:
+      configs:
+        cronjobs:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - cronjobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.?resources.?requests.?memory.orValue('')
+                != '')
+              message: Set resources.requests.memory on every regular and init container.
+            variables:
+            - expression: object.spec.jobTemplate.spec.template.spec.containers +
+                object.spec.jobTemplate.spec.template.spec.?initContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: batch
+            kind: CronJob
+            resource: cronjobs
+            version: v1
+        defaults:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - apps
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - jobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: variables.allContainers.all(container, container.?resources.?requests.?memory.orValue('')
+                != '')
+              message: Set resources.requests.memory on every regular and init container.
+            variables:
+            - expression: object.spec.template.spec.containers + object.spec.template.spec.?initContainers.orValue([])
+              name: allContainers
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: apps
+            kind: DaemonSet
+            resource: daemonsets
+            version: v1
+          - group: apps
+            kind: Deployment
+            resource: deployments
+            version: v1
+          - group: apps
+            kind: ReplicaSet
+            resource: replicasets
+            version: v1
+          - group: apps
+            kind: StatefulSet
+            resource: statefulsets
+            version: v1
+          - group: batch
+            kind: Job
+            resource: jobs
+            version: v1
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"none","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/metadata/KSP-META-003/KSP-META-003-require-environment-label.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Metadata","policies.kyverno.io/description":"Validates independent environment and security-profile labels on application Namespaces.","policies.kyverno.io/severity":"high","policies.kyverno.io/subject":"Namespace","policies.kyverno.io/title":"Require Namespace Environment and Profile"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-meta-003"},"name":"require-namespace-environment-profile"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConstraints":{"excludeResourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resourceNames":["default","kube-system","kube-public","kube-node-lease","kyverno","calico-system","tigera-operator"],"resources":["namespaces"]}],"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["namespaces"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"object.metadata.?labels['ksp.io/environment'].orValue('') == 'dev'","message":"Set ksp.io/environment to dev for this development cluster."},{"expression":"object.metadata.?labels['ksp.io/profile'].orValue('') in ['baseline', 'standard', 'restricted']","message":"Set ksp.io/profile to baseline, standard, or restricted."}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: none
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/metadata/KSP-META-003/KSP-META-003-require-environment-label.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Metadata
+      policies.kyverno.io/description: Validates independent environment and security-profile
+        labels on application Namespaces.
+      policies.kyverno.io/severity: high
+      policies.kyverno.io/subject: Namespace
+      policies.kyverno.io/title: Require Namespace Environment and Profile
+    creationTimestamp: "2026-09-13T12:36:08Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-meta-003
+    name: require-namespace-environment-profile
+    resourceVersion: "8462199"
+    uid: dc3a1355-328c-42e6-895c-fa02f1de4822
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConstraints:
+      excludeResourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resourceNames:
+        - default
+        - kube-system
+        - kube-public
+        - kube-node-lease
+        - kyverno
+        - calico-system
+        - tigera-operator
+        resources:
+        - namespaces
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - namespaces
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: object.metadata.?labels['ksp.io/environment'].orValue('') == 'dev'
+      message: Set ksp.io/environment to dev for this development cluster.
+    - expression: object.metadata.?labels['ksp.io/profile'].orValue('') in ['baseline',
+        'standard', 'restricted']
+      message: Set ksp.io/profile to baseline, standard, or restricted.
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen: {}
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:36:08Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-13T12:36:08Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"limited","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/metadata/KSP-META-002/KSP-META-002-require-owner-label.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Metadata","policies.kyverno.io/description":"Requires an accountable owner or team label.","policies.kyverno.io/severity":"medium","policies.kyverno.io/subject":"Workload","policies.kyverno.io/title":"Require Owner Label"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-meta-002"},"name":"require-owner-label"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":["apps"],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["deployments","statefulsets","daemonsets"]},{"apiGroups":["batch"],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["jobs","cronjobs"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"object.metadata.?labels['policies.ksp.io/owner'].orValue('') != ''","message":"Add metadata.labels.policies.ksp.io/owner with the accountable team slug."}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: limited
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/metadata/KSP-META-002/KSP-META-002-require-owner-label.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Metadata
+      policies.kyverno.io/description: Requires an accountable owner or team label.
+      policies.kyverno.io/severity: medium
+      policies.kyverno.io/subject: Workload
+      policies.kyverno.io/title: Require Owner Label
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-meta-002
+    name: require-owner-label
+    resourceVersion: "8292409"
+    uid: f4f2ef7c-84ae-401a-86a7-6ad064062d4b
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - apps
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - deployments
+        - statefulsets
+        - daemonsets
+      - apiGroups:
+        - batch
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - jobs
+        - cronjobs
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: object.metadata.?labels['policies.ksp.io/owner'].orValue('') !=
+        ''
+      message: Add metadata.labels.policies.ksp.io/owner with the accountable team
+        slug.
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen: {}
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-14T02:17:07Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+- apiVersion: policies.kyverno.io/v1
+  kind: ValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/pod-security/KSP-POD-010/KSP-POD-010-require-seccomp.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Pod Security","policies.kyverno.io/description":"Requires RuntimeDefault or Localhost seccomp at Pod or container level.","policies.kyverno.io/severity":"high","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Require Seccomp"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-pod-010"},"name":"require-seccomp"},"spec":{"evaluation":{"background":{"enabled":true}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"validationActions":["Audit","Warn"],"validations":[{"expression":"variables.allContainers.all(\n  container,\n  container.?securityContext.?seccompProfile.?type.orValue(\n    variables.podSeccompType\n  )\n    in variables.allowedSeccompTypes\n)\n","message":"Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant."}],"variables":[{"expression":"object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])","name":"allContainers"},{"expression":"[\"RuntimeDefault\", \"Localhost\"]","name":"allowedSeccompTypes"},{"expression":"object.spec.?securityContext.?seccompProfile.?type.orValue('')","name":"podSeccompType"}],"webhookConfiguration":{"timeoutSeconds":10}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: controlled
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/pod-security/KSP-POD-010/KSP-POD-010-require-seccomp.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Pod Security
+      policies.kyverno.io/description: Requires RuntimeDefault or Localhost seccomp
+        at Pod or container level.
+      policies.kyverno.io/severity: high
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Require Seccomp
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-pod-010
+    name: require-seccomp
+    resourceVersion: "6557360"
+    uid: b8915adf-a3d6-433b-b76f-4687bfc8ec45
+  spec:
+    evaluation:
+      background:
+        enabled: true
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - pods
+    validationActions:
+    - Audit
+    - Warn
+    validations:
+    - expression: |
+        variables.allContainers.all(
+          container,
+          container.?securityContext.?seccompProfile.?type.orValue(
+            variables.podSeccompType
+          )
+            in variables.allowedSeccompTypes
+        )
+      message: Use seccompProfile.type RuntimeDefault or Localhost; a container override
+        must be independently compliant.
+    variables:
+    - expression: object.spec.containers + object.spec.?initContainers.orValue([])
+        + object.spec.?ephemeralContainers.orValue([])
+      name: allContainers
+    - expression: '["RuntimeDefault", "Localhost"]'
+      name: allowedSeccompTypes
+    - expression: object.spec.?securityContext.?seccompProfile.?type.orValue('')
+      name: podSeccompType
+    webhookConfiguration:
+      timeoutSeconds: 10
+  status:
+    autogen:
+      configs:
+        cronjobs:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - cronjobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: |
+                variables.allContainers.all(
+                  container,
+                  container.?securityContext.?seccompProfile.?type.orValue(
+                    variables.podSeccompType
+                  )
+                    in variables.allowedSeccompTypes
+                )
+              message: Use seccompProfile.type RuntimeDefault or Localhost; a container
+                override must be independently compliant.
+            variables:
+            - expression: object.spec.jobTemplate.spec.template.spec.containers +
+                object.spec.jobTemplate.spec.template.spec.?initContainers.orValue([])
+                + object.spec.jobTemplate.spec.template.spec.?ephemeralContainers.orValue([])
+              name: allContainers
+            - expression: '["RuntimeDefault", "Localhost"]'
+              name: allowedSeccompTypes
+            - expression: object.spec.jobTemplate.spec.template.spec.?securityContext.?seccompProfile.?type.orValue('')
+              name: podSeccompType
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: batch
+            kind: CronJob
+            resource: cronjobs
+            version: v1
+        defaults:
+          spec:
+            evaluation:
+              background:
+                enabled: true
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - apps
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - jobs
+            validationActions:
+            - Audit
+            - Warn
+            validations:
+            - expression: |
+                variables.allContainers.all(
+                  container,
+                  container.?securityContext.?seccompProfile.?type.orValue(
+                    variables.podSeccompType
+                  )
+                    in variables.allowedSeccompTypes
+                )
+              message: Use seccompProfile.type RuntimeDefault or Localhost; a container
+                override must be independently compliant.
+            variables:
+            - expression: object.spec.template.spec.containers + object.spec.template.spec.?initContainers.orValue([])
+                + object.spec.template.spec.?ephemeralContainers.orValue([])
+              name: allContainers
+            - expression: '["RuntimeDefault", "Localhost"]'
+              name: allowedSeccompTypes
+            - expression: object.spec.template.spec.?securityContext.?seccompProfile.?type.orValue('')
+              name: podSeccompType
+            webhookConfiguration:
+              timeoutSeconds: 10
+          targets:
+          - group: apps
+            kind: DaemonSet
+            resource: daemonsets
+            version: v1
+          - group: apps
+            kind: Deployment
+            resource: deployments
+            version: v1
+          - group: apps
+            kind: ReplicaSet
+            resource: replicasets
+            version: v1
+          - group: apps
+            kind: StatefulSet
+            resource: statefulsets
+            version: v1
+          - group: batch
+            kind: Job
+            resource: jobs
+            version: v1
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: 'skip generating ValidatingAdmissionPolicy: not enabled.'
+      ready: true
+    generated: false
+kind: List
+metadata:
+  resourceVersion: ""

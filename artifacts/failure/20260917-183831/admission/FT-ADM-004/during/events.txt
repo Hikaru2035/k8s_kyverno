@@ -1,0 +1,10 @@
+LAST SEEN   TYPE      REASON              OBJECT                                               MESSAGE
+118s        Normal    Scheduled           pod/ft-adm-004-crash                                 Successfully assigned kyverno/ft-adm-004-crash to worker-node-2
+2m18s       Normal    Killing             pod/kyverno-admission-controller-65d97f9d85-78nfc    Stopping container kyverno
+2m18s       Warning   Unhealthy           pod/kyverno-admission-controller-65d97f9d85-78nfc    Readiness probe failed: Get "https://10.244.19.190:9443/health/readiness": dial tcp 10.244.19.190:9443: connect: invalid argument
+2m18s       Normal    SuccessfulDelete    replicaset/kyverno-admission-controller-65d97f9d85   Deleted pod: kyverno-admission-controller-65d97f9d85-78nfc
+2m18s       Normal    ScalingReplicaSet   deployment/kyverno-admission-controller              Scaled down replica set kyverno-admission-controller-65d97f9d85 from 4 to 3
+32s         Normal    Pulled              pod/ft-adm-004-crash                                 Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+32s         Normal    Created             pod/ft-adm-004-crash                                 Container created
+32s         Warning   Failed              pod/ft-adm-004-crash                                 Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: exec: "/bin/sh": stat /bin/sh: no such file or directory
+31s         Warning   BackOff             pod/ft-adm-004-crash                                 Back-off restarting failed container simulated-admission-controller in pod ft-adm-004-crash_kyverno(ff6c7a2b-e26d-479b-87bb-da7d177d041b)

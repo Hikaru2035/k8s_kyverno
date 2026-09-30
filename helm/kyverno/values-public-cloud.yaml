@@ -1,0 +1,20 @@
+admissionController:
+  replicas: 4
+
+  nodeSelector:
+    ksp.io/kyverno-node: "true"
+
+  serviceMonitor:
+    enabled: false
+
+backgroundController:
+  serviceMonitor:
+    enabled: false
+
+cleanupController:
+  serviceMonitor:
+    enabled: false
+
+reportsController:
+  serviceMonitor:
+    enabled: false

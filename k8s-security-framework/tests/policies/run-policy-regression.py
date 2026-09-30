@@ -12,7 +12,8 @@ import subprocess
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_OUTPUT_DIR = ROOT / "artifacts" / "policy-tests"
+REPO_ROOT = ROOT.parent
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "artifacts" / "cli-unit" / "policy-tests"
 
 
 def run(command):
@@ -97,7 +98,7 @@ def main():
     args.output_dir.mkdir(parents=True, exist_ok=True)
     output = args.output_dir / f"kyverno-policy-regression-{started.date().isoformat()}.json"
     output.write_text(json.dumps(report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
-    print(output.relative_to(ROOT))
+    print(os.path.relpath(output, REPO_ROOT))
     return test_code
 
 

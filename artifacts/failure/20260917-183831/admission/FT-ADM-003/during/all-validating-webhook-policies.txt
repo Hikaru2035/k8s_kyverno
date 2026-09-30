@@ -1,0 +1,4 @@
+NAME                                     FAILURE-POLICY
+kyverno-cleanup-validating-webhook-cfg   Fail
+kyverno-ttl-validating-webhook-cfg       Ignore
+monitoring-kube-prometheus-admission     Ignore,Ignore

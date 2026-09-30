@@ -1,0 +1,121 @@
+Loading test  ( policies/image-security/KSP-IMG-004/tests/kyverno-test.yaml ) ...
+  Loading values/variables ...
+  Loading policies ...
+  Loading resources ...
+  Loading exceptions ...
+  Applying 1 policy to 13 resources with 1 exception ...
+  Checking results ...
+
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="0">
+ <testsuite name="verify-signed-images" tests="13" failures="0">
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-boundary-out-of-scope">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-boundary-out-of-scope
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-positive-out-of-scope-images">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-positive-out-of-scope-images
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-positive-out-of-scope">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-positive-out-of-scope
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-boundary-out-of-scope-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-boundary-out-of-scope-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-004-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-004-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-004-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-004-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-ephemeral-unsigned">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-negative-ephemeral-unsigned
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-init-unsigned">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-negative-init-unsigned
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-two-unsigned">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-negative-two-unsigned
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-unsigned">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-negative-unsigned
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-ephemeral-unsigned-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-negative-ephemeral-unsigned-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-positive-trusted-signed">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-positive-trusted-signed
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-negative-wrong-key-signed">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-negative-wrong-key-signed
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>
+
+
+Test Summary: 13 tests passed and 0 tests failed
+

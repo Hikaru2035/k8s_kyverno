@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - baseline/KSP-IMG-001-disallow-latest-tag.yaml
+  - baseline/KSP-IMG-003-require-image-digest.yaml
+  - baseline/KSP-IMG-004-verify-signed-images.yaml
+  - baseline/KSP-META-001-require-app-label.yaml
+  - baseline/KSP-META-002-require-owner-label.yaml
+  - baseline/KSP-POD-010-require-seccomp.yaml
+  - baseline/KSP-POD-013-disallow-run-as-user-zero.yaml
+  - baseline/KSP-RES-001-require-cpu-request.yaml
+  - baseline/KSP-RES-002-require-memory-request.yaml
+  - baseline/KSP-RES-003-require-cpu-limit.yaml
+  - baseline/KSP-RES-004-require-memory-limit.yaml
+  - baseline/KSP-RES-005-generate-resource-quota.yaml
+  - common/KSP-META-003-require-environment-label.yaml

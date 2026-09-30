@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: e2e-stg-job-invalid
+  namespace: ksp-staging
+spec:
+  template:
+    metadata:
+      labels:
+        app: e2e-stg-job-invalid
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: app
+          image: nginx:latest
+          command: ["sh", "-c", "echo invalid"]

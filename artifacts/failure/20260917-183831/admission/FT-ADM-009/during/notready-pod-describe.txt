@@ -1,0 +1,59 @@
+Name:             ft-adm-009-notready
+Namespace:        kyverno
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Fri, 18 Sep 2026 14:43:03 +0700
+Labels:           app.kubernetes.io/component=admission-controller
+                  app.kubernetes.io/instance=kyverno
+                  app.kubernetes.io/part-of=kyverno
+                  failure-test=ft-adm-009
+Annotations:      cni.projectcalico.org/containerID: 4eda1bb6d26e54b2f9bc8f1635c80ffa7503a48e43eb0f868d8d507191cb8637
+                  cni.projectcalico.org/podIP: 10.244.19.153/32
+                  cni.projectcalico.org/podIPs: 10.244.19.153/32
+Status:           Running
+IP:               10.244.19.153
+IPs:
+  IP:  10.244.19.153
+Containers:
+  simulated-admission:
+    Container ID:   containerd://6d750549c9154f34a911059468567f00a1f1bb17765f0b896cb8d4da5d73db1b
+    Image:          registry.k8s.io/pause:3.10
+    Image ID:       registry.k8s.io/pause@sha256:ee6521f290b2168b6e0935a181d4cff9be1ac3f505666ef0e3c98fae8199917a
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Fri, 18 Sep 2026 14:43:06 +0700
+    Ready:          False
+    Restart Count:  0
+    Readiness:      tcp-socket :9443 delay=1s timeout=1s period=2s #success=1 #failure=1
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-gjvhd (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-gjvhd:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  48s                default-scheduler  Successfully assigned kyverno/ft-adm-009-notready to worker-node-2
+  Normal   Pulling    48s                kubelet            spec.containers{simulated-admission}: Pulling image "registry.k8s.io/pause:3.10"
+  Normal   Pulled     46s                kubelet            spec.containers{simulated-admission}: Successfully pulled image "registry.k8s.io/pause:3.10" in 1.964s (1.964s including waiting). Image size: 320368 bytes.
+  Normal   Created    46s                kubelet            spec.containers{simulated-admission}: Container created
+  Normal   Started    46s                kubelet            spec.containers{simulated-admission}: Container started
+  Warning  Unhealthy  1s (x24 over 45s)  kubelet            spec.containers{simulated-admission}: Readiness probe failed: dial tcp 10.244.19.153:9443: connect: connection refused

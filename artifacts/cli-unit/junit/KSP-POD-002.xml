@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="0">
+ <testsuite name="disallow-privileged" tests="13" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-boundary-omitted">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-boundary-omitted
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-positive-all-types">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-positive-all-types
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-positive-one-container">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-positive-one-container
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-positive-two-compliant">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-positive-two-compliant
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-negative-one-container-privileged-true">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-negative-one-container-privileged-true
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-negative-ephemeral-container-noncompliant">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-negative-ephemeral-container-noncompliant
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-negative-init-container-noncompliant">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-negative-init-container-noncompliant
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-negative-first-container-privileged-true">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-negative-first-container-privileged-true
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-negative-last-container-privileged-true">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-negative-last-container-privileged-true
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-002-boundary-ephemeral-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-002-boundary-ephemeral-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-002-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-002-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-002-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-002-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-002-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privileged
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-002-exception-tertiary
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

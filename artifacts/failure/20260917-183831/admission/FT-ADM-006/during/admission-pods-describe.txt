@@ -1,0 +1,628 @@
+Name:             kyverno-admission-controller-54d58cc467-8mbql
+Namespace:        kyverno
+Priority:         0
+Service Account:  kyverno-admission-controller
+Node:             <none>
+Labels:           app.kubernetes.io/component=admission-controller
+                  app.kubernetes.io/instance=kyverno
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=kyverno-admission-controller
+                  app.kubernetes.io/part-of=kyverno
+                  app.kubernetes.io/version=3.8.2
+                  helm.sh/chart=kyverno-3.8.2
+                  pod-template-hash=54d58cc467
+Annotations:      kubectl.kubernetes.io/restartedAt: 2026-09-18T10:45:43+07:00
+Status:           Pending
+IP:               
+IPs:              <none>
+Controlled By:    ReplicaSet/kyverno-admission-controller-54d58cc467
+Init Containers:
+  kyverno-pre:
+    Image:           reg.kyverno.io/kyverno/kyvernopre:v1.18.2
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --loggingFormat=text
+      --v=2
+      --openreportsEnabled=false
+    Limits:
+      cpu:     100m
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  64Mi
+    Environment:
+      KYVERNO_SERVICEACCOUNT_NAME:  kyverno-admission-controller
+      KYVERNO_ROLE_NAME:            kyverno:admission-controller
+      INIT_CONFIG:                  kyverno
+      METRICS_CONFIG:               kyverno-metrics
+      KYVERNO_NAMESPACE:            kyverno (v1:metadata.namespace)
+      KYVERNO_POD_NAME:             kyverno-admission-controller-54d58cc467-8mbql (v1:metadata.name)
+      KYVERNO_DEPLOYMENT:           kyverno-admission-controller
+      KYVERNO_SVC:                  kyverno-svc
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8w6kp (ro)
+Containers:
+  kyverno:
+    Image:           reg.kyverno.io/kyverno/kyverno:v1.18.2
+    Ports:           9443/TCP (https), 8000/TCP (metrics-port)
+    Host Ports:      0/TCP (https), 0/TCP (metrics-port)
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --caSecretName=kyverno-svc.kyverno.svc.kyverno-tls-ca
+      --tlsSecretName=kyverno-svc.kyverno.svc.kyverno-tls-pair
+      --tlsKeyAlgorithm=RSA
+      --backgroundServiceAccountName=system:serviceaccount:kyverno:kyverno-background-controller
+      --reportsServiceAccountName=system:serviceaccount:kyverno:kyverno-reports-controller
+      --servicePort=443
+      --webhookServerPort=9443
+      --resyncPeriod=15m
+      --crdWatcher=false
+      --disableMetrics=false
+      --otelConfig=prometheus
+      --metricsPort=8000
+      --admissionReports=true
+      --maxAdmissionReports=1000
+      --autoUpdateWebhooks=true
+      --enableConfigMapCaching=true
+      --controllerRuntimeMetricsAddress=:8080
+      --enableDeferredLoading=true
+      --dumpPayload=false
+      --forceFailurePolicyIgnore=false
+      --generateValidatingAdmissionPolicy=true
+      --generateMutatingAdmissionPolicy=false
+      --dumpPatches=false
+      --maxAPICallResponseLength=2000000
+      --apiCallTimeout=30s
+      --loggingFormat=text
+      --v=2
+      --omitEvents=PolicyApplied,PolicySkipped
+      --enablePolicyException=false
+      --protectManagedResources=false
+      --allowInsecureRegistry=false
+      --registryCredentialHelpers=default,google,amazon,azure,github
+      --enableReporting=validate,mutate,mutateExisting,imageVerify,generate
+    Limits:
+      cpu:     2
+      memory:  1Gi
+    Requests:
+      cpu:      500m
+      memory:   512Mi
+    Liveness:   http-get https://:9443/health/liveness delay=15s timeout=5s period=30s #success=1 #failure=2
+    Readiness:  http-get https://:9443/health/readiness delay=5s timeout=5s period=10s #success=1 #failure=6
+    Startup:    http-get https://:9443/health/liveness delay=2s timeout=1s period=6s #success=1 #failure=20
+    Environment:
+      INIT_CONFIG:                  kyverno
+      METRICS_CONFIG:               kyverno-metrics
+      KYVERNO_NAMESPACE:            kyverno (v1:metadata.namespace)
+      KYVERNO_POD_NAME:             kyverno-admission-controller-54d58cc467-8mbql (v1:metadata.name)
+      KYVERNO_SERVICEACCOUNT_NAME:  kyverno-admission-controller
+      KYVERNO_ROLE_NAME:            kyverno:admission-controller
+      KYVERNO_SVC:                  kyverno-svc
+      TUF_ROOT:                     /.sigstore
+      KYVERNO_DEPLOYMENT:           kyverno-admission-controller
+    Mounts:
+      /.sigstore from sigstore (rw)
+      /etc/ssl/certs/ca-certificates.crt from harbor-ca-bundle (ro,path="ca-certificates.crt")
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8w6kp (ro)
+      /var/run/secrets/kyverno/apicall from apicall-token (ro)
+Conditions:
+  Type           Status
+  PodScheduled   False 
+Volumes:
+  sigstore:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  apicall-token:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3600
+  harbor-ca-bundle:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kyverno-custom-ca-bundle
+    Optional:  false
+  kube-api-access-8w6kp:
+    Type:                     Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:   3607
+    ConfigMapName:            kube-root-ca.crt
+    Optional:                 false
+    DownwardAPI:              true
+QoS Class:                    Burstable
+Node-Selectors:               ksp.io/kyverno-node=true
+                              kubernetes.io/os=linux
+Tolerations:                  node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Topology Spread Constraints:  kubernetes.io/hostname:DoNotSchedule when max skew 1 is exceeded for selector app.kubernetes.io/component=admission-controller
+Events:
+  Type     Reason            Age                From               Message
+  ----     ------            ----               ----               -------
+  Warning  FailedScheduling  48s                default-scheduler  0/3 nodes are available: 1 node(s) didn't match pod topology spread constraints, 1 node(s) had untolerated taint(s), 1 node(s) were unschedulable. no new claims to deallocate, preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+  Warning  FailedScheduling  45s (x2 over 47s)  default-scheduler  0/3 nodes are available: 1 node(s) didn't match pod topology spread constraints, 1 node(s) had untolerated taint(s), 1 node(s) were unschedulable. no new claims to deallocate, preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+
+
+Name:             kyverno-admission-controller-54d58cc467-r8lnt
+Namespace:        kyverno
+Priority:         0
+Service Account:  kyverno-admission-controller
+Node:             worker-node-1/171.244.199.186
+Start Time:       Fri, 18 Sep 2026 10:46:37 +0700
+Labels:           app.kubernetes.io/component=admission-controller
+                  app.kubernetes.io/instance=kyverno
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=kyverno-admission-controller
+                  app.kubernetes.io/part-of=kyverno
+                  app.kubernetes.io/version=3.8.2
+                  helm.sh/chart=kyverno-3.8.2
+                  pod-template-hash=54d58cc467
+Annotations:      cni.projectcalico.org/containerID: 1daaa57eb709867b5e999f2ded737df87bbddebe70a609da3af582e4f243fb7a
+                  cni.projectcalico.org/podIP: 10.244.212.127/32
+                  cni.projectcalico.org/podIPs: 10.244.212.127/32
+                  kubectl.kubernetes.io/restartedAt: 2026-09-18T10:45:43+07:00
+Status:           Running
+IP:               10.244.212.127
+IPs:
+  IP:           10.244.212.127
+Controlled By:  ReplicaSet/kyverno-admission-controller-54d58cc467
+Init Containers:
+  kyverno-pre:
+    Container ID:    containerd://076c925b9bc3dfb4f5397097b56603fb7a1148ff1a6e28031fec7547ac375e34
+    Image:           reg.kyverno.io/kyverno/kyvernopre:v1.18.2
+    Image ID:        reg.kyverno.io/kyverno/kyvernopre@sha256:cd8cb4a31d25b3992734fb8f24a90ef691c90ce49338c89bea96792160eacb98
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --loggingFormat=text
+      --v=2
+      --openreportsEnabled=false
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Fri, 18 Sep 2026 10:46:38 +0700
+      Finished:     Fri, 18 Sep 2026 10:46:52 +0700
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  64Mi
+    Environment:
+      KYVERNO_SERVICEACCOUNT_NAME:  kyverno-admission-controller
+      KYVERNO_ROLE_NAME:            kyverno:admission-controller
+      INIT_CONFIG:                  kyverno
+      METRICS_CONFIG:               kyverno-metrics
+      KYVERNO_NAMESPACE:            kyverno (v1:metadata.namespace)
+      KYVERNO_POD_NAME:             kyverno-admission-controller-54d58cc467-r8lnt (v1:metadata.name)
+      KYVERNO_DEPLOYMENT:           kyverno-admission-controller
+      KYVERNO_SVC:                  kyverno-svc
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-g5mqh (ro)
+Containers:
+  kyverno:
+    Container ID:    containerd://ecd8672ffcc945c06f6cc2b5bde1946051cb0585810a5c9b4f20e803fb986bcc
+    Image:           reg.kyverno.io/kyverno/kyverno:v1.18.2
+    Image ID:        reg.kyverno.io/kyverno/kyverno@sha256:0a540e2ddf74d0d2d3d45f9ef248d7dbc96576accdbcc6a2dd7eaff9fea56504
+    Ports:           9443/TCP (https), 8000/TCP (metrics-port)
+    Host Ports:      0/TCP (https), 0/TCP (metrics-port)
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --caSecretName=kyverno-svc.kyverno.svc.kyverno-tls-ca
+      --tlsSecretName=kyverno-svc.kyverno.svc.kyverno-tls-pair
+      --tlsKeyAlgorithm=RSA
+      --backgroundServiceAccountName=system:serviceaccount:kyverno:kyverno-background-controller
+      --reportsServiceAccountName=system:serviceaccount:kyverno:kyverno-reports-controller
+      --servicePort=443
+      --webhookServerPort=9443
+      --resyncPeriod=15m
+      --crdWatcher=false
+      --disableMetrics=false
+      --otelConfig=prometheus
+      --metricsPort=8000
+      --admissionReports=true
+      --maxAdmissionReports=1000
+      --autoUpdateWebhooks=true
+      --enableConfigMapCaching=true
+      --controllerRuntimeMetricsAddress=:8080
+      --enableDeferredLoading=true
+      --dumpPayload=false
+      --forceFailurePolicyIgnore=false
+      --generateValidatingAdmissionPolicy=true
+      --generateMutatingAdmissionPolicy=false
+      --dumpPatches=false
+      --maxAPICallResponseLength=2000000
+      --apiCallTimeout=30s
+      --loggingFormat=text
+      --v=2
+      --omitEvents=PolicyApplied,PolicySkipped
+      --enablePolicyException=false
+      --protectManagedResources=false
+      --allowInsecureRegistry=false
+      --registryCredentialHelpers=default,google,amazon,azure,github
+      --enableReporting=validate,mutate,mutateExisting,imageVerify,generate
+    State:          Running
+      Started:      Fri, 18 Sep 2026 10:46:53 +0700
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     2
+      memory:  1Gi
+    Requests:
+      cpu:      500m
+      memory:   512Mi
+    Liveness:   http-get https://:9443/health/liveness delay=15s timeout=5s period=30s #success=1 #failure=2
+    Readiness:  http-get https://:9443/health/readiness delay=5s timeout=5s period=10s #success=1 #failure=6
+    Startup:    http-get https://:9443/health/liveness delay=2s timeout=1s period=6s #success=1 #failure=20
+    Environment:
+      INIT_CONFIG:                  kyverno
+      METRICS_CONFIG:               kyverno-metrics
+      KYVERNO_NAMESPACE:            kyverno (v1:metadata.namespace)
+      KYVERNO_POD_NAME:             kyverno-admission-controller-54d58cc467-r8lnt (v1:metadata.name)
+      KYVERNO_SERVICEACCOUNT_NAME:  kyverno-admission-controller
+      KYVERNO_ROLE_NAME:            kyverno:admission-controller
+      KYVERNO_SVC:                  kyverno-svc
+      TUF_ROOT:                     /.sigstore
+      KYVERNO_DEPLOYMENT:           kyverno-admission-controller
+    Mounts:
+      /.sigstore from sigstore (rw)
+      /etc/ssl/certs/ca-certificates.crt from harbor-ca-bundle (ro,path="ca-certificates.crt")
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-g5mqh (ro)
+      /var/run/secrets/kyverno/apicall from apicall-token (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  sigstore:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  apicall-token:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3600
+  harbor-ca-bundle:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kyverno-custom-ca-bundle
+    Optional:  false
+  kube-api-access-g5mqh:
+    Type:                     Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:   3607
+    ConfigMapName:            kube-root-ca.crt
+    Optional:                 false
+    DownwardAPI:              true
+QoS Class:                    Burstable
+Node-Selectors:               ksp.io/kyverno-node=true
+                              kubernetes.io/os=linux
+Tolerations:                  node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Topology Spread Constraints:  kubernetes.io/hostname:DoNotSchedule when max skew 1 is exceeded for selector app.kubernetes.io/component=admission-controller
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  14m   default-scheduler  Successfully assigned kyverno/kyverno-admission-controller-54d58cc467-r8lnt to worker-node-1
+  Normal  Pulled     14m   kubelet            spec.initContainers{kyverno-pre}: Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+  Normal  Created    14m   kubelet            spec.initContainers{kyverno-pre}: Container created
+  Normal  Started    14m   kubelet            spec.initContainers{kyverno-pre}: Container started
+  Normal  Pulled     14m   kubelet            spec.containers{kyverno}: Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+  Normal  Created    14m   kubelet            spec.containers{kyverno}: Container created
+  Normal  Started    14m   kubelet            spec.containers{kyverno}: Container started
+
+
+Name:             kyverno-admission-controller-54d58cc467-t2qwb
+Namespace:        kyverno
+Priority:         0
+Service Account:  kyverno-admission-controller
+Node:             <none>
+Labels:           app.kubernetes.io/component=admission-controller
+                  app.kubernetes.io/instance=kyverno
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=kyverno-admission-controller
+                  app.kubernetes.io/part-of=kyverno
+                  app.kubernetes.io/version=3.8.2
+                  helm.sh/chart=kyverno-3.8.2
+                  pod-template-hash=54d58cc467
+Annotations:      kubectl.kubernetes.io/restartedAt: 2026-09-18T10:45:43+07:00
+Status:           Pending
+IP:               
+IPs:              <none>
+Controlled By:    ReplicaSet/kyverno-admission-controller-54d58cc467
+Init Containers:
+  kyverno-pre:
+    Image:           reg.kyverno.io/kyverno/kyvernopre:v1.18.2
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --loggingFormat=text
+      --v=2
+      --openreportsEnabled=false
+    Limits:
+      cpu:     100m
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  64Mi
+    Environment:
+      KYVERNO_SERVICEACCOUNT_NAME:  kyverno-admission-controller
+      KYVERNO_ROLE_NAME:            kyverno:admission-controller
+      INIT_CONFIG:                  kyverno
+      METRICS_CONFIG:               kyverno-metrics
+      KYVERNO_NAMESPACE:            kyverno (v1:metadata.namespace)
+      KYVERNO_POD_NAME:             kyverno-admission-controller-54d58cc467-t2qwb (v1:metadata.name)
+      KYVERNO_DEPLOYMENT:           kyverno-admission-controller
+      KYVERNO_SVC:                  kyverno-svc
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-vx2zn (ro)
+Containers:
+  kyverno:
+    Image:           reg.kyverno.io/kyverno/kyverno:v1.18.2
+    Ports:           9443/TCP (https), 8000/TCP (metrics-port)
+    Host Ports:      0/TCP (https), 0/TCP (metrics-port)
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --caSecretName=kyverno-svc.kyverno.svc.kyverno-tls-ca
+      --tlsSecretName=kyverno-svc.kyverno.svc.kyverno-tls-pair
+      --tlsKeyAlgorithm=RSA
+      --backgroundServiceAccountName=system:serviceaccount:kyverno:kyverno-background-controller
+      --reportsServiceAccountName=system:serviceaccount:kyverno:kyverno-reports-controller
+      --servicePort=443
+      --webhookServerPort=9443
+      --resyncPeriod=15m
+      --crdWatcher=false
+      --disableMetrics=false
+      --otelConfig=prometheus
+      --metricsPort=8000
+      --admissionReports=true
+      --maxAdmissionReports=1000
+      --autoUpdateWebhooks=true
+      --enableConfigMapCaching=true
+      --controllerRuntimeMetricsAddress=:8080
+      --enableDeferredLoading=true
+      --dumpPayload=false
+      --forceFailurePolicyIgnore=false
+      --generateValidatingAdmissionPolicy=true
+      --generateMutatingAdmissionPolicy=false
+      --dumpPatches=false
+      --maxAPICallResponseLength=2000000
+      --apiCallTimeout=30s
+      --loggingFormat=text
+      --v=2
+      --omitEvents=PolicyApplied,PolicySkipped
+      --enablePolicyException=false
+      --protectManagedResources=false
+      --allowInsecureRegistry=false
+      --registryCredentialHelpers=default,google,amazon,azure,github
+      --enableReporting=validate,mutate,mutateExisting,imageVerify,generate
+    Limits:
+      cpu:     2
+      memory:  1Gi
+    Requests:
+      cpu:      500m
+      memory:   512Mi
+    Liveness:   http-get https://:9443/health/liveness delay=15s timeout=5s period=30s #success=1 #failure=2
+    Readiness:  http-get https://:9443/health/readiness delay=5s timeout=5s period=10s #success=1 #failure=6
+    Startup:    http-get https://:9443/health/liveness delay=2s timeout=1s period=6s #success=1 #failure=20
+    Environment:
+      INIT_CONFIG:                  kyverno
+      METRICS_CONFIG:               kyverno-metrics
+      KYVERNO_NAMESPACE:            kyverno (v1:metadata.namespace)
+      KYVERNO_POD_NAME:             kyverno-admission-controller-54d58cc467-t2qwb (v1:metadata.name)
+      KYVERNO_SERVICEACCOUNT_NAME:  kyverno-admission-controller
+      KYVERNO_ROLE_NAME:            kyverno:admission-controller
+      KYVERNO_SVC:                  kyverno-svc
+      TUF_ROOT:                     /.sigstore
+      KYVERNO_DEPLOYMENT:           kyverno-admission-controller
+    Mounts:
+      /.sigstore from sigstore (rw)
+      /etc/ssl/certs/ca-certificates.crt from harbor-ca-bundle (ro,path="ca-certificates.crt")
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-vx2zn (ro)
+      /var/run/secrets/kyverno/apicall from apicall-token (ro)
+Conditions:
+  Type           Status
+  PodScheduled   False 
+Volumes:
+  sigstore:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  apicall-token:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3600
+  harbor-ca-bundle:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kyverno-custom-ca-bundle
+    Optional:  false
+  kube-api-access-vx2zn:
+    Type:                     Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:   3607
+    ConfigMapName:            kube-root-ca.crt
+    Optional:                 false
+    DownwardAPI:              true
+QoS Class:                    Burstable
+Node-Selectors:               ksp.io/kyverno-node=true
+                              kubernetes.io/os=linux
+Tolerations:                  node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Topology Spread Constraints:  kubernetes.io/hostname:DoNotSchedule when max skew 1 is exceeded for selector app.kubernetes.io/component=admission-controller
+Events:
+  Type     Reason            Age                From               Message
+  ----     ------            ----               ----               -------
+  Warning  FailedScheduling  48s                default-scheduler  0/3 nodes are available: 1 node(s) didn't match pod topology spread constraints, 1 node(s) had untolerated taint(s), 1 node(s) were unschedulable. no new claims to deallocate, preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+  Warning  FailedScheduling  46s (x2 over 47s)  default-scheduler  0/3 nodes are available: 1 node(s) didn't match pod topology spread constraints, 1 node(s) had untolerated taint(s), 1 node(s) were unschedulable. no new claims to deallocate, preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+
+
+Name:             kyverno-admission-controller-54d58cc467-z24lv
+Namespace:        kyverno
+Priority:         0
+Service Account:  kyverno-admission-controller
+Node:             worker-node-1/171.244.199.186
+Start Time:       Fri, 18 Sep 2026 10:46:13 +0700
+Labels:           app.kubernetes.io/component=admission-controller
+                  app.kubernetes.io/instance=kyverno
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=kyverno-admission-controller
+                  app.kubernetes.io/part-of=kyverno
+                  app.kubernetes.io/version=3.8.2
+                  helm.sh/chart=kyverno-3.8.2
+                  pod-template-hash=54d58cc467
+Annotations:      cni.projectcalico.org/containerID: 6f816d2cc6ba769c7bd9da6475196a39983bab79e760a11cfbc6f8fce3fc0e32
+                  cni.projectcalico.org/podIP: 10.244.212.126/32
+                  cni.projectcalico.org/podIPs: 10.244.212.126/32
+                  kubectl.kubernetes.io/restartedAt: 2026-09-18T10:45:43+07:00
+Status:           Running
+IP:               10.244.212.126
+IPs:
+  IP:           10.244.212.126
+Controlled By:  ReplicaSet/kyverno-admission-controller-54d58cc467
+Init Containers:
+  kyverno-pre:
+    Container ID:    containerd://5f0f84ff5cc0886f18eab8008b845c3d3a09e2c9ef7cc7aa3d8c1072c20a2726
+    Image:           reg.kyverno.io/kyverno/kyvernopre:v1.18.2
+    Image ID:        reg.kyverno.io/kyverno/kyvernopre@sha256:cd8cb4a31d25b3992734fb8f24a90ef691c90ce49338c89bea96792160eacb98
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --loggingFormat=text
+      --v=2
+      --openreportsEnabled=false
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Fri, 18 Sep 2026 10:46:14 +0700
+      Finished:     Fri, 18 Sep 2026 10:46:29 +0700
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  64Mi
+    Environment:
+      KYVERNO_SERVICEACCOUNT_NAME:  kyverno-admission-controller
+      KYVERNO_ROLE_NAME:            kyverno:admission-controller
+      INIT_CONFIG:                  kyverno
+      METRICS_CONFIG:               kyverno-metrics
+      KYVERNO_NAMESPACE:            kyverno (v1:metadata.namespace)
+      KYVERNO_POD_NAME:             kyverno-admission-controller-54d58cc467-z24lv (v1:metadata.name)
+      KYVERNO_DEPLOYMENT:           kyverno-admission-controller
+      KYVERNO_SVC:                  kyverno-svc
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7zxsw (ro)
+Containers:
+  kyverno:
+    Container ID:    containerd://cc79118e4593589e02065774410ce6e9862f20946e6521e40c32e1f327550332
+    Image:           reg.kyverno.io/kyverno/kyverno:v1.18.2
+    Image ID:        reg.kyverno.io/kyverno/kyverno@sha256:0a540e2ddf74d0d2d3d45f9ef248d7dbc96576accdbcc6a2dd7eaff9fea56504
+    Ports:           9443/TCP (https), 8000/TCP (metrics-port)
+    Host Ports:      0/TCP (https), 0/TCP (metrics-port)
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --caSecretName=kyverno-svc.kyverno.svc.kyverno-tls-ca
+      --tlsSecretName=kyverno-svc.kyverno.svc.kyverno-tls-pair
+      --tlsKeyAlgorithm=RSA
+      --backgroundServiceAccountName=system:serviceaccount:kyverno:kyverno-background-controller
+      --reportsServiceAccountName=system:serviceaccount:kyverno:kyverno-reports-controller
+      --servicePort=443
+      --webhookServerPort=9443
+      --resyncPeriod=15m
+      --crdWatcher=false
+      --disableMetrics=false
+      --otelConfig=prometheus
+      --metricsPort=8000
+      --admissionReports=true
+      --maxAdmissionReports=1000
+      --autoUpdateWebhooks=true
+      --enableConfigMapCaching=true
+      --controllerRuntimeMetricsAddress=:8080
+      --enableDeferredLoading=true
+      --dumpPayload=false
+      --forceFailurePolicyIgnore=false
+      --generateValidatingAdmissionPolicy=true
+      --generateMutatingAdmissionPolicy=false
+      --dumpPatches=false
+      --maxAPICallResponseLength=2000000
+      --apiCallTimeout=30s
+      --loggingFormat=text
+      --v=2
+      --omitEvents=PolicyApplied,PolicySkipped
+      --enablePolicyException=false
+      --protectManagedResources=false
+      --allowInsecureRegistry=false
+      --registryCredentialHelpers=default,google,amazon,azure,github
+      --enableReporting=validate,mutate,mutateExisting,imageVerify,generate
+    State:          Running
+      Started:      Fri, 18 Sep 2026 10:46:30 +0700
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     2
+      memory:  1Gi
+    Requests:
+      cpu:      500m
+      memory:   512Mi
+    Liveness:   http-get https://:9443/health/liveness delay=15s timeout=5s period=30s #success=1 #failure=2
+    Readiness:  http-get https://:9443/health/readiness delay=5s timeout=5s period=10s #success=1 #failure=6
+    Startup:    http-get https://:9443/health/liveness delay=2s timeout=1s period=6s #success=1 #failure=20
+    Environment:
+      INIT_CONFIG:                  kyverno
+      METRICS_CONFIG:               kyverno-metrics
+      KYVERNO_NAMESPACE:            kyverno (v1:metadata.namespace)
+      KYVERNO_POD_NAME:             kyverno-admission-controller-54d58cc467-z24lv (v1:metadata.name)
+      KYVERNO_SERVICEACCOUNT_NAME:  kyverno-admission-controller
+      KYVERNO_ROLE_NAME:            kyverno:admission-controller
+      KYVERNO_SVC:                  kyverno-svc
+      TUF_ROOT:                     /.sigstore
+      KYVERNO_DEPLOYMENT:           kyverno-admission-controller
+    Mounts:
+      /.sigstore from sigstore (rw)
+      /etc/ssl/certs/ca-certificates.crt from harbor-ca-bundle (ro,path="ca-certificates.crt")
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7zxsw (ro)
+      /var/run/secrets/kyverno/apicall from apicall-token (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  sigstore:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  apicall-token:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3600
+  harbor-ca-bundle:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kyverno-custom-ca-bundle
+    Optional:  false
+  kube-api-access-7zxsw:
+    Type:                     Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:   3607
+    ConfigMapName:            kube-root-ca.crt
+    Optional:                 false
+    DownwardAPI:              true
+QoS Class:                    Burstable
+Node-Selectors:               ksp.io/kyverno-node=true
+                              kubernetes.io/os=linux
+Tolerations:                  node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Topology Spread Constraints:  kubernetes.io/hostname:DoNotSchedule when max skew 1 is exceeded for selector app.kubernetes.io/component=admission-controller
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  15m   default-scheduler  Successfully assigned kyverno/kyverno-admission-controller-54d58cc467-z24lv to worker-node-1
+  Normal  Pulled     15m   kubelet            spec.initContainers{kyverno-pre}: Container image "reg.kyverno.io/kyverno/kyvernopre:v1.18.2" already present on machine and can be accessed by the pod
+  Normal  Created    15m   kubelet            spec.initContainers{kyverno-pre}: Container created
+  Normal  Started    15m   kubelet            spec.initContainers{kyverno-pre}: Container started
+  Normal  Pulled     15m   kubelet            spec.containers{kyverno}: Container image "reg.kyverno.io/kyverno/kyverno:v1.18.2" already present on machine and can be accessed by the pod
+  Normal  Created    15m   kubelet            spec.containers{kyverno}: Container created
+  Normal  Started    15m   kubelet            spec.containers{kyverno}: Container started

@@ -10,18 +10,12 @@ metadata:
     policies.kyverno.io/category: KSP Resource Governance
     policies.kyverno.io/severity: medium
     policies.kyverno.io/subject: Namespace,ResourceQuota
-    policies.kyverno.io/description: >-
-      Generates synchronized environment- and quota-class-specific
-      ResourceQuota objects for opted-in application namespaces.
-    policies.ksp.io/parameter: >-
-      Quota sizing is loaded from the ksp-resource-quota-sizing ConfigMap
-      according to policies.ksp.io/environment and policies.ksp.io/quota-class.
-    policies.ksp.io/profiles: standard,restricted
+    policies.kyverno.io/description: Generates synchronized environment- and quota-class-specific ResourceQuota objects for opted-in application namespaces.
+    policies.ksp.io/profiles: baseline,standard,restricted
     policies.ksp.io/dev-mode: Generate
     policies.ksp.io/staging-mode: Generate
     policies.ksp.io/prod-mode: Generate
     policies.ksp.io/exception: controlled
-
 spec:
   evaluation:
     synchronize:

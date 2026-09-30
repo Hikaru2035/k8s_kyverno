@@ -1,0 +1,47 @@
+// Configure as a separate trusted-branch job. Never expose publication secrets to fork PRs.
+properties([
+    disableConcurrentBuilds(),
+    buildDiscarder(logRotator(daysToKeepStr: '30'))
+])
+node('ksp-tools') {
+    timeout(time: 60, unit: 'MINUTES') {
+        def delivery = { step -> sh "bash jenkins/scripts/delivery.sh ${step}" }
+        def harbor = { body ->
+            withCredentials([usernamePassword(credentialsId: 'harbor-credentials', usernameVariable: 'HARBOR_USERNAME', passwordVariable: 'HARBOR_PASSWORD')]) {
+                body()
+            }
+        }
+        def registryStep = { step -> harbor { sh "bash jenkins/scripts/with-harbor.sh bash jenkins/scripts/delivery.sh ${step}" } }
+        try {
+            stage('Checkout') {
+                deleteDir(); checkout scm
+                sh 'python3 jenkins/scripts/prepare-artifacts.py delivery'
+            }
+            stage('Source Check') { delivery('source') }
+            stage('Security Scan') { delivery('security-scan') }
+            stage('Build Image') { delivery('build') }
+            stage('Image Vulnerability Scan') { delivery('image-scan') }
+            stage('Push to Harbor') { registryStep('push') }
+            stage('Resolve Digest') { registryStep('digest') }
+            stage('Cosign Sign') {
+                withCredentials([
+                    file(credentialsId: 'cosign-private-key', variable: 'COSIGN_KEY'),
+                    string(credentialsId: 'cosign-password', variable: 'COSIGN_PASSWORD')
+                ]) { registryStep('sign') }
+            }
+            stage('Cosign Verify') { registryStep('verify') }
+            stage('Update Application GitOps Desired State') {
+                withCredentials([usernamePassword(credentialsId: 'gitops-git-credentials',
+                    usernameVariable: 'GITOPS_USERNAME', passwordVariable: 'GITOPS_PASSWORD')]) {
+                    sh 'python3 jenkins/scripts/gitops_publish.py prepare app "artifacts/delivery/$BUILD_ID/gitops"'
+                    delivery('gitops-update')
+                    sh 'python3 jenkins/scripts/gitops_publish.py publish app "artifacts/delivery/$BUILD_ID/gitops"'
+                }
+            }
+        } finally {
+            stage('Archive Evidence') {
+                archiveArtifacts artifacts: "artifacts/delivery/${env.BUILD_ID}/**", excludes: '**/image.tar', allowEmptyArchive: true
+            }
+        }
+    }
+}

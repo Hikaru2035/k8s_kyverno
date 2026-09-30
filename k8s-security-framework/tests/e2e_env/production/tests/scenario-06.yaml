@@ -1,0 +1,8 @@
+# Scenario 06: invalid profile
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-invalid-profile
+  labels:
+    ksp.io/environment: production
+    ksp.io/profile: hardened

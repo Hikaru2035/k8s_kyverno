@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="15" failures="0">
+ <testsuite name="generate-network-baseline" tests="15" failures="0">
+  <testcase classname="generate-network-baseline" name="/default-deny-ingress-egress">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: /default-deny-ingress-egress
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="/allow-dns-egress">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: /allow-dns-egress
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="/default-deny-ingress-egress">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: /default-deny-ingress-egress
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="/allow-dns-egress">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: /allow-dns-egress
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="v1/Namespace/default/net-001-negative">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: v1/Namespace/default/net-001-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="v1/Namespace/default/ksp-net-001-unrelated-label">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: v1/Namespace/default/ksp-net-001-unrelated-label
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="v1/Namespace/default/ksp-net-001-negative-opt-in-disabled">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: v1/Namespace/default/ksp-net-001-negative-opt-in-disabled
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="v1/Namespace/default/ksp-net-001-negative-opt-in-empty">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: v1/Namespace/default/ksp-net-001-negative-opt-in-empty
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="v1/Namespace/default/net-001-boundary-wrong-case">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: v1/Namespace/default/net-001-boundary-wrong-case
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="v1/Namespace/default/net-001-boundary-trailing-space">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: v1/Namespace/default/net-001-boundary-trailing-space
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="/default-deny-ingress-egress">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: /default-deny-ingress-egress
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="/allow-dns-egress">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: /allow-dns-egress
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="v1/Namespace/default/ksp-net-001-exception">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: v1/Namespace/default/ksp-net-001-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="/default-deny-ingress-egress">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: /default-deny-ingress-egress
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-network-baseline" name="/allow-dns-egress">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-network-baseline
+    Rule: generate-network-baseline
+    Resource: /allow-dns-egress
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

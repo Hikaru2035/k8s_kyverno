@@ -1,0 +1,705 @@
+=== PODS ===
+Name:             e2e-stg-daemonset-valid-9cc5w
+Namespace:        ksp-staging
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Wed, 16 Sep 2026 09:07:43 +0700
+Labels:           app=e2e-stg-daemonset-valid
+                  controller-revision-hash=597b84dcc8
+                  pod-template-generation=1
+Annotations:      cni.projectcalico.org/containerID: 06486b6298e80be2815b1e2e3fe2bdf5292bb46250d3385596417ab2318d1921
+                  cni.projectcalico.org/podIP: 10.244.19.178/32
+                  cni.projectcalico.org/podIPs: 10.244.19.178/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.19.178
+IPs:
+  IP:           10.244.19.178
+Controlled By:  DaemonSet/e2e-stg-daemonset-valid
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4k965 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-4k965:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        31s                default-scheduler  Successfully assigned ksp-staging/e2e-stg-daemonset-valid-9cc5w to worker-node-2
+  Normal   Pulling                          16s (x2 over 31s)  kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           16s (x2 over 31s)  kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: pull access denied, repository does not exist or may require authorization: authorization failed: no basic auth credentials
+  Warning  Failed                           16s (x2 over 31s)  kubelet            spec.containers{app}: Error: ErrImagePull
+  Warning  FailedToRetrieveImagePullSecret  2s (x5 over 31s)   kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   BackOff                          2s (x3 over 30s)   kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           2s (x3 over 30s)   kubelet            spec.containers{app}: Error: ImagePullBackOff
+
+
+Name:             e2e-stg-daemonset-valid-zplbd
+Namespace:        ksp-staging
+Priority:         0
+Service Account:  default
+Node:             worker-node-1/171.244.199.186
+Start Time:       Wed, 16 Sep 2026 09:07:40 +0700
+Labels:           app=e2e-stg-daemonset-valid
+                  controller-revision-hash=597b84dcc8
+                  pod-template-generation=1
+Annotations:      cni.projectcalico.org/containerID: cf0757e11541341650f3dc3eb1e603b8200e5175d3132a06f5ba8dcf3ab17a22
+                  cni.projectcalico.org/podIP: 10.244.212.115/32
+                  cni.projectcalico.org/podIPs: 10.244.212.115/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.212.115
+IPs:
+  IP:           10.244.212.115
+Controlled By:  DaemonSet/e2e-stg-daemonset-valid
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-dt6tl (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-dt6tl:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        35s                default-scheduler  Successfully assigned ksp-staging/e2e-stg-daemonset-valid-zplbd to worker-node-1
+  Normal   Pulling                          19s (x2 over 34s)  kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           19s (x2 over 34s)  kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: failed to do request: Head "https://harbor-public:30003/v2/ksp-test/signed/manifests/sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": dial tcp: lookup harbor-public on 115.84.177.20:53: no such host
+  Warning  Failed                           19s (x2 over 34s)  kubelet            spec.containers{app}: Error: ErrImagePull
+  Warning  FailedToRetrieveImagePullSecret  7s (x5 over 35s)   kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   BackOff                          7s (x3 over 34s)   kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           7s (x3 over 34s)   kubelet            spec.containers{app}: Error: ImagePullBackOff
+
+
+Name:             e2e-stg-deployment-valid-756d5967df-v464z
+Namespace:        ksp-staging
+Priority:         0
+Service Account:  default
+Node:             worker-node-1/171.244.199.186
+Start Time:       Wed, 16 Sep 2026 09:07:31 +0700
+Labels:           app=e2e-stg-deployment-valid
+                  pod-template-hash=756d5967df
+Annotations:      cni.projectcalico.org/containerID: 08c22b08a5c70ff6172c87ce1f873fd80bfcc7bb4563c21c12076e957e21bb89
+                  cni.projectcalico.org/podIP: 10.244.212.114/32
+                  cni.projectcalico.org/podIPs: 10.244.212.114/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.212.114
+IPs:
+  IP:           10.244.212.114
+Controlled By:  ReplicaSet/e2e-stg-deployment-valid-756d5967df
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-j9pmw (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-j9pmw:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        44s                default-scheduler  Successfully assigned ksp-staging/e2e-stg-deployment-valid-756d5967df-v464z to worker-node-1
+  Normal   BackOff                          19s (x3 over 43s)  kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           19s (x3 over 43s)  kubelet            spec.containers{app}: Error: ImagePullBackOff
+  Warning  FailedToRetrieveImagePullSecret  7s (x6 over 44s)   kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   Pulling                          7s (x3 over 43s)   kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           7s (x3 over 43s)   kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: failed to do request: Head "https://harbor-public:30003/v2/ksp-test/signed/manifests/sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": dial tcp: lookup harbor-public on 115.84.177.20:53: no such host
+  Warning  Failed                           7s (x3 over 43s)   kubelet            spec.containers{app}: Error: ErrImagePull
+
+
+Name:             e2e-stg-job-valid-xfgq6
+Namespace:        ksp-staging
+Priority:         0
+Service Account:  default
+Node:             worker-node-1/171.244.199.186
+Start Time:       Wed, 16 Sep 2026 09:07:44 +0700
+Labels:           app=e2e-stg-job-valid
+                  batch.kubernetes.io/controller-uid=8f44556d-11fa-40b2-8ef3-843213ce86f4
+                  batch.kubernetes.io/job-name=e2e-stg-job-valid
+                  controller-uid=8f44556d-11fa-40b2-8ef3-843213ce86f4
+                  job-name=e2e-stg-job-valid
+Annotations:      cni.projectcalico.org/containerID: 5d847cb3c7350f2711dfad9d8eb6895bcc20b59edc0748ce03298eda82810fee
+                  cni.projectcalico.org/podIP: 10.244.212.116/32
+                  cni.projectcalico.org/podIPs: 10.244.212.116/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.212.116
+IPs:
+  IP:           10.244.212.116
+Controlled By:  Job/e2e-stg-job-valid
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      echo 'E2E Staging Job PASS'
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-gdhtn (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-gdhtn:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        31s                default-scheduler  Successfully assigned ksp-staging/e2e-stg-job-valid-xfgq6 to worker-node-1
+  Normal   Pulling                          18s (x2 over 30s)  kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           18s (x2 over 30s)  kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: failed to do request: Head "https://harbor-public:30003/v2/ksp-test/signed/manifests/sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": dial tcp: lookup harbor-public on 115.84.177.20:53: no such host
+  Warning  Failed                           18s (x2 over 30s)  kubelet            spec.containers{app}: Error: ErrImagePull
+  Warning  FailedToRetrieveImagePullSecret  5s (x5 over 31s)   kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   BackOff                          5s (x3 over 30s)   kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           5s (x3 over 30s)   kubelet            spec.containers{app}: Error: ImagePullBackOff
+
+
+Name:             e2e-stg-pod-valid
+Namespace:        ksp-staging
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Wed, 16 Sep 2026 09:07:24 +0700
+Labels:           <none>
+Annotations:      cni.projectcalico.org/containerID: cf750af4e136ab525df8075b70a48e983277a6bbac997570ea0d0c7a36d02702
+                  cni.projectcalico.org/podIP: 10.244.19.176/32
+                  cni.projectcalico.org/podIPs: 10.244.19.176/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.19.176
+IPs:
+  IP:  10.244.19.176
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-lzdhm (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-lzdhm:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        50s                default-scheduler  Successfully assigned ksp-staging/e2e-stg-pod-valid to worker-node-2
+  Normal   BackOff                          18s (x3 over 49s)  kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           18s (x3 over 49s)  kubelet            spec.containers{app}: Error: ImagePullBackOff
+  Warning  FailedToRetrieveImagePullSecret  5s (x6 over 51s)   kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   Pulling                          5s (x3 over 50s)   kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           5s (x3 over 50s)   kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: pull access denied, repository does not exist or may require authorization: authorization failed: no basic auth credentials
+  Warning  Failed                           5s (x3 over 50s)   kubelet            spec.containers{app}: Error: ErrImagePull
+
+
+Name:             e2e-stg-statefulset-valid-0
+Namespace:        ksp-staging
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Wed, 16 Sep 2026 09:07:36 +0700
+Labels:           app=e2e-stg-statefulset-valid
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=e2e-stg-statefulset-valid-755895584
+                  statefulset.kubernetes.io/pod-name=e2e-stg-statefulset-valid-0
+Annotations:      cni.projectcalico.org/containerID: 71e8487440ad0e6a1864c6a9cba6a3fbe24010dc41697e98da8db563f453d346
+                  cni.projectcalico.org/podIP: 10.244.19.177/32
+                  cni.projectcalico.org/podIPs: 10.244.19.177/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Pending
+SeccompProfile:   RuntimeDefault
+IP:               10.244.19.177
+IPs:
+  IP:           10.244.19.177
+Controlled By:  StatefulSet/e2e-stg-statefulset-valid
+Containers:
+  app:
+    Container ID:    
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:        
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-w5bf7 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-w5bf7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                           Age                From               Message
+  ----     ------                           ----               ----               -------
+  Normal   Scheduled                        38s                default-scheduler  Successfully assigned ksp-staging/e2e-stg-statefulset-valid-0 to worker-node-2
+  Normal   Pulling                          22s (x2 over 38s)  kubelet            spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           22s (x2 over 38s)  kubelet            spec.containers{app}: Failed to pull image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to pull and unpack image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f": failed to resolve image: pull access denied, repository does not exist or may require authorization: authorization failed: no basic auth credentials
+  Warning  Failed                           22s (x2 over 38s)  kubelet            spec.containers{app}: Error: ErrImagePull
+  Warning  FailedToRetrieveImagePullSecret  11s (x5 over 38s)  kubelet            Unable to retrieve some image pull secrets (harbor-registry-credentials); attempting to pull the image may not succeed.
+  Normal   BackOff                          11s (x3 over 37s)  kubelet            spec.containers{app}: Back-off pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Warning  Failed                           11s (x3 over 37s)  kubelet            spec.containers{app}: Error: ImagePullBackOff
+
+=== DEPLOYMENTS ===
+Name:                   e2e-stg-deployment-valid
+Namespace:              ksp-staging
+CreationTimestamp:      Wed, 16 Sep 2026 09:07:28 +0700
+Labels:                 app.kubernetes.io/name=e2e-stg-deployment
+                        policies.ksp.io/owner=security-team
+Annotations:            deployment.kubernetes.io/revision: 1
+                        kyverno.io/image-verification-outcomes:
+                          {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Selector:               app=e2e-stg-deployment-valid
+Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=e2e-stg-deployment-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:         50m
+      memory:      32Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   e2e-stg-deployment-valid-756d5967df (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  47s   deployment-controller  Scaled up replica set e2e-stg-deployment-valid-756d5967df from 0 to 1
+
+=== STATEFULSETS ===
+Name:               e2e-stg-statefulset-valid
+Namespace:          ksp-staging
+CreationTimestamp:  Wed, 16 Sep 2026 09:07:33 +0700
+Selector:           app=e2e-stg-statefulset-valid
+Labels:             app.kubernetes.io/name=e2e-stg-statefulset
+                    policies.ksp.io/owner=security-team
+Annotations:        kyverno.io/image-verification-outcomes:
+                      {"verify-signed-images":{"name":"evaluation","ruleType":"ImageVerify","message":"failed to evaluate policy: Get \"https://harbor-public:30...
+Replicas:           1 desired | 1 total
+Update Strategy:    RollingUpdate
+  Partition:        0
+Pods Status:        0 Running / 1 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=e2e-stg-statefulset-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:         50m
+      memory:      32Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Volume Claims:     <none>
+Events:
+  Type     Reason            Age   From                    Message
+  ----     ------            ----  ----                    -------
+  Warning  PolicyViolation   42s   kyverno-admission       policy verify-signed-images/evaluation error: failed to evaluate policy: Get "https://harbor-public:30003/v2/": dial tcp: lookup harbor-public: i/o timeout
+  Normal   SuccessfulCreate  39s   statefulset-controller  Create Pod e2e-stg-statefulset-valid-0 in StatefulSet e2e-stg-statefulset-valid successful
+
+=== DAEMONSETS ===
+Name:           e2e-stg-daemonset-valid
+Namespace:      ksp-staging
+Selector:       app=e2e-stg-daemonset-valid
+Node-Selector:  <none>
+Labels:         app.kubernetes.io/name=e2e-stg-daemonset
+                policies.ksp.io/owner=security-team
+Annotations:    deprecated.daemonset.template.generation: 1
+                kyverno.io/image-verification-outcomes:
+                  {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Desired Number of Nodes Scheduled: 2
+Current Number of Nodes Scheduled: 2
+Number of Nodes Scheduled with Up-to-date Pods: 2
+Number of Nodes Scheduled with Available Pods: 0
+Number of Nodes Misscheduled: 0
+Pods Status:  0 Running / 2 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=e2e-stg-daemonset-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      sleep 3600
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:         50m
+      memory:      32Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From                  Message
+  ----    ------            ----  ----                  -------
+  Normal  SuccessfulCreate  35s   daemonset-controller  Created pod: e2e-stg-daemonset-valid-zplbd
+  Normal  SuccessfulCreate  32s   daemonset-controller  Created pod: e2e-stg-daemonset-valid-9cc5w
+
+=== JOBS ===
+Name:             e2e-stg-job-valid
+Namespace:        ksp-staging
+Selector:         batch.kubernetes.io/controller-uid=8f44556d-11fa-40b2-8ef3-843213ce86f4
+Labels:           app.kubernetes.io/name=e2e-stg-job
+                  policies.ksp.io/owner=security-team
+Annotations:      kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Suspend:          false
+Backoff Limit:    6
+Start Time:       Wed, 16 Sep 2026 09:07:40 +0700
+Pods Statuses:    1 Active (0 Ready) / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=e2e-stg-job-valid
+           batch.kubernetes.io/controller-uid=8f44556d-11fa-40b2-8ef3-843213ce86f4
+           batch.kubernetes.io/job-name=e2e-stg-job-valid
+           controller-uid=8f44556d-11fa-40b2-8ef3-843213ce86f4
+           job-name=e2e-stg-job-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      echo 'E2E Staging Job PASS'
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:         50m
+      memory:      32Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  31s   job-controller  Created pod: e2e-stg-job-valid-xfgq6
+
+=== CRONJOBS ===
+Name:                          e2e-stg-cronjob-valid
+Namespace:                     ksp-staging
+Labels:                        app.kubernetes.io/name=e2e-stg-cronjob
+                               policies.ksp.io/owner=security-team
+Annotations:                   kyverno.io/image-verification-outcomes:
+                                 {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Schedule:                      */10 * * * *
+Concurrency Policy:            Allow
+Suspend:                       False
+Successful Job History Limit:  3
+Failed Job History Limit:      1
+Starting Deadline Seconds:     <unset>
+Selector:                      <unset>
+Parallelism:                   <unset>
+Completions:                   <unset>
+Pod Template:
+  Labels:  app=e2e-stg-cronjob-valid
+  Containers:
+   app:
+    Image:           harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      sh
+      -c
+      echo 'E2E Staging CronJob PASS'
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:           50m
+      memory:        32Mi
+    Environment:     <none>
+    Mounts:          <none>
+  Volumes:           <none>
+  Node-Selectors:    <none>
+  Tolerations:       <none>
+Last Schedule Time:  <unset>
+Active Jobs:         <none>
+Events:              <none>
+
+=== VALID TEST NAMESPACE ===
+Name:         e2e-stg-ns-valid
+Labels:       ksp.io/environment=staging
+              ksp.io/profile=baseline
+              kubernetes.io/metadata.name=e2e-stg-ns-valid
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.
+
+=== INVALID TEST NAMESPACE ===
+Name:         e2e-stg-ns-invalid
+Labels:       kubernetes.io/metadata.name=e2e-stg-ns-invalid
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.

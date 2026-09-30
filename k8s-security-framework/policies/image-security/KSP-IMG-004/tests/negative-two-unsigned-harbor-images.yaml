@@ -6,6 +6,6 @@ metadata:
 spec:
   containers:
     - name: demo-api
-      image: harbor.example.com/demo-api@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      image: harbor-public:30003/ksp-test/unsigned-clean@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
     - name: sidecar
-      image: harbor.example.com/sidecar@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      image: harbor-public:30003/ksp-test/unsigned-clean@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f

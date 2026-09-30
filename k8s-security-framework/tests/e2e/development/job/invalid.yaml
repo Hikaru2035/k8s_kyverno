@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: e2e-dev-job-invalid
+  namespace: ksp-dev
+spec:
+  template:
+    metadata:
+      labels:
+        app: e2e-dev-job-invalid
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: app
+          image: nginx:latest
+          command: ["sh", "-c", "echo invalid"]
