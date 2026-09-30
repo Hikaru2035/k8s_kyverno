@@ -24,6 +24,30 @@ node('ksp-tools') {
             stage('Obtain Approved Policy Artifact') {
                 withCredentials([usernamePassword(credentialsId: 'jenkins-artifact-reader',
                     usernameVariable: 'JENKINS_ARTIFACT_USER', passwordVariable: 'JENKINS_ARTIFACT_TOKEN')]) {
+                    sh '''
+                        set +x
+                        echo "=== Jenkins artifact debug ==="
+                        echo "JENKINS_URL=$JENKINS_URL"
+                        echo "JENKINS_ARTIFACT_USER=$JENKINS_ARTIFACT_USER"
+                        echo "POLICY_CI_JOB=$POLICY_CI_JOB"
+                        echo "POLICY_CI_BUILD=$POLICY_CI_BUILD"
+
+                        STATUS=$(curl -sS \
+                          -o /tmp/jenkins-me.json \
+                          -w '%{http_code}' \
+                          -u "$JENKINS_ARTIFACT_USER:$JENKINS_ARTIFACT_TOKEN" \
+                          "${JENKINS_URL%/}/me/api/json")
+
+                        echo "GET /me/api/json -> HTTP=$STATUS"
+
+                        if [ "$STATUS" = "200" ]; then
+                          python3 - <<'PYDEBUG'
+import json
+d = json.load(open("/tmp/jenkins-me.json"))
+print("authenticatedAs:", d.get("id") or d.get("fullName"))
+PYDEBUG
+                        fi
+                    '''
                     step('fetch')
                 }
             }
