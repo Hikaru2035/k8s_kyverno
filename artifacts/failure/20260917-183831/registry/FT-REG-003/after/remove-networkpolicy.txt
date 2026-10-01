@@ -1,0 +1,2 @@
+networkpolicy.networking.k8s.io "ft-reg-003-drop-harbor" deleted from kyverno namespace
+networkpolicy.networking.k8s.io "ft-reg-003-debug-drop-harbor" deleted from kyverno namespace

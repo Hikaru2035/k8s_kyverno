@@ -1,0 +1,5 @@
+NAME                                    WEBHOOKS   AGE
+kyverno-policy-mutating-webhook-cfg     1          11d
+kyverno-resource-mutating-webhook-cfg   1          11d
+kyverno-verify-mutating-webhook-cfg     1          11d
+monitoring-kube-prometheus-admission    1          20d

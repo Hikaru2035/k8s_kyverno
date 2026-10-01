@@ -1,0 +1,6 @@
+NAME                                            READY   STATUS        RESTARTS   AGE   IP              NODE            NOMINATED NODE   READINESS GATES
+kyverno-admission-controller-6f755d9865-2pq28   1/1     Terminating   0          44h   10.244.19.189   worker-node-2   <none>           <none>
+kyverno-admission-controller-84bd48f9cb-2j6lz   1/1     Running       0          50s   10.244.212.91   worker-node-1   <none>           <none>
+kyverno-admission-controller-84bd48f9cb-dh4dj   1/1     Running       0          96s   10.244.212.88   worker-node-1   <none>           <none>
+kyverno-admission-controller-84bd48f9cb-hznwr   1/1     Running       0          25s   10.244.19.158   worker-node-2   <none>           <none>
+kyverno-admission-controller-84bd48f9cb-x7jsr   1/1     Running       0          71s   10.244.19.136   worker-node-2   <none>           <none>

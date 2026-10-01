@@ -1,0 +1,8 @@
+2026-10-01T08:50:30+07:00
+=== Binding ===
+Error from server (NotFound): clusterrolebindings.rbac.authorization.k8s.io "kyverno:admission-controller:view" not found
+
+=== Effective pod permissions ===
+get pods = no
+list pods = no
+watch pods = no

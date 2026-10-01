@@ -1,0 +1,6 @@
+Warning: kyverno.io/v2 ClusterCleanupPolicy is deprecated and will be removed in a future release; migrate to DeletingPolicy (policies.kyverno.io), see https://kyverno.io/docs/guides/migration-to-cel/
+apiVersion: v1
+items: []
+kind: List
+metadata:
+  resourceVersion: ""

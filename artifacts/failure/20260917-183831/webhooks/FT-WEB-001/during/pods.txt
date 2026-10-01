@@ -1,0 +1,12 @@
+NAME                                             READY   STATUS      RESTARTS   AGE     IP               NODE            NOMINATED NODE   READINESS GATES
+kyverno-admission-controller-b9d4f5b85-7p9gn     1/1     Running     0          4d19h   10.244.19.173    worker-node-2   <none>           <none>
+kyverno-admission-controller-b9d4f5b85-b5l6t     1/1     Running     0          4d19h   10.244.212.73    worker-node-1   <none>           <none>
+kyverno-admission-controller-b9d4f5b85-cwqsn     1/1     Running     0          4d19h   10.244.212.114   worker-node-1   <none>           <none>
+kyverno-admission-controller-b9d4f5b85-xptkv     1/1     Running     0          4d19h   10.244.19.174    worker-node-2   <none>           <none>
+kyverno-background-controller-798c488774-mk5fl   1/1     Running     0          4d19h   10.244.212.67    worker-node-1   <none>           <none>
+kyverno-background-controller-798c488774-svckx   1/1     Running     0          4d19h   10.244.212.116   worker-node-1   <none>           <none>
+kyverno-cleanup-controller-7b45b85db5-5n45r      1/1     Running     0          4d19h   10.244.212.80    worker-node-1   <none>           <none>
+kyverno-cleanup-controller-7b45b85db5-vbqt5      1/1     Running     0          4d19h   10.244.212.115   worker-node-1   <none>           <none>
+kyverno-migrate-resources-cpwkz                  0/1     Completed   0          4d19h   10.244.19.175    worker-node-2   <none>           <none>
+kyverno-reports-controller-6f8f8f5758-2s74h      1/1     Running     0          4d19h   10.244.212.105   worker-node-1   <none>           <none>
+kyverno-reports-controller-6f8f8f5758-b726r      1/1     Running     0          4d19h   10.244.212.118   worker-node-1   <none>           <none>

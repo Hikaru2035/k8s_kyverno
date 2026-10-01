@@ -1,0 +1,57 @@
+apiVersion: v1
+items:
+- addressType: IPv4
+  apiVersion: discovery.k8s.io/v1
+  endpoints:
+  - addresses:
+    - 10.244.19.153
+    conditions:
+      ready: true
+      serving: true
+      terminating: false
+    nodeName: worker-node-2
+    targetRef:
+      kind: Pod
+      name: harbor-nginx-688cf77c5b-7f6lh
+      namespace: harbor
+      uid: 3c217301-2b71-45f8-87b8-85eeb36304d1
+  kind: EndpointSlice
+  metadata:
+    annotations:
+      endpoints.kubernetes.io/last-change-trigger-time: "2026-09-22T10:44:54Z"
+    creationTimestamp: "2026-09-05T09:45:21Z"
+    generateName: harbor-
+    generation: 11
+    labels:
+      app: harbor
+      app.kubernetes.io/instance: harbor
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: harbor
+      app.kubernetes.io/part-of: harbor
+      app.kubernetes.io/version: 2.15.2
+      chart: harbor
+      endpointslice.kubernetes.io/managed-by: endpointslice-controller.k8s.io
+      heritage: Helm
+      kubernetes.io/service-name: harbor
+      release: harbor
+    name: harbor-7qxph
+    namespace: harbor
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Service
+      name: harbor
+      uid: 836bd58b-33e4-4613-ab0a-cee6ec78d77a
+    resourceVersion: "26889506"
+    uid: f79c02bf-bebd-4eec-bed6-996abc00a630
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+  - name: https
+    port: 8443
+    protocol: TCP
+kind: List
+metadata:
+  resourceVersion: ""

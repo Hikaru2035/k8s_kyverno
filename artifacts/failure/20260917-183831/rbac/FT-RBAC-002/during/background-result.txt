@@ -1,0 +1,110 @@
+2026-10-01T08:57:41+07:00
+=== Resource ===
+NAME                    READY   STATUS   RESTARTS      AGE   LABELS
+existing-noncompliant   0/1     Error    2 (44s ago)   50s   owner=failure-test
+
+=== PolicyReports ===
+apiVersion: v1
+items:
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-10-01T01:57:12Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 5be82f2a-1aab-4213-b2e0-750e39c64ef3
+    namespace: ft-rbac-002
+    ownerReferences:
+    - apiVersion: v1
+      kind: Pod
+      name: existing-noncompliant
+      uid: 5be82f2a-1aab-4213-b2e0-750e39c64ef3
+    resourceVersion: "34832319"
+    uid: bd240fed-dc6e-43de-8ec9-f37b83598aaf
+  results:
+  - category: KSP Image Security
+    message: success
+    policy: disallow-latest-tag
+    properties:
+      process: background scan
+    result: pass
+    scored: true
+    severity: medium
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1790819826
+  - category: KSP Pod Security
+    message: success
+    policy: disallow-run-as-user-zero
+    properties:
+      process: background scan
+    result: pass
+    scored: true
+    severity: high
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1790819827
+  - message: 'validation error: FT-RBAC-002 requires test label. rule require-ft-rbac-label
+      failed at path /metadata/labels/ft-rbac-002/'
+    policy: ft-rbac-002-background-scan
+    properties:
+      process: background scan
+    result: fail
+    rule: require-ft-rbac-label
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1790819826
+  - category: KSP Resource Governance
+    message: success
+    policy: require-cpu-limit
+    properties:
+      process: background scan
+    result: pass
+    scored: true
+    severity: medium
+    source: KyvernoValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1790819827
+  - category: KSP Resource Governance
+    message: success
+    policy: require-cpu-request
+    properties:
+      process: background scan
+    result: pass
+    scored: true
+    severity: medium
+    source: KyvernoValidatingPolicy
+--
+    message: success
+    policy: verify-signed-images
+    properties:
+      process: admission review
+    result: pass
+    rule: verify-signed-images
+    scored: true
+    severity: critical
+    source: KyvernoImageValidatingPolicy
+    timestamp:
+      nanos: 0
+      seconds: 1790819811
+  scope:
+    apiVersion: v1
+    kind: Pod
+    name: existing-noncompliant
+    namespace: ft-rbac-002
+    uid: 5be82f2a-1aab-4213-b2e0-750e39c64ef3
+  summary:
+    error: 0
+    fail: 2
+    pass: 8
+    skip: 0
+    warn: 0
+kind: List
+metadata:
+  resourceVersion: ""

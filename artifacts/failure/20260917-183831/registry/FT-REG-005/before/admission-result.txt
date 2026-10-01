@@ -1,0 +1,1 @@
+error: no objects passed to apply

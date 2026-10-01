@@ -1,0 +1,2 @@
+NAME                           DESIRED   READY   AVAILABLE
+kyverno-admission-controller   4         4       4

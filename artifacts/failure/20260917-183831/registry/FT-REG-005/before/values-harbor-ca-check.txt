@@ -1,0 +1,6 @@
+2:  caCertificates:
+6:    - name: harbor-ca-bundle
+8:        name: kyverno-custom-ca-bundle
+11:    - name: harbor-ca-bundle
+12:      mountPath: /etc/ssl/certs/ca-certificates.crt
+13:      subPath: ca-certificates.crt

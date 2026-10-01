@@ -1,0 +1,10 @@
+samples=1244
+success=1244
+errors=0
+error_rate=0.00%
+min_ms=141.00
+mean_ms=194.29
+p50_ms=178.00
+p95_ms=251.85
+p99_ms=492.98
+max_ms=2005.00

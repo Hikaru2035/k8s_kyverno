@@ -1,0 +1,1 @@
+[pod/kyverno-admission-controller-6f755d9865-hknxs/kyverno] [90m2026-10-01T04:13:26Z[0m [31mERR[0m [1mgithub.com/kyverno/kyverno/pkg/cel/engine/namespace.go:32[0m[36m >[0m [1mfailed to resolve namespace, namespaceObject will be null[0m [36merror=[0m[31m[1m"namespaces \"ft-reg-003\" not found"[0m[0m [36mlogger=[0msetup/ns-resolver [36mnamespace=[0mft-reg-003

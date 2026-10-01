@@ -1,0 +1,3 @@
+pod/signed-reg-004 created (server dry run)
+exit_code=0
+latency_ms=1173

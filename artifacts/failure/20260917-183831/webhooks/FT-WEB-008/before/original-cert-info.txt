@@ -1,0 +1,6 @@
+subject=CN = kyverno-svc
+issuer=CN = *.kyverno.svc
+serial=01
+notBefore=Aug 26 03:38:57 2026 GMT
+notAfter=Jan 23 04:38:57 2027 GMT
+sha256 Fingerprint=6B:F0:56:49:51:DE:D0:69:71:2F:AE:27:48:74:30:B5:78:8F:E6:9C:9E:2B:CA:53:7C:A1:B4:63:23:09:95:C7

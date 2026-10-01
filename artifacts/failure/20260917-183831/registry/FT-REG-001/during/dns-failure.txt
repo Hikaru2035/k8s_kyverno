@@ -1,0 +1,22 @@
+2026-10-01T10:32:05+07:00
+=== harbor-public ===
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+** server can't find harbor-public.svc.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.kyverno.svc.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.svc.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.kyverno.svc.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.openstacklocal: NXDOMAIN
+
+** server can't find harbor-public.openstacklocal: NXDOMAIN
+
+command terminated with exit code 1

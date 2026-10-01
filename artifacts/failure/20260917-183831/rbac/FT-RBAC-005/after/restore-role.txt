@@ -1,0 +1,1 @@
+clusterrole.rbac.authorization.k8s.io/kyverno:background-controller:core replaced

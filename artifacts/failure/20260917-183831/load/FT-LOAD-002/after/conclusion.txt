@@ -1,0 +1,34 @@
+FT-LOAD-002
+Result: PASS
+
+Scenario:
+Small admission burst with 10 concurrent requests per burst.
+
+Configuration:
+Kyverno admission replicas: 4
+Bursts: 10
+Concurrency per burst: 10
+Total requests: 100
+
+Baseline (FT-LOAD-001):
+p50: 169.00 ms
+p95: 210.35 ms
+p99: 249.98 ms
+Error rate: 0.00%
+
+Small Burst Results:
+Mean: 771.35 ms
+p50: 744.50 ms
+p95: 1077.00 ms
+p99: 1086.13 ms
+Max: 1099.00 ms
+Error rate: 0.00%
+
+Observations:
+Admission latency increased significantly under concurrent requests.
+However, all 100 admission requests completed successfully.
+All 4 Kyverno admission-controller replicas remained Ready and
+Available with zero container restarts.
+
+Result:
+PASS

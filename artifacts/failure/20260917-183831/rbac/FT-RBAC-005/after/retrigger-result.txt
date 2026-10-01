@@ -1,0 +1,5 @@
+2026-10-01T09:18:36+07:00
+=== ResourceQuota ===
+NAME                       REQUEST                                                 LIMIT                                   AGE
+namespace-resource-quota   pods: 0/25, requests.cpu: 0/2, requests.memory: 0/4Gi   limits.cpu: 0/4, limits.memory: 0/8Gi   12s
+GENERATED_RESOURCE_PRESENT=YES

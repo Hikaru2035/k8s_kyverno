@@ -1,0 +1,44 @@
+===== concurrency=10 =====
+samples=50
+success=50
+errors=0
+error_rate=0.00%
+mean_ms=841.14
+p50_ms=776.50
+p95_ms=1245.00
+p99_ms=1247.02
+max_ms=1248.00
+
+===== concurrency=15 =====
+samples=60
+success=60
+errors=0
+error_rate=0.00%
+mean_ms=1016.45
+p50_ms=1004.50
+p95_ms=1275.00
+p99_ms=1317.86
+max_ms=1345.00
+
+===== concurrency=20 =====
+samples=60
+success=60
+errors=0
+error_rate=0.00%
+mean_ms=1623.87
+p50_ms=1636.00
+p95_ms=1924.45
+p99_ms=2000.38
+max_ms=2011.00
+
+===== concurrency=25 =====
+samples=50
+success=50
+errors=0
+error_rate=0.00%
+mean_ms=2146.26
+p50_ms=2185.00
+p95_ms=2458.25
+p99_ms=2487.55
+max_ms=2490.00
+

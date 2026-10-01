@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  creationTimestamp: "2026-10-01T02:10:33Z"
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    generate.kyverno.io/policy-name: generate-resource-quota
+    generate.kyverno.io/trigger-group: ""
+    generate.kyverno.io/trigger-kind: Namespace
+    generate.kyverno.io/trigger-name: ft-rbac-005-baseline
+    generate.kyverno.io/trigger-namespace: ""
+    generate.kyverno.io/trigger-uid: dcff7c51-dcf9-49e0-9753-efb9cc0a7805
+    generate.kyverno.io/trigger-version: v1
+    policies.ksp.io/environment: dev
+    policies.ksp.io/generated-by: ksp-res-005
+    policies.ksp.io/quota-class: small
+  name: namespace-resource-quota
+  namespace: ft-rbac-005-baseline
+  resourceVersion: "34837420"
+  uid: 20b62c42-bb74-4e28-ac7c-e121e3fbb1e9
+spec:
+  hard:
+    limits.cpu: "4"
+    limits.memory: 8Gi
+    pods: "25"
+    requests.cpu: "2"
+    requests.memory: 4Gi
+status:
+  hard:
+    limits.cpu: "4"
+    limits.memory: 8Gi
+    pods: "25"
+    requests.cpu: "2"
+    requests.memory: 4Gi
+  used:
+    limits.cpu: "0"
+    limits.memory: "0"
+    pods: "0"
+    requests.cpu: "0"
+    requests.memory: "0"

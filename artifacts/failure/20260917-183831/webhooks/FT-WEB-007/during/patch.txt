@@ -1,0 +1,1 @@
+mutatingwebhookconfiguration.admissionregistration.k8s.io/kyverno-resource-mutating-webhook-cfg patched

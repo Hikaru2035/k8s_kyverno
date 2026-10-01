@@ -1,0 +1,59 @@
+FT-LOAD-004
+Result: PASS
+
+Scenario:
+Sustained admission load.
+
+Configuration:
+Duration: approximately 5 minutes
+Concurrency: 5
+Kyverno admission replicas: 4
+
+Results:
+Total requests: 1244
+Successful requests: 1244
+Failed requests: 0
+Error rate: 0.00%
+
+Mean: 194.29 ms
+p50: 178.00 ms
+p95: 251.85 ms
+p99: 492.98 ms
+Max: 2005.00 ms
+
+Stability:
+All four Kyverno admission-controller replicas remained Ready.
+
+Restart count before:
+c9ktm: 0
+gnw7x: 0
+nc6bt: 1
+pzwt6: 0
+
+Restart count after:
+c9ktm: 0
+gnw7x: 0
+nc6bt: 1
+pzwt6: 0
+
+Restart delta during FT-LOAD-004: 0
+
+Resource Observation:
+Admission-controller memory remained approximately 84-100 MiB
+in the observed samples.
+CPU was approximately 18-95m in the observed samples.
+
+No continuously increasing memory trend was observed during the
+5-minute test window.
+
+The Unhealthy events shown after the test occurred approximately
+23 minutes earlier and were associated with the previous FT-LOAD-003
+test, not FT-LOAD-004.
+
+Conclusion:
+The system sustained the configured moderate load without admission
+errors, new container restarts, crashes, or an observed continuously
+increasing memory trend.
+
+Result:
+PASS

@@ -1,0 +1,10 @@
+burst=1 concurrency=10 duration_ms=1105
+burst=2 concurrency=10 duration_ms=891
+burst=3 concurrency=10 duration_ms=877
+burst=4 concurrency=10 duration_ms=822
+burst=5 concurrency=10 duration_ms=765
+burst=6 concurrency=10 duration_ms=1122
+burst=7 concurrency=10 duration_ms=930
+burst=8 concurrency=10 duration_ms=832
+burst=9 concurrency=10 duration_ms=837
+burst=10 concurrency=10 duration_ms=876

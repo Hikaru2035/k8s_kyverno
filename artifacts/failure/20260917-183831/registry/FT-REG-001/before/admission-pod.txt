@@ -1,0 +1,1 @@
+KYVERNO_POD=kyverno-admission-controller-6f755d9865-2pq28

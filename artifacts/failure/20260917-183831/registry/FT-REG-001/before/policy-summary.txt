@@ -1,0 +1,63 @@
+kind: ImageValidatingPolicy
+    argocd.argoproj.io/tracking-id: policy:policies.kyverno.io/ImageValidatingPolicy:kyverno/verify-signed-images
+      {"apiVersion":"policies.kyverno.io/v1","kind":"ImageValidatingPolicy","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"policy:policies.kyverno.io/ImageValidatingPolicy:kyverno/verify-signed-images","policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/image-security/KSP-IMG-004/KSP-IMG-004-verify-signed-images.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Image Security","policies.kyverno.io/description":"Verifies Cosign signatures for images in the project Harbor registry.","policies.kyverno.io/severity":"critical","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Verify Signed Images"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-img-004"},"name":"verify-signed-images"},"spec":{"attestors":[{"cosign":{"ctlog":{"insecureIgnoreTlog":true,"url":"https://rekor.sigstore.dev"},"key":{"data":"-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENCILe4A6XfYS7ywb6+2dYofOp/EF\nm2QD8eSTF3tewrleB6qxxTbrdicMpvUl+n26WcNFGKz5Lcw+c60AERhJPw==\n-----END PUBLIC KEY-----"}},"name":"cosign"}],"credentials":{"providers":["default"],"secrets":["harbor-registry-credentials"]},"evaluation":{"background":{"enabled":false}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"matchImageReferences":[{"glob":"harbor-public:30003/ksp-test/*"}],"validationActions":["Audit","Warn"],"validations":[{"expression":"(\n  images.containers\n  + images.?initContainers.orValue([])\n  + images.?ephemeralContainers.orValue([])\n).map(\n  image,\n  verifyImageSignatures(image, [attestors.cosign])\n).all(result, result \u003e 0)\n","message":"Image must be signed with the trusted Cosign key."}],"webhookConfiguration":{"timeoutSeconds":30}}}
+    policies.ksp.io/rendered-from: policies/image-security/KSP-IMG-004/KSP-IMG-004-verify-signed-images.yaml
+    policies.kyverno.io/category: KSP Image Security
+    policies.kyverno.io/description: Verifies Cosign signatures for images in the
+      project Harbor registry.
+    policies.kyverno.io/title: Verify Signed Images
+  name: verify-signed-images
+  attestors:
+  - cosign:
+      key:
+          -----BEGIN PUBLIC KEY-----
+          -----END PUBLIC KEY-----
+    name: cosign
+    - harbor-registry-credentials
+  matchConditions:
+  matchConstraints:
+  matchImageReferences:
+  - glob: harbor-public:30003/ksp-test/*
+    verifyDigest: true
+        images.containers
+        + images.?initContainers.orValue([])
+        + images.?ephemeralContainers.orValue([])
+        image,
+        verifyImageSignatures(image, [attestors.cosign])
+    message: Image must be signed with the trusted Cosign key.
+          attestors:
+          - cosign:
+              key:
+                  -----BEGIN PUBLIC KEY-----
+                  -----END PUBLIC KEY-----
+            name: cosign
+            - harbor-registry-credentials
+          matchConditions:
+          matchConstraints:
+          matchImageReferences:
+          - glob: harbor-public:30003/ksp-test/*
+            verifyDigest: true
+                images.containers
+                + images.?initContainers.orValue([])
+                + images.?ephemeralContainers.orValue([])
+                image,
+                verifyImageSignatures(image, [attestors.cosign])
+            message: Image must be signed with the trusted Cosign key.
+          attestors:
+          - cosign:
+              key:
+                  -----BEGIN PUBLIC KEY-----
+                  -----END PUBLIC KEY-----
+            name: cosign
+            - harbor-registry-credentials
+          matchConditions:
+          matchConstraints:
+          matchImageReferences:
+          - glob: harbor-public:30003/ksp-test/*
+            verifyDigest: true
+                images.containers
+                + images.?initContainers.orValue([])
+                + images.?ephemeralContainers.orValue([])
+                image,
+                verifyImageSignatures(image, [attestors.cosign])
+            message: Image must be signed with the trusted Cosign key.

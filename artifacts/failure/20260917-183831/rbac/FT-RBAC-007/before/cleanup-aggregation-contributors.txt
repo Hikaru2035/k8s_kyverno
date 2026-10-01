@@ -1,0 +1,2 @@
+kyverno:cleanup-controller
+kyverno:cleanup-controller:core

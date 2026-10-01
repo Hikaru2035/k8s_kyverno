@@ -1,0 +1,2 @@
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                   SELECTOR
+kyverno-admission-controller   4/4     4            4           36d   kyverno      reg.kyverno.io/kyverno/kyverno:v1.19.1   app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno

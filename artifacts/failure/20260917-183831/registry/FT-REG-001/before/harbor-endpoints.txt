@@ -1,0 +1,7 @@
+harbor          harbor                                               10.244.19.153:8080,10.244.19.153:8443                                           25d
+harbor          harbor-core                                          10.244.212.70:8080                                                              25d
+harbor          harbor-database                                      10.244.212.125:5432                                                             25d
+harbor          harbor-jobservice                                    10.244.212.103:8080                                                             25d
+harbor          harbor-portal                                        10.244.212.122:8080                                                             25d
+harbor          harbor-redis                                         10.244.19.141:6379                                                              25d
+harbor          harbor-registry                                      10.244.19.156:8080,10.244.19.156:5000                                           25d

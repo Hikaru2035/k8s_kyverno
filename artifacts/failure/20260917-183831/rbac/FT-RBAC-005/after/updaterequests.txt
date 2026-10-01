@@ -1,0 +1,146 @@
+2026-10-01T09:17:53+07:00
+=== UpdateRequests ===
+NAMESPACE   NAME       POLICY                    RULETYPE       RESOURCEKIND   RESOURCENAME   RESOURCENAMESPACE   STATUS   AGE
+kyverno     ur-x7vdb   generate-resource-quota   cel-generate                                                              15d
+
+=== FT-RBAC-005 related UpdateRequests ===
+apiVersion: v1
+items:
+- apiVersion: kyverno.io/v2
+  kind: UpdateRequest
+  metadata:
+    creationTimestamp: "2026-09-15T10:19:56Z"
+    generateName: ur-
+    generation: 1
+    labels:
+      generate.kyverno.io/policy-name: generate-resource-quota
+    name: ur-x7vdb
+    namespace: kyverno
+    resourceVersion: "10592938"
+    uid: 6aa27aa3-7572-4055-b97d-13c89c67ce83
+  spec:
+    context:
+      admissionRequestInfo: {}
+      userInfo:
+        userInfo: {}
+    deleteDownstream: false
+    policy: generate-resource-quota
+    requestType: cel-generate
+    resource: {}
+    rule: ""
+    ruleContext:
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: calico-system
+        uid: 9fbcfa6d-6363-46a2-9ecf-e7ce5af9c8a0
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: default
+        uid: 02b026e2-ea52-4d3a-aa67-962bd639f4dd
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: harbor
+        uid: 0b50820f-26c8-4331-9e4f-0e237eb452ed
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: harbor-test
+        uid: eed3d2c0-c49f-4e08-af61-7be3ca49a290
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: ksp-dev
+        uid: 226ee6a7-89c8-4c2e-83ff-32ff65392f98
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: ksp-production
+        uid: 4ed980b5-b6ab-46b4-bf64-8a2d745f1065
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: ksp-staging
+        uid: 7cc85c8a-08e5-4625-b96b-a8c88013fb64
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: kube-node-lease
+        uid: 417710d5-f182-4af3-af6a-fe19f41416fc
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: kube-public
+        uid: 0a2a715f-3ae4-4727-b68f-462d9cdaf855
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: kube-system
+        uid: 73da6a4f-f956-4560-b21e-7b384376a1ea
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: kyverno
+        uid: 922015cf-6315-4c29-8930-f721ef908f3f
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: local-path-storage
+        uid: 8182d027-20cc-45fe-a3e3-2adce91bf61c
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: monitoring
+        uid: d2ef9c9d-81c9-460d-a713-7801081d7376
+    - cacheRestore: true
+      deleteDownstream: false
+      rule: generate-resource-quota
+      trigger:
+        apiVersion: v1
+        kind: Namespace
+        name: tigera-operator
+        uid: 9e5fbfd2-6ce7-499b-84a4-cac88f2f1b14
+kind: List
+metadata:
+  resourceVersion: ""

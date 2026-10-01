@@ -1,0 +1,27 @@
+
+===== kyverno-background-controller =====
+get     resourcequotas = yes
+list    resourcequotas = yes
+watch   resourcequotas = yes
+create  resourcequotas = yes
+update  resourcequotas = yes
+patch   resourcequotas = yes
+delete  resourcequotas = yes
+
+===== kyverno-admission-controller =====
+get     resourcequotas = yes
+list    resourcequotas = yes
+watch   resourcequotas = yes
+create  resourcequotas = no
+update  resourcequotas = no
+patch   resourcequotas = no
+delete  resourcequotas = no
+
+===== kyverno-reports-controller =====
+get     resourcequotas = yes
+list    resourcequotas = yes
+watch   resourcequotas = yes
+create  resourcequotas = no
+update  resourcequotas = no
+patch   resourcequotas = no
+delete  resourcequotas = no

@@ -1,0 +1,1 @@
+clusterpolicy.kyverno.io/ft-rbac-001-api-read created

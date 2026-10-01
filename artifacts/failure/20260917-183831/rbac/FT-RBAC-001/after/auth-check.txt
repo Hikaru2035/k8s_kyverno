@@ -1,0 +1,9 @@
+2026-10-01T08:52:33+07:00
+=== Binding ===
+NAME                                ROLE
+kyverno:admission-controller:view   view
+
+=== Effective permissions ===
+get pods = yes
+list pods = yes
+watch pods = yes

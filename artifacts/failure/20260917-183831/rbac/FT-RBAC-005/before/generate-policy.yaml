@@ -1,0 +1,149 @@
+apiVersion: policies.kyverno.io/v1
+kind: GeneratingPolicy
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: policy:policies.kyverno.io/GeneratingPolicy:kyverno/generate-resource-quota
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"policies.kyverno.io/v1","kind":"GeneratingPolicy","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"policy:policies.kyverno.io/GeneratingPolicy:kyverno/generate-resource-quota","policies.ksp.io/dev-mode":"Generate","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Generate","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/resource-governance/KSP-RES-005/KSP-RES-005-generate-resource-quota.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Generate","policies.kyverno.io/category":"KSP Resource Governance","policies.kyverno.io/description":"Generates synchronized environment- and quota-class-specific ResourceQuota objects for opted-in application namespaces.","policies.kyverno.io/severity":"medium","policies.kyverno.io/subject":"Namespace,ResourceQuota","policies.kyverno.io/title":"Generate ResourceQuota"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-res-005"},"name":"generate-resource-quota"},"spec":{"evaluation":{"generateExisting":{"enabled":true},"synchronize":{"enabled":true}},"generate":[{"expression":"generator.Apply(\n  variables.namespaceName,\n  variables.downstream\n)"}],"matchConditions":[{"expression":"object.metadata.?labels[\n  \"policies.ksp.io/generate-resource-governance\"\n].orValue(\"\") == \"enabled\"","name":"opted-in-namespace"},{"expression":"object.metadata.?labels[\n  \"policies.ksp.io/environment\"\n].orValue(\"\") in [\n  \"dev\",\n  \"staging\",\n  \"production\"\n]","name":"valid-environment"},{"expression":"object.metadata.?labels[\n  \"policies.ksp.io/quota-class\"\n].orValue(\"\") in [\n  \"small\",\n  \"medium\",\n  \"large\"\n]","name":"valid-quota-class"},{"expression":"(true) \u0026\u0026 (!(object.metadata.name in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["namespaces"]}]},"variables":[{"expression":"object.metadata.name","name":"namespaceName"},{"expression":"object.metadata.labels[\"policies.ksp.io/environment\"]","name":"environment"},{"expression":"object.metadata.labels[\"policies.ksp.io/quota-class\"]","name":"quotaClass"},{"expression":"resource.Get(\n  \"v1\",\n  \"configmaps\",\n  \"kyverno\",\n  \"ksp-resource-quota-sizing\"\n)","name":"quotaConfig"},{"expression":"string(variables.environment) + \".\" + string(variables.quotaClass)","name":"quotaKey"},{"expression":"variables.quotaConfig.data[variables.quotaKey + \".requestsCpu\"]","name":"requestsCpu"},{"expression":"variables.quotaConfig.data[variables.quotaKey + \".requestsMemory\"]","name":"requestsMemory"},{"expression":"variables.quotaConfig.data[variables.quotaKey + \".limitsCpu\"]","name":"limitsCpu"},{"expression":"variables.quotaConfig.data[variables.quotaKey + \".limitsMemory\"]","name":"limitsMemory"},{"expression":"variables.quotaConfig.data[variables.quotaKey + \".pods\"]","name":"pods"},{"expression":"[\n  {\n    \"apiVersion\": dyn(\"v1\"),\n    \"kind\": dyn(\"ResourceQuota\"),\n\n    \"metadata\": dyn({\n      \"name\": dyn(\"namespace-resource-quota\"),\n      \"labels\": dyn({\n        \"app.kubernetes.io/managed-by\": \"kyverno\",\n        \"policies.ksp.io/generated-by\": \"ksp-res-005\",\n        \"policies.ksp.io/environment\": string(variables.environment),\n        \"policies.ksp.io/quota-class\": string(variables.quotaClass)\n      })\n    }),\n\n    \"spec\": dyn({\n      \"hard\": dyn({\n        \"requests.cpu\": dyn(string(variables.requestsCpu)),\n        \"requests.memory\": dyn(string(variables.requestsMemory)),\n        \"limits.cpu\": dyn(string(variables.limitsCpu)),\n        \"limits.memory\": dyn(string(variables.limitsMemory)),\n        \"pods\": dyn(string(variables.pods))\n      })\n    })\n  }\n]","name":"downstream"}]}}
+    policies.ksp.io/dev-mode: Generate
+    policies.ksp.io/exception: controlled
+    policies.ksp.io/prod-mode: Generate
+    policies.ksp.io/profiles: baseline,standard,restricted
+    policies.ksp.io/rendered-from: policies/resource-governance/KSP-RES-005/KSP-RES-005-generate-resource-quota.yaml
+    policies.ksp.io/runtime-environment: development
+    policies.ksp.io/staging-mode: Generate
+    policies.kyverno.io/category: KSP Resource Governance
+    policies.kyverno.io/description: Generates synchronized environment- and quota-class-specific
+      ResourceQuota objects for opted-in application namespaces.
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace,ResourceQuota
+    policies.kyverno.io/title: Generate ResourceQuota
+  creationTimestamp: "2026-09-18T10:12:54Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/managed-by: kyverno
+    policies.ksp.io/id: ksp-res-005
+  name: generate-resource-quota
+  resourceVersion: "32034053"
+  uid: f1b5cf0b-126d-4f6b-8652-e638c621683a
+spec:
+  evaluation:
+    generateExisting:
+      enabled: true
+    skipBackgroundRequests: true
+    synchronize:
+      enabled: true
+  generate:
+  - expression: |-
+      generator.Apply(
+        variables.namespaceName,
+        variables.downstream
+      )
+  matchConditions:
+  - expression: |-
+      object.metadata.?labels[
+        "policies.ksp.io/generate-resource-governance"
+      ].orValue("") == "enabled"
+    name: opted-in-namespace
+  - expression: |-
+      object.metadata.?labels[
+        "policies.ksp.io/environment"
+      ].orValue("") in [
+        "dev",
+        "staging",
+        "production"
+      ]
+    name: valid-environment
+  - expression: |-
+      object.metadata.?labels[
+        "policies.ksp.io/quota-class"
+      ].orValue("") in [
+        "small",
+        "medium",
+        "large"
+      ]
+    name: valid-quota-class
+  - expression: (true) && (!(object.metadata.name in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+    name: ksp-runtime-profile-and-platform-scope
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - namespaces
+  variables:
+  - expression: object.metadata.name
+    name: namespaceName
+  - expression: object.metadata.labels["policies.ksp.io/environment"]
+    name: environment
+  - expression: object.metadata.labels["policies.ksp.io/quota-class"]
+    name: quotaClass
+  - expression: |-
+      resource.Get(
+        "v1",
+        "configmaps",
+        "kyverno",
+        "ksp-resource-quota-sizing"
+      )
+    name: quotaConfig
+  - expression: string(variables.environment) + "." + string(variables.quotaClass)
+    name: quotaKey
+  - expression: variables.quotaConfig.data[variables.quotaKey + ".requestsCpu"]
+    name: requestsCpu
+  - expression: variables.quotaConfig.data[variables.quotaKey + ".requestsMemory"]
+    name: requestsMemory
+  - expression: variables.quotaConfig.data[variables.quotaKey + ".limitsCpu"]
+    name: limitsCpu
+  - expression: variables.quotaConfig.data[variables.quotaKey + ".limitsMemory"]
+    name: limitsMemory
+  - expression: variables.quotaConfig.data[variables.quotaKey + ".pods"]
+    name: pods
+  - expression: |-
+      [
+        {
+          "apiVersion": dyn("v1"),
+          "kind": dyn("ResourceQuota"),
+
+          "metadata": dyn({
+            "name": dyn("namespace-resource-quota"),
+            "labels": dyn({
+              "app.kubernetes.io/managed-by": "kyverno",
+              "policies.ksp.io/generated-by": "ksp-res-005",
+              "policies.ksp.io/environment": string(variables.environment),
+              "policies.ksp.io/quota-class": string(variables.quotaClass)
+            })
+          }),
+
+          "spec": dyn({
+            "hard": dyn({
+              "requests.cpu": dyn(string(variables.requestsCpu)),
+              "requests.memory": dyn(string(variables.requestsMemory)),
+              "limits.cpu": dyn(string(variables.limitsCpu)),
+              "limits.memory": dyn(string(variables.limitsMemory)),
+              "pods": dyn(string(variables.pods))
+            })
+          })
+        }
+      ]
+    name: downstream
+status:
+  conditionStatus:
+    conditions:
+    - lastTransitionTime: "2026-09-18T10:12:55Z"
+      message: Webhook configured.
+      reason: Succeeded
+      status: "True"
+      type: WebhookConfigured
+    - lastTransitionTime: "2026-09-18T10:12:55Z"
+      message: Policy is ready for reporting.
+      reason: Succeeded
+      status: "True"
+      type: RBACPermissionsGranted
+    message: ""
+    ready: true

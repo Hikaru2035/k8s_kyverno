@@ -1,0 +1,9 @@
+pods                           yes
+namespaces                     yes
+deployments.apps               yes
+statefulsets.apps              yes
+daemonsets.apps                yes
+jobs.batch                     yes
+cronjobs.batch                 yes
+secrets                        no
+configmaps                     yes

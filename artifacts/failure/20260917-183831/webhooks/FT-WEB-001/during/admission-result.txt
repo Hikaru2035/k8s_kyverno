@@ -1,0 +1,4 @@
+exit_code=1
+duration_ms=234
+
+Error from server (NotFound): error when creating "/tmp/ft-web-001-pod.yaml": namespaces "ft-webhook-test" not found

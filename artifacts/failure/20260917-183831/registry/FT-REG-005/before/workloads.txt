@@ -1,0 +1,10 @@
+NAME                                READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS             IMAGES                                                                                     SELECTOR
+deployment.apps/harbor-core         1/1     1            1           25d   core                   docker.io/goharbor/harbor-core:v2.15.2                                                     app=harbor,component=core,release=harbor
+deployment.apps/harbor-jobservice   1/1     1            1           25d   jobservice             docker.io/goharbor/harbor-jobservice:v2.15.2                                               app=harbor,component=jobservice,release=harbor
+deployment.apps/harbor-nginx        1/1     1            1           25d   nginx                  docker.io/goharbor/nginx-photon:v2.15.2                                                    app=harbor,component=nginx,release=harbor
+deployment.apps/harbor-portal       1/1     1            1           25d   portal                 docker.io/goharbor/harbor-portal:v2.15.2                                                   app=harbor,component=portal,release=harbor
+deployment.apps/harbor-registry     1/1     1            1           25d   registry,registryctl   docker.io/goharbor/registry-photon:v2.15.2,docker.io/goharbor/harbor-registryctl:v2.15.2   app=harbor,component=registry,release=harbor
+
+NAME                               READY   AGE   CONTAINERS   IMAGES
+statefulset.apps/harbor-database   1/1     25d   database     docker.io/goharbor/harbor-db:v2.15.2
+statefulset.apps/harbor-redis      1/1     25d   redis        docker.io/goharbor/valkey-photon:v2.15.2

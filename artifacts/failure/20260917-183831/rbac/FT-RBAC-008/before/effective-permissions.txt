@@ -1,0 +1,19 @@
+2026-10-01T09:28:37+07:00
+=== ResourceQuota ===
+get     = yes
+list    = yes
+watch   = yes
+create  = yes
+update  = yes
+patch   = yes
+delete  = yes
+
+=== Namespaces ===
+get     = yes
+list    = yes
+watch   = yes
+
+=== GeneratingPolicies ===
+get     = yes
+list    = yes
+watch   = yes

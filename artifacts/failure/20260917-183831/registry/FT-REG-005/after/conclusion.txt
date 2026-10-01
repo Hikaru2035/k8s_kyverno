@@ -1,0 +1,53 @@
+FT-REG-005
+Result: N/A
+
+Scenario:
+Harbor presents an expired TLS certificate while Kyverno attempts
+image signature verification.
+
+Baseline:
+Harbor was reachable through harbor-public:30003 and presented the
+following valid certificate:
+
+Subject: CN=harbor-public
+Issuer: CN=harbor-ca
+NotBefore: Sep 5 09:45:20 2026 GMT
+NotAfter: Sep 5 09:45:20 2027 GMT
+
+The signed test image was successfully processed by the
+verify-signed-images policy during the baseline test.
+
+Environment Investigation:
+Harbor is configured with TLS certSource=auto.
+
+The harbor-nginx Secret contains:
+- ca.crt
+- tls.crt
+- tls.key
+
+The ca.crt contains the public certificate for harbor-ca.
+The tls.crt and tls.key contain the Harbor server certificate and
+corresponding server private key.
+
+No private key for harbor-ca was found in the Harbor Kubernetes
+Secrets, relevant project files, or Harbor CA configuration.
+The values-harbor-ca.yaml configuration also contains no embedded
+private key.
+
+Reason for N/A:
+Generating an expired replacement certificate while preserving the
+existing trust chain requires the private key of harbor-ca.
+
+Without that key, a replacement certificate would need to be signed
+by another CA. This would change the trust chain and could produce an
+unknown-authority failure rather than isolating certificate expiration.
+
+Modifying both the Kyverno trust bundle and the Harbor certificate to
+simulate expiration would introduce multiple fault variables and would
+not accurately reproduce this failure scenario.
+
+Therefore FT-REG-005 is not safely reproducible in the current
+environment without changing the baseline PKI architecture.
+
+Result:
+N/A

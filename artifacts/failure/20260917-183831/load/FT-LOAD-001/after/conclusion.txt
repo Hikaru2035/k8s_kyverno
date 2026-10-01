@@ -1,0 +1,28 @@
+FT-LOAD-001
+Result: PASS
+
+Test:
+Baseline admission latency under normal request volume.
+
+Configuration:
+Kyverno admission controller replicas: 4
+Samples: 100
+Admission errors: 0
+
+Results:
+Mean: 176.91 ms
+p50: 169.00 ms
+p95: 210.35 ms
+p99: 249.98 ms
+Max: 446.00 ms
+Error rate: 0.00%
+
+All four Kyverno admission-controller replicas remained Ready with
+zero restarts during the test.
+
+The Kubernetes Metrics API was unavailable, therefore kubectl top
+resource metrics were not collected. This does not affect the
+admission latency baseline.
+
+Result:
+PASS

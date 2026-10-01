@@ -1,0 +1,2 @@
+kyverno:admission-controller	ClusterRole	kyverno:admission-controller
+kyverno:admission-controller:view	ClusterRole	view

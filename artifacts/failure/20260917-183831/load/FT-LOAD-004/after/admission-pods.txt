@@ -1,0 +1,5 @@
+NAME                                           READY   RESTARTS
+kyverno-admission-controller-86f655d85-c9ktm   true    0
+kyverno-admission-controller-86f655d85-gnw7x   true    0
+kyverno-admission-controller-86f655d85-nc6bt   true    1
+kyverno-admission-controller-86f655d85-pzwt6   true    0

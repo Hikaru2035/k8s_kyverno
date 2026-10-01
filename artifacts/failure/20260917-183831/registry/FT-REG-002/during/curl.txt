@@ -1,0 +1,9 @@
+* Host harbor-public:30003 was resolved.
+* IPv6: (none)
+* IPv4: 171.244.199.186
+*   Trying 171.244.199.186:30003...
+* connect to 171.244.199.186 port 30003 from 10.244.212.83 port 41822 failed: Connection refused
+* Failed to connect to harbor-public port 30003 after 5 ms: Could not connect to server
+* closing connection #0
+command terminated with exit code 7
+curl_exit_code=7

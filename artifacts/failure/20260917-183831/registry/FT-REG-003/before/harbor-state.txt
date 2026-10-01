@@ -1,0 +1,9 @@
+===== DNS =====
+171.244.199.186 harbor-public
+
+===== HARBOR ENDPOINT =====
+NAME     ENDPOINTS                               AGE
+harbor   10.244.19.153:8080,10.244.19.153:8443   25d
+
+===== HARBOR SELECTOR =====
+{"app":"harbor","component":"nginx","release":"harbor"}

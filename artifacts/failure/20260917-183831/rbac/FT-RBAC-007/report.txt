@@ -1,0 +1,37 @@
+FT-RBAC-007
+Result: N/A – Target delete permission is not granted in the baseline configuration
+
+Scenario:
+Cleanup controller lacks delete permission for resources targeted by
+cleanup or deleting policies.
+
+Baseline Verification:
+The kyverno-cleanup-controller ServiceAccount was inspected for
+get/list/watch/delete permissions on common target resources.
+
+The controller has read access to ConfigMaps but does not have delete
+permission. It also does not have delete permission on Pods or Secrets.
+
+The cleanup-controller ClusterRole and its core aggregation contributor
+were inspected and no applicable delete permission for these target
+resources was found.
+
+Policy Verification:
+No ClusterCleanupPolicy, CleanupPolicy, DeletingPolicy, or
+NamespacedDeletingPolicy resources are currently deployed in the
+cluster.
+
+Failure Injection:
+Not performed. There is no applicable baseline delete permission to
+remove and no deployed cleanup/deleting policy providing a valid
+runtime target.
+
+Conclusion:
+The test scenario does not match the current cluster configuration.
+Injecting this failure would require first granting additional delete
+permissions and introducing a temporary cleanup policy, which would
+modify the baseline RBAC model rather than test failure of the deployed
+configuration.
+
+Result:
+N/A

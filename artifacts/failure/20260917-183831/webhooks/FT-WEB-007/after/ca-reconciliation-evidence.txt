@@ -1,0 +1,18 @@
+=== WRONG TEST CA ===
+subject=CN = FT-WEB-007-Wrong-CA
+issuer=CN = FT-WEB-007-Wrong-CA
+sha256 Fingerprint=F6:6A:D4:A2:C4:29:29:53:83:B8:D6:CA:CF:A3:42:F8:14:91:52:4B:D4:4E:48:7F:D7:3C:1A:F8:EB:36:FB:F7
+
+=== ORIGINAL WEBHOOK CA ===
+subject=CN = *.kyverno.svc
+issuer=CN = *.kyverno.svc
+sha256 Fingerprint=6A:D6:AA:84:B4:E8:B0:6B:18:BC:A8:E5:CE:65:50:A7:20:6B:64:0D:06:51:52:22:D7:66:86:26:17:6C:6D:89
+
+=== CURRENT WEBHOOK CA ===
+subject=CN = *.kyverno.svc
+issuer=CN = *.kyverno.svc
+sha256 Fingerprint=6A:D6:AA:84:B4:E8:B0:6B:18:BC:A8:E5:CE:65:50:A7:20:6B:64:0D:06:51:52:22:D7:66:86:26:17:6C:6D:89
+
+=== COMPARISON ===
+CURRENT_EQUALS_ORIGINAL=YES
+CURRENT_EQUALS_WRONG=NO

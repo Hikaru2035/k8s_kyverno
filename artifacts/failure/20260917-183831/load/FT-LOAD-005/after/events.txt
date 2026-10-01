@@ -1,0 +1,52 @@
+LAST SEEN   TYPE      REASON      OBJECT                                               MESSAGE
+15m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-c9ktm     Readiness probe failed: Get "https://10.244.19.152:9443/health/readiness": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+14m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-c9ktm     Readiness probe failed: Get "https://10.244.19.152:9443/health/readiness": context deadline exceeded
+14m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-nc6bt     Startup probe failed: Get "https://10.244.212.69:9443/health/liveness": dial tcp 10.244.212.69:9443: connect: connection refused
+14m         Normal    Started     pod/kyverno-reports-controller-767f6648d7-lgfd7      Container started
+14m         Normal    Started     pod/kyverno-background-controller-69dc58d7b5-mpnpw   Container started
+14m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-nc6bt     Readiness probe failed: Get "https://10.244.212.69:9443/health/readiness": context deadline exceeded
+14m         Normal    Pulled      pod/kyverno-reports-controller-767f6648d7-lgfd7      Container image "reg.kyverno.io/kyverno/reports-controller:v1.19.1" already present on machine and can be accessed by the pod
+14m         Normal    Created     pod/kyverno-reports-controller-767f6648d7-lgfd7      Container created
+14m         Normal    Pulled      pod/kyverno-background-controller-69dc58d7b5-mpnpw   Container image "reg.kyverno.io/kyverno/background-controller:v1.19.1" already present on machine and can be accessed by the pod
+14m         Normal    Created     pod/kyverno-background-controller-69dc58d7b5-mpnpw   Container created
+13m         Warning   Unhealthy   pod/kyverno-cleanup-controller-d5c68786-cfc7t        Startup probe failed: Get "https://10.244.19.188:9443/health/liveness": dial tcp 10.244.19.188:9443: connect: connection refused
+13m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-pzwt6     Readiness probe failed: Get "https://10.244.19.146:9443/health/readiness": context deadline exceeded
+13m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-c9ktm     Startup probe failed: Get "https://10.244.19.152:9443/health/liveness": dial tcp 10.244.19.152:9443: connect: connection refused
+12m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-gnw7x     Readiness probe failed: Get "https://10.244.212.96:9443/health/readiness": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+12m         Normal    Killing     pod/kyverno-admission-controller-86f655d85-c9ktm     Container kyverno failed startup probe, will be restarted
+12m         Normal    Pulled      pod/kyverno-admission-controller-86f655d85-c9ktm     Container image "reg.kyverno.io/kyverno/kyverno:v1.19.1" already present on machine and can be accessed by the pod
+12m         Normal    Created     pod/kyverno-admission-controller-86f655d85-c9ktm     Container created
+12m         Normal    Started     pod/kyverno-admission-controller-86f655d85-c9ktm     Container started
+12m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-gnw7x     Readiness probe failed: Get "https://10.244.212.96:9443/health/readiness": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+11m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-pzwt6     Readiness probe failed: Get "https://10.244.19.146:9443/health/readiness": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+11m         Warning   BackOff     pod/kyverno-cleanup-controller-d5c68786-cfc7t        Back-off restarting failed container controller in pod kyverno-cleanup-controller-d5c68786-cfc7t_kyverno(75455f1c-9a21-4330-8a3f-cc954d4db70e)
+11m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-gnw7x     Readiness probe failed: Get "https://10.244.212.96:9443/health/readiness": context deadline exceeded
+11m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-nc6bt     Readiness probe failed: Get "https://10.244.212.69:9443/health/readiness": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+11m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-gnw7x     Startup probe failed: Get "https://10.244.212.96:9443/health/liveness": dial tcp 10.244.212.96:9443: connect: connection refused
+10m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-pzwt6     Readiness probe failed: Get "https://10.244.19.146:9443/health/readiness": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+10m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-c9ktm     Readiness probe failed: Get "https://10.244.19.152:9443/health/readiness": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+10m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-nc6bt     Readiness probe failed: Get "https://10.244.212.69:9443/health/readiness": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+3m32s       Normal    Started     pod/kyverno-cleanup-controller-d5c68786-cfc7t        Container started
+3m32s       Normal    Created     pod/kyverno-cleanup-controller-d5c68786-cfc7t        Container created
+3m32s       Normal    Pulled      pod/kyverno-cleanup-controller-d5c68786-cfc7t        Container image "reg.kyverno.io/kyverno/cleanup-controller:v1.19.1" already present on machine and can be accessed by the pod
+3m7s        Normal    Killing     pod/kyverno-admission-controller-86f655d85-gnw7x     Container kyverno failed startup probe, will be restarted
+3m7s        Normal    Started     pod/kyverno-admission-controller-86f655d85-gnw7x     Container started
+3m7s        Normal    Created     pod/kyverno-admission-controller-86f655d85-gnw7x     Container created
+3m7s        Normal    Pulled      pod/kyverno-admission-controller-86f655d85-gnw7x     Container image "reg.kyverno.io/kyverno/kyverno:v1.19.1" already present on machine and can be accessed by the pod
+96s         Normal    Killing     pod/kyverno-cleanup-controller-d5c68786-cfc7t        Container controller failed startup probe, will be restarted
+60s         Normal    Started     pod/kyverno-admission-controller-86f655d85-nc6bt     Container started
+60s         Normal    Pulled      pod/kyverno-admission-controller-86f655d85-nc6bt     Container image "reg.kyverno.io/kyverno/kyverno:v1.19.1" already present on machine and can be accessed by the pod
+60s         Normal    Created     pod/kyverno-admission-controller-86f655d85-nc6bt     Container created
+60s         Warning   BackOff     pod/kyverno-background-controller-69dc58d7b5-85xfq   Back-off restarting failed container controller in pod kyverno-background-controller-69dc58d7b5-85xfq_kyverno(ce930e60-4aff-44cf-97cd-3c93c5573f30)
+60s         Warning   BackOff     pod/kyverno-reports-controller-767f6648d7-9dgmj      Back-off restarting failed container controller in pod kyverno-reports-controller-767f6648d7-9dgmj_kyverno(494a2c3d-12c1-4f51-9a30-e349a79b109e)
+55s         Warning   Unhealthy   pod/kyverno-cleanup-controller-d5c68786-vpbpx        Startup probe failed: Get "https://10.244.19.184:9443/health/liveness": dial tcp 10.244.19.184:9443: connect: connection refused
+37s         Warning   BackOff     pod/kyverno-cleanup-controller-d5c68786-vpbpx        Back-off restarting failed container controller in pod kyverno-cleanup-controller-d5c68786-vpbpx_kyverno(c63bb300-f668-452e-a814-ba1a14a12ab0)
+35s         Normal    Created     pod/kyverno-reports-controller-767f6648d7-9dgmj      Container created
+35s         Normal    Started     pod/kyverno-reports-controller-767f6648d7-9dgmj      Container started
+35s         Normal    Pulled      pod/kyverno-reports-controller-767f6648d7-9dgmj      Container image "reg.kyverno.io/kyverno/reports-controller:v1.19.1" already present on machine and can be accessed by the pod
+33s         Normal    Created     pod/kyverno-background-controller-69dc58d7b5-85xfq   Container created
+33s         Normal    Started     pod/kyverno-background-controller-69dc58d7b5-85xfq   Container started
+33s         Normal    Pulled      pod/kyverno-background-controller-69dc58d7b5-85xfq   Container image "reg.kyverno.io/kyverno/background-controller:v1.19.1" already present on machine and can be accessed by the pod
+31s         Normal    Pulled      pod/kyverno-cleanup-controller-d5c68786-vpbpx        Container image "reg.kyverno.io/kyverno/cleanup-controller:v1.19.1" already present on machine and can be accessed by the pod
+31s         Normal    Started     pod/kyverno-cleanup-controller-d5c68786-vpbpx        Container started
+31s         Normal    Created     pod/kyverno-cleanup-controller-d5c68786-vpbpx        Container created

@@ -1,0 +1,9 @@
+/root/k8s_kyverno/artifacts/failure/20260917-183831/webhooks/FT-WEB-007/before/wrong-ca.key
+/root/k8s_kyverno/artifacts/failure/20260917-183831/webhooks/FT-WEB-008/before/ca.key
+/root/k8s_kyverno/artifacts/failure/20260917-183831/registry/FT-REG-005/before/harbor-nginx-ca.crt
+/root/k8s_kyverno/artifacts/failure/20260917-183831/registry/FT-REG-005/before/harbor-nginx-tls.key
+/root/k8s_kyverno/artifacts/failure/20260917-183831/registry/FT-REG-004/during/fake-ca.key
+/root/k8s_kyverno/helm/harbor/values-harbor-ca.yaml
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/front-proxy-ca.key

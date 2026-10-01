@@ -1,0 +1,2 @@
+NAME     TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE   SELECTOR
+harbor   NodePort   10.110.125.236   <none>        80:30002/TCP,443:30003/TCP   25d   app=harbor,component=nginx,release=harbor

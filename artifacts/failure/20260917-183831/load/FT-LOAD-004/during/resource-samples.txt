@@ -1,0 +1,390 @@
+===== 2026-10-01T14:31:08+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      5m           74Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      5m           76Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      11m          98Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      5m           73Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   6m           77Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:31:19+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      6m           74Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      6m           76Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      9m           98Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      6m           73Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   6m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   1m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   3m           77Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:31:29+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      23m          80Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      24m          80Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      16m          98Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      9m           73Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   3m           77Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   4m           41Mi            
+
+===== 2026-10-01T14:31:39+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      42m          84Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      74m          89Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      83m          99Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      13m          77Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   1m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   7m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:31:49+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      42m          84Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      74m          89Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      83m          99Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      13m          77Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   1m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   7m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:31:59+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      32m          87Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      78m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      85m          99Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      18m          79Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   3m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   1m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   3m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:32:09+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      35m          90Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      74m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      80m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      14m          79Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   7m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   3m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   4m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:32:20+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      35m          90Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      74m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      80m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      14m          79Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   7m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   3m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   4m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:32:30+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      34m          91Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      80m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      83m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      15m          82Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   4m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   1m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   4m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:32:40+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      35m          91Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      79m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      76m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      15m          83Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   5m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   5m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:32:50+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      35m          91Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      79m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      76m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      15m          83Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   5m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   5m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:33:00+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      33m          92Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      75m          93Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      76m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      13m          83Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   1m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   3m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   3m           41Mi            
+
+===== 2026-10-01T14:33:10+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      33m          92Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      78m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      86m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      16m          83Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   4m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:33:20+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      33m          92Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      78m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      86m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      16m          83Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           24Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   4m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:33:30+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      30m          92Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      73m          93Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      71m          99Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      16m          85Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   7m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   4m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:33:40+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      45m          92Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      68m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      68m          99Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      37m          91Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   7m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   3m           41Mi            
+
+===== 2026-10-01T14:33:50+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      45m          92Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      68m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      68m          99Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      37m          91Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   7m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   3m           41Mi            
+
+===== 2026-10-01T14:34:01+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      21m          83Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      68m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      84m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      21m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   1m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   4m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   3m           41Mi            
+
+===== 2026-10-01T14:34:11+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      18m          83Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      87m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      87m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      17m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   4m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   3m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   4m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   3m           41Mi            
+
+===== 2026-10-01T14:34:21+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      18m          83Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      87m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      87m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      17m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   4m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   3m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   4m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   3m           41Mi            
+
+===== 2026-10-01T14:34:31+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      20m          83Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      78m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      93m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      20m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   4m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   4m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   3m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:34:41+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      22m          83Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      87m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      91m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      20m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   7m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   4m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   1m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   5m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:34:51+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      22m          83Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      87m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      91m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      20m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   7m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   4m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   1m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   5m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:35:01+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      17m          83Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      77m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      79m          99Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      18m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   5m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   3m           41Mi            
+
+===== 2026-10-01T14:35:11+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      20m          84Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      85m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      92m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      21m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   8m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   3m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:35:22+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      20m          84Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      85m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      92m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      21m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   8m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   3m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:35:32+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      20m          84Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      85m          91Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      95m          99Mi            
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      18m          87Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   5m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   9m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+
+===== 2026-10-01T14:35:42+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      19m          84Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      86m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      89m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      25m          88Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   3m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   4m           41Mi            
+
+===== 2026-10-01T14:35:52+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      19m          84Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      86m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      89m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      25m          88Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   3m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   3m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   4m           41Mi            
+
+===== 2026-10-01T14:36:02+07:00 =====
+POD                                              NAME         CPU(cores)   MEMORY(bytes)   
+kyverno-admission-controller-86f655d85-c9ktm     kyverno      22m          90Mi            
+kyverno-admission-controller-86f655d85-gnw7x     kyverno      93m          92Mi            
+kyverno-admission-controller-86f655d85-nc6bt     kyverno      89m          100Mi           
+kyverno-admission-controller-86f655d85-pzwt6     kyverno      23m          88Mi            
+kyverno-background-controller-69dc58d7b5-85xfq   controller   4m           52Mi            
+kyverno-background-controller-69dc58d7b5-mpnpw   controller   2m           40Mi            
+kyverno-cleanup-controller-d5c68786-cfc7t        controller   2m           25Mi            
+kyverno-cleanup-controller-d5c68786-vpbpx        controller   2m           19Mi            
+kyverno-reports-controller-767f6648d7-9dgmj      controller   5m           75Mi            
+kyverno-reports-controller-767f6648d7-lgfd7      controller   2m           41Mi            
+

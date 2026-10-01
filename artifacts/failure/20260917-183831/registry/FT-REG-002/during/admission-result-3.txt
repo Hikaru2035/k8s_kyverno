@@ -1,0 +1,4 @@
+Warning: Policy verify-signed-images error: failed to evaluate policy: Get "https://harbor-public:30003/v2/": dial tcp 171.244.199.186:30003: connect: connection refused
+pod/signed-reg-002-third created (server dry run)
+exit_code=0
+latency_ms=240

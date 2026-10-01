@@ -1,0 +1,4 @@
+burst=1 concurrency=25 duration_ms=24217
+burst=2 concurrency=25 duration_ms=2769
+burst=3 concurrency=25 duration_ms=2796
+burst=4 concurrency=25 duration_ms=2416

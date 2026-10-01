@@ -1,0 +1,6 @@
+2026-10-01T10:50:54+07:00
+=== DNS ===
+171.244.199.186   harbor-public.openstacklocal  harbor-public.openstacklocal harbor-public
+
+=== HTTPS ===
+HTTP=401 CONNECT=0.010594 TOTAL=0.036345

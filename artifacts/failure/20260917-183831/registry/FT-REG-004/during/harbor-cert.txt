@@ -1,0 +1,5 @@
+subject=CN = harbor-public
+issuer=CN = harbor-ca
+serial=06CB2356A1785C3773ABCA828964CA06
+notBefore=Sep  5 09:45:20 2026 GMT
+notAfter=Sep  5 09:45:20 2027 GMT

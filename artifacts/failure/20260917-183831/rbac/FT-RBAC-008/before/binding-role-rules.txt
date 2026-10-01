@@ -1,0 +1,486 @@
+
+======================================
+BINDING=kyverno:background-controller
+ROLE=kyverno:background-controller
+======================================
+[
+  {
+    "apiGroups": [
+      "apiextensions.k8s.io"
+    ],
+    "resources": [
+      "customresourcedefinitions"
+    ],
+    "verbs": [
+      "get"
+    ]
+  },
+  {
+    "apiGroups": [
+      "kyverno.io"
+    ],
+    "resources": [
+      "policies",
+      "policies/status",
+      "clusterpolicies",
+      "clusterpolicies/status",
+      "policyexceptions",
+      "updaterequests",
+      "updaterequests/status",
+      "globalcontextentries",
+      "globalcontextentries/status"
+    ],
+    "verbs": [
+      "create",
+      "delete",
+      "get",
+      "list",
+      "patch",
+      "update",
+      "watch",
+      "deletecollection"
+    ]
+  },
+  {
+    "apiGroups": [
+      "policies.kyverno.io"
+    ],
+    "resources": [
+      "generatingpolicies",
+      "namespacedgeneratingpolicies",
+      "mutatingpolicies",
+      "namespacedmutatingpolicies",
+      "policyexceptions"
+    ],
+    "verbs": [
+      "create",
+      "delete",
+      "get",
+      "list",
+      "patch",
+      "update",
+      "watch",
+      "deletecollection"
+    ]
+  },
+  {
+    "apiGroups": [
+      "policies.kyverno.io"
+    ],
+    "resources": [
+      "policyexceptions"
+    ],
+    "verbs": [
+      "create",
+      "get",
+      "list",
+      "patch",
+      "update",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      ""
+    ],
+    "resources": [
+      "namespaces",
+      "configmaps"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "",
+      "events.k8s.io"
+    ],
+    "resources": [
+      "events"
+    ],
+    "verbs": [
+      "create",
+      "get",
+      "list",
+      "patch",
+      "update",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "reports.kyverno.io"
+    ],
+    "resources": [
+      "ephemeralreports",
+      "clusterephemeralreports"
+    ],
+    "verbs": [
+      "create",
+      "delete",
+      "get",
+      "list",
+      "patch",
+      "update",
+      "watch",
+      "deletecollection"
+    ]
+  },
+  {
+    "apiGroups": [
+      "networking.k8s.io"
+    ],
+    "resources": [
+      "ingresses",
+      "ingressclasses",
+      "networkpolicies"
+    ],
+    "verbs": [
+      "create",
+      "update",
+      "patch",
+      "delete"
+    ]
+  },
+  {
+    "apiGroups": [
+      "rbac.authorization.k8s.io"
+    ],
+    "resources": [
+      "rolebindings",
+      "roles"
+    ],
+    "verbs": [
+      "create",
+      "update",
+      "patch",
+      "delete"
+    ]
+  },
+  {
+    "apiGroups": [
+      ""
+    ],
+    "resources": [
+      "configmaps",
+      "limitranges",
+      "resourcequotas"
+    ],
+    "verbs": [
+      "create",
+      "update",
+      "patch",
+      "delete"
+    ]
+  },
+  {
+    "apiGroups": [
+      "resource.k8s.io"
+    ],
+    "resources": [
+      "resourceclaims",
+      "resourceclaimtemplates"
+    ],
+    "verbs": [
+      "create",
+      "delete",
+      "update",
+      "patch",
+      "deletecollection"
+    ]
+  }
+]
+
+======================================
+BINDING=kyverno:background-controller:view
+ROLE=view
+======================================
+[
+  {
+    "apiGroups": [
+      "kyverno.io"
+    ],
+    "resources": [
+      "cleanuppolicies",
+      "clustercleanuppolicies",
+      "policies",
+      "clusterpolicies"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "policies.kyverno.io"
+    ],
+    "resources": [
+      "deletingpolicies",
+      "generatingpolicies",
+      "imagevalidatingpolicies",
+      "mutatingpolicies",
+      "namespaceddeletingpolicies",
+      "namespacedgeneratingpolicies",
+      "namespacedimagevalidatingpolicies",
+      "namespacedmutatingpolicies",
+      "namespacedvalidatingpolicies",
+      "policyexceptions",
+      "validatingpolicies"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "wgpolicyk8s.io"
+    ],
+    "resources": [
+      "policyreports",
+      "clusterpolicyreports"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "reports.kyverno.io"
+    ],
+    "resources": [
+      "ephemeralreports",
+      "clusterephemeralreports"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "kyverno.io"
+    ],
+    "resources": [
+      "updaterequests"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      ""
+    ],
+    "resources": [
+      "configmaps",
+      "endpoints",
+      "persistentvolumeclaims",
+      "persistentvolumeclaims/status",
+      "pods",
+      "replicationcontrollers",
+      "replicationcontrollers/scale",
+      "serviceaccounts",
+      "services",
+      "services/status"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      ""
+    ],
+    "resources": [
+      "bindings",
+      "limitranges",
+      "namespaces/status",
+      "pods/log",
+      "pods/status",
+      "replicationcontrollers/status",
+      "resourcequotas",
+      "resourcequotas/status"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      ""
+    ],
+    "resources": [
+      "namespaces"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "",
+      "events.k8s.io"
+    ],
+    "resources": [
+      "events"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "discovery.k8s.io"
+    ],
+    "resources": [
+      "endpointslices"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "apps"
+    ],
+    "resources": [
+      "controllerrevisions",
+      "daemonsets",
+      "daemonsets/status",
+      "deployments",
+      "deployments/scale",
+      "deployments/status",
+      "replicasets",
+      "replicasets/scale",
+      "replicasets/status",
+      "statefulsets",
+      "statefulsets/scale",
+      "statefulsets/status"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "autoscaling"
+    ],
+    "resources": [
+      "horizontalpodautoscalers",
+      "horizontalpodautoscalers/status"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "batch"
+    ],
+    "resources": [
+      "cronjobs",
+      "cronjobs/status",
+      "jobs",
+      "jobs/status"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "extensions"
+    ],
+    "resources": [
+      "daemonsets",
+      "daemonsets/status",
+      "deployments",
+      "deployments/scale",
+      "deployments/status",
+      "ingresses",
+      "ingresses/status",
+      "networkpolicies",
+      "replicasets",
+      "replicasets/scale",
+      "replicasets/status",
+      "replicationcontrollers/scale"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "policy"
+    ],
+    "resources": [
+      "poddisruptionbudgets",
+      "poddisruptionbudgets/status"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "networking.k8s.io"
+    ],
+    "resources": [
+      "ingresses",
+      "ingresses/status",
+      "networkpolicies"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  },
+  {
+    "apiGroups": [
+      "resource.k8s.io"
+    ],
+    "resources": [
+      "resourceclaims",
+      "resourceclaims/status",
+      "resourceclaimtemplates"
+    ],
+    "verbs": [
+      "get",
+      "list",
+      "watch"
+    ]
+  }
+]

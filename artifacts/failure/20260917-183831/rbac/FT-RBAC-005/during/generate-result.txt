@@ -1,0 +1,8 @@
+2026-10-01T09:12:54+07:00
+=== Namespace ===
+NAME                STATUS   AGE   LABELS
+ft-rbac-005-fault   Active   37s   kubernetes.io/metadata.name=ft-rbac-005-fault,policies.ksp.io/environment=dev,policies.ksp.io/generate-resource-governance=enabled,policies.ksp.io/quota-class=small
+
+=== Expected generated ResourceQuota ===
+Error from server (NotFound): resourcequotas "namespace-resource-quota" not found
+GENERATED_RESOURCE_PRESENT=NO

@@ -1,0 +1,7 @@
+harbor          harbor                                               NodePort    10.110.125.236   <none>        80:30002/TCP,443:30003/TCP     25d     app=harbor,component=nginx,release=harbor
+harbor          harbor-core                                          ClusterIP   10.100.117.21    <none>        80/TCP                         25d     app=harbor,component=core,release=harbor
+harbor          harbor-database                                      ClusterIP   10.101.117.192   <none>        5432/TCP                       25d     app=harbor,component=database,release=harbor
+harbor          harbor-jobservice                                    ClusterIP   10.103.135.58    <none>        80/TCP                         25d     app=harbor,component=jobservice,release=harbor
+harbor          harbor-portal                                        ClusterIP   10.96.96.147     <none>        80/TCP                         25d     app=harbor,component=portal,release=harbor
+harbor          harbor-redis                                         ClusterIP   10.111.120.200   <none>        6379/TCP                       25d     app=harbor,component=redis,release=harbor
+harbor          harbor-registry                                      ClusterIP   10.107.14.64     <none>        5000/TCP,8080/TCP              25d     app=harbor,component=registry,release=harbor

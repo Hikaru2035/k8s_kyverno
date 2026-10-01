@@ -1,0 +1,9 @@
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy verify-signed-images error: failed to evaluate policy: Get "https://harbor-public:30003/v2/": dial tcp: lookup harbor-public on 10.96.0.10:53: no such host
+pod/signed-baseline created (server dry run)
+exit_code=0
+latency_ms=405

@@ -1,0 +1,8 @@
+
+===== kyverno:background-controller -> kyverno:background-controller =====
+aggregationRule={"clusterRoleSelectors":[{"matchLabels":{"rbac.kyverno.io/aggregate-to-background-controller":"true"}},{"matchLabels":{"app.kubernetes.io/component":"background-controller","app.kubernetes.io/instance":"kyverno","app.kubernetes.io/part-of":"kyverno"}}]}
+labels={"app.kubernetes.io/component":"background-controller","app.kubernetes.io/instance":"kyverno","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"kyverno-background-controller","app.kubernetes.io/part-of":"kyverno","app.kubernetes.io/version":"3.9.1","helm.sh/chart":"kyverno-3.9.1"}
+
+===== kyverno:background-controller:view -> view =====
+aggregationRule={"clusterRoleSelectors":[{"matchLabels":{"rbac.authorization.k8s.io/aggregate-to-view":"true"}}]}
+labels={"kubernetes.io/bootstrapping":"rbac-defaults","rbac.authorization.k8s.io/aggregate-to-edit":"true"}

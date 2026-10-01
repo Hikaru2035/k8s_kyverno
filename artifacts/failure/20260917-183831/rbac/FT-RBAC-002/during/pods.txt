@@ -1,0 +1,3 @@
+NAME                                             READY   STATUS    RESTARTS      AGE   IP              NODE            NOMINATED NODE   READINESS GATES
+kyverno-background-controller-69dc58d7b5-85xfq   1/1     Running   1 (45h ago)   45h   10.244.19.190   worker-node-2   <none>           <none>
+kyverno-background-controller-69dc58d7b5-mpnpw   1/1     Running   0             45h   10.244.19.186   worker-node-2   <none>           <none>

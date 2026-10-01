@@ -1,0 +1,18 @@
+
+===== configmaps =====
+get     = yes
+list    = yes
+watch   = yes
+delete  = no
+
+===== pods =====
+get     = no
+list    = no
+watch   = no
+delete  = no
+
+===== secrets =====
+get     = no
+list    = no
+watch   = no
+delete  = no

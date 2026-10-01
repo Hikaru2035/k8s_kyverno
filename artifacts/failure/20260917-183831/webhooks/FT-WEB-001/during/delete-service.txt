@@ -1,0 +1,1 @@
+service "kyverno-svc" deleted from kyverno namespace

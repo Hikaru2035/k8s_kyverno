@@ -1,0 +1,69 @@
+FT-LOAD-005
+Result: PASS
+
+Scenario:
+Admission saturation test with progressively increasing concurrent
+admission requests.
+
+Observed Results:
+
+Concurrency 10:
+Error rate: 0.00%
+p95: 1245.00 ms
+
+Concurrency 15:
+Error rate: 0.00%
+p95: 1275.00 ms
+
+Concurrency 20:
+Error rate: 0.00%
+p95: 1924.45 ms
+
+Concurrency 25:
+Error rate: 0.00%
+p95: 2458.25 ms
+
+Concurrency 30:
+Error rate: 96.67%
+p50: 85342.50 ms
+p95: 168004.80 ms
+p99: 173265.34 ms
+
+Concurrency 35:
+Error rate: 100.00%
+p50: 578016.00 ms
+p95: 578308.20 ms
+
+Concurrency 40:
+Not executed because saturation had already been clearly observed
+and additional load was unnecessary.
+
+Analysis:
+Latency degradation became clearly visible around concurrency 20.
+
+Concurrency 25 remained operational with zero admission errors,
+although latency was substantially higher than lower concurrency levels.
+
+At concurrency 30, the system crossed the observed saturation boundary.
+The error rate increased from 0% at concurrency 25 to 96.67% at
+concurrency 30, while p95 latency increased from approximately
+2.46 seconds to 168 seconds.
+
+Concurrency 35 resulted in 100% request failure and severe response
+delay, confirming operation beyond the stable capacity of the tested
+environment.
+
+Observed latency knee:
+Approximately concurrency 20.
+
+Observed saturation onset:
+Between concurrency 25 and 30.
+
+First tested saturated level:
+Concurrency 30.
+
+The test was stopped before concurrency 40 to avoid unnecessary
+additional impact after saturation had already been established.
+
+Result:
+PASS

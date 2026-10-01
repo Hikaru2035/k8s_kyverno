@@ -1,0 +1,2 @@
+selector={"app":"harbor","component":"nginx","release":"harbor"}
+ports=[{"name":"http","nodePort":30002,"port":80,"protocol":"TCP","targetPort":8080},{"name":"https","nodePort":30003,"port":443,"protocol":"TCP","targetPort":8443}]

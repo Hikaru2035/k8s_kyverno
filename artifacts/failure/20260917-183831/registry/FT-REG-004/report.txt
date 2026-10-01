@@ -1,0 +1,49 @@
+FT-REG-004
+Result: PASS
+
+Scenario:
+The Harbor registry certificate is signed by a private CA which is not
+trusted by the Kyverno admission controller.
+
+Baseline:
+The Harbor private CA was present in the Kyverno custom CA bundle and
+the signed test image was successfully processed by the
+verify-signed-images policy.
+
+Failure Injection:
+Replaced the Kyverno custom CA bundle with a valid test CA which does
+not trust the Harbor certificate, then restarted the Kyverno admission
+controller so the modified trust bundle was loaded.
+
+Failure Verification:
+DNS resolution remained healthy and harbor-public resolved to
+171.244.199.186.
+
+TCP and TLS connectivity to Harbor remained available and the registry
+returned HTTP 401 for an unauthenticated request.
+
+The Harbor certificate itself remained unchanged:
+Subject: CN=harbor-public
+Issuer: CN=harbor-ca
+Valid until: Sep 5 2027
+
+Runtime Result:
+Kyverno attempted image verification against the Harbor registry and
+failed with:
+
+tls: failed to verify certificate:
+x509: certificate signed by unknown authority
+
+The admission request completed with a policy warning. Because the
+development ImageValidatingPolicy uses Audit and Warn validation
+actions, the request was admitted rather than denied.
+
+Recovery:
+Restored the original Kyverno custom CA bundle and restarted the
+admission controller.
+
+Signed-image verification succeeded again without an x509 or TLS trust
+error.
+
+Result:
+PASS
