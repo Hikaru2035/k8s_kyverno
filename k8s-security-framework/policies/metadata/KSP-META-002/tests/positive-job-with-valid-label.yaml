@@ -4,7 +4,7 @@ metadata:
   name: ksp-meta-002-positive-job
   namespace: policy-test
   labels:
-    policies.ksp.io/owner: "platform-team"
+    owner: "platform-team"
 spec:
   template:
     spec:

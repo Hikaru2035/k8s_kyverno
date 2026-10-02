@@ -1,0 +1,7 @@
+NAME      	NAMESPACE      	REVISION	UPDATED                                	STATUS  	CHART                       	APP VERSION
+argocd    	argocd         	1       	2026-09-24 09:34:34.093547672 +0700 +07	deployed	argo-cd-10.9.2              	v3.5.3     
+calico    	tigera-operator	1       	2026-08-26 09:36:04.444871452 +0700 +07	deployed	tigera-operator-v3.32.1     	v3.32.1    
+harbor    	harbor         	1       	2026-09-05 16:45:20.149759939 +0700 +07	deployed	harbor-1.19.2               	2.15.2     
+jenkins   	jenkins        	13      	2026-09-23 11:43:50.699554316 +0700 +07	deployed	jenkins-5.9.63              	2.568.3    
+kyverno   	kyverno        	7       	2026-09-24 16:05:39.553591537 +0700 +07	deployed	kyverno-3.9.0               	v1.19.0    
+monitoring	monitoring     	2       	2026-09-18 15:22:50.468495828 +0700 +07	deployed	kube-prometheus-stack-89.2.4	v0.93.1    

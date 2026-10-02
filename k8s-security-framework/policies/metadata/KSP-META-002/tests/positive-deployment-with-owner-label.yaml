@@ -4,16 +4,16 @@ metadata:
   name: meta-002-positive
   namespace: policy-test
   labels:
-    policies.ksp.io/owner: platform-team
+    owner: platform-team
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: demo-api
+      app: demo-api
   template:
     metadata:
       labels:
-        policies.ksp.io/owner: platform-team
-        app.kubernetes.io/name: demo-api
+        owner: platform-team
+        app: demo-api
     spec:
       containers:
         - name: demo-api

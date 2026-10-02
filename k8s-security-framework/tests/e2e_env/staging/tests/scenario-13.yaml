@@ -4,12 +4,12 @@ kind: Deployment
 metadata:
   name: e2e-ksp-standard-remediation
   namespace: e2e-ksp-canary
-  labels: {app.kubernetes.io/name: e2e-ksp-standard-remediation, policies.ksp.io/owner: e2e}
+  labels: {app: e2e-ksp-standard-remediation, owner: e2e}
 spec:
   replicas: 1
-  selector: {matchLabels: {app.kubernetes.io/name: e2e-ksp-standard-remediation}}
+  selector: {matchLabels: {app: e2e-ksp-standard-remediation}}
   template:
-    metadata: {labels: {app.kubernetes.io/name: e2e-ksp-standard-remediation}}
+    metadata: {labels: {app: e2e-ksp-standard-remediation}}
     spec:
       containers:
       - name: app
@@ -20,12 +20,12 @@ kind: Deployment
 metadata:
   name: e2e-ksp-standard-fixed
   namespace: e2e-ksp-canary
-  labels: {app.kubernetes.io/name: e2e-ksp-standard-fixed, policies.ksp.io/owner: e2e}
+  labels: {app: e2e-ksp-standard-fixed, owner: e2e}
 spec:
   replicas: 1
-  selector: {matchLabels: {app.kubernetes.io/name: e2e-ksp-standard-fixed}}
+  selector: {matchLabels: {app: e2e-ksp-standard-fixed}}
   template:
-    metadata: {labels: {app.kubernetes.io/name: e2e-ksp-standard-fixed}}
+    metadata: {labels: {app: e2e-ksp-standard-fixed}}
     spec:
       securityContext:
         runAsNonRoot: true

@@ -5,5 +5,5 @@ metadata:
   labels:
     ksp.io/environment: dev
     ksp.io/profile: baseline
-    app.kubernetes.io/name: demo-app
-    policies.ksp.io/owner: platform-team
+    app: demo-app
+    owner: platform-team

@@ -1,0 +1,401 @@
+===== API RESOURCES =====
+NAME                                SHORTNAMES                                      APIVERSION                          NAMESPACED   KIND
+bindings                                                                            v1                                  true         Binding
+componentstatuses                   cs                                              v1                                  false        ComponentStatus
+configmaps                          cm                                              v1                                  true         ConfigMap
+endpoints                           ep                                              v1                                  true         Endpoints
+events                              ev                                              v1                                  true         Event
+limitranges                         limits                                          v1                                  true         LimitRange
+namespaces                          ns                                              v1                                  false        Namespace
+nodes                               no                                              v1                                  false        Node
+persistentvolumeclaims              pvc                                             v1                                  true         PersistentVolumeClaim
+persistentvolumes                   pv                                              v1                                  false        PersistentVolume
+pods                                po                                              v1                                  true         Pod
+podtemplates                                                                        v1                                  true         PodTemplate
+replicationcontrollers              rc                                              v1                                  true         ReplicationController
+resourcequotas                      quota                                           v1                                  true         ResourceQuota
+secrets                                                                             v1                                  true         Secret
+serviceaccounts                     sa                                              v1                                  true         ServiceAccount
+services                            svc                                             v1                                  true         Service
+mutatingwebhookconfigurations                                                       admissionregistration.k8s.io/v1     false        MutatingWebhookConfiguration
+validatingadmissionpolicies                                                         admissionregistration.k8s.io/v1     false        ValidatingAdmissionPolicy
+validatingadmissionpolicybindings                                                   admissionregistration.k8s.io/v1     false        ValidatingAdmissionPolicyBinding
+validatingwebhookconfigurations                                                     admissionregistration.k8s.io/v1     false        ValidatingWebhookConfiguration
+customresourcedefinitions           crd,crds                                        apiextensions.k8s.io/v1             false        CustomResourceDefinition
+apiservices                                                                         apiregistration.k8s.io/v1           false        APIService
+controllerrevisions                                                                 apps/v1                             true         ControllerRevision
+daemonsets                          ds                                              apps/v1                             true         DaemonSet
+deployments                         deploy                                          apps/v1                             true         Deployment
+replicasets                         rs                                              apps/v1                             true         ReplicaSet
+statefulsets                        sts                                             apps/v1                             true         StatefulSet
+applications                        app,apps                                        argoproj.io/v1alpha1                true         Application
+applicationsets                     appset,appsets                                  argoproj.io/v1alpha1                true         ApplicationSet
+appprojects                         appproj,appprojs                                argoproj.io/v1alpha1                true         AppProject
+selfsubjectreviews                                                                  authentication.k8s.io/v1            false        SelfSubjectReview
+tokenreviews                                                                        authentication.k8s.io/v1            false        TokenReview
+localsubjectaccessreviews                                                           authorization.k8s.io/v1             true         LocalSubjectAccessReview
+selfsubjectaccessreviews                                                            authorization.k8s.io/v1             false        SelfSubjectAccessReview
+selfsubjectrulesreviews                                                             authorization.k8s.io/v1             false        SelfSubjectRulesReview
+subjectaccessreviews                                                                authorization.k8s.io/v1             false        SubjectAccessReview
+horizontalpodautoscalers            hpa                                             autoscaling/v2                      true         HorizontalPodAutoscaler
+cronjobs                            cj                                              batch/v1                            true         CronJob
+jobs                                                                                batch/v1                            true         Job
+certificatesigningrequests          csr                                             certificates.k8s.io/v1              false        CertificateSigningRequest
+leases                                                                              coordination.k8s.io/v1              true         Lease
+bgpconfigurations                                                                   crd.projectcalico.org/v1            false        BGPConfiguration
+bgpfilters                                                                          crd.projectcalico.org/v1            false        BGPFilter
+bgppeers                                                                            crd.projectcalico.org/v1            false        BGPPeer
+blockaffinities                                                                     crd.projectcalico.org/v1            false        BlockAffinity
+caliconodestatuses                                                                  crd.projectcalico.org/v1            false        CalicoNodeStatus
+clusterinformations                                                                 crd.projectcalico.org/v1            false        ClusterInformation
+felixconfigurations                                                                 crd.projectcalico.org/v1            false        FelixConfiguration
+globalnetworkpolicies                                                               crd.projectcalico.org/v1            false        GlobalNetworkPolicy
+globalnetworksets                                                                   crd.projectcalico.org/v1            false        GlobalNetworkSet
+hostendpoints                                                                       crd.projectcalico.org/v1            false        HostEndpoint
+ipamblocks                                                                          crd.projectcalico.org/v1            false        IPAMBlock
+ipamconfigs                                                                         crd.projectcalico.org/v1            false        IPAMConfig
+ipamhandles                                                                         crd.projectcalico.org/v1            false        IPAMHandle
+ippools                                                                             crd.projectcalico.org/v1            false        IPPool
+ipreservations                                                                      crd.projectcalico.org/v1            false        IPReservation
+kubecontrollersconfigurations                                                       crd.projectcalico.org/v1            false        KubeControllersConfiguration
+networkpolicies                                                                     crd.projectcalico.org/v1            true         NetworkPolicy
+networksets                                                                         crd.projectcalico.org/v1            true         NetworkSet
+stagedglobalnetworkpolicies                                                         crd.projectcalico.org/v1            false        StagedGlobalNetworkPolicy
+stagedkubernetesnetworkpolicies                                                     crd.projectcalico.org/v1            true         StagedKubernetesNetworkPolicy
+stagednetworkpolicies                                                               crd.projectcalico.org/v1            true         StagedNetworkPolicy
+tiers                                                                               crd.projectcalico.org/v1            false        Tier
+endpointslices                                                                      discovery.k8s.io/v1                 true         EndpointSlice
+events                              ev                                              events.k8s.io/v1                    true         Event
+flowschemas                                                                         flowcontrol.apiserver.k8s.io/v1     false        FlowSchema
+prioritylevelconfigurations                                                         flowcontrol.apiserver.k8s.io/v1     false        PriorityLevelConfiguration
+cleanuppolicies                     cleanpol                                        kyverno.io/v2                       true         CleanupPolicy
+clustercleanuppolicies              ccleanpol                                       kyverno.io/v2                       false        ClusterCleanupPolicy
+clusterpolicies                     cpol                                            kyverno.io/v1                       false        ClusterPolicy
+globalcontextentries                gctxentry                                       kyverno.io/v2                       false        GlobalContextEntry
+policies                            pol                                             kyverno.io/v1                       true         Policy
+policyexceptions                    polex                                           kyverno.io/v2                       true         PolicyException
+updaterequests                      ur                                              kyverno.io/v2                       true         UpdateRequest
+alertmanagerconfigs                 amcfg                                           monitoring.coreos.com/v1alpha1      true         AlertmanagerConfig
+alertmanagers                       am                                              monitoring.coreos.com/v1            true         Alertmanager
+podmonitors                         pmon                                            monitoring.coreos.com/v1            true         PodMonitor
+probes                              prb                                             monitoring.coreos.com/v1            true         Probe
+prometheusagents                    promagent                                       monitoring.coreos.com/v1alpha1      true         PrometheusAgent
+prometheuses                        prom                                            monitoring.coreos.com/v1            true         Prometheus
+prometheusrules                     promrule                                        monitoring.coreos.com/v1            true         PrometheusRule
+scrapeconfigs                       scfg                                            monitoring.coreos.com/v1alpha1      true         ScrapeConfig
+servicemonitors                     smon                                            monitoring.coreos.com/v1            true         ServiceMonitor
+thanosrulers                        ruler                                           monitoring.coreos.com/v1            true         ThanosRuler
+ingressclasses                                                                      networking.k8s.io/v1                false        IngressClass
+ingresses                           ing                                             networking.k8s.io/v1                true         Ingress
+ipaddresses                         ip                                              networking.k8s.io/v1                false        IPAddress
+networkpolicies                     netpol                                          networking.k8s.io/v1                true         NetworkPolicy
+servicecidrs                                                                        networking.k8s.io/v1                false        ServiceCIDR
+runtimeclasses                                                                      node.k8s.io/v1                      false        RuntimeClass
+apiservers                                                                          operator.tigera.io/v1               false        APIServer
+gatewayapis                                                                         operator.tigera.io/v1               false        GatewayAPI
+goldmanes                                                                           operator.tigera.io/v1               false        Goldmane
+imagesets                                                                           operator.tigera.io/v1               false        ImageSet
+installations                                                                       operator.tigera.io/v1               false        Installation
+istios                                                                              operator.tigera.io/v1               false        Istio
+managementclusterconnections                                                        operator.tigera.io/v1               false        ManagementClusterConnection
+tigerastatuses                                                                      operator.tigera.io/v1               false        TigeraStatus
+whiskers                                                                            operator.tigera.io/v1               false        Whisker
+deletingpolicies                    dpol                                            policies.kyverno.io/v1              false        DeletingPolicy
+generatingpolicies                  gpol                                            policies.kyverno.io/v1              false        GeneratingPolicy
+imagevalidatingpolicies             ivpol                                           policies.kyverno.io/v1              false        ImageValidatingPolicy
+mutatingpolicies                    mpol                                            policies.kyverno.io/v1              false        MutatingPolicy
+namespaceddeletingpolicies          ndpol                                           policies.kyverno.io/v1              true         NamespacedDeletingPolicy
+namespacedgeneratingpolicies        ngpol                                           policies.kyverno.io/v1              true         NamespacedGeneratingPolicy
+namespacedimagevalidatingpolicies   nivpol                                          policies.kyverno.io/v1              true         NamespacedImageValidatingPolicy
+namespacedmutatingpolicies          nmpol                                           policies.kyverno.io/v1              true         NamespacedMutatingPolicy
+namespacedvalidatingpolicies        nvpol                                           policies.kyverno.io/v1              true         NamespacedValidatingPolicy
+policyexceptions                                                                    policies.kyverno.io/v1              true         PolicyException
+validatingpolicies                  vpol                                            policies.kyverno.io/v1              false        ValidatingPolicy
+poddisruptionbudgets                pdb                                             policy/v1                           true         PodDisruptionBudget
+clusternetworkpolicies              cnp                                             policy.networking.k8s.io/v1alpha2   false        ClusterNetworkPolicy
+bgpconfigurations                   bgpconfig,bgpconfigs                            projectcalico.org/v3                false        BGPConfiguration
+bgpfilters                                                                          projectcalico.org/v3                false        BGPFilter
+bgppeers                                                                            projectcalico.org/v3                false        BGPPeer
+blockaffinities                     blockaffinity,affinity,affinities               projectcalico.org/v3                false        BlockAffinity
+caliconodestatuses                  caliconodestatus                                projectcalico.org/v3                false        CalicoNodeStatus
+clusterinformations                 clusterinfo                                     projectcalico.org/v3                false        ClusterInformation
+felixconfigurations                 felixconfig,felixconfigs                        projectcalico.org/v3                false        FelixConfiguration
+globalnetworkpolicies               gnp,cgnp,calicoglobalnetworkpolicies            projectcalico.org/v3                false        GlobalNetworkPolicy
+globalnetworksets                                                                   projectcalico.org/v3                false        GlobalNetworkSet
+hostendpoints                       hep,heps                                        projectcalico.org/v3                false        HostEndpoint
+ipamconfigurations                  ipamconfig                                      projectcalico.org/v3                false        IPAMConfiguration
+ippools                                                                             projectcalico.org/v3                false        IPPool
+ipreservations                                                                      projectcalico.org/v3                false        IPReservation
+kubecontrollersconfigurations       kcconfig                                        projectcalico.org/v3                false        KubeControllersConfiguration
+networkpolicies                     cnp,caliconetworkpolicy,caliconetworkpolicies   projectcalico.org/v3                true         NetworkPolicy
+networksets                         netsets                                         projectcalico.org/v3                true         NetworkSet
+profiles                                                                            projectcalico.org/v3                false        Profile
+stagedglobalnetworkpolicies         sgnp                                            projectcalico.org/v3                false        StagedGlobalNetworkPolicy
+stagedkubernetesnetworkpolicies     sknp                                            projectcalico.org/v3                true         StagedKubernetesNetworkPolicy
+stagednetworkpolicies               snp                                             projectcalico.org/v3                true         StagedNetworkPolicy
+tiers                                                                               projectcalico.org/v3                false        Tier
+clusterrolebindings                                                                 rbac.authorization.k8s.io/v1        false        ClusterRoleBinding
+clusterroles                                                                        rbac.authorization.k8s.io/v1        false        ClusterRole
+rolebindings                                                                        rbac.authorization.k8s.io/v1        true         RoleBinding
+roles                                                                               rbac.authorization.k8s.io/v1        true         Role
+clusterephemeralreports             cephr                                           reports.kyverno.io/v1               false        ClusterEphemeralReport
+ephemeralreports                    ephr                                            reports.kyverno.io/v1               true         EphemeralReport
+deviceclasses                                                                       resource.k8s.io/v1                  false        DeviceClass
+resourceclaims                                                                      resource.k8s.io/v1                  true         ResourceClaim
+resourceclaimtemplates                                                              resource.k8s.io/v1                  true         ResourceClaimTemplate
+resourceslices                                                                      resource.k8s.io/v1                  false        ResourceSlice
+priorityclasses                     pc                                              scheduling.k8s.io/v1                false        PriorityClass
+csidrivers                                                                          storage.k8s.io/v1                   false        CSIDriver
+csinodes                                                                            storage.k8s.io/v1                   false        CSINode
+csistoragecapacities                                                                storage.k8s.io/v1                   true         CSIStorageCapacity
+storageclasses                      sc                                              storage.k8s.io/v1                   false        StorageClass
+volumeattachments                                                                   storage.k8s.io/v1                   false        VolumeAttachment
+volumeattributesclasses             vac                                             storage.k8s.io/v1                   false        VolumeAttributesClass
+clusterpolicyreports                cpolr                                           wgpolicyk8s.io/v1alpha2             false        ClusterPolicyReport
+policyreports                       polr                                            wgpolicyk8s.io/v1alpha2             true         PolicyReport
+
+===== CRDS =====
+NAME                                                    CREATED AT
+alertmanagerconfigs.monitoring.coreos.com               2026-09-08T10:19:30Z
+alertmanagers.monitoring.coreos.com                     2026-09-08T10:19:30Z
+apiservers.operator.tigera.io                           2026-08-26T02:36:02Z
+applications.argoproj.io                                2026-09-24T02:34:56Z
+applicationsets.argoproj.io                             2026-09-24T02:34:57Z
+appprojects.argoproj.io                                 2026-09-24T02:34:56Z
+bgpconfigurations.crd.projectcalico.org                 2026-08-26T02:36:01Z
+bgpfilters.crd.projectcalico.org                        2026-08-26T02:36:01Z
+bgppeers.crd.projectcalico.org                          2026-08-26T02:36:01Z
+blockaffinities.crd.projectcalico.org                   2026-08-26T02:36:01Z
+caliconodestatuses.crd.projectcalico.org                2026-08-26T02:36:01Z
+cleanuppolicies.kyverno.io                              2026-08-26T04:36:05Z
+clustercleanuppolicies.kyverno.io                       2026-08-26T04:36:05Z
+clusterephemeralreports.reports.kyverno.io              2026-08-26T04:36:05Z
+clusterinformations.crd.projectcalico.org               2026-08-26T02:36:01Z
+clusternetworkpolicies.policy.networking.k8s.io         2026-08-26T02:36:02Z
+clusterpolicies.kyverno.io                              2026-08-26T04:36:06Z
+clusterpolicyreports.wgpolicyk8s.io                     2026-08-26T04:36:05Z
+deletingpolicies.policies.kyverno.io                    2026-08-26T04:36:05Z
+ephemeralreports.reports.kyverno.io                     2026-08-26T04:36:05Z
+felixconfigurations.crd.projectcalico.org               2026-08-26T02:36:01Z
+gatewayapis.operator.tigera.io                          2026-08-26T02:36:02Z
+generatingpolicies.policies.kyverno.io                  2026-08-26T04:36:05Z
+globalcontextentries.kyverno.io                         2026-08-26T04:36:05Z
+globalnetworkpolicies.crd.projectcalico.org             2026-08-26T02:36:01Z
+globalnetworksets.crd.projectcalico.org                 2026-08-26T02:36:02Z
+goldmanes.operator.tigera.io                            2026-08-26T02:36:02Z
+hostendpoints.crd.projectcalico.org                     2026-08-26T02:36:02Z
+imagesets.operator.tigera.io                            2026-08-26T02:36:02Z
+imagevalidatingpolicies.policies.kyverno.io             2026-08-26T04:36:06Z
+installations.operator.tigera.io                        2026-08-26T02:36:03Z
+ipamblocks.crd.projectcalico.org                        2026-08-26T02:36:02Z
+ipamconfigs.crd.projectcalico.org                       2026-08-26T02:36:02Z
+ipamhandles.crd.projectcalico.org                       2026-08-26T02:36:02Z
+ippools.crd.projectcalico.org                           2026-08-26T02:36:02Z
+ipreservations.crd.projectcalico.org                    2026-08-26T02:36:02Z
+istios.operator.tigera.io                               2026-08-26T02:36:03Z
+kubecontrollersconfigurations.crd.projectcalico.org     2026-08-26T02:36:02Z
+managementclusterconnections.operator.tigera.io         2026-08-26T02:36:03Z
+mutatingpolicies.policies.kyverno.io                    2026-08-26T04:36:05Z
+namespaceddeletingpolicies.policies.kyverno.io          2026-08-26T04:36:05Z
+namespacedgeneratingpolicies.policies.kyverno.io        2026-08-26T04:36:05Z
+namespacedimagevalidatingpolicies.policies.kyverno.io   2026-08-26T04:36:05Z
+namespacedmutatingpolicies.policies.kyverno.io          2026-08-26T04:36:05Z
+namespacedvalidatingpolicies.policies.kyverno.io        2026-08-26T04:36:05Z
+networkpolicies.crd.projectcalico.org                   2026-08-26T02:36:02Z
+networksets.crd.projectcalico.org                       2026-08-26T02:36:02Z
+podmonitors.monitoring.coreos.com                       2026-09-08T10:19:31Z
+policies.kyverno.io                                     2026-08-26T04:36:06Z
+policyexceptions.kyverno.io                             2026-08-26T04:36:05Z
+policyexceptions.policies.kyverno.io                    2026-08-26T04:36:05Z
+policyreports.wgpolicyk8s.io                            2026-08-26T04:36:05Z
+probes.monitoring.coreos.com                            2026-09-08T10:19:31Z
+prometheusagents.monitoring.coreos.com                  2026-09-08T10:19:31Z
+prometheuses.monitoring.coreos.com                      2026-09-08T10:19:31Z
+prometheusrules.monitoring.coreos.com                   2026-09-08T10:19:32Z
+scrapeconfigs.monitoring.coreos.com                     2026-09-08T10:19:32Z
+servicemonitors.monitoring.coreos.com                   2026-09-08T10:19:33Z
+stagedglobalnetworkpolicies.crd.projectcalico.org       2026-08-26T02:36:02Z
+stagedkubernetesnetworkpolicies.crd.projectcalico.org   2026-08-26T02:36:02Z
+stagednetworkpolicies.crd.projectcalico.org             2026-08-26T02:36:02Z
+thanosrulers.monitoring.coreos.com                      2026-09-08T10:19:33Z
+tiers.crd.projectcalico.org                             2026-08-26T02:36:02Z
+tigerastatuses.operator.tigera.io                       2026-08-26T02:36:03Z
+updaterequests.kyverno.io                               2026-08-26T04:36:05Z
+validatingpolicies.policies.kyverno.io                  2026-08-26T04:36:05Z
+whiskers.operator.tigera.io                             2026-08-26T02:36:03Z
+
+===== ARGO APPLICATIONS =====
+NAMESPACE   NAME       SYNC STATUS   HEALTH STATUS   REVISION                                   PROJECT
+argocd      demo-app   Synced        Healthy         2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e   default
+argocd      policy     Synced        Healthy         2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e   default
+
+===== ARGO APPLICATIONSETS =====
+
+===== KYVERNO CEL POLICIES =====
+NAME                                    AGE     READY
+disallow-latest-tag                     6d17h   true
+disallow-run-as-user-zero               6d17h   true
+require-app-label                       6d17h   true
+require-cpu-limit                       6d17h   true
+require-cpu-request                     6d17h   true
+require-image-digest                    6d17h   true
+require-memory-limit                    6d17h   true
+require-memory-request                  6d17h   true
+require-namespace-environment-profile   23h     true
+require-owner-label                     6d17h   true
+require-seccomp                         6d17h   true
+NAME                   AGE   READY
+verify-signed-images   74m   true
+NAME                      AGE
+generate-resource-quota   6d17h
+
+===== POLICY REPORTS =====
+NAMESPACE            NAME                                   KIND          NAME                                                     PASS   FAIL   WARN   ERROR   SKIP   AGE
+argocd               00ad1f44-9933-4139-b6bd-695deb71aa55   ReplicaSet    argocd-server-76575cd9fb                                 3      5      0      0       0      25h
+argocd               028406b2-db36-4762-a23b-4eeada3f23f0   Pod           argocd-applicationset-controller-55dc4b8b48-pppm7        3      5      0      0       0      25h
+argocd               16656fb2-9b69-44ad-b080-d428a00adfc4   Deployment    argocd-notifications-controller                          4      6      0      0       0      25h
+argocd               3fe66822-de35-458d-9446-96812e757e6e   Pod           argocd-application-controller-0                          3      5      0      0       0      74m
+argocd               404dfb14-d272-4255-85ee-cae432ea404b   Pod           argocd-redis-797fc9d5b6-t7x4s                            3      5      0      0       0      25h
+argocd               42339c85-9711-4839-a45d-adb8df7c8d21   ReplicaSet    argocd-applicationset-controller-55dc4b8b48              3      5      0      0       0      25h
+argocd               47189b52-1878-4f53-acf6-a2ceb5f91076   Pod           argocd-dex-server-8586fcbc94-44678                       3      5      0      0       0      25h
+argocd               530ea570-6db2-4794-b1eb-e071094ea639   ReplicaSet    argocd-repo-server-8d55d8b4f                             3      5      0      0       0      25h
+argocd               58b4b440-00b2-4d78-ae82-ed578012ed0f   Pod           argocd-repo-server-8d55d8b4f-78f2l                       3      5      0      0       0      25h
+argocd               5e19f084-8e57-4524-a66a-bd77caf67dc7   ReplicaSet    argocd-dex-server-8586fcbc94                             3      5      0      0       0      25h
+argocd               5e2eca2c-e060-4de5-ba22-76e33ca148bc   Deployment    argocd-repo-server                                       4      6      0      0       0      25h
+argocd               73a3f271-3092-4275-b363-04f7686ce7fc   Pod           argocd-server-76575cd9fb-75kwt                           3      5      0      0       0      25h
+argocd               7b4a7fb8-63eb-4798-bd4c-dae273df1525   Deployment    argocd-server                                            4      6      0      0       0      25h
+argocd               8627d6c0-398c-4ab6-9829-63fe2a4ad067   Deployment    argocd-redis                                             4      6      0      0       0      25h
+argocd               884a73bc-9afb-443d-9fd3-3697a94365d3   StatefulSet   argocd-application-controller                            4      6      0      0       0      25h
+argocd               99cd1e09-f1f9-48ff-9220-f4da59e643fd   Deployment    argocd-dex-server                                        4      6      0      0       0      25h
+argocd               dc9e327a-0f7e-4059-be3e-154edbd9aa31   Deployment    argocd-applicationset-controller                         4      6      0      0       0      25h
+argocd               ebd176ae-1a9b-41f7-bf52-60931e8cf8f4   ReplicaSet    argocd-notifications-controller-7c5cd797f7               3      5      0      0       0      25h
+argocd               ec4a0e23-8056-49fa-a151-cb9286538af8   ReplicaSet    argocd-redis-797fc9d5b6                                  3      5      0      0       0      25h
+argocd               eec58a7b-45ef-4eb9-9bbf-1bf0df336660   Pod           argocd-notifications-controller-7c5cd797f7-8pdlh         3      5      0      0       0      25h
+calico-system        069c2d96-d480-4b14-94f3-81c5b0a3078d   DaemonSet     calico-node                                              0      0      0      0       10     6d17h
+calico-system        0accccbb-a307-4b19-bd55-1f030cac5697   Deployment    calico-typha                                             0      0      0      0       10     6d17h
+calico-system        1466f4a3-3ecb-4f5e-8a15-5cca9adc546c   Pod           calico-node-qv545                                        0      0      0      0       8      6d17h
+calico-system        2a81dee2-3d2e-4ce6-ab0d-6a8b25bc42cc   ReplicaSet    calico-kube-controllers-6d6788ff4c                       0      0      0      0       8      6d17h
+calico-system        30d64d2a-def4-4b1a-8adb-2678315c27e8   Pod           calico-apiserver-587bcdb7d9-hskb6                        0      0      0      0       8      6d17h
+calico-system        34ac475d-8387-4f53-b2bb-93ec59295dea   Pod           calico-kube-controllers-6d6788ff4c-kb9th                 0      0      0      0       8      6d17h
+calico-system        520e2dd8-2524-4fbd-98a8-626565022546   ReplicaSet    whisker-7d677966c9                                       0      0      0      0       8      6d17h
+calico-system        64d24992-f694-4948-96a8-96d78b63f0e6   Pod           calico-typha-7b99d88765-9d62z                            0      0      0      0       8      6d17h
+calico-system        65360cee-13b6-4165-b5d6-380bd0a6a130   Pod           calico-apiserver-587bcdb7d9-q28rt                        0      0      0      0       8      6d17h
+calico-system        66933a51-1764-4101-9ec5-fad3e95de937   Pod           calico-node-jb755                                        0      0      0      0       8      6d17h
+calico-system        787d8b07-1e3a-4aaa-93f6-82202f963acb   Deployment    calico-kube-controllers                                  0      0      0      0       10     6d17h
+calico-system        962d5312-341a-42f4-a9f6-4ce5e8e243a4   Deployment    calico-apiserver                                         0      0      0      0       10     6d17h
+calico-system        aaf38966-53aa-45d8-9eeb-d36c1bf540f8   ReplicaSet    goldmane-646fd87bdd                                      0      0      0      0       8      6d17h
+calico-system        b760bc1a-bae1-4a03-a64c-a519c9fc9b82   Pod           whisker-7d677966c9-f26rn                                 0      0      0      0       8      2d17h
+calico-system        bb9db4b3-077a-4347-a482-06951dd6ed28   Deployment    whisker                                                  0      0      0      0       10     6d17h
+calico-system        c195a908-4c51-4833-9d30-54b7a1143d5c   Pod           goldmane-646fd87bdd-l2tzm                                0      0      0      0       8      6d17h
+calico-system        c2585385-94ac-4a41-8f2b-19f1bae2b22f   ReplicaSet    calico-typha-7b99d88765                                  0      0      0      0       8      6d17h
+calico-system        c462d7fd-fd26-4962-a320-5c00bc00b478   ReplicaSet    calico-apiserver-587bcdb7d9                              0      0      0      0       8      6d17h
+calico-system        cc85f596-5ad7-45e3-82d2-6fe8c348eec9   Pod           calico-node-vtr9p                                        0      0      0      0       8      6d17h
+calico-system        daf1d2eb-a520-4e91-907b-7cfa8ffcf9e2   ReplicaSet    whisker-597b5fd5f5                                       0      0      0      0       8      6d17h
+calico-system        dc480dbe-5da7-412e-be15-dddf3aa23b69   Deployment    goldmane                                                 0      0      0      0       10     6d17h
+calico-system        e2cdfbd2-3cf3-43f9-86a6-3b4a7e3badeb   Pod           calico-typha-7b99d88765-shlds                            0      0      0      0       8      6d17h
+calico-system        e5190b04-0c7a-4843-9bc5-9ece0431deb4   ReplicaSet    whisker-7c5695b976                                       0      0      0      0       8      6d17h
+harbor               00f36ba4-ab88-436c-844f-c81390c1a8cc   ReplicaSet    harbor-portal-677b5d5455                                 3      5      0      0       0      6d17h
+harbor               0a5f7b16-b61d-42f4-a477-980ad92d8cf5   ReplicaSet    harbor-jobservice-684494d9bb                             3      5      0      0       0      6d17h
+harbor               2c7c7b0a-ff35-4486-af63-fc2d5b55678c   Deployment    harbor-nginx                                             4      6      0      0       0      6d17h
+harbor               39946312-a434-48e9-a4c4-705a97a16efb   Deployment    harbor-core                                              8      2      0      0       0      6d17h
+harbor               3c217301-2b71-45f8-87b8-85eeb36304d1   Pod           harbor-nginx-688cf77c5b-7f6lh                            3      5      0      0       0      2d17h
+harbor               53f85dc2-609e-4888-9930-6fe2f72766cd   ReplicaSet    harbor-core-856bb856c7                                   7      1      0      0       0      6d17h
+harbor               591bc2a1-cf5e-4589-b173-4cd0dee059d5   Deployment    harbor-jobservice                                        4      6      0      0       0      6d17h
+harbor               793b6a77-7c0e-4a17-b607-e7ecdbc1d3b7   Pod           harbor-portal-677b5d5455-9c9r2                           3      5      0      0       0      2d17h
+harbor               80fcd2c5-c9b9-4af4-b5e0-45225be2fd09   Pod           harbor-registry-8464c694b4-2x9kn                         3      5      0      0       0      2d17h
+harbor               83dcaac7-8435-4743-bc71-754027790baa   Deployment    harbor-registry                                          4      6      0      0       0      6d17h
+harbor               867d7163-870c-4101-a460-3bf4543145af   ReplicaSet    harbor-core-77576b4656                                   3      5      0      0       0      6d17h
+harbor               8901f1a4-ee6a-4bc6-914a-d20296cec931   Pod           harbor-jobservice-684494d9bb-8vblt                       3      5      0      0       0      2d17h
+harbor               a030986b-7894-4d5f-8cce-eb6ef3a13755   Pod           harbor-database-0                                        3      5      0      0       0      2d17h
+harbor               ad19ff2e-e72b-4b80-884d-aea8e2519c5d   Deployment    harbor-portal                                            4      6      0      0       0      6d17h
+harbor               af863c98-c1fa-4ed6-872f-0f049a1a5ca0   Pod           harbor-redis-0                                           3      5      0      0       0      2d17h
+harbor               b3a7fde6-423b-42d8-ac71-8984380c7c53   StatefulSet   harbor-database                                          4      6      0      0       0      6d17h
+harbor               bae1bb7d-a403-4a6f-adc9-068fbf1d4809   ReplicaSet    harbor-nginx-688cf77c5b                                  3      5      0      0       0      6d17h
+harbor               be1ec6e2-c8a4-45a6-9f58-dec6c2a02f05   StatefulSet   harbor-redis                                             4      6      0      0       0      6d17h
+harbor               d514a5fa-fc20-4a94-99c1-b32ae3b13c25   ReplicaSet    harbor-registry-8464c694b4                               3      5      0      0       0      6d17h
+harbor               f2bc7388-2a88-434a-8933-de427e198dbc   Pod           harbor-core-856bb856c7-rhzdj                             7      1      0      0       0      2d17h
+jenkins              1963dd18-a71e-4560-9d32-a93734ba81d3   Pod           harbor-pull-test                                         8      0      0      0       0      2d16h
+jenkins              5ad46d28-acf5-4cc0-a8a1-a51245919a8f   Pod           ksp-tools-debug                                          4      4      0      0       0      2d
+jenkins              612d29a8-3175-4162-973c-56ab76173149   Pod           harbor-ksp-tools-direct-test                             3      5      0      0       0      18h
+jenkins              e40c6396-8818-4f7d-b672-951cb2f7325d   StatefulSet   jenkins                                                  9      1      0      0       0      3d22h
+jenkins              feca3637-7c14-48d7-976d-11bb22d59cd9   Pod           jenkins-0                                                7      1      0      0       0      47h
+ksp-demo             9a79ada9-3346-4b5b-97b8-f3f813576828   ReplicaSet    demo-app-5cdfbb64b8                                      8      0      0      0       0      66m
+ksp-demo             af8c3b04-f053-46f2-8c25-edc684810624   Deployment    demo-app                                                 11     0      0      0       0      66m
+ksp-demo             ea963bec-e6f8-42f3-abe4-53bc4758fb81   Pod           demo-app-5cdfbb64b8-mzv4s                                9      0      0      0       0      58m
+kube-system          00f0100f-cb72-47f0-856e-02d70c07d698   Pod           etcd-control-plane                                       0      0      0      0       8      6d17h
+kube-system          07783998-0a9e-47be-815f-03a9b39c3ff0   DaemonSet     kube-proxy                                               0      0      0      0       10     6d17h
+kube-system          0d078cd6-7bd5-4944-83d8-55fbd0347f7d   ReplicaSet    coredns-7d764666f9                                       0      0      0      0       8      6d17h
+kube-system          13ae4df5-da31-48d1-b678-6606667b1426   Pod           kube-scheduler-control-plane                             0      0      0      0       8      6d17h
+kube-system          1b739c2a-11c2-4caa-969a-b2e2cbfab4c2   Pod           coredns-9df9b4cb7-f9tj8                                  0      0      0      0       8      2d19h
+kube-system          21408403-74e9-4729-b10b-097229bc671c   ReplicaSet    coredns-9df9b4cb7                                        0      0      0      0       8      2d19h
+kube-system          2a7cf92b-2a8a-4538-b89a-3147c664ec04   ReplicaSet    coredns-878b847b7                                        0      0      0      0       8      6d17h
+kube-system          5f012db4-215c-44a3-8431-78637c934f99   Pod           kube-proxy-h92qn                                         0      0      0      0       8      6d17h
+kube-system          6212ae1f-30e3-45c3-97a4-8ed3804b79a3   ReplicaSet    coredns-7fb7fff89d                                       0      0      0      0       8      6d17h
+kube-system          670fb869-8f94-4451-82cd-b37fd453b010   Pod           kube-proxy-9s6l5                                         0      0      0      0       8      6d17h
+kube-system          6deae0af-4347-4931-b402-70c9b6dcb449   Deployment    coredns                                                  0      0      0      0       10     6d17h
+kube-system          76e58152-7ef4-454d-a4fe-1c0ea89fdf6b   Pod           kube-apiserver-control-plane                             0      0      0      0       8      6d17h
+kube-system          a05620f7-442f-4ec9-8425-97fbc01cce3d   Pod           coredns-9df9b4cb7-v6g2z                                  0      0      0      0       8      2d17h
+kube-system          e254e7dd-bea4-4cc8-9fbf-8176c173dc2d   Pod           kube-controller-manager-control-plane                    0      0      0      0       8      6d17h
+kube-system          e877326b-9176-4db1-9abf-99bc6accf093   Pod           kube-proxy-nrc2h                                         0      0      0      0       8      6d17h
+kyverno              26d4f4dc-c6f2-4d61-b4db-bf194f4598bd   ReplicaSet    kyverno-background-controller-54c8547bdc                 0      0      0      0       8      6d17h
+kyverno              38fa5713-c3ac-4293-bd7f-2341693d37e7   Pod           kyverno-admission-controller-b9d4f5b85-cwqsn             0      0      0      0       8      19h
+kyverno              572f0762-b81f-4902-9523-da0e22dc3d47   Deployment    kyverno-background-controller                            0      0      0      0       10     6d17h
+kyverno              5909d650-4e52-4986-90e7-0597331799ed   ReplicaSet    kyverno-cleanup-controller-86f44b75bc                    0      0      0      0       8      6d17h
+kyverno              63b4ded8-d443-4cad-9d36-ed918fb848b8   Deployment    kyverno-cleanup-controller                               0      0      0      0       10     6d17h
+kyverno              64685074-4d59-42bc-a0e1-51c504425302   Deployment    kyverno-admission-controller                             0      0      0      0       10     6d17h
+kyverno              65554874-7a8e-410f-b034-8390d69bbfb0   ReplicaSet    kyverno-reports-controller-849f95d74f                    0      0      0      0       8      6d17h
+kyverno              7110e502-8982-41a1-b316-2bcd0c0fbf37   ReplicaSet    kyverno-admission-controller-54d58cc467                  0      0      0      0       8      6d17h
+kyverno              7ec195e2-1300-4bf7-a995-4dcd3224108a   Pod           kyverno-cleanup-controller-7b45b85db5-vbqt5              0      0      0      0       8      19h
+kyverno              8047aa8f-e264-4579-bb6c-699c1a9d81e0   Pod           kyverno-background-controller-798c488774-svckx           0      0      0      0       8      19h
+kyverno              831a66e4-3d3d-427d-9f6c-ba39a73ebbad   ReplicaSet    kyverno-reports-controller-6f8f8f5758                    0      0      0      0       8      19h
+kyverno              8c5493ce-036f-411c-85a3-3048b59153b4   ReplicaSet    kyverno-admission-controller-65d97f9d85                  0      0      0      0       8      6d17h
+kyverno              9d89781d-584e-4712-bc57-c65b3a529419   ReplicaSet    kyverno-admission-controller-67c8946d65                  0      0      0      0       8      6d17h
+kyverno              a5fddd3f-963a-4110-b603-b5b9d6e3210a   Deployment    kyverno-reports-controller                               0      0      0      0       10     6d17h
+kyverno              a97a5d49-3358-4d11-8f0a-fa95e36231fe   ReplicaSet    kyverno-admission-controller-6fdd8c56c9                  0      0      0      0       8      6d17h
+kyverno              c1380bee-bdb1-492e-80ba-c6124daa355f   ReplicaSet    kyverno-background-controller-798c488774                 0      0      0      0       8      19h
+kyverno              c2ab0d6a-a4a9-4388-86aa-c3a2bd5f6798   ReplicaSet    kyverno-cleanup-controller-7b45b85db5                    0      0      0      0       8      19h
+kyverno              c9f678ea-d738-43a1-865f-2e42ac6bb906   Pod           kyverno-reports-controller-6f8f8f5758-2s74h              0      0      0      0       8      19h
+kyverno              ef7c45c7-d14d-4855-a733-54f378f0a4a6   ReplicaSet    kyverno-admission-controller-dfc5dbb76                   0      0      0      0       8      6d17h
+kyverno              fe89d9c7-5249-4650-83da-d371ca9c4da7   ReplicaSet    kyverno-admission-controller-b9d4f5b85                   0      0      0      0       8      19h
+local-path-storage   8437ff00-30b2-41b4-9ca5-8b69abcf5f14   Deployment    local-path-provisioner                                   2      8      0      0       0      6d17h
+local-path-storage   9c1581d6-9ef8-45a2-ad7c-bcccdd8f7066   ReplicaSet    local-path-provisioner-79b7b99b5d                        2      6      0      0       0      6d17h
+local-path-storage   ffae4699-9f91-497a-82de-a0a1cc9e7b57   Pod           local-path-provisioner-79b7b99b5d-lz6pw                  2      6      0      0       0      2d17h
+monitoring           277cd799-b7f7-4411-be98-6ac32a94804e   StatefulSet   prometheus-monitoring-kube-prometheus-prometheus         4      6      0      0       0      6d17h
+monitoring           2bdb643d-3d28-4da5-b5d8-e02f8f3de9a7   Pod           monitoring-prometheus-node-exporter-rxs5q                2      6      0      0       0      6d17h
+monitoring           353f56fa-639e-45bb-9755-c629df935aa9   ReplicaSet    monitoring-grafana-7dcf4fc76f                            3      5      0      0       0      6d17h
+monitoring           40e55e53-690a-4ec0-a9af-553489007e4d   ReplicaSet    monitoring-kube-state-metrics-7c9c8f4687                 3      5      0      0       0      6d17h
+monitoring           50973b31-ffa4-4c79-bff4-b68004863a5e   Pod           alertmanager-monitoring-kube-prometheus-alertmanager-0   3      5      0      0       0      2d17h
+monitoring           5f7579f1-2f80-41ee-bd37-0617b0a43f4e   StatefulSet   alertmanager-monitoring-kube-prometheus-alertmanager     4      6      0      0       0      6d17h
+monitoring           62a94980-5591-45bb-a69d-9917f2ef5665   Deployment    monitoring-grafana                                       4      6      0      0       0      6d17h
+monitoring           9816bf1a-5c28-44ed-9ed3-b0b126a81ff3   Pod           monitoring-prometheus-node-exporter-wrb9f                2      6      0      0       0      6d17h
+monitoring           9ebd48c6-0cf4-4844-8426-b0cc58d574bf   ReplicaSet    monitoring-kube-prometheus-operator-744d56b88f           3      5      0      0       0      6d17h
+monitoring           b3cf6b8a-9805-4068-8fb9-0989d18ab459   Pod           monitoring-kube-state-metrics-7c9c8f4687-szj7d           3      5      0      0       0      2d17h
+monitoring           b6ecb494-ad54-4566-b7f5-8ffbd24a35e1   Pod           monitoring-grafana-6d98c6f89d-9kbmr                      3      5      0      0       0      2d17h
+monitoring           c24ee065-a4b7-4cf8-ad32-f8e75e642d36   Deployment    monitoring-kube-prometheus-operator                      4      6      0      0       0      6d17h
+monitoring           c7145c6c-4b47-4e10-8f89-38895cbd6e80   DaemonSet     monitoring-prometheus-node-exporter                      3      7      0      0       0      6d17h
+monitoring           cbec55f3-aba4-4362-aa8b-67b646be5e20   Pod           monitoring-kube-prometheus-operator-744d56b88f-qpwsz     3      5      0      0       0      2d17h
+monitoring           d181086b-767f-4584-b42d-dfb7232e3bda   Pod           prometheus-monitoring-kube-prometheus-prometheus-0       3      5      0      0       0      2d17h
+monitoring           d525e34e-fbd6-4a9d-b4de-e84eb55866bd   Deployment    monitoring-kube-state-metrics                            4      6      0      0       0      6d17h
+monitoring           ec4a3c1c-4ed8-4d81-b1af-2018ad08cc33   ReplicaSet    monitoring-grafana-6d98c6f89d                            3      5      0      0       0      6d17h
+monitoring           fcf0a802-95d0-4061-a2bf-7476f76657f6   Pod           monitoring-prometheus-node-exporter-xvrjt                2      6      0      0       0      6d17h
+tigera-operator      22540f1a-fd3c-4c41-b913-469891e887b5   Deployment    tigera-operator                                          0      0      0      0       10     6d17h
+tigera-operator      36fc2e85-1255-4562-aefb-456ded3340f5   Pod           tigera-operator-7fc95779c7-v9krb                         0      0      0      0       8      6d17h
+tigera-operator      a0fc53a2-27c0-4242-957f-ea762da05762   ReplicaSet    tigera-operator-7fc95779c7                               0      0      0      0       8      6d17h
+NAME                                   KIND        NAME                 PASS   FAIL   WARN   ERROR   SKIP   AGE
+02b026e2-ea52-4d3a-aa67-962bd639f4dd   Namespace   default              1      0      0      0       0      6d17h
+0a2a715f-3ae4-4727-b68f-462d9cdaf855   Namespace   kube-public          1      0      0      0       0      6d17h
+0b50820f-26c8-4331-9e4f-0e237eb452ed   Namespace   harbor               1      1      0      0       0      6d17h
+0ec05f04-bd94-4d82-8570-02e2813636c2   Namespace   jenkins              1      1      0      0       0      3d23h
+226ee6a7-89c8-4c2e-83ff-32ff65392f98   Namespace   ksp-dev              1      1      0      0       0      6d17h
+28c68633-1950-4caa-9fd7-370bd6045656   Namespace   argocd               1      1      0      0       0      24h
+417710d5-f182-4af3-af6a-fe19f41416fc   Namespace   kube-node-lease      1      0      0      0       0      6d17h
+41ed3bd8-af5d-4fc9-b971-8f3685998cb2   Namespace   ksp-demo             1      0      0      0       0      67m
+4ed980b5-b6ab-46b4-bf64-8a2d745f1065   Namespace   ksp-production       1      1      0      0       0      6d17h
+73da6a4f-f956-4560-b21e-7b384376a1ea   Namespace   kube-system          1      0      0      0       0      6d17h
+7cc85c8a-08e5-4625-b96b-a8c88013fb64   Namespace   ksp-staging          1      1      0      0       0      6d17h
+8182d027-20cc-45fe-a3e3-2adce91bf61c   Namespace   local-path-storage   1      1      0      0       0      6d17h
+922015cf-6315-4c29-8930-f721ef908f3f   Namespace   kyverno              1      0      0      0       0      6d17h
+9e5fbfd2-6ce7-499b-84a4-cac88f2f1b14   Namespace   tigera-operator      1      0      0      0       0      6d17h
+9fbcfa6d-6363-46a2-9ecf-e7ce5af9c8a0   Namespace   calico-system        1      0      0      0       0      6d17h
+d2ef9c9d-81c9-460d-a713-7801081d7376   Namespace   monitoring           1      1      0      0       0      6d17h
+d7cea4bd-4424-47e4-824f-028b5759787f   Namespace   ft-admission         1      1      0      0       0      6d17h

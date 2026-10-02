@@ -51,5 +51,5 @@ spec:
         - jobs
         - cronjobs
   validations:
-  - expression: object.metadata.?labels['app.kubernetes.io/name'].orValue('') != ''
-    message: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+  - expression: object.metadata.?labels['app'].orValue('') != ''
+    message: Add metadata.labels.app with a meaningful application name.

@@ -4,19 +4,19 @@ metadata:
   name: demo-app
   namespace: ksp-demo
   labels:
-    app.kubernetes.io/name: demo-app
-    policies.ksp.io/owner: platform-team
+    app: demo-app
+    owner: platform-team
 spec:
   replicas: 1
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: demo-app
+      app: demo-app
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: demo-app
-        policies.ksp.io/owner: platform-team
+        app: demo-app
+        owner: platform-team
     spec:
       automountServiceAccountToken: false
       securityContext:

@@ -52,8 +52,8 @@ spec:
       - jobs
       - cronjobs
   validations:
-  - expression: object.metadata.?labels['policies.ksp.io/owner'].orValue('') != ''
-    message: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+  - expression: object.metadata.?labels['owner'].orValue('') != ''
+    message: Add metadata.labels.owner with the accountable team slug.
   matchConditions:
   - name: ksp-runtime-profile-and-platform-scope
     expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',

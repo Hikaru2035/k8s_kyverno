@@ -1,0 +1,404 @@
+apiVersion: v1
+items:
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"demo-app","namespace":"argocd"},"spec":{"destination":{"namespace":"ksp-demo","server":"https://kubernetes.default.svc"},"project":"default","source":{"path":"gitops/applications/demo-app","repoURL":"https://github.com/Hikaru2035/k8s_kyverno.git","targetRevision":"cicd/jenkins"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}
+    creationTimestamp: "2026-09-25T02:47:43Z"
+    generation: 41
+    name: demo-app
+    namespace: argocd
+    resourceVersion: "32579252"
+    uid: 9524d5f8-d9d1-41b0-991c-001ae2872f9b
+  spec:
+    destination:
+      namespace: ksp-demo
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      path: gitops/applications/demo-app
+      repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+      targetRevision: cicd/jenkins
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-09-25T02:57:00Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-09-25T02:47:44Z"
+      deployedAt: "2026-09-25T02:48:05Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e
+      source:
+        path: gitops/applications/demo-app
+        repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+        targetRevision: cicd/jenkins
+    operationState:
+      finishedAt: "2026-09-25T02:48:06Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          autoHealAttemptsCount: 1
+          prune: true
+          resources:
+          - group: apps
+            kind: Deployment
+            name: demo-app
+          revision: 2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e
+          source:
+            path: gitops/applications/demo-app
+            repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+            targetRevision: cicd/jenkins
+      phase: Succeeded
+      startedAt: "2026-09-25T02:48:05Z"
+      syncResult:
+        resources:
+        - group: apps
+          hookPhase: Running
+          images:
+          - harbor-public:30003/ksp-test/demo-app@sha256:33ffc169f5ecea3d62805346a784369a945b89f6524c435b0e4b69fdfa149814
+          kind: Deployment
+          message: deployment.apps/demo-app unchanged
+          name: demo-app
+          namespace: ksp-demo
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e
+        source:
+          path: gitops/applications/demo-app
+          repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+          targetRevision: cicd/jenkins
+    reconciledAt: "2026-09-25T03:53:33Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Namespace
+      name: ksp-demo
+      status: Synced
+      version: v1
+    - kind: Service
+      name: demo-app
+      namespace: ksp-demo
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: demo-app
+      namespace: ksp-demo
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+      name: demo-app-health-from-jenkins
+      namespace: ksp-demo
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary:
+      images:
+      - harbor-public:30003/ksp-test/demo-app@sha256:33ffc169f5ecea3d62805346a784369a945b89f6524c435b0e4b69fdfa149814
+    sync:
+      comparedTo:
+        destination:
+          namespace: ksp-demo
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/applications/demo-app
+          repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+          targetRevision: cicd/jenkins
+      revision: 2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      argocd.argoproj.io/hydrate: normal
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"policy","namespace":"argocd"},"spec":{"destination":{"namespace":"kyverno","server":"https://kubernetes.default.svc"},"project":"default","source":{"path":"gitops/policies/development","repoURL":"https://github.com/Hikaru2035/k8s_kyverno.git","targetRevision":"cicd/jenkins"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}
+    creationTimestamp: "2026-09-24T04:02:53Z"
+    generation: 61
+    name: policy
+    namespace: argocd
+    resourceVersion: "32579656"
+    uid: b6089d91-c671-4c73-8b17-224140d5a628
+  spec:
+    destination:
+      namespace: kyverno
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      path: gitops/policies/development
+      repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+      targetRevision: cicd/jenkins
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-09-24T04:03:06Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-09-24T04:03:06Z"
+      deployedAt: "2026-09-24T04:03:08Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 6d2c570f0c292ceadd650101c5513fdf85190012
+      source:
+        path: gitops/policies/development
+        repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+        targetRevision: cicd/jenkins
+    - deployStartedAt: "2026-09-25T02:41:09Z"
+      deployedAt: "2026-09-25T02:41:10Z"
+      id: 1
+      initiatedBy:
+        automated: true
+      revision: 2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e
+      source:
+        path: gitops/policies/development
+        repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+        targetRevision: cicd/jenkins
+    operationState:
+      finishedAt: "2026-09-25T02:41:10Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: 2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e
+          source:
+            path: gitops/policies/development
+            repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+            targetRevision: cicd/jenkins
+      phase: Succeeded
+      startedAt: "2026-09-25T02:41:09Z"
+      syncResult:
+        resources:
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/disallow-run-as-user-zero
+            unchanged
+          name: disallow-run-as-user-zero
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/disallow-latest-tag unchanged
+          name: disallow-latest-tag
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: GeneratingPolicy
+          message: generatingpolicy.policies.kyverno.io/generate-resource-quota unchanged
+          name: generate-resource-quota
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/require-memory-limit unchanged
+          name: require-memory-limit
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/require-seccomp unchanged
+          name: require-seccomp
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/require-memory-request unchanged
+          name: require-memory-request
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/require-namespace-environment-profile
+            unchanged
+          name: require-namespace-environment-profile
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/require-cpu-limit unchanged
+          name: require-cpu-limit
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/require-image-digest unchanged
+          name: require-image-digest
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/require-cpu-request unchanged
+          name: require-cpu-request
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/require-owner-label unchanged
+          name: require-owner-label
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ValidatingPolicy
+          message: validatingpolicy.policies.kyverno.io/require-app-label unchanged
+          name: require-app-label
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: policies.kyverno.io
+          hookPhase: Running
+          kind: ImageValidatingPolicy
+          message: imagevalidatingpolicy.policies.kyverno.io/verify-signed-images
+            created
+          name: verify-signed-images
+          namespace: kyverno
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e
+        source:
+          path: gitops/policies/development
+          repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+          targetRevision: cicd/jenkins
+    reconciledAt: "2026-09-25T03:55:12Z"
+    resourceHealthSource: appTree
+    resources:
+    - group: policies.kyverno.io
+      kind: GeneratingPolicy
+      name: generate-resource-quota
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ImageValidatingPolicy
+      name: verify-signed-images
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: disallow-latest-tag
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: disallow-run-as-user-zero
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: require-app-label
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: require-cpu-limit
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: require-cpu-request
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: require-image-digest
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: require-memory-limit
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: require-memory-request
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: require-namespace-environment-profile
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: require-owner-label
+      status: Synced
+      version: v1
+    - group: policies.kyverno.io
+      kind: ValidatingPolicy
+      name: require-seccomp
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Kustomize
+    summary: {}
+    sync:
+      comparedTo:
+        destination:
+          namespace: kyverno
+          server: https://kubernetes.default.svc
+        source:
+          path: gitops/policies/development
+          repoURL: https://github.com/Hikaru2035/k8s_kyverno.git
+          targetRevision: cicd/jenkins
+      revision: 2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e
+      status: Synced
+kind: List
+metadata:
+  resourceVersion: ""

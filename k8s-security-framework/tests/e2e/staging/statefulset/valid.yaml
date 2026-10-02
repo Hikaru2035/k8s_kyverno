@@ -4,8 +4,8 @@ metadata:
   name: e2e-stg-statefulset-valid
   namespace: ksp-staging
   labels:
-    app.kubernetes.io/name: e2e-stg-statefulset
-    policies.ksp.io/owner: security-team
+    app: e2e-stg-statefulset
+    owner: security-team
 spec:
   serviceName: e2e-stg-statefulset
   replicas: 1

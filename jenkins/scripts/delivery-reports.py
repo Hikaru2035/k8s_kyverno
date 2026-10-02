@@ -11,7 +11,7 @@ from policy_artifact import require, verify
 
 
 def summarize(objects, reports, policies):
-    uids={x['metadata']['uid'] for x in objects if x['metadata'].get('labels',{}).get('app.kubernetes.io/name')=='demo-app'}
+    uids={x['metadata']['uid'] for x in objects if x['metadata'].get('labels',{}).get('app')=='demo-app'}
     actions={p['metadata']['name']:p['spec'].get('validationActions',[]) for p in policies}
     related=[]
     for report in reports:

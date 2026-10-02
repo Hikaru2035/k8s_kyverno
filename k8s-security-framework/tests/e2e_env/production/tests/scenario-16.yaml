@@ -4,12 +4,12 @@ kind: Deployment
 metadata:
   name: e2e-ksp-restricted-ok
   namespace: e2e-ksp-canary
-  labels: {app.kubernetes.io/name: e2e-ksp-restricted-ok, policies.ksp.io/owner: e2e}
+  labels: {app: e2e-ksp-restricted-ok, owner: e2e}
 spec:
   replicas: 1
-  selector: {matchLabels: {app.kubernetes.io/name: e2e-ksp-restricted-ok}}
+  selector: {matchLabels: {app: e2e-ksp-restricted-ok}}
   template:
-    metadata: {labels: {app.kubernetes.io/name: e2e-ksp-restricted-ok}}
+    metadata: {labels: {app: e2e-ksp-restricted-ok}}
     spec:
       securityContext:
         runAsNonRoot: true

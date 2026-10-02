@@ -6,16 +6,16 @@ metadata:
   name: ${APP_NAME}
   namespace: ${NAMESPACE}
   labels:
-    app.kubernetes.io/name: ${APP_NAME}
-    policies.ksp.io/owner: ${OWNER}
+    app: ${APP_NAME}
+    owner: ${OWNER}
 spec:
   schedule: "${CRON_SCHEDULE}"
   jobTemplate:
     metadata:
       # The generated Job is also matched by KSP-META-001 and KSP-META-002.
       labels:
-        app.kubernetes.io/name: ${APP_NAME}
-        policies.ksp.io/owner: ${OWNER}
+        app: ${APP_NAME}
+        owner: ${OWNER}
     spec:
       template:
         spec:

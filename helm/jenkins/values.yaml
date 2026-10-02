@@ -7,7 +7,7 @@ controller:
     createSecret: false
     existingSecret: jenkins-admin
   podLabels:
-    policies.ksp.io/owner: platform-team
+    owner: platform-team
   podSecurityContextOverride:
     runAsUser: 1000
     runAsGroup: 1000
@@ -68,8 +68,8 @@ agent:
   showRawYaml: false
 
   podLabels:
-    app.kubernetes.io/name: jenkins-agent
-    policies.ksp.io/owner: platform-team
+    app: jenkins-agent
+    owner: platform-team
 
   resources:
     requests:
@@ -145,4 +145,4 @@ serviceAccountAgent:
 rbac:
   create: true
 extraLabels:
-  policies.ksp.io/owner: platform-team
+  owner: platform-team

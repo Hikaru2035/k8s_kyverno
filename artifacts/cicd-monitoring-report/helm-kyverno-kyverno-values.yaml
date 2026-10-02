@@ -1,0 +1,1388 @@
+COMPUTED VALUES:
+USER-SUPPLIED VALUES: null
+admissionController:
+  annotations: {}
+  antiAffinity:
+    enabled: true
+  apiPriorityAndFairness: true
+  autoscaling:
+    behavior: {}
+    enabled: false
+    maxReplicas: 10
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: null
+  caCertificates:
+    data: null
+    volume: {}
+  certManager:
+    algorithm: RSA
+    ca:
+      duration: 87600h
+      renewBefore: 720h
+    createSelfSignedIssuer: true
+    enabled: false
+    issuerRef:
+      group: cert-manager.io
+      kind: ClusterIssuer
+      name: ""
+    size: 2048
+    tls:
+      duration: 8760h
+      renewBefore: 720h
+  container:
+    extraArgs: {}
+    extraEnvVars: []
+    image:
+      defaultRegistry: reg.kyverno.io
+      pullPolicy: IfNotPresent
+      registry: null
+      repository: kyverno/kyverno
+      tag: null
+    lifecycle: {}
+    resources:
+      limits:
+        cpu: "2"
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsGroup: 65534
+      runAsNonRoot: true
+      runAsUser: 65534
+      seccompProfile:
+        type: RuntimeDefault
+  crdWatcher: false
+  createSelfSignedCert: false
+  dnsConfig: {}
+  dnsPolicy: ClusterFirst
+  extraContainers: []
+  extraInitContainers: []
+  extraVolumeMounts:
+  - mountPath: /etc/ssl/certs/ca-certificates.crt
+    name: harbor-ca-bundle
+    readOnly: true
+    subPath: ca-certificates.crt
+  extraVolumes:
+  - configMap:
+      name: kyverno-custom-ca-bundle
+    name: harbor-ca-bundle
+  featuresOverride:
+    admissionReports:
+      backPressureThreshold: 1000
+  hostNetwork: false
+  imagePullSecrets: []
+  initContainer:
+    extraArgs: {}
+    extraEnvVars: []
+    image:
+      defaultRegistry: reg.kyverno.io
+      pullPolicy: null
+      registry: null
+      repository: kyverno/kyvernopre
+      tag: null
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsGroup: 65534
+      runAsNonRoot: true
+      runAsUser: 65534
+      seccompProfile:
+        type: RuntimeDefault
+  labels: {}
+  livenessProbe:
+    failureThreshold: 2
+    httpGet:
+      path: /health/liveness
+      port: 9443
+      scheme: HTTPS
+    initialDelaySeconds: 15
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 5
+  metering:
+    collector: ""
+    config: prometheus
+    creds: ""
+    disabled: false
+    port: 8000
+    secure: false
+    tlsKeyAlgorithm: RSA
+  metricsService:
+    annotations: {}
+    create: true
+    nodePort: null
+    port: 8000
+    trafficDistribution: null
+    type: ClusterIP
+  networkPolicy:
+    enabled: false
+    ingressFrom: []
+  nodeAffinity: {}
+  nodeSelector:
+    ksp.io/kyverno-node: "true"
+  podAffinity: {}
+  podAnnotations: {}
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/component
+            operator: In
+            values:
+            - admission-controller
+        topologyKey: kubernetes.io/hostname
+      weight: 1
+  podDisruptionBudget:
+    enabled: true
+    maxUnavailable: null
+    minAvailable: 2
+    unhealthyPodEvictionPolicy: null
+  podLabels: {}
+  podSecurityContext: {}
+  priorityClassName: ""
+  priorityLevelConfigurationSpec:
+    limited:
+      limitResponse:
+        queuing:
+          queueLengthLimit: 50
+        type: Queue
+      nominalConcurrencyShares: 10
+    type: Limited
+  profiling:
+    enabled: false
+    nodePort: null
+    port: 6060
+    serviceType: ClusterIP
+  rbac:
+    clusterRole:
+      extraResources: []
+    coreClusterRole:
+      extraResources: []
+    create: true
+    createViewRoleBinding: true
+    serviceAccount:
+      annotations: {}
+      automountServiceAccountToken: true
+      name: null
+      projectedServiceAccountToken:
+        audience: ""
+        expirationSeconds: 3600
+    viewRoleName: view
+  readinessProbe:
+    failureThreshold: 6
+    httpGet:
+      path: /health/readiness
+      port: 9443
+      scheme: HTTPS
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  replicas: 4
+  resyncPeriod: 15m
+  revisionHistoryLimit: 5
+  service:
+    annotations: {}
+    nodePort: null
+    port: 443
+    trafficDistribution: null
+    type: ClusterIP
+  serviceMonitor:
+    additionalAnnotations: {}
+    additionalLabels: {}
+    enabled: false
+    interval: 30s
+    metricRelabelings: []
+    namespace: null
+    relabelings: []
+    scrapeTimeout: 25s
+    secure: false
+    tlsConfig: {}
+  sigstoreVolume:
+    emptyDir: {}
+  startupProbe:
+    failureThreshold: 20
+    httpGet:
+      path: /health/liveness
+      port: 9443
+      scheme: HTTPS
+    initialDelaySeconds: 2
+    periodSeconds: 6
+  tlsKeyAlgorithm: RSA
+  tolerations: []
+  topologySpreadConstraints:
+  - labelSelector:
+      matchLabels:
+        app.kubernetes.io/component: admission-controller
+    maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+  tracing:
+    address: null
+    creds: ""
+    enabled: false
+    port: null
+  tufRootMountPath: /.sigstore
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  webhookServer:
+    port: 9443
+apiCallToken:
+  audience: kyverno-svc.kyverno.io
+  expirationSeconds: 3600
+apiVersionOverride:
+  podDisruptionBudget: null
+backgroundController:
+  annotations: {}
+  antiAffinity:
+    enabled: true
+  caCertificates:
+    data: null
+    volume: {}
+  dnsConfig: {}
+  dnsPolicy: ClusterFirst
+  enabled: true
+  extraArgs: {}
+  extraEnvVars: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  featuresOverride: {}
+  hostNetwork: false
+  image:
+    defaultRegistry: reg.kyverno.io
+    pullPolicy: IfNotPresent
+    registry: null
+    repository: kyverno/background-controller
+    tag: null
+  imagePullSecrets: []
+  labels: {}
+  lifecycle: {}
+  metering:
+    collector: ""
+    config: prometheus
+    creds: ""
+    disabled: false
+    port: 8000
+    secure: false
+    tlsKeyAlgorithm: RSA
+  metricsService:
+    annotations: {}
+    create: true
+    nodePort: null
+    port: 8000
+    trafficDistribution: null
+    type: ClusterIP
+  networkPolicy:
+    enabled: false
+    ingressFrom: []
+  nodeAffinity: {}
+  nodeSelector: {}
+  podAffinity: {}
+  podAnnotations: {}
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/component
+            operator: In
+            values:
+            - background-controller
+        topologyKey: kubernetes.io/hostname
+      weight: 1
+  podDisruptionBudget:
+    enabled: true
+    maxUnavailable: null
+    minAvailable: 1
+    unhealthyPodEvictionPolicy: null
+  podLabels: {}
+  podSecurityContext: {}
+  priorityClassName: ""
+  profiling:
+    enabled: false
+    nodePort: null
+    port: 6060
+    serviceType: ClusterIP
+  rbac:
+    clusterRole:
+      extraResources: []
+    coreClusterRole:
+      extraResources:
+      - apiGroups:
+        - networking.k8s.io
+        resources:
+        - ingresses
+        - ingressclasses
+        - networkpolicies
+        verbs:
+        - create
+        - update
+        - patch
+        - delete
+      - apiGroups:
+        - rbac.authorization.k8s.io
+        resources:
+        - rolebindings
+        - roles
+        verbs:
+        - create
+        - update
+        - patch
+        - delete
+      - apiGroups:
+        - ""
+        resources:
+        - configmaps
+        - resourcequotas
+        - limitranges
+        verbs:
+        - create
+        - update
+        - patch
+        - delete
+      - apiGroups:
+        - resource.k8s.io
+        resources:
+        - resourceclaims
+        - resourceclaimtemplates
+        verbs:
+        - create
+        - delete
+        - update
+        - patch
+        - deletecollection
+    create: true
+    createViewRoleBinding: true
+    serviceAccount:
+      annotations: {}
+      automountServiceAccountToken: true
+      name: null
+      projectedServiceAccountToken:
+        audience: ""
+        expirationSeconds: 3600
+    viewRoleName: view
+  replicas: 2
+  resources:
+    limits:
+      cpu: "1"
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  resyncPeriod: 15m
+  revisionHistoryLimit: 5
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    privileged: false
+    readOnlyRootFilesystem: true
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  server:
+    port: 9443
+  serviceMonitor:
+    additionalAnnotations: {}
+    additionalLabels: {}
+    enabled: false
+    interval: 30s
+    metricRelabelings: []
+    namespace: null
+    relabelings: []
+    scrapeTimeout: 25s
+    secure: false
+    tlsConfig: {}
+  tolerations: []
+  topologySpreadConstraints: []
+  tracing:
+    address: null
+    creds: ""
+    enabled: false
+    port: null
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 40%
+    type: RollingUpdate
+cleanupController:
+  annotations: {}
+  antiAffinity:
+    enabled: true
+  certManager:
+    algorithm: RSA
+    ca:
+      duration: 87600h
+      renewBefore: 720h
+    createSelfSignedIssuer: true
+    enabled: false
+    issuerRef:
+      group: cert-manager.io
+      kind: ClusterIssuer
+      name: ""
+    size: 2048
+    tls:
+      duration: 8760h
+      renewBefore: 720h
+  createSelfSignedCert: false
+  dnsConfig: {}
+  dnsPolicy: ClusterFirst
+  enabled: true
+  extraArgs: {}
+  extraEnvVars: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  featuresOverride: {}
+  hostNetwork: false
+  image:
+    defaultRegistry: reg.kyverno.io
+    pullPolicy: IfNotPresent
+    registry: null
+    repository: kyverno/cleanup-controller
+    tag: null
+  imagePullSecrets: []
+  labels: {}
+  lifecycle: {}
+  livenessProbe:
+    failureThreshold: 2
+    httpGet:
+      path: /health/liveness
+      port: 9443
+      scheme: HTTPS
+    initialDelaySeconds: 15
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 5
+  metering:
+    collector: ""
+    config: prometheus
+    creds: ""
+    disabled: false
+    port: 8000
+    secure: false
+    tlsKeyAlgorithm: RSA
+  metricsService:
+    annotations: {}
+    create: true
+    nodePort: null
+    port: 8000
+    trafficDistribution: null
+    type: ClusterIP
+  networkPolicy:
+    enabled: false
+    ingressFrom: []
+  nodeAffinity: {}
+  nodeSelector: {}
+  podAffinity: {}
+  podAnnotations: {}
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/component
+            operator: In
+            values:
+            - cleanup-controller
+        topologyKey: kubernetes.io/hostname
+      weight: 1
+  podDisruptionBudget:
+    enabled: true
+    maxUnavailable: null
+    minAvailable: 1
+    unhealthyPodEvictionPolicy: null
+  podLabels: {}
+  podSecurityContext: {}
+  priorityClassName: ""
+  profiling:
+    enabled: false
+    nodePort: null
+    port: 6060
+    serviceType: ClusterIP
+  rbac:
+    clusterRole:
+      extraResources: []
+    coreClusterRole:
+      extraResources: []
+    create: true
+    serviceAccount:
+      annotations: {}
+      automountServiceAccountToken: true
+      name: null
+      projectedServiceAccountToken:
+        audience: ""
+        expirationSeconds: 3600
+  readinessProbe:
+    failureThreshold: 6
+    httpGet:
+      path: /health/readiness
+      port: 9443
+      scheme: HTTPS
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  replicas: 2
+  resources:
+    limits:
+      cpu: 500m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  resyncPeriod: 15m
+  revisionHistoryLimit: 5
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    privileged: false
+    readOnlyRootFilesystem: true
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  server:
+    port: 9443
+  service:
+    annotations: {}
+    nodePort: null
+    port: 443
+    trafficDistribution: null
+    type: ClusterIP
+  serviceMonitor:
+    additionalAnnotations: {}
+    additionalLabels: {}
+    enabled: false
+    interval: 30s
+    metricRelabelings: []
+    namespace: null
+    relabelings: []
+    scrapeTimeout: 25s
+    secure: false
+    tlsConfig: {}
+  startupProbe:
+    failureThreshold: 20
+    httpGet:
+      path: /health/liveness
+      port: 9443
+      scheme: HTTPS
+    initialDelaySeconds: 2
+    periodSeconds: 6
+  tlsKeyAlgorithm: RSA
+  tolerations: []
+  topologySpreadConstraints: []
+  tracing:
+    address: null
+    creds: ""
+    enabled: false
+    port: null
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 40%
+    type: RollingUpdate
+config:
+  annotations: {}
+  create: true
+  defaultRegistry: docker.io
+  enableDefaultRegistryMutation: true
+  excludeClusterRoles: []
+  excludeGroups:
+  - system:nodes
+  excludeKyvernoNamespace: true
+  excludeRoles: []
+  excludeUsernames: []
+  generateSuccessEvents: false
+  matchConditions: []
+  maxContextSize: null
+  name: null
+  preserve: true
+  resourceFilters:
+  - '[Event,*,*]'
+  - '[*/*,kube-system,*]'
+  - '[*/*,kube-public,*]'
+  - '[*/*,kube-node-lease,*]'
+  - '[Node,*,*]'
+  - '[Node/?*,*,*]'
+  - '[APIService,*,*]'
+  - '[APIService/?*,*,*]'
+  - '[TokenReview,*,*]'
+  - '[SubjectAccessReview,*,*]'
+  - '[SelfSubjectAccessReview,*,*]'
+  - '[Binding,*,*]'
+  - '[Pod/binding,*,*]'
+  - '[ReplicaSet,*,*]'
+  - '[ReplicaSet/?*,*,*]'
+  - '[EphemeralReport,*,*]'
+  - '[ClusterEphemeralReport,*,*]'
+  - '[ClusterRole,*,{{ template "kyverno.admission-controller.roleName" . }}]'
+  - '[ClusterRole,*,{{ template "kyverno.admission-controller.roleName" . }}:core]'
+  - '[ClusterRole,*,{{ template "kyverno.admission-controller.roleName" . }}:additional]'
+  - '[ClusterRole,*,{{ template "kyverno.background-controller.roleName" . }}]'
+  - '[ClusterRole,*,{{ template "kyverno.background-controller.roleName" . }}:core]'
+  - '[ClusterRole,*,{{ template "kyverno.background-controller.roleName" . }}:additional]'
+  - '[ClusterRole,*,{{ template "kyverno.cleanup-controller.roleName" . }}]'
+  - '[ClusterRole,*,{{ template "kyverno.cleanup-controller.roleName" . }}:core]'
+  - '[ClusterRole,*,{{ template "kyverno.cleanup-controller.roleName" . }}:additional]'
+  - '[ClusterRole,*,{{ template "kyverno.reports-controller.roleName" . }}]'
+  - '[ClusterRole,*,{{ template "kyverno.reports-controller.roleName" . }}:core]'
+  - '[ClusterRole,*,{{ template "kyverno.reports-controller.roleName" . }}:additional]'
+  - '[ClusterRoleBinding,*,{{ template "kyverno.admission-controller.roleName" . }}]'
+  - '[ClusterRoleBinding,*,{{ template "kyverno.background-controller.roleName" .
+    }}]'
+  - '[ClusterRoleBinding,*,{{ template "kyverno.cleanup-controller.roleName" . }}]'
+  - '[ClusterRoleBinding,*,{{ template "kyverno.reports-controller.roleName" . }}]'
+  - '[ServiceAccount,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.serviceAccountName"
+    . }}]'
+  - '[ServiceAccount/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.serviceAccountName"
+    . }}]'
+  - '[ServiceAccount,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.serviceAccountName"
+    . }}]'
+  - '[ServiceAccount/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.serviceAccountName"
+    . }}]'
+  - '[ServiceAccount,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.serviceAccountName"
+    . }}]'
+  - '[ServiceAccount/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.serviceAccountName"
+    . }}]'
+  - '[ServiceAccount,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.serviceAccountName"
+    . }}]'
+  - '[ServiceAccount/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.serviceAccountName"
+    . }}]'
+  - '[Role,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.roleName"
+    . }}]'
+  - '[Role,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.roleName"
+    . }}]'
+  - '[Role,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.roleName"
+    . }}]'
+  - '[Role,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.roleName"
+    . }}]'
+  - '[RoleBinding,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.roleName"
+    . }}]'
+  - '[RoleBinding,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.roleName"
+    . }}]'
+  - '[RoleBinding,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.roleName"
+    . }}]'
+  - '[RoleBinding,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.roleName"
+    . }}]'
+  - '[ConfigMap,{{ include "kyverno.namespace" . }},{{ template "kyverno.config.configMapName"
+    . }}]'
+  - '[ConfigMap,{{ include "kyverno.namespace" . }},{{ template "kyverno.config.metricsConfigMapName"
+    . }}]'
+  - '[Deployment,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.name"
+    . }}]'
+  - '[Deployment/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.name"
+    . }}]'
+  - '[Deployment,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}]'
+  - '[Deployment/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}]'
+  - '[Deployment,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}]'
+  - '[Deployment/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}]'
+  - '[Deployment,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}]'
+  - '[Deployment/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}]'
+  - '[Pod,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.name"
+    . }}-*]'
+  - '[Pod/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.name"
+    . }}-*]'
+  - '[Pod,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}-*]'
+  - '[Pod/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}-*]'
+  - '[Pod,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}-*]'
+  - '[Pod/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}-*]'
+  - '[Pod,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}-*]'
+  - '[Pod/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}-*]'
+  - '[Job,{{ include "kyverno.namespace" . }},{{ template "kyverno.fullname" . }}-hook-pre-delete]'
+  - '[Job/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.fullname" .
+    }}-hook-pre-delete]'
+  - '[NetworkPolicy,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.name"
+    . }}]'
+  - '[NetworkPolicy/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.name"
+    . }}]'
+  - '[NetworkPolicy,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}]'
+  - '[NetworkPolicy/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}]'
+  - '[NetworkPolicy,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}]'
+  - '[NetworkPolicy/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}]'
+  - '[NetworkPolicy,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}]'
+  - '[NetworkPolicy/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}]'
+  - '[PodDisruptionBudget,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.name"
+    . }}]'
+  - '[PodDisruptionBudget/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.name"
+    . }}]'
+  - '[PodDisruptionBudget,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}]'
+  - '[PodDisruptionBudget/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}]'
+  - '[PodDisruptionBudget,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}]'
+  - '[PodDisruptionBudget/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}]'
+  - '[PodDisruptionBudget,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}]'
+  - '[PodDisruptionBudget/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}]'
+  - '[Service,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.serviceName"
+    . }}]'
+  - '[Service/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.serviceName"
+    . }}]'
+  - '[Service,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.serviceName"
+    . }}-metrics]'
+  - '[Service/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.serviceName"
+    . }}-metrics]'
+  - '[Service,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}-metrics]'
+  - '[Service/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.background-controller.name"
+    . }}-metrics]'
+  - '[Service,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}]'
+  - '[Service/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}]'
+  - '[Service,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}-metrics]'
+  - '[Service/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}-metrics]'
+  - '[Service,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}-metrics]'
+  - '[Service/?*,{{ include "kyverno.namespace" . }},{{ template "kyverno.reports-controller.name"
+    . }}-metrics]'
+  - '[ServiceMonitor,{{ if .Values.admissionController.serviceMonitor.namespace }}{{
+    .Values.admissionController.serviceMonitor.namespace }}{{ else }}{{ template "kyverno.namespace"
+    . }}{{ end }},{{ template "kyverno.admission-controller.name" . }}]'
+  - '[ServiceMonitor,{{ if .Values.admissionController.serviceMonitor.namespace }}{{
+    .Values.admissionController.serviceMonitor.namespace }}{{ else }}{{ template "kyverno.namespace"
+    . }}{{ end }},{{ template "kyverno.background-controller.name" . }}]'
+  - '[ServiceMonitor,{{ if .Values.admissionController.serviceMonitor.namespace }}{{
+    .Values.admissionController.serviceMonitor.namespace }}{{ else }}{{ template "kyverno.namespace"
+    . }}{{ end }},{{ template "kyverno.cleanup-controller.name" . }}]'
+  - '[ServiceMonitor,{{ if .Values.admissionController.serviceMonitor.namespace }}{{
+    .Values.admissionController.serviceMonitor.namespace }}{{ else }}{{ template "kyverno.namespace"
+    . }}{{ end }},{{ template "kyverno.reports-controller.name" . }}]'
+  - '[Secret,{{ include "kyverno.namespace" . }},{{ template "kyverno.admission-controller.serviceName"
+    . }}.{{ template "kyverno.namespace" . }}.svc.*]'
+  - '[Secret,{{ include "kyverno.namespace" . }},{{ template "kyverno.cleanup-controller.name"
+    . }}.{{ template "kyverno.namespace" . }}.svc.*]'
+  resourceFiltersExclude: []
+  resourceFiltersExcludeNamespaces: []
+  resourceFiltersInclude: []
+  resourceFiltersIncludeNamespaces: []
+  successEventActions: ""
+  updateRequestThreshold: 1000
+  webhookAnnotations:
+    admissions.enforcer/disabled: "true"
+  webhookLabels: {}
+  webhooks:
+    namespaceSelector:
+      matchExpressions:
+      - key: kubernetes.io/metadata.name
+        operator: NotIn
+        values:
+        - kube-system
+crds:
+  annotations: {}
+  customLabels: {}
+  global:
+    caCertificates:
+      data: null
+      volume: {}
+    crdWatcher: false
+    extraEnvVars: []
+    image:
+      registry: null
+    imagePullSecrets: []
+    nodeSelector:
+      kubernetes.io/os: linux
+    priorityClassName: ""
+    resyncPeriod: 15m
+    templating:
+      debug: false
+      enabled: false
+      version: null
+    tolerations: []
+  groups:
+    kyverno:
+      cleanuppolicies: true
+      clustercleanuppolicies: true
+      clusterpolicies: true
+      globalcontextentries: true
+      policies: true
+      policyexceptions: true
+      updaterequests: true
+    policies:
+      deletingpolicies: true
+      generatingpolicies: true
+      imagevalidatingpolicies: true
+      mutatingpolicies: true
+      namespaceddeletingpolicies: true
+      namespacedgeneratingpolicies: true
+      namespacedimagevalidatingpolicies: true
+      namespacedmutatingpolicies: true
+      namespacedvalidatingpolicies: true
+      policyexceptions: true
+      validatingpolicies: true
+    reports:
+      clusterephemeralreports: true
+      ephemeralreports: true
+    wgpolicyk8s:
+      clusterpolicyreports: true
+      policyreports: true
+  install: true
+  migration:
+    enabled: true
+    extraArgs: {}
+    image:
+      defaultRegistry: reg.kyverno.io
+      pullPolicy: IfNotPresent
+      registry: null
+      repository: kyverno/kyverno-cli
+      tag: null
+    imagePullSecrets: []
+    nodeAffinity: {}
+    nodeSelector: {}
+    podAffinity: {}
+    podAnnotations: {}
+    podAntiAffinity: {}
+    podLabels: {}
+    podResources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+    podSecurityContext: {}
+    resources:
+    - cleanuppolicies.kyverno.io
+    - clustercleanuppolicies.kyverno.io
+    - clusterpolicies.kyverno.io
+    - globalcontextentries.kyverno.io
+    - policies.kyverno.io
+    - policyexceptions.kyverno.io
+    - updaterequests.kyverno.io
+    - deletingpolicies.policies.kyverno.io
+    - generatingpolicies.policies.kyverno.io
+    - imagevalidatingpolicies.policies.kyverno.io
+    - mutatingpolicies.policies.kyverno.io
+    - namespaceddeletingpolicies.policies.kyverno.io
+    - namespacedgeneratingpolicies.policies.kyverno.io
+    - namespacedimagevalidatingpolicies.policies.kyverno.io
+    - namespacedmutatingpolicies.policies.kyverno.io
+    - namespacedvalidatingpolicies.policies.kyverno.io
+    - policyexceptions.policies.kyverno.io
+    - validatingpolicies.policies.kyverno.io
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsGroup: 65534
+      runAsNonRoot: true
+      runAsUser: 65534
+      seccompProfile:
+        type: RuntimeDefault
+    serviceAccount:
+      automountServiceAccountToken: true
+      projectedServiceAccountToken:
+        audience: ""
+        expirationSeconds: 3600
+    tolerations: []
+  reportsServer:
+    enabled: false
+  templating:
+    debug: false
+    enabled: false
+    version: null
+customLabels: {}
+existingImagePullSecrets: []
+features:
+  admissionReports:
+    enabled: true
+  aggregateReports:
+    enabled: true
+  autoUpdateWebhooks:
+    enabled: true
+  backgroundScan:
+    backgroundScanInterval: 1h
+    backgroundScanWorkers: 8
+    enabled: true
+    skipResourceFilters: true
+  configMapCaching:
+    enabled: true
+  controllerRuntimeMetrics:
+    bindAddress: :8080
+  deferredLoading:
+    enabled: true
+  dumpPatches:
+    enabled: false
+  dumpPayload:
+    enabled: false
+  excludeBootstrapResources:
+    enabled: false
+  forceFailurePolicyIgnore:
+    enabled: false
+  generateMutatingAdmissionPolicy:
+    enabled: false
+  generateValidatingAdmissionPolicy:
+    enabled: true
+  globalContext:
+    apiCallTimeout: 30s
+    maxApiCallResponseLength: 2000000
+    maxGlobalContextEntries: 0
+  logging:
+    format: text
+    verbosity: 2
+  mutatingAdmissionPolicyReports:
+    enabled: false
+  omitEvents:
+    eventTypes:
+    - PolicyApplied
+    - PolicySkipped
+  policyExceptions:
+    enabled: true
+    namespace: policy-exceptions
+  policyReports:
+    enabled: true
+  protectManagedResources:
+    enabled: false
+  registryClient:
+    allowInsecure: false
+    credentialHelpers:
+    - default
+    - google
+    - amazon
+    - azure
+    - github
+  reporting:
+    generate: true
+    imageVerify: true
+    mutate: true
+    mutateExisting: true
+    validate: true
+  ttlController:
+    reconciliationInterval: 1m
+  tuf:
+    enabled: false
+    mirror: null
+    root: null
+    rootRaw: null
+  validatingAdmissionPolicyReports:
+    enabled: true
+fullnameOverride: null
+global:
+  caCertificates:
+    data: null
+    volume: {}
+  crdWatcher: false
+  extraEnvVars: []
+  image:
+    registry: null
+  imagePullSecrets: []
+  nodeSelector:
+    kubernetes.io/os: linux
+  priorityClassName: ""
+  resyncPeriod: 15m
+  templating:
+    debug: false
+    enabled: false
+    version: null
+  tolerations: []
+grafana:
+  annotations: {}
+  configMapName: '{{ include "kyverno.fullname" . }}-grafana'
+  enabled: false
+  grafanaDashboard:
+    allowCrossNamespaceImport: true
+    create: false
+    folder: kyverno
+    matchLabels:
+      dashboards: grafana
+  labels:
+    grafana_dashboard: "1"
+  namespace: null
+imagePullSecrets: {}
+kyverno-api:
+  annotations: {}
+  global:
+    caCertificates:
+      data: null
+      volume: {}
+    crdWatcher: false
+    extraEnvVars: []
+    image:
+      registry: null
+    imagePullSecrets: []
+    nodeSelector:
+      kubernetes.io/os: linux
+    priorityClassName: ""
+    resyncPeriod: 15m
+    templating:
+      debug: false
+      enabled: false
+      version: null
+    tolerations: []
+  labels: {}
+metricsConfig:
+  annotations: {}
+  bucketBoundaries:
+  - 0.005
+  - 0.01
+  - 0.025
+  - 0.05
+  - 0.1
+  - 0.25
+  - 0.5
+  - 1
+  - 2.5
+  - 5
+  - 10
+  - 15
+  - 20
+  - 25
+  - 30
+  create: true
+  metricsExposure:
+    kyverno_admission_requests_total:
+      disabledLabelDimensions:
+      - resource_namespace
+    kyverno_admission_review_duration_seconds:
+      disabledLabelDimensions:
+      - resource_namespace
+    kyverno_cleanup_controller_deletedobjects_total:
+      disabledLabelDimensions:
+      - resource_namespace
+      - policy_namespace
+    kyverno_generating_policy_execution_duration_seconds:
+      disabledLabelDimensions:
+      - resource_namespace
+      - resource_request_operation
+    kyverno_generating_policy_results_total:
+      disabledLabelDimensions:
+      - resource_namespace
+      - policy_namespace
+    kyverno_image_validating_policy_execution_duration_seconds:
+      disabledLabelDimensions:
+      - resource_namespace
+      - resource_request_operation
+    kyverno_image_validating_policy_results_total:
+      disabledLabelDimensions:
+      - resource_namespace
+      - policy_namespace
+    kyverno_mutating_policy_execution_duration_seconds:
+      disabledLabelDimensions:
+      - resource_namespace
+      - resource_request_operation
+    kyverno_mutating_policy_results_total:
+      disabledLabelDimensions:
+      - resource_namespace
+      - policy_namespace
+    kyverno_policy_execution_duration_seconds:
+      disabledLabelDimensions:
+      - resource_namespace
+      - resource_request_operation
+    kyverno_policy_results_total:
+      disabledLabelDimensions:
+      - resource_namespace
+      - policy_namespace
+    kyverno_policy_rule_info_total:
+      disabledLabelDimensions:
+      - resource_namespace
+      - policy_namespace
+    kyverno_validating_policy_execution_duration_seconds:
+      disabledLabelDimensions:
+      - resource_namespace
+      - resource_request_operation
+    kyverno_validating_policy_results_total:
+      disabledLabelDimensions:
+      - resource_namespace
+      - policy_namespace
+  metricsRefreshInterval: null
+  name: null
+  namespaces:
+    exclude: []
+    include: []
+nameOverride: null
+namespaceOverride: null
+openreports:
+  enabled: false
+  installCrds: false
+prometheusRule:
+  additionalAnnotations: {}
+  additionalLabels: {}
+  enabled: false
+  namespace: null
+  spec: []
+rbac:
+  roles:
+    aggregate:
+      admin: true
+      view: true
+reportsController:
+  annotations: {}
+  antiAffinity:
+    enabled: true
+  apiPriorityAndFairness: true
+  caCertificates:
+    data: null
+    volume: {}
+  dnsConfig: {}
+  dnsPolicy: ClusterFirst
+  enabled: true
+  extraArgs: {}
+  extraEnvVars: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  featuresOverride: {}
+  hostNetwork: false
+  image:
+    defaultRegistry: reg.kyverno.io
+    pullPolicy: IfNotPresent
+    registry: null
+    repository: kyverno/reports-controller
+    tag: null
+  imagePullSecrets: []
+  labels: {}
+  lifecycle: {}
+  metering:
+    collector: null
+    config: prometheus
+    creds: null
+    disabled: false
+    port: 8000
+    secure: false
+    tlsKeyAlgorithm: RSA
+  metricsService:
+    annotations: {}
+    create: true
+    nodePort: null
+    port: 8000
+    trafficDistribution: null
+    type: ClusterIP
+  networkPolicy:
+    enabled: false
+    ingressFrom: []
+  nodeAffinity: {}
+  nodeSelector: {}
+  podAffinity: {}
+  podAnnotations: {}
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/component
+            operator: In
+            values:
+            - reports-controller
+        topologyKey: kubernetes.io/hostname
+      weight: 1
+  podDisruptionBudget:
+    enabled: true
+    maxUnavailable: null
+    minAvailable: 1
+    unhealthyPodEvictionPolicy: null
+  podLabels: {}
+  podSecurityContext: {}
+  priorityClassName: ""
+  priorityLevelConfigurationSpec:
+    limited:
+      limitResponse:
+        queuing:
+          queueLengthLimit: 50
+        type: Queue
+      nominalConcurrencyShares: 10
+    type: Limited
+  profiling:
+    enabled: false
+    nodePort: null
+    port: 6060
+    serviceType: ClusterIP
+  rbac:
+    clusterRole:
+      extraResources: []
+    coreClusterRole:
+      extraResources: []
+    create: true
+    createViewRoleBinding: true
+    serviceAccount:
+      annotations: {}
+      automountServiceAccountToken: true
+      name: null
+      projectedServiceAccountToken:
+        audience: ""
+        expirationSeconds: 3600
+    viewRoleName: view
+  replicas: 2
+  resources:
+    limits:
+      cpu: "1"
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  resyncPeriod: 15m
+  revisionHistoryLimit: 5
+  sanityChecks: true
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    privileged: false
+    readOnlyRootFilesystem: true
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  server:
+    port: 9443
+  serviceMonitor:
+    additionalAnnotations: {}
+    additionalLabels: {}
+    enabled: false
+    interval: 30s
+    metricRelabelings: []
+    namespace: null
+    relabelings: []
+    scrapeTimeout: 25s
+    secure: false
+    tlsConfig: {}
+  sigstoreVolume:
+    emptyDir: {}
+  tolerations: []
+  topologySpreadConstraints: []
+  tracing:
+    address: null
+    creds: null
+    enabled: false
+    port: null
+  tufRootMountPath: /.sigstore
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 40%
+    type: RollingUpdate
+reportsServer:
+  enabled: false
+  readinessTimeout: 300s
+  waitForReady: true
+test:
+  automountServiceAccountToken: true
+  image:
+    pullPolicy: null
+    registry: ghcr.io
+    repository: kyverno/readiness-checker
+    tag: null
+  imagePullSecrets: []
+  nodeSelector: {}
+  podAnnotations: {}
+  projectedServiceAccountToken:
+    audience: ""
+    expirationSeconds: 3600
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    privileged: false
+    readOnlyRootFilesystem: true
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  sleep: 20
+  tolerations: []
+upgrade:
+  fromV2: false
+webhooksCleanup:
+  enabled: true
+  image:
+    pullPolicy: null
+    registry: ghcr.io
+    repository: kyverno/readiness-checker
+    tag: null
+  imagePullSecrets: []
+  nodeAffinity: {}
+  nodeSelector: {}
+  podAffinity: {}
+  podAnnotations: {}
+  podAntiAffinity: {}
+  podLabels: {}
+  podSecurityContext: {}
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    privileged: false
+    readOnlyRootFilesystem: true
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  serviceAccount:
+    automountServiceAccountToken: true
+    projectedServiceAccountToken:
+      audience: ""
+      expirationSeconds: 3600
+  tolerations: []

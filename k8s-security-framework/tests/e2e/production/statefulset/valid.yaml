@@ -4,8 +4,8 @@ metadata:
   name: e2e-prod-statefulset-valid
   namespace: ksp-production
   labels:
-    app.kubernetes.io/name: e2e-prod-statefulset
-    policies.ksp.io/owner: security-team
+    app: e2e-prod-statefulset
+    owner: security-team
 spec:
   serviceName: e2e-prod-statefulset
   replicas: 1

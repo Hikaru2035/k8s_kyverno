@@ -4,8 +4,8 @@ metadata:
   name: e2e-dev-deployment-valid
   namespace: ksp-dev
   labels:
-    app.kubernetes.io/name: e2e-dev-deployment
-    policies.ksp.io/owner: security-team
+    app: e2e-dev-deployment
+    owner: security-team
 spec:
   replicas: 1
   selector:

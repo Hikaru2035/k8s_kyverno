@@ -4,8 +4,8 @@ metadata:
   name: e2e-prod-cronjob-valid
   namespace: ksp-production
   labels:
-    app.kubernetes.io/name: e2e-prod-cronjob
-    policies.ksp.io/owner: security-team
+    app: e2e-prod-cronjob
+    owner: security-team
 spec:
   schedule: "*/10 * * * *"
   jobTemplate:

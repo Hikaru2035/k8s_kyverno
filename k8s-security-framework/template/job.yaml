@@ -6,8 +6,8 @@ metadata:
   name: ${APP_NAME}
   namespace: ${NAMESPACE}
   labels:
-    app.kubernetes.io/name: ${APP_NAME}
-    policies.ksp.io/owner: ${OWNER}
+    app: ${APP_NAME}
+    owner: ${OWNER}
 spec:
   template:
     spec:

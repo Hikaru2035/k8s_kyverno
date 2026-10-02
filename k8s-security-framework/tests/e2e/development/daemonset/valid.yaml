@@ -4,8 +4,8 @@ metadata:
   name: e2e-dev-daemonset-valid
   namespace: ksp-dev
   labels:
-    app.kubernetes.io/name: e2e-dev-daemonset
-    policies.ksp.io/owner: security-team
+    app: e2e-dev-daemonset
+    owner: security-team
 spec:
   selector:
     matchLabels:

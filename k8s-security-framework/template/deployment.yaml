@@ -6,16 +6,16 @@ metadata:
   name: ${APP_NAME}
   namespace: ${NAMESPACE}
   labels:
-    app.kubernetes.io/name: ${APP_NAME}
-    policies.ksp.io/owner: ${OWNER}
+    app: ${APP_NAME}
+    owner: ${OWNER}
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: ${APP_NAME}
+      app: ${APP_NAME}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: ${APP_NAME}
+        app: ${APP_NAME}
     spec:
       securityContext:
         seccompProfile:

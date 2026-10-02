@@ -4,7 +4,7 @@ metadata:
   name: ksp-meta-001-positive-job
   namespace: policy-test
   labels:
-    app.kubernetes.io/name: "demo-api"
+    app: "demo-api"
 spec:
   template:
     spec:

@@ -1,0 +1,512 @@
+---
+# Source: jenkins/templates/service-account-agent.yaml
+apiVersion: v1
+kind: ServiceAccount
+automountServiceAccountToken: false
+metadata:
+  name: jenkins-agent
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-controller"
+    "helm.sh/chart": "jenkins-5.9.63"
+    policies.ksp.io/owner: platform-team
+---
+# Source: jenkins/templates/service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+automountServiceAccountToken: true
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-controller"
+    "helm.sh/chart": "jenkins-5.9.63"
+    policies.ksp.io/owner: platform-team
+---
+# Source: jenkins/templates/config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    
+    "app.kubernetes.io/name": 'jenkins'
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-controller"
+    "helm.sh/chart": "jenkins-5.9.63"
+    policies.ksp.io/owner: platform-team
+data:
+  apply_config.sh: |-
+    set -e
+    echo "disable Setup Wizard"
+    # Prevent Setup Wizard when JCasC is enabled
+    echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.UpgradeWizard.state
+    echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.InstallUtil.lastExecVersion
+    echo "download plugins"
+    # Install missing plugins
+    cp /var/jenkins_config/plugins.txt /var/jenkins_home;
+    rm -rf /usr/share/jenkins/ref/plugins/*.lock
+    version () { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
+    if [ -f "/usr/share/jenkins/jenkins.war" ] && [ -n "$(command -v jenkins-plugin-cli)" 2>/dev/null ] && [ $(version $(jenkins-plugin-cli --version)) -ge $(version "2.1.1") ]; then
+      jenkins-plugin-cli --verbose --war "/usr/share/jenkins/jenkins.war" --plugin-file "/var/jenkins_home/plugins.txt" --latest false;
+    else
+      /usr/local/bin/install-plugins.sh `echo $(cat /var/jenkins_home/plugins.txt)`;
+    fi
+    echo "copy plugins to shared volume"
+    # Copy plugins to shared volume
+    yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
+    echo "copy configuration as code files"
+    mkdir -p /var/jenkins_home/casc_configs;
+    rm -rf /var/jenkins_home/casc_configs/*
+    cp -v /var/jenkins_config/*.yaml /var/jenkins_home/casc_configs
+    echo "finished initialization"
+# Only add config to this script if we aren't auto-reloading otherwise the pod will restart upon each config change:
+  jcasc-default-config.yaml: |-
+    jenkins:
+      authorizationStrategy:
+        loggedInUsersCanDoAnything:
+          allowAnonymousRead: false
+      securityRealm:
+        local:
+          allowsSignup: false
+          enableCaptcha: false
+          users:
+          - id: "${chart-admin-username}"
+            name: "Jenkins Admin"
+            password: "${chart-admin-password}"
+      disableRememberMe: false
+      mode: NORMAL
+      numExecutors: 0
+      labelString: ""
+      projectNamingStrategy: "standard"
+      markupFormatter:
+        plainText
+      clouds:
+      - kubernetes:
+          containerCapStr: "10"
+          defaultsProviderTemplate: ""
+          connectTimeout: "5"
+          readTimeout: "15"
+          jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
+          jenkinsTunnel: "jenkins-agent.jenkins.svc.cluster.local:50000"
+          skipTlsVerify: false
+          usageRestricted: false
+          maxRequestsPerHostStr: "32"
+          retentionTimeout: "5"
+          waitForPodSec: "600"
+          name: "kubernetes"
+          namespace: "jenkins"
+          restrictedPssSecurityContext: true
+          serverUrl: "https://kubernetes.default"
+          addMasterProxyEnvVars: false
+          credentialsId: ""
+          podLabels:
+          - key: "jenkins/jenkins-jenkins-agent"
+            value: "true"
+          - key: "app.kubernetes.io/name"
+            value: "jenkins-agent"
+          - key: "policies.ksp.io/owner"
+            value: "platform-team"
+          templates:
+            - name: "default"
+              namespace: "jenkins"
+              id: 2d6840e25d5657b7814d15b638d96dcab8b036b9ab42c1be376a4baed049c5de
+              containers:
+              - name: "jnlp"
+                alwaysPullImage: false
+                args: "^${computer.jnlpmac} ^${computer.name}"
+                envVars:
+                  - envVar:
+                      key: "JENKINS_URL"
+                      value: "http://jenkins.jenkins.svc.cluster.local:8080/"
+                image: "harbor-public:30003/ksp-test/ksp-tools:0.1.2@sha256:d3cceba7c741dcad03b828b0b197512741f3fa79b3441a4bfbf839ac9d45f09d"
+                privileged: "false"
+                resourceLimitCpu: 2
+                resourceLimitMemory: 4Gi
+                resourceRequestCpu: 500m
+                resourceRequestMemory: 1Gi
+                runAsUser: 1000
+                runAsGroup: 1000
+                ttyEnabled: false
+                workingDir: /home/jenkins/agent
+              idleMinutes: 0
+              instanceCap: 2147483647
+              label: "jenkins-jenkins-agent ksp-tools"
+              nodeUsageMode: "NORMAL"
+              podRetention: Never
+              showRawYaml: false
+              serviceAccount: "jenkins-agent"
+              slaveConnectTimeoutStr: "100"
+              yaml: |-
+                apiVersion: v1
+                kind: Pod
+                spec:
+                  automountServiceAccountToken: false
+                
+                  dnsConfig:
+                    options:
+                    - name: ndots
+                      value: "1"
+                
+                  imagePullSecrets:
+                  - name: harbor-pull
+                
+                  securityContext:
+                    runAsNonRoot: true
+                    runAsUser: 1000
+                    runAsGroup: 1000
+                    fsGroup: 1000
+                    seccompProfile:
+                      type: RuntimeDefault
+                
+                  containers:
+                  - name: jnlp
+                    env:
+                    - name: HOME
+                      value: /home/jenkins/agent
+                    - name: SSL_CERT_FILE
+                      value: /etc/ksp-ca/ca-certificates.crt
+                    - name: REQUESTS_CA_BUNDLE
+                      value: /etc/ksp-ca/ca-certificates.crt
+                    securityContext:
+                      allowPrivilegeEscalation: false
+                      readOnlyRootFilesystem: true
+                      capabilities:
+                        drop: [ALL]
+                    volumeMounts:
+                    - name: workspace
+                      mountPath: /home/jenkins/agent
+                    - name: jenkins-cache
+                      mountPath: /home/jenkins/.jenkins
+                    - name: tmp
+                      mountPath: /tmp
+                    - name: ksp-ca-bundle
+                      mountPath: /etc/ksp-ca
+                      readOnly: true
+                
+                  volumes:
+                  - name: workspace
+                    emptyDir: {}
+                  - name: jenkins-cache
+                    emptyDir: {}
+                  - name: tmp
+                    emptyDir: {}
+                  - name: ksp-ca-bundle
+                    configMap:
+                      name: ksp-ca-bundle
+              yamlMergeStrategy: merge
+              inheritYamlMergeStrategy: false
+      slaveAgentPort: 50000
+    security:
+      apiToken:
+        creationOfLegacyTokenEnabled: false
+        tokenGenerationOnCreationEnabled: false
+        usageStatisticsEnabled: true
+    unclassified:
+      location:
+        url: http://jenkins:8080
+  plugins.txt: |-
+    kubernetes:4557.ve746270f672f
+    workflow-aggregator:608.v67378e9d3db_1
+    git:5.10.1
+    configuration-as-code:2121.v86fe99d4b_b_a_b_
+    junit
+---
+# Source: jenkins/templates/home-pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-controller"
+    "helm.sh/chart": "jenkins-5.9.63"
+    policies.ksp.io/owner: platform-team
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "10Gi"
+  storageClassName: "local-path"
+---
+# Source: jenkins/templates/rbac.yaml
+# This role is used to allow Jenkins scheduling of agents via Kubernetes plugin.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: jenkins-schedule-agents
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-controller"
+    "helm.sh/chart": "jenkins-5.9.63"
+    policies.ksp.io/owner: platform-team
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/exec", "pods/log", "persistentvolumeclaims", "events"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods", "pods/exec", "persistentvolumeclaims"]
+  verbs: ["create", "delete", "deletecollection", "patch", "update"]
+---
+# Source: jenkins/templates/rbac.yaml
+# We bind the role to the Jenkins service account. The role binding is created in the namespace
+# where the agents are supposed to run.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-schedule-agents
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-controller"
+    "helm.sh/chart": "jenkins-5.9.63"
+    policies.ksp.io/owner: platform-team
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: jenkins-schedule-agents
+subjects:
+- kind: ServiceAccount
+  name: jenkins
+  namespace: jenkins
+---
+# Source: jenkins/templates/jenkins-agent-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-agent
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-controller"
+    "helm.sh/chart": "jenkins-5.9.63"
+    policies.ksp.io/owner: platform-team
+spec:
+  ports:
+    - port: 50000
+      targetPort: 50000
+      name: agent-listener
+  selector:
+    "app.kubernetes.io/component": "jenkins-controller"
+    "app.kubernetes.io/instance": "jenkins"
+  type: ClusterIP
+---
+# Source: jenkins/templates/jenkins-controller-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-controller"
+    "helm.sh/chart": "jenkins-5.9.63"
+    policies.ksp.io/owner: platform-team
+spec:
+  ports:
+    - port: 8080
+      name: http
+      targetPort: 8080
+      nodePort: 30080
+  selector:
+    "app.kubernetes.io/component": "jenkins-controller"
+    "app.kubernetes.io/instance": "jenkins"
+  type: NodePort
+---
+# Source: jenkins/templates/jenkins-controller-statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-controller"
+    "helm.sh/chart": "jenkins-5.9.63"
+    policies.ksp.io/owner: platform-team
+spec:
+  serviceName: jenkins
+  replicas: 1
+  selector:
+    matchLabels:
+      "app.kubernetes.io/component": "jenkins-controller"
+      "app.kubernetes.io/instance": "jenkins"
+  template:
+    metadata:
+      labels:
+        "app.kubernetes.io/name": 'jenkins'
+        "app.kubernetes.io/managed-by": "Helm"
+        "app.kubernetes.io/instance": "jenkins"
+        "app.kubernetes.io/component": "jenkins-controller"
+        "helm.sh/chart": "jenkins-5.9.63"
+        policies.ksp.io/owner: platform-team
+        policies.ksp.io/owner: "platform-team"
+      annotations:
+        checksum/config: 3449aa90fbc58faf575459b07a5061f886e40809dc85625dbc6b5c884933d75c
+    spec:
+      enableServiceLinks: false
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: "jenkins"
+      automountServiceAccountToken: true
+      initContainers:
+
+        - name: "init"
+          image: "docker.io/jenkins/jenkins:2.568.3-jdk21"
+          imagePullPolicy: "Always"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          volumeMounts:
+            - mountPath: /var/jenkins_home
+              name: jenkins-home
+            - mountPath: /var/jenkins_config
+              name: jenkins-config
+            - mountPath: /usr/share/jenkins/ref/plugins
+              name: plugins
+            - mountPath: /var/jenkins_plugins
+              name: plugin-dir
+            - mountPath: /tmp
+              name: tmp-volume
+      containers:
+        - name: jenkins
+          image: "docker.io/jenkins/jenkins:2.568.3-jdk21"
+          imagePullPolicy: "Always"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          args: [ "--httpPort=8080"]
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: JAVA_OPTS
+              value: >-
+                
+            - name: JENKINS_OPTS
+              value: >-
+                 --webroot=/var/jenkins_cache/war 
+            - name: JENKINS_SLAVE_AGENT_PORT
+              value: "50000"
+
+            - name: CASC_JENKINS_CONFIG
+              value: /var/jenkins_home/casc_configs
+          ports:
+            - containerPort: 8080
+              name: http
+            - containerPort: 50000
+              name: agent-listener
+          startupProbe:
+            failureThreshold: 12
+            httpGet:
+              path: '/login'
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: '/login'
+              port: http
+            initialDelaySeconds: null
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: '/login'
+              port: http
+            initialDelaySeconds: null
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "2"
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          volumeMounts:
+            - mountPath: /var/jenkins_home
+              name: jenkins-home
+              readOnly: false
+            - mountPath: /var/jenkins_config
+              name: jenkins-config
+              readOnly: true
+            - mountPath: /usr/share/jenkins/ref/plugins/
+              name: plugin-dir
+              readOnly: false
+            - name: jenkins-cache
+              mountPath: /var/jenkins_cache
+            - mountPath: /tmp
+              name: tmp-volume
+
+      volumes:
+      - name: plugins
+        emptyDir: {}
+      - name: jenkins-config
+        configMap:
+          name: jenkins
+      - name: plugin-dir
+        emptyDir: {}
+      - name: jenkins-cache
+        emptyDir: {}
+      - name: jenkins-home
+        persistentVolumeClaim:
+          claimName: jenkins
+      - name: sc-config-volume
+        emptyDir: {}
+      - name: tmp-volume
+        emptyDir: {}
+

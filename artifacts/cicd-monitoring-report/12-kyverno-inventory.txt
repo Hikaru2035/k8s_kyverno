@@ -1,0 +1,68 @@
+===== KYVERNO PODS =====
+NAME                                             READY   STATUS      RESTARTS   AGE   IP               NODE            NOMINATED NODE   READINESS GATES
+kyverno-admission-controller-b9d4f5b85-7p9gn     1/1     Running     0          19h   10.244.19.173    worker-node-2   <none>           <none>
+kyverno-admission-controller-b9d4f5b85-b5l6t     1/1     Running     0          19h   10.244.212.73    worker-node-1   <none>           <none>
+kyverno-admission-controller-b9d4f5b85-cwqsn     1/1     Running     0          19h   10.244.212.114   worker-node-1   <none>           <none>
+kyverno-admission-controller-b9d4f5b85-xptkv     1/1     Running     0          19h   10.244.19.174    worker-node-2   <none>           <none>
+kyverno-background-controller-798c488774-mk5fl   1/1     Running     0          19h   10.244.212.67    worker-node-1   <none>           <none>
+kyverno-background-controller-798c488774-svckx   1/1     Running     0          19h   10.244.212.116   worker-node-1   <none>           <none>
+kyverno-cleanup-controller-7b45b85db5-5n45r      1/1     Running     0          19h   10.244.212.80    worker-node-1   <none>           <none>
+kyverno-cleanup-controller-7b45b85db5-vbqt5      1/1     Running     0          19h   10.244.212.115   worker-node-1   <none>           <none>
+kyverno-migrate-resources-cpwkz                  0/1     Completed   0          18h   10.244.19.175    worker-node-2   <none>           <none>
+kyverno-reports-controller-6f8f8f5758-2s74h      1/1     Running     0          19h   10.244.212.105   worker-node-1   <none>           <none>
+kyverno-reports-controller-6f8f8f5758-b726r      1/1     Running     0          19h   10.244.212.118   worker-node-1   <none>           <none>
+
+===== KYVERNO DEPLOYMENTS =====
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                 SELECTOR
+kyverno-admission-controller    4/4     4            4           29d   kyverno      reg.kyverno.io/kyverno/kyverno:v1.19.0                 app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno-background-controller   2/2     2            2           29d   controller   reg.kyverno.io/kyverno/background-controller:v1.19.0   app.kubernetes.io/component=background-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno-cleanup-controller      2/2     2            2           29d   controller   reg.kyverno.io/kyverno/cleanup-controller:v1.19.0      app.kubernetes.io/component=cleanup-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno-reports-controller      2/2     2            2           29d   controller   reg.kyverno.io/kyverno/reports-controller:v1.19.0      app.kubernetes.io/component=reports-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+
+===== KYVERNO SERVICES =====
+NAME                                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+kyverno-background-controller-metrics   ClusterIP   10.107.63.253    <none>        8000/TCP   29d   app.kubernetes.io/component=background-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno-cleanup-controller              ClusterIP   10.110.91.111    <none>        443/TCP    29d   app.kubernetes.io/component=cleanup-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno-cleanup-controller-metrics      ClusterIP   10.100.21.143    <none>        8000/TCP   29d   app.kubernetes.io/component=cleanup-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno-reports-controller-metrics      ClusterIP   10.107.183.80    <none>        8000/TCP   29d   app.kubernetes.io/component=reports-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno-svc                             ClusterIP   10.105.178.93    <none>        443/TCP    29d   app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+kyverno-svc-metrics                     ClusterIP   10.111.119.194   <none>        8000/TCP   29d   app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+
+===== KYVERNO CONFIGMAPS =====
+NAME                       DATA   AGE
+harbor-ca                  1      11d
+kube-root-ca.crt           1      29d
+kyverno                    8      29d
+kyverno-custom-ca-bundle   1      10d
+kyverno-metrics            3      29d
+
+===== KYVERNO SECRETS METADATA =====
+NAME                                                      TYPE
+harbor-registry-credentials                               kubernetes.io/dockerconfigjson
+kyverno-cleanup-controller.kyverno.svc.kyverno-tls-ca     kubernetes.io/tls
+kyverno-cleanup-controller.kyverno.svc.kyverno-tls-pair   kubernetes.io/tls
+kyverno-svc.kyverno.svc.kyverno-tls-ca                    kubernetes.io/tls
+kyverno-svc.kyverno.svc.kyverno-tls-pair                  kubernetes.io/tls
+sh.helm.release.v1.kyverno.v1                             helm.sh/release.v1
+sh.helm.release.v1.kyverno.v2                             helm.sh/release.v1
+sh.helm.release.v1.kyverno.v3                             helm.sh/release.v1
+sh.helm.release.v1.kyverno.v4                             helm.sh/release.v1
+sh.helm.release.v1.kyverno.v5                             helm.sh/release.v1
+sh.helm.release.v1.kyverno.v6                             helm.sh/release.v1
+sh.helm.release.v1.kyverno.v7                             helm.sh/release.v1
+
+===== WEBHOOK CONFIGURATIONS =====
+NAME                                            WEBHOOKS   AGE
+kyverno-cel-exception-validating-webhook-cfg    1          7d14h
+kyverno-cleanup-validating-webhook-cfg          1          7d14h
+kyverno-exception-validating-webhook-cfg        1          7d14h
+kyverno-global-context-validating-webhook-cfg   1          7d14h
+kyverno-policy-validating-webhook-cfg           1          7d14h
+kyverno-resource-validating-webhook-cfg         13         7d14h
+kyverno-ttl-validating-webhook-cfg              1          7d14h
+monitoring-kube-prometheus-admission            2          16d
+NAME                                    WEBHOOKS   AGE
+kyverno-policy-mutating-webhook-cfg     1          7d14h
+kyverno-resource-mutating-webhook-cfg   1          7d14h
+kyverno-verify-mutating-webhook-cfg     1          7d14h
+monitoring-kube-prometheus-admission    1          16d

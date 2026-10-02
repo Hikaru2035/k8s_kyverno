@@ -4,8 +4,8 @@ metadata:
   name: e2e-stg-deployment-valid
   namespace: ksp-staging
   labels:
-    app.kubernetes.io/name: e2e-stg-deployment
-    policies.ksp.io/owner: security-team
+    app: e2e-stg-deployment
+    owner: security-team
 spec:
   replicas: 1
   selector:

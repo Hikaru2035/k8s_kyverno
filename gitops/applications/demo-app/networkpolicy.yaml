@@ -6,7 +6,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: demo-app
+      app: demo-app
   policyTypes: [Ingress, Egress]
   ingress:
   - from:
@@ -15,7 +15,7 @@ spec:
           kubernetes.io/metadata.name: jenkins
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: jenkins-agent
+          app: jenkins-agent
     ports:
     - protocol: TCP
       port: 8080

@@ -4,8 +4,8 @@ metadata:
   name: e2e-stg-cronjob-valid
   namespace: ksp-staging
   labels:
-    app.kubernetes.io/name: e2e-stg-cronjob
-    policies.ksp.io/owner: security-team
+    app: e2e-stg-cronjob
+    owner: security-team
 spec:
   schedule: "*/10 * * * *"
   jobTemplate:

@@ -4,8 +4,8 @@ metadata:
   name: e2e-prod-job-valid
   namespace: ksp-production
   labels:
-    app.kubernetes.io/name: e2e-prod-job
-    policies.ksp.io/owner: security-team
+    app: e2e-prod-job
+    owner: security-team
 spec:
   template:
     metadata:

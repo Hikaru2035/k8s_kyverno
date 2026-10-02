@@ -4,7 +4,7 @@ metadata:
   name: meta-001-boundary-additional-boundary-pass
   namespace: policy-test
   labels:
-    app.kubernetes.io/name: demo-api
+    app: demo-api
 spec:
   schedule: '*/5 * * * *'
   jobTemplate:
@@ -12,7 +12,7 @@ spec:
       template:
         metadata:
           labels: null
-        app.kubernetes.io/name: demo-api
+        app: demo-api
         spec:
           restartPolicy: OnFailure
           containers:

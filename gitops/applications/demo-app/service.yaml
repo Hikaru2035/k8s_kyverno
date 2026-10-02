@@ -4,10 +4,10 @@ metadata:
   name: demo-app
   namespace: ksp-demo
   labels:
-    app.kubernetes.io/name: demo-app
+    app: demo-app
 spec:
   selector:
-    app.kubernetes.io/name: demo-app
+    app: demo-app
   ports:
   - name: http
     port: 8080

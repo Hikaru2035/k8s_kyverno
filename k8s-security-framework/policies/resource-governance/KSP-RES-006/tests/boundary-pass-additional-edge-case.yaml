@@ -5,5 +5,5 @@ metadata:
   labels:
     policies.ksp.io/generate-resource-governance: enabled
     policies.ksp.io/environment: production
-    app.kubernetes.io/name: checkout
+    app: checkout
     policies.ksp.io/unrelated: retained

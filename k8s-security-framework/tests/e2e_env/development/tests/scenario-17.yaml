@@ -4,12 +4,12 @@ kind: Deployment
 metadata:
   name: e2e-ksp-restricted-composite-violation
   namespace: e2e-ksp-canary
-  labels: {app.kubernetes.io/name: e2e-ksp-restricted-composite-violation, policies.ksp.io/owner: e2e}
+  labels: {app: e2e-ksp-restricted-composite-violation, owner: e2e}
 spec:
   replicas: 1
-  selector: {matchLabels: {app.kubernetes.io/name: e2e-ksp-restricted-composite-violation}}
+  selector: {matchLabels: {app: e2e-ksp-restricted-composite-violation}}
   template:
-    metadata: {labels: {app.kubernetes.io/name: e2e-ksp-restricted-composite-violation}}
+    metadata: {labels: {app: e2e-ksp-restricted-composite-violation}}
     spec:
       containers:
       - name: app

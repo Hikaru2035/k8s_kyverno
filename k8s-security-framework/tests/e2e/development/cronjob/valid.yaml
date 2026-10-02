@@ -4,8 +4,8 @@ metadata:
   name: e2e-dev-cronjob-valid
   namespace: ksp-dev
   labels:
-    app.kubernetes.io/name: e2e-dev-cronjob
-    policies.ksp.io/owner: security-team
+    app: e2e-dev-cronjob
+    owner: security-team
 spec:
   schedule: "*/10 * * * *"
   jobTemplate:

@@ -6,5 +6,5 @@ metadata:
     policies.ksp.io/generate-resource-governance: enabled
     policies.ksp.io/environment: production
     policies.ksp.io/quota-class: large
-    app.kubernetes.io/name: checkout
+    app: checkout
     policies.ksp.io/unrelated: retained

@@ -173,8 +173,8 @@ if name=='kubectl':
  if args[1]=='namespace':
   if args[2]=='kube-system': print('cluster-uid');sys.exit()
   print(json.dumps({'kind':'Namespace','metadata':{'name':'ksp-demo'}}));sys.exit()
- deployment={'metadata':{'name':'demo-app','uid':'deployment-uid','generation':1,'labels':{'app.kubernetes.io/name':'demo-app'}},'spec':{'replicas':1},'status':{'observedGeneration':1,'availableReplicas':1,'updatedReplicas':1}}
- pod={'metadata':{'name':'demo-app-pod','uid':'pod-uid','labels':{'app.kubernetes.io/name':'demo-app'}},'spec':{'containers':[{'image':ref}]},'status':{'containerStatuses':[{'ready':True}],'conditions':[{'type':'Ready','status':'True'}]}}
+ deployment={'metadata':{'name':'demo-app','uid':'deployment-uid','generation':1,'labels':{'app':'demo-app'}},'spec':{'replicas':1},'status':{'observedGeneration':1,'availableReplicas':1,'updatedReplicas':1}}
+ pod={'metadata':{'name':'demo-app-pod','uid':'pod-uid','labels':{'app':'demo-app'}},'spec':{'containers':[{'image':ref}]},'status':{'containerStatuses':[{'ready':True}],'conditions':[{'type':'Ready','status':'True'}]}}
  report={'metadata':{'name':'admission-report'},'scope':{'uid':'pod-uid'},'results':[{'policy':'approved-registry-allowlist','result':'fail'}]}
  value={'deployment':deployment,'deployments':{'items':[deployment]},'pods':{'items':[pod]},'service':{'metadata':{'name':'demo-app'}},'endpointslices':{'items':[{'endpoints':[{'conditions':{'ready':True},'addresses':['10.0.0.1']}]}]},'policyreports':{'items':[report]}}
  print(json.dumps(value.get(args[1],{'items':[]})));sys.exit()
@@ -236,7 +236,7 @@ raise SystemExit('Unexpected external tool')
 
     def test_report_actions_and_absence_are_not_synthetic_compliance(self):
         module=load('delivery-reports')
-        objects=[{'metadata':{'uid':'u','labels':{'app.kubernetes.io/name':'demo-app'}}}]
+        objects=[{'metadata':{'uid':'u','labels':{'app':'demo-app'}}}]
         reports=[{'metadata':{'name':'r'},'scope':{'uid':'u'},'results':[{'policy':'p','result':'fail'}]}]
         for actions,want in [(['Audit','Warn'],0),(['Deny'],1)]:
             policies=[{'metadata':{'name':'p'},'spec':{'validationActions':actions}}]
