@@ -1,0 +1,15 @@
+NAME                                   KIND        NAME                 PASS   FAIL   WARN   ERROR   SKIP   AGE
+02b026e2-ea52-4d3a-aa67-962bd639f4dd   Namespace   default              1      0      0      0       0      4m21s
+08a2f789-449b-4347-9e5f-66fd8ab7b39b   Namespace   e2e-prod-ns-valid    2      0      0      0       0      3m13s
+0a2a715f-3ae4-4727-b68f-462d9cdaf855   Namespace   kube-public          1      0      0      0       0      4m21s
+0b50820f-26c8-4331-9e4f-0e237eb452ed   Namespace   harbor               1      1      0      0       0      4m21s
+226ee6a7-89c8-4c2e-83ff-32ff65392f98   Namespace   ksp-dev              1      1      0      0       0      4m21s
+417710d5-f182-4af3-af6a-fe19f41416fc   Namespace   kube-node-lease      1      0      0      0       0      4m21s
+4ed980b5-b6ab-46b4-bf64-8a2d745f1065   Namespace   ksp-production       1      1      0      0       0      4m21s
+73da6a4f-f956-4560-b21e-7b384376a1ea   Namespace   kube-system          1      0      0      0       0      4m20s
+7cc85c8a-08e5-4625-b96b-a8c88013fb64   Namespace   ksp-staging          1      1      0      0       0      4m21s
+8182d027-20cc-45fe-a3e3-2adce91bf61c   Namespace   local-path-storage   1      1      0      0       0      4m20s
+922015cf-6315-4c29-8930-f721ef908f3f   Namespace   kyverno              1      0      0      0       0      4m20s
+9e5fbfd2-6ce7-499b-84a4-cac88f2f1b14   Namespace   tigera-operator      1      0      0      0       0      4m19s
+9fbcfa6d-6363-46a2-9ecf-e7ce5af9c8a0   Namespace   calico-system        1      0      0      0       0      4m21s
+d2ef9c9d-81c9-460d-a713-7801081d7376   Namespace   monitoring           1      1      0      0       0      4m20s

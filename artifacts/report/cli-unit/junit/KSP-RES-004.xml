@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="0">
+ <testsuite name="require-memory-limit" tests="13" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/res-004-boundary-init">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/res-004-boundary-init
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/res-004-positive">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/res-004-positive
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-res-004-positive-ephemeral-ignored">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-res-004-positive-ephemeral-ignored
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-res-004-positive-two-resource">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-res-004-positive-two-resource
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/res-004-boundary-init-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/res-004-boundary-init-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-res-004-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-res-004-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-res-004-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-res-004-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-res-004-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-res-004-exception-tertiary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/res-004-negative">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/res-004-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-res-004-negative-init-missing">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-res-004-negative-init-missing
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-res-004-negative-missing-first">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-res-004-negative-missing-first
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-res-004-negative-missing-last">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-res-004-negative-missing-last
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-res-004-negative-init-missing-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-memory-limit
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-res-004-negative-init-missing-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

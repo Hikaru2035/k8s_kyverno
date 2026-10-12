@@ -1,0 +1,3 @@
+pod/e2e-prod-pod-valid created (server dry run)
+EXIT_CODE=0
+DURATION_SECONDS=0

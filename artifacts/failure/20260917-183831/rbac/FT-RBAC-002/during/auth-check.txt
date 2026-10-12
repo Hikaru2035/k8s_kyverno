@@ -1,0 +1,5 @@
+=== Binding ===
+Error from server (NotFound): clusterrolebindings.rbac.authorization.k8s.io "kyverno:background-controller:view" not found
+
+=== Pod permissions ===
+get pods = no

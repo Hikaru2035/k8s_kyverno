@@ -1,0 +1,60 @@
+COMPUTED VALUES:
+additionalLabels: {}
+affinity: {}
+apiServer:
+  enabled: true
+calicoctl:
+  image: quay.io/calico/ctl
+  tag: v3.32.1
+certs:
+  node:
+    cert: null
+    commonName: null
+    key: null
+  typha:
+    caBundle: null
+    cert: null
+    commonName: null
+    key: null
+defaultFelixConfiguration:
+  enabled: false
+dnsConfig: {}
+goldmane:
+  enabled: true
+imagePullSecrets: {}
+installation:
+  calicoNetwork:
+    ipPools:
+    - cidr: 10.244.0.0/16
+      encapsulation: IPIP
+      natOutgoing: Enabled
+      nodeSelector: all()
+  controlPlaneNodeSelector: {}
+  controlPlaneReplicas: 2
+  controlPlaneTolerations: []
+  enabled: true
+  imagePullSecrets: []
+  kubeletVolumePluginPath: None
+  kubernetesProvider: ""
+  nonPrivileged: Disabled
+kubernetesServiceEndpoint:
+  host: ""
+  port: "6443"
+manageCRDs: true
+nodeSelector:
+  kubernetes.io/os: linux
+podAnnotations: {}
+podLabels: {}
+priorityClassName: ""
+resources: {}
+tigeraOperator:
+  image: tigera/operator
+  registry: quay.io
+  version: v1.42.3
+tolerations:
+- effect: NoExecute
+  operator: Exists
+- effect: NoSchedule
+  operator: Exists
+whisker:
+  enabled: true

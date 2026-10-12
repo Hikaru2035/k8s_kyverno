@@ -1,0 +1,9 @@
+=== POD ===
+get pods = yes
+list pods = yes
+watch pods = yes
+
+=== DEPLOYMENT ===
+get deployments = yes
+list deployments = yes
+watch deployments = yes

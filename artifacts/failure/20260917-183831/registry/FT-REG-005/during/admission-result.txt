@@ -1,0 +1,4 @@
+Warning: Policy verify-signed-images error: failed to evaluate policy: GET https://harbor-public:30003/v2/ksp-test/ksp-tools/manifests/sha256:d3cceba7c741dcad03b828b0b197512741f3fa79b3441a4bfbf839ac9d45f09d: UNAUTHORIZED: unauthorized to access repository: ksp-test/ksp-tools, action: pull: unauthorized to access repository: ksp-test/ksp-tools, action: pull
+pod/signed-reg-006-wrong-auth created (server dry run)
+exit_code=0
+latency_ms=5071

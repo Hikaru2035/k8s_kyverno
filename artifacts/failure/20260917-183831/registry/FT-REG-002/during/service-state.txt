@@ -1,0 +1,14 @@
+===== SERVICE =====
+NAME     TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE   SELECTOR
+harbor   NodePort   10.110.125.236   <none>        80:30002/TCP,443:30003/TCP   25d   app=harbor,component=nginx,failure-test.ksp.io/ft-reg-002=unreachable,release=harbor
+
+===== SELECTOR =====
+{"app":"harbor","component":"nginx","failure-test.ksp.io/ft-reg-002":"unreachable","release":"harbor"}
+
+===== ENDPOINTS =====
+NAME     ENDPOINTS   AGE
+harbor   <none>      25d
+
+===== ENDPOINTSLICES =====
+NAME           ADDRESSTYPE   PORTS     ENDPOINTS   AGE
+harbor-7qxph   IPv4          <unset>   <unset>     25d

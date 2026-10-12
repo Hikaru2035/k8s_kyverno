@@ -1,0 +1,14 @@
+concurrency=10 wave=1 duration_ms=1282
+concurrency=10 wave=2 duration_ms=1020
+concurrency=10 wave=3 duration_ms=802
+concurrency=10 wave=4 duration_ms=890
+concurrency=10 wave=5 duration_ms=797
+concurrency=15 wave=1 duration_ms=1373
+concurrency=15 wave=2 duration_ms=1203
+concurrency=15 wave=3 duration_ms=1064
+concurrency=15 wave=4 duration_ms=1209
+concurrency=20 wave=1 duration_ms=1994
+concurrency=20 wave=2 duration_ms=2067
+concurrency=20 wave=3 duration_ms=1693
+concurrency=25 wave=1 duration_ms=2556
+concurrency=25 wave=2 duration_ms=2552

@@ -1,0 +1,4 @@
+subject=CN = FT-REG-004-Untrusted-CA
+issuer=CN = FT-REG-004-Untrusted-CA
+notBefore=Oct  1 04:23:14 2026 GMT
+notAfter=Oct  2 04:23:14 2026 GMT

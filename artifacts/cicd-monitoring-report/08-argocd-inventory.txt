@@ -1,0 +1,59 @@
+===== ARGO PODS =====
+NAME                                                READY   STATUS    RESTARTS      AGE   IP               NODE            NOMINATED NODE   READINESS GATES
+argocd-application-controller-0                     1/1     Running   0             75m   10.244.19.182    worker-node-2   <none>           <none>
+argocd-applicationset-controller-55dc4b8b48-pppm7   1/1     Running   0             25h   10.244.212.108   worker-node-1   <none>           <none>
+argocd-dex-server-8586fcbc94-44678                  1/1     Running   0             25h   10.244.212.111   worker-node-1   <none>           <none>
+argocd-notifications-controller-7c5cd797f7-8pdlh    1/1     Running   0             25h   10.244.212.100   worker-node-1   <none>           <none>
+argocd-redis-797fc9d5b6-t7x4s                       1/1     Running   0             25h   10.244.212.102   worker-node-1   <none>           <none>
+argocd-repo-server-8d55d8b4f-78f2l                  1/1     Running   1 (18h ago)   25h   10.244.212.110   worker-node-1   <none>           <none>
+argocd-server-76575cd9fb-75kwt                      1/1     Running   0             25h   10.244.212.112   worker-node-1   <none>           <none>
+
+===== ARGO DEPLOYMENTS =====
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                  IMAGES                                                 SELECTOR
+argocd-applicationset-controller   1/1     1            1           25h   applicationset-controller   quay.io/argoproj/argocd:v3.5.3                         app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-applicationset-controller
+argocd-dex-server                  1/1     1            1           25h   dex-server                  ghcr.io/dexidp/dex:v2.45.1                             app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-dex-server
+argocd-notifications-controller    1/1     1            1           25h   notifications-controller    quay.io/argoproj/argocd:v3.5.3                         app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-notifications-controller
+argocd-redis                       1/1     1            1           25h   redis                       ecr-public.aws.com/docker/library/redis:8.6.4-alpine   app.kubernetes.io/name=argocd-redis
+argocd-repo-server                 1/1     1            1           25h   repo-server                 quay.io/argoproj/argocd:v3.5.3                         app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-repo-server
+argocd-server                      1/1     1            1           25h   server                      quay.io/argoproj/argocd:v3.5.3                         app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-server
+
+===== ARGO STATEFULSETS =====
+NAME                            READY   AGE   CONTAINERS               IMAGES
+argocd-application-controller   1/1     25h   application-controller   quay.io/argoproj/argocd:v3.5.3
+
+===== ARGO SERVICES =====
+NAME                               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE   SELECTOR
+argocd-applicationset-controller   ClusterIP   10.98.79.12     <none>        7000/TCP                     25h   app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-applicationset-controller
+argocd-dex-server                  ClusterIP   10.107.29.69    <none>        5556/TCP,5557/TCP            25h   app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-dex-server
+argocd-redis                       ClusterIP   10.97.138.178   <none>        6379/TCP                     25h   app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-redis
+argocd-repo-server                 ClusterIP   10.102.197.68   <none>        8081/TCP                     25h   app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-repo-server
+argocd-server                      NodePort    10.103.22.241   <none>        80:31511/TCP,443:30008/TCP   25h   app.kubernetes.io/instance=argocd,app.kubernetes.io/name=argocd-server
+
+===== ARGO CONFIGMAPS =====
+NAME                            DATA   AGE
+argocd-cm                       18     25h
+argocd-cmd-params-cm            20     25h
+argocd-gpg-keys-cm              0      25h
+argocd-notifications-cm         1      25h
+argocd-rbac-cm                  4      25h
+argocd-redis-health-configmap   2      25h
+argocd-ssh-known-hosts-cm       1      25h
+argocd-tls-certs-cm             0      25h
+kube-root-ca.crt                1      25h
+
+===== ARGO SECRETS METADATA =====
+NAME                           TYPE
+argocd-initial-admin-secret    Opaque
+argocd-notifications-secret    Opaque
+argocd-redis                   Opaque
+argocd-secret                  Opaque
+sh.helm.release.v1.argocd.v1   helm.sh/release.v1
+
+===== ARGO APPLICATIONS =====
+NAME       SYNC STATUS   HEALTH STATUS   REVISION                                   PROJECT
+demo-app   Synced        Healthy         2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e   default
+policy     Synced        Healthy         2fff2264bb5f3298590ec1881bf4dbdd9b4f7b5e   default
+
+===== ARGO APPLICATIONSETS =====
+
+===== ARGO PVC =====

@@ -1,0 +1,4 @@
+2026-10-01T09:17:20+07:00
+=== ResourceQuota ===
+Error from server (NotFound): resourcequotas "namespace-resource-quota" not found
+GENERATED_RESOURCE_PRESENT=NO

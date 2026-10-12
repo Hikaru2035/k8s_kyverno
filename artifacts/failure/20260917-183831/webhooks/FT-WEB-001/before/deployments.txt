@@ -1,0 +1,5 @@
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+kyverno-admission-controller    4/4     4            4           33d
+kyverno-background-controller   2/2     2            2           33d
+kyverno-cleanup-controller      2/2     2            2           33d
+kyverno-reports-controller      2/2     2            2           33d

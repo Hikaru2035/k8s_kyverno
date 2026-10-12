@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e2e-dev-deployment-invalid
+  namespace: ksp-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: e2e-dev-deployment-invalid
+  template:
+    metadata:
+      labels:
+        app: e2e-dev-deployment-invalid
+    spec:
+      containers:
+        - name: app
+          image: nginx:latest
+          command: ["sh", "-c", "sleep 3600"]

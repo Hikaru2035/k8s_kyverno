@@ -1,0 +1,217 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      kyverno.io/image-verification-outcomes: '{"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}'
+      meta.helm.sh/release-name: jenkins
+      meta.helm.sh/release-namespace: jenkins
+    creationTimestamp: "2026-09-21T05:16:47Z"
+    generation: 13
+    labels:
+      app.kubernetes.io/component: jenkins-controller
+      app.kubernetes.io/instance: jenkins
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: jenkins
+      helm.sh/chart: jenkins-5.9.63
+      policies.ksp.io/owner: platform-team
+    name: jenkins
+    namespace: jenkins
+    resourceVersion: "29234195"
+    uid: e40c6396-8818-4f7d-b672-951cb2f7325d
+  spec:
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Retain
+      whenScaled: Retain
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: jenkins-controller
+        app.kubernetes.io/instance: jenkins
+    serviceName: jenkins
+    template:
+      metadata:
+        annotations:
+          checksum/config: 3449aa90fbc58faf575459b07a5061f886e40809dc85625dbc6b5c884933d75c
+        labels:
+          app.kubernetes.io/component: jenkins-controller
+          app.kubernetes.io/instance: jenkins
+          app.kubernetes.io/managed-by: Helm
+          app.kubernetes.io/name: jenkins
+          helm.sh/chart: jenkins-5.9.63
+          policies.ksp.io/owner: platform-team
+      spec:
+        automountServiceAccountToken: true
+        containers:
+        - args:
+          - --httpPort=8080
+          env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: JAVA_OPTS
+          - name: JENKINS_OPTS
+            value: '--webroot=/var/jenkins_cache/war '
+          - name: JENKINS_SLAVE_AGENT_PORT
+            value: "50000"
+          - name: CASC_JENKINS_CONFIG
+            value: /var/jenkins_home/casc_configs
+          image: docker.io/jenkins/jenkins:2.568.3-jdk21
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /login
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: jenkins
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 50000
+            name: agent-listener
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /login
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "2"
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          startupProbe:
+            failureThreshold: 12
+            httpGet:
+              path: /login
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/jenkins_home
+            name: jenkins-home
+          - mountPath: /var/jenkins_config
+            name: jenkins-config
+            readOnly: true
+          - mountPath: /usr/share/jenkins/ref/plugins/
+            name: plugin-dir
+          - mountPath: /var/jenkins_cache
+            name: jenkins-cache
+          - mountPath: /tmp
+            name: tmp-volume
+        dnsPolicy: ClusterFirst
+        enableServiceLinks: false
+        initContainers:
+        - command:
+          - sh
+          - /var/jenkins_config/apply_config.sh
+          image: docker.io/jenkins/jenkins:2.568.3-jdk21
+          imagePullPolicy: Always
+          name: init
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/jenkins_home
+            name: jenkins-home
+          - mountPath: /var/jenkins_config
+            name: jenkins-config
+          - mountPath: /usr/share/jenkins/ref/plugins
+            name: plugins
+          - mountPath: /var/jenkins_plugins
+            name: plugin-dir
+          - mountPath: /tmp
+            name: tmp-volume
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+          seccompProfile:
+            type: RuntimeDefault
+        serviceAccount: jenkins
+        serviceAccountName: jenkins
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir: {}
+          name: plugins
+        - configMap:
+            defaultMode: 420
+            name: jenkins
+          name: jenkins-config
+        - emptyDir: {}
+          name: plugin-dir
+        - emptyDir: {}
+          name: jenkins-cache
+        - name: jenkins-home
+          persistentVolumeClaim:
+            claimName: jenkins
+        - emptyDir: {}
+          name: sc-config-volume
+        - emptyDir: {}
+          name: tmp-volume
+    updateStrategy:
+      rollingUpdate:
+        partition: 0
+      type: RollingUpdate
+  status:
+    availableReplicas: 1
+    collisionCount: 0
+    currentReplicas: 1
+    currentRevision: jenkins-5d6b95d545
+    observedGeneration: 13
+    readyReplicas: 1
+    replicas: 1
+    updateRevision: jenkins-5d6b95d545
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""

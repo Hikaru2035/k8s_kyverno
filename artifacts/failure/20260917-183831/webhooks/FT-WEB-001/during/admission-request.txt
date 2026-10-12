@@ -1,0 +1,1 @@
+Error from server (NotFound): error when creating "/tmp/ft-web-001-pod.yaml": namespaces "ft-webhook-test" not found

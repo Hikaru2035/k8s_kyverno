@@ -4,16 +4,16 @@ metadata:
   name: meta-002-boundary-additional-boundary-pass
   namespace: policy-test
   labels:
-    policies.ksp.io/owner: security-team
+    owner: security-team
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: demo-api
+      app: demo-api
   template:
     metadata:
       labels:
-        policies.ksp.io/owner: security-team
-        app.kubernetes.io/name: demo-api
+        owner: security-team
+        app: demo-api
     spec:
       containers:
       - name: demo-api

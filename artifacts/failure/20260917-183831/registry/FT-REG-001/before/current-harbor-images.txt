@@ -1,0 +1,11 @@
+default              nginx-unsigned                                           harbor-public:30003/ksp-test/nginx-test:v1
+harbor               harbor-core-78fdcd6459-jm6vx                             docker.io/goharbor/harbor-core:v2.15.2
+harbor               harbor-database-0                                        docker.io/goharbor/harbor-db:v2.15.2
+harbor               harbor-jobservice-684494d9bb-8vblt                       docker.io/goharbor/harbor-jobservice:v2.15.2
+harbor               harbor-nginx-688cf77c5b-7f6lh                            docker.io/goharbor/nginx-photon:v2.15.2
+harbor               harbor-portal-677b5d5455-9c9r2                           docker.io/goharbor/harbor-portal:v2.15.2
+harbor               harbor-redis-0                                           docker.io/goharbor/valkey-photon:v2.15.2
+harbor               harbor-registry-8464c694b4-2x9kn                         docker.io/goharbor/registry-photon:v2.15.2,docker.io/goharbor/harbor-registryctl:v2.15.2
+jenkins              ksp-tools-debug                                          harbor-public:30003/ksp-test/ksp-tools@sha256:d3cceba7c741dcad03b828b0b197512741f3fa79b3441a4bfbf839ac9d45f09d
+ksp-demo             demo-app-5cdfbb64b8-mzv4s                                harbor-public:30003/ksp-test/demo-app@sha256:33ffc169f5ecea3d62805346a784369a945b89f6524c435b0e4b69fdfa149814
+ksp-sign-test        nginx-signed                                             harbor-public:30003/ksp-test/nginx-test:v1@sha256:0530961ff0592b58c10f767535cc0abdfccf9e389ff7cc90f87320c1bc7e8506

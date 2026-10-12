@@ -1,0 +1,1 @@
+secret/kyverno-svc.kyverno.svc.kyverno-tls-pair patched

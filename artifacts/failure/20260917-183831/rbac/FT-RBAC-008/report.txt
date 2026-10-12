@@ -1,0 +1,53 @@
+FT-RBAC-008
+Result: PASS
+
+Scenario:
+The ServiceAccount binding required by the Kyverno background controller
+is removed.
+
+Baseline Verification:
+The kyverno-background-controller ServiceAccount was bound to the
+kyverno:background-controller ClusterRole through the
+kyverno:background-controller ClusterRoleBinding.
+
+The controller had the required read and write permissions, and the
+generate-resource-quota policy successfully generated a ResourceQuota
+for the baseline Namespace.
+
+Failure Injection:
+Removed the kyverno:background-controller ClusterRoleBinding while
+leaving the ClusterRole itself unchanged.
+
+Observed Result:
+The target ClusterRoleBinding was successfully removed.
+
+The background controller retained get/list/watch access to ResourceQuota
+and UpdateRequest resources through its remaining view binding, but lost
+create/update/patch/delete permissions provided by the removed binding.
+
+A new Namespace matching the generate-resource-quota policy was then
+created. The Namespace itself was successfully created, but the expected
+namespace-resource-quota resource was not generated.
+
+Controller logs confirmed RBAC authorization failures. The background
+controller was denied permission to create ResourceQuota resources and
+also lost permissions required for UpdateRequest status updates, report
+creation, event creation, and other controller operations.
+
+Recovery:
+Restored the original kyverno:background-controller ClusterRoleBinding
+from the baseline backup.
+
+Post-recovery verification confirmed that the binding was present and
+the required ResourceQuota and UpdateRequest permissions were restored.
+
+Automatic retry of the previously failed generation was not observed
+during the recovery observation window. The Namespace was therefore
+updated to trigger a new policy evaluation.
+
+Recovery Verification:
+After the Namespace update, Kyverno processed a new UpdateRequest and
+successfully generated namespace-resource-quota in the target Namespace.
+
+Result:
+PASS

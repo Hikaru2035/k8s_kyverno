@@ -1,0 +1,42 @@
+FT-RBAC-005
+Result: PASS
+
+Scenario:
+Kyverno background controller lacks permission to create the resource
+required by a GeneratingPolicy.
+
+Failure Injection:
+Removed ResourceQuota write permissions from the
+kyverno:background-controller:core ClusterRole.
+
+Expected Result:
+The GeneratingPolicy should fail to create the ResourceQuota due to
+insufficient RBAC permissions, while the triggering Namespace remains
+successfully created.
+
+Actual Result:
+The triggering Namespace was successfully created and matched the
+generate-resource-quota policy. The background controller attempted to
+generate namespace-resource-quota but Kubernetes rejected the operation
+with a Forbidden error because the kyverno-background-controller
+ServiceAccount did not have permission to create ResourceQuota resources.
+
+The expected generated ResourceQuota remained absent while the RBAC
+fault was active.
+
+Recovery:
+Restored ResourceQuota write permissions to the background controller
+and verified that get/list/watch/create/update/patch/delete permissions
+were restored.
+
+Restoring RBAC alone did not automatically retry the previously failed
+generation within the observation window. The triggering Namespace was
+then updated to produce a new policy evaluation.
+
+Recovery Verification:
+After the Namespace update, Kyverno successfully processed a new
+UpdateRequest and generated namespace-resource-quota in the target
+Namespace.
+
+Result:
+PASS

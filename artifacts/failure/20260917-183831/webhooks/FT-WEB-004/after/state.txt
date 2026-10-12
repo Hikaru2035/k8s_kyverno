@@ -1,0 +1,14 @@
+2026-09-29T15:11:37+07:00
+=== Deployment ===
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                   SELECTOR
+kyverno-admission-controller   4/4     4            4           34d   kyverno      reg.kyverno.io/kyverno/kyverno:v1.19.1   app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+
+=== Service Port ===
+port=443 targetPort=9443
+
+=== EndpointSlice ===
+NAME                ADDRESSTYPE   PORTS   ENDPOINTS                                               AGE
+kyverno-svc-2ggvq   IPv4          9443    10.244.212.71,10.244.19.189,10.244.19.191 + 1 more...   3h35m
+
+=== EndpointSlice Port ===
+port=9443

@@ -1,0 +1,18 @@
+2026-10-01T09:31:25+07:00
+=== ResourceQuota ===
+get     = yes
+list    = yes
+watch   = yes
+create  = no
+update  = no
+patch   = no
+delete  = no
+
+=== UpdateRequests ===
+get     = yes
+list    = yes
+watch   = yes
+create  = no
+update  = no
+patch   = no
+delete  = no

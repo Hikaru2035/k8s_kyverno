@@ -1,0 +1,30 @@
+FT-RBAC-001
+Result: PASS
+
+Failure Injection:
+Removed the ClusterRoleBinding
+kyverno:admission-controller:view, causing the Kyverno admission
+controller ServiceAccount to lose get/list/watch permissions on Pods.
+
+Expected Result:
+A policy requiring Kubernetes API access should fail to evaluate
+because the admission controller cannot read the required resource.
+
+Actual Result:
+The admission controller lost get/list/watch Pod permissions.
+A temporary test policy attempted to query:
+
+/api/v1/namespaces/ft-webhook-test/pods
+
+The API context lookup failed with "permission denied", causing
+policy evaluation to fail and the admission request to be blocked.
+
+Recovery:
+Restored the original ClusterRoleBinding.
+
+Recovery Verification:
+get/list/watch pods returned yes and the same admission request
+completed successfully with exit_code=0.
+
+Result:
+PASS

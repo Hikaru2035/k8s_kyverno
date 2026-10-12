@@ -1,0 +1,22 @@
+===== concurrency=30 =====
+samples=60
+success=2
+errors=58
+error_rate=96.67%
+mean_ms=91126.38
+p50_ms=85342.50
+p95_ms=168004.80
+p99_ms=173265.34
+max_ms=173604.00
+
+===== concurrency=35 =====
+samples=35
+success=0
+errors=35
+error_rate=100.00%
+mean_ms=578024.74
+p50_ms=578016.00
+p95_ms=578308.20
+p99_ms=578316.94
+max_ms=578320.00
+

@@ -1,0 +1,22 @@
+{
+  "apiGroups": [
+    ""
+  ],
+  "resources": [
+    "configmaps",
+    "endpoints",
+    "persistentvolumeclaims",
+    "persistentvolumeclaims/status",
+    "pods",
+    "replicationcontrollers",
+    "replicationcontrollers/scale",
+    "serviceaccounts",
+    "services",
+    "services/status"
+  ],
+  "verbs": [
+    "get",
+    "list",
+    "watch"
+  ]
+}

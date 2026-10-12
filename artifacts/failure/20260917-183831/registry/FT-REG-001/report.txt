@@ -1,0 +1,48 @@
+FT-REG-001
+Result: PASS
+
+Scenario:
+Harbor registry hostname cannot be resolved by Kyverno during image
+signature verification.
+
+Baseline:
+The signed test image was successfully processed by the
+verify-signed-images ImageValidatingPolicy.
+
+Failure Injection:
+Removed the harbor-public DNS mapping from the CoreDNS hosts
+configuration.
+
+Failure Verification:
+DNS resolution for harbor-public failed with NXDOMAIN.
+
+The Harbor HTTPS endpoint remained reachable directly through
+171.244.199.186:30003, confirming that the registry itself and its
+TLS endpoint remained available.
+
+Runtime Result:
+Kyverno attempted to verify the signed image but failed to access
+the registry with:
+
+dial tcp: lookup harbor-public on 10.96.0.10:53: no such host
+
+The verification failure was reported by the verify-signed-images
+policy.
+
+Because the development policy is configured with Audit and Warn
+validation actions, the API request was admitted with a warning
+rather than denied.
+
+Recovery:
+Restored the original CoreDNS configuration containing:
+
+171.244.199.186 harbor-public harbor-public.openstacklocal
+
+DNS resolution recovered and harbor-public again resolved to
+171.244.199.186.
+
+The same signed-image admission test was repeated successfully.
+No registry DNS or image verification error was reported.
+
+Result:
+PASS

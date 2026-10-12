@@ -1,0 +1,16 @@
+{
+  "apiGroups": [
+    ""
+  ],
+  "resources": [
+    "configmaps",
+    "limitranges",
+    "resourcequotas"
+  ],
+  "verbs": [
+    "create",
+    "update",
+    "patch",
+    "delete"
+  ]
+}

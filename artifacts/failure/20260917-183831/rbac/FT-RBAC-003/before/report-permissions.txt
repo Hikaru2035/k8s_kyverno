@@ -1,0 +1,6 @@
+=== BACKGROUND CONTROLLER ===
+--- policyreports.wgpolicyk8s.io ---
+get     = yes
+list    = yes
+watch   = yes
+create  = no

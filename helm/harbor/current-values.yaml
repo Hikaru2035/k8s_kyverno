@@ -1,0 +1,94 @@
+admissionController:
+  apiPriorityAndFairness: true
+  container:
+    resources:
+      limits:
+        cpu: "2"
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+  nodeSelector:
+    ksp.io/kyverno-node: "true"
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 2
+  replicas: 4
+  revisionHistoryLimit: 5
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+    scrapeTimeout: 25s
+  topologySpreadConstraints:
+  - labelSelector:
+      matchLabels:
+        app.kubernetes.io/component: admission-controller
+    maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+backgroundController:
+  enabled: true
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  replicas: 2
+  resources:
+    limits:
+      cpu: "1"
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  revisionHistoryLimit: 5
+  serviceMonitor:
+    enabled: false
+cleanupController:
+  enabled: true
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  replicas: 2
+  resources:
+    limits:
+      cpu: 500m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  revisionHistoryLimit: 5
+  serviceMonitor:
+    enabled: false
+config:
+  excludeGroups:
+  - system:nodes
+  generateSuccessEvents: false
+  preserve: true
+crds:
+  install: true
+features:
+  backgroundScan:
+    backgroundScanInterval: 1h
+    backgroundScanWorkers: 8
+    enabled: true
+reportsController:
+  apiPriorityAndFairness: true
+  enabled: true
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  replicas: 2
+  resources:
+    limits:
+      cpu: "1"
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  revisionHistoryLimit: 5
+  serviceMonitor:
+    enabled: false

@@ -1,0 +1,4 @@
+Warning: Policy verify-signed-images error: failed to evaluate policy: Get "https://harbor-public:30003/v2/": tls: failed to verify certificate: x509: certificate signed by unknown authority
+pod/signed-reg-004-recovery created (server dry run)
+exit_code=0
+latency_ms=428

@@ -1,0 +1,2 @@
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+kyverno-svc   ClusterIP   10.107.208.194   <none>        443/TCP   44h   app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno

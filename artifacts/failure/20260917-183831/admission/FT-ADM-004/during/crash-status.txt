@@ -1,0 +1,2 @@
+NAME               STATUS    RESTARTS   WAITING_REASON
+ft-adm-004-crash   Running   3          RunContainerError

@@ -1,0 +1,59 @@
+FT-LOAD-003
+Result: FAIL
+
+Scenario:
+Medium admission burst with 25 concurrent requests.
+
+Configuration:
+Kyverno admission replicas: 4
+Bursts: 4
+Concurrency per burst: 25
+Total requests: 100
+
+Results:
+Successful requests: 81
+Failed requests: 19
+Error rate: 19.00%
+
+Mean: 7251.95 ms
+p50: 2421.50 ms
+p95: 22432.05 ms
+p99: 23509.65 ms
+Max: 24168.00 ms
+
+Observed Behavior:
+The first burst experienced severe degradation, taking approximately
+24.2 seconds. Nineteen requests failed with latency around 21-22 seconds.
+
+Kyverno admission-controller health checks also failed during the
+degradation period. One admission-controller container restarted.
+
+The restart was not caused by OOMKilled or a container crash:
+Last termination reason: Completed
+Exit code: 0
+
+Kyverno logs showed Kubernetes API communication timeouts and failure
+to renew the leader-election lease:
+- context deadline exceeded
+- failed to renew lease
+- webhook server closed
+
+All four admission-controller replicas experienced readiness probe
+failures during the degradation period.
+
+Resource configuration:
+CPU request: 500m
+CPU limit: 2
+Memory request: 512Mi
+Memory limit: 1Gi
+
+Conclusion:
+The medium burst exceeded the stable operating range observed in this
+test environment. Admission latency increased substantially and 19%
+of requests failed.
+
+The available evidence does not establish CPU exhaustion, memory
+exhaustion, or OOM as the root cause.
+
+Result:
+FAIL

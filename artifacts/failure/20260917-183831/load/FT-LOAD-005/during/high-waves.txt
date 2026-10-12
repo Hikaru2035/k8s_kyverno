@@ -1,0 +1,2 @@
+concurrency=30 wave=1 duration_ms=110016
+concurrency=30 wave=2 duration_ms=173680

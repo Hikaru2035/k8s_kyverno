@@ -1,0 +1,84 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 4096 (0x1000)
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=*.kyverno.svc
+        Validity
+            Not Before: Sep 30 00:00:00 2026 GMT
+            Not After : Sep 30 01:00:00 2026 GMT
+        Subject: CN=kyverno-svc
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:ae:9f:da:5b:ab:f2:05:3b:49:7a:4e:7f:67:0f:
+                    a1:93:d3:2e:72:b9:d6:4c:f8:d4:6b:a7:4c:48:30:
+                    90:8c:20:29:65:0a:34:59:59:aa:7b:3f:38:03:fa:
+                    62:d5:7b:5c:55:6f:f6:61:ef:2a:d4:7f:d1:50:a3:
+                    b5:67:60:12:b4:b6:05:79:0b:0b:35:be:4c:19:28:
+                    08:be:d8:d2:0c:d7:0f:5d:ce:4a:32:e0:44:11:a6:
+                    bb:fe:14:0a:a4:51:2e:55:83:ac:47:66:d6:ea:52:
+                    5d:b4:a2:7f:f0:de:3e:8a:66:e3:2b:67:8e:a4:21:
+                    bb:a0:2c:d4:ba:68:7d:79:24:5b:eb:4c:d2:c5:ac:
+                    45:24:3b:7a:e4:a4:be:59:96:65:23:cf:17:32:5c:
+                    8f:e0:d2:d5:57:10:5c:b4:df:d4:a6:1e:09:23:d7:
+                    6d:83:31:0c:28:22:07:84:62:0a:21:b0:93:50:20:
+                    24:0f:3e:25:f2:85:f2:6c:cb:84:b7:c0:4a:98:38:
+                    21:9b:d3:5f:d6:05:ce:80:0a:d5:24:95:9d:70:40:
+                    2f:16:bd:04:94:a8:05:1a:7a:fe:f4:58:85:8f:c0:
+                    dd:19:2e:cb:cc:a0:a2:38:bb:4c:4f:40:44:14:f1:
+                    58:96:0c:7d:36:ac:c5:db:59:71:a8:34:d7:9e:70:
+                    42:2f
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Subject Alternative Name: 
+                DNS:kyverno-svc, DNS:kyverno-svc.kyverno, DNS:kyverno-svc.kyverno.svc
+            X509v3 Subject Key Identifier: 
+                C3:B3:5F:CC:3C:22:E3:DE:C4:F1:E1:BA:AE:E9:28:2D:AB:D7:6E:35
+            X509v3 Authority Key Identifier: 
+                D1:93:8C:C6:E2:DF:D7:D7:83:6E:0E:41:C0:A9:46:C3:7A:44:85:8D
+    Signature Algorithm: sha256WithRSAEncryption
+    Signature Value:
+        94:d6:71:49:d7:95:94:d9:f2:14:e1:a7:a6:d4:98:24:cd:96:
+        62:72:ed:4b:86:36:45:9e:07:d3:ba:2b:66:21:a9:bb:28:77:
+        5a:5d:30:8c:4b:54:a7:76:80:c5:e5:ae:93:3d:9c:c9:a7:7f:
+        16:65:b8:ef:e7:9e:3c:5b:b1:52:2e:42:68:03:bc:e8:6e:52:
+        bf:f8:cf:c2:e7:4a:9d:3c:85:af:a9:b9:15:38:b3:11:a6:22:
+        c3:31:a2:46:cb:8e:ea:15:83:6b:1a:48:f9:99:95:91:a9:b5:
+        2b:21:f9:34:f7:1f:8b:85:e6:8d:0d:ff:c1:e7:1b:a4:57:23:
+        e0:16:8e:90:b0:b4:eb:88:b7:90:6f:5e:e7:0f:24:92:dc:e3:
+        47:02:ed:95:7c:69:29:c6:09:e4:e2:0a:f9:14:d6:ca:0d:da:
+        49:fe:dd:fa:34:e1:f9:97:04:0b:f6:df:b9:be:4e:6c:bc:1d:
+        53:7d:84:e4:c0:13:88:90:64:76:3b:c4:fe:a4:7c:36:b2:e9:
+        4d:df:9f:36:13:61:5c:5a:aa:3b:2d:84:7e:82:fc:4d:a9:b5:
+        0b:c4:24:31:52:17:a3:d0:39:50:71:42:77:37:3d:54:e3:a1:
+        85:51:fa:f2:2f:9f:b1:72:9c:6e:69:a1:5d:f8:4c:1f:0c:d9:
+        f1:b5:3d:f0
+-----BEGIN CERTIFICATE-----
+MIIDYTCCAkmgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwGDEWMBQGA1UEAwwNKi5r
+eXZlcm5vLnN2YzAeFw0yNjA5MzAwMDAwMDBaFw0yNjA5MzAwMTAwMDBaMBYxFDAS
+BgNVBAMMC2t5dmVybm8tc3ZjMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEArp/aW6vyBTtJek5/Zw+hk9MucrnWTPjUa6dMSDCQjCApZQo0WVmqez84A/pi
+1XtcVW/2Ye8q1H/RUKO1Z2AStLYFeQsLNb5MGSgIvtjSDNcPXc5KMuBEEaa7/hQK
+pFEuVYOsR2bW6lJdtKJ/8N4+imbjK2eOpCG7oCzUumh9eSRb60zSxaxFJDt65KS+
+WZZlI88XMlyP4NLVVxBctN/Uph4JI9dtgzEMKCIHhGIKIbCTUCAkDz4l8oXybMuE
+t8BKmDghm9Nf1gXOgArVJJWdcEAvFr0ElKgFGnr+9FiFj8DdGS7LzKCiOLtMT0BE
+FPFYlgx9NqzF21lxqDTXnnBCLwIDAQABo4G2MIGzMAkGA1UdEwQCMAAwCwYDVR0P
+BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMEQGA1UdEQQ9MDuCC2t5dmVybm8t
+c3ZjghNreXZlcm5vLXN2Yy5reXZlcm5vghdreXZlcm5vLXN2Yy5reXZlcm5vLnN2
+YzAdBgNVHQ4EFgQUw7NfzDwi497E8eG6rukoLavXbjUwHwYDVR0jBBgwFoAU0ZOM
+xuLf19eDbg5BwKlGw3pEhY0wDQYJKoZIhvcNAQELBQADggEBAJTWcUnXlZTZ8hTh
+p6bUmCTNlmJy7UuGNkWeB9O6K2Yhqbsod1pdMIxLVKd2gMXlrpM9nMmnfxZluO/n
+njxbsVIuQmgDvOhuUr/4z8LnSp08ha+puRU4sxGmIsMxokbLjuoVg2saSPmZlZGp
+tSsh+TT3H4uF5o0N/8HnG6RXI+AWjpCwtOuIt5BvXucPJJLc40cC7ZV8aSnGCeTi
+CvkU1soN2kn+3fo04fmXBAv237m+Tmy8HVN9hOTAE4iQZHY7xP6kfDay6U3fnzYT
+YVxaqjsthH6C/E2ptQvEJDFSF6PQOVBxQnc3PVTjoYVR+vIvn7FynG5poV34TB8M
+2fG1PfA=
+-----END CERTIFICATE-----

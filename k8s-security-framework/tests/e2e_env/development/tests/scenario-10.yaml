@@ -1,0 +1,16 @@
+# Scenario 10: intentional Baseline latest-tag violation
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e2e-ksp-baseline-violation
+  namespace: e2e-ksp-alpha
+  labels: {app: e2e-ksp-baseline-violation, owner: e2e}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: e2e-ksp-baseline-violation}}
+  template:
+    metadata: {labels: {app: e2e-ksp-baseline-violation}}
+    spec:
+      containers:
+      - name: app
+        image: nginx:latest

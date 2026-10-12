@@ -1,0 +1,5 @@
+2026-10-01T10:33:05+07:00
+CONNECTED(00000003)
+subject=CN = harbor-public
+issuer=CN = harbor-ca
+openssl_exit=0

@@ -1,0 +1,18 @@
+2026-10-01T10:56:34+07:00
+===== ENDPOINT =====
+NAME     ENDPOINTS   AGE
+harbor   <none>      25d
+
+===== DNS =====
+171.244.199.186   harbor-public.openstacklocal  harbor-public.openstacklocal harbor-public
+
+===== CONNECTION =====
+* Host harbor-public:30003 was resolved.
+* IPv6: (none)
+* IPv4: 171.244.199.186
+*   Trying 171.244.199.186:30003...
+* connect to 171.244.199.186 port 30003 from 10.244.212.83 port 36676 failed: Connection refused
+* Failed to connect to harbor-public port 30003 after 5 ms: Could not connect to server
+* closing connection #0
+command terminated with exit code 7
+curl_exit=7

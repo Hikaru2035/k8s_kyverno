@@ -1,0 +1,2 @@
+Error from server (NotFound): error when creating "/tmp/ft-adm-valid.yaml": namespaces "ft-admission" not found
+EXIT_CODE=1

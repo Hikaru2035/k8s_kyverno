@@ -1,0 +1,1 @@
+pod "ft-adm-009-notready" deleted from kyverno namespace

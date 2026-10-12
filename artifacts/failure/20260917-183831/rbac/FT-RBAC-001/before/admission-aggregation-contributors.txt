@@ -1,0 +1,2 @@
+kyverno:admission-controller
+kyverno:admission-controller:core

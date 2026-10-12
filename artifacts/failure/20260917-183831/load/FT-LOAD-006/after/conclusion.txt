@@ -1,0 +1,51 @@
+FT-LOAD-006
+Result: N/A
+
+Scenario:
+Measure the impact of a slow external registry on Kyverno image
+verification admission latency.
+
+Normal Registry Baseline:
+Samples: 20
+Errors: 0
+Error rate: 0.00%
+Mean: 1142.70 ms
+p50: 1042.50 ms
+p95: 1205.00 ms
+p99: 2801.00 ms
+Max: 3200.00 ms
+
+Environment:
+Kyverno admission-controller replicas are distributed across
+worker-node-1 and worker-node-2.
+
+Harbor is exposed through NodePort 30003.
+The Harbor nginx endpoint is hosted on worker-node-2.
+
+Controlled Delay Injection:
+Not executed.
+
+Reason:
+A controlled Harbor-only network delay could not be safely isolated
+with the available access to the worker nodes.
+
+Direct SSH access to worker-node-1 and worker-node-2 was unavailable.
+
+Applying tc/netem broadly to a node network interface could affect
+Kubernetes API, CNI, node communication, and unrelated cluster
+traffic. Such a test would not reliably isolate external registry
+latency and could destabilize the cluster.
+
+Existing Coverage:
+Registry connectivity and timeout behavior have already been tested
+separately by the registry failure test suite, including network
+timeout scenarios.
+
+Conclusion:
+The normal signed-image verification latency baseline was successfully
+measured, but controlled slow-registry injection was not performed
+because the fault could not be safely isolated in the current
+environment.
+
+Result:
+N/A

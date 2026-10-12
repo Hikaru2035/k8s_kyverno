@@ -1,0 +1,6 @@
+subject=CN = harbor-public
+issuer=CN = harbor-ca
+serial=06CB2356A1785C3773ABCA828964CA06
+notBefore=Sep  5 09:45:20 2026 GMT
+notAfter=Sep  5 09:45:20 2027 GMT
+SHA1 Fingerprint=45:D1:E9:17:ED:F8:50:72:17:73:F4:49:C0:6B:00:39:06:57:C3:36

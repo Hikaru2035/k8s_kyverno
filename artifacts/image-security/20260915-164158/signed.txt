@@ -1,0 +1,196 @@
+=== SIGNED IMAGE TEST ===
+2026-09-15T17:13:53+07:00
+error: the path "k8s-security-framework/tests/e2e/harbor-signed.yaml" does not exist
+
+Name:             harbor-signed-e2e
+Namespace:        harbor-test
+Priority:         0
+Service Account:  default
+Node:             worker-node-2/171.244.199.112
+Start Time:       Mon, 14 Sep 2026 16:11:49 +0700
+Labels:           <none>
+Annotations:      cni.projectcalico.org/containerID: 258b4643e0a391400d33c5500f1d0b2b07306ef3c4ba85c512ea5a4cb8b6ef51
+                  cni.projectcalico.org/podIP: 10.244.19.168/32
+                  cni.projectcalico.org/podIPs: 10.244.19.168/32
+                  kyverno.io/image-verification-outcomes:
+                    {"verify-signed-images":{"name":"verify-signed-images","ruleType":"ImageVerify","message":"success","status":"pass"}}
+Status:           Running
+IP:               10.244.19.168
+IPs:
+  IP:  10.244.19.168
+Containers:
+  app:
+    Container ID:  containerd://3c50762be1b25a02fd36f9f6efde9997eedc0103b5ce2ec025645747c74b6687
+    Image:         harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Image ID:      harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Running
+      Started:      Tue, 15 Sep 2026 17:12:21 +0700
+    Last State:     Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Tue, 15 Sep 2026 16:12:19 +0700
+      Finished:     Tue, 15 Sep 2026 17:12:19 +0700
+    Ready:          True
+    Restart Count:  25
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-g428h (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-g428h:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=worker-node-2
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason           Age                 From          Message
+  ----     ------           ----                ----          -------
+  Warning  PolicyViolation  30m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  58m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  59m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  58m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  30m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  57m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  57m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  57m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  56m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  56m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  55m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  55m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  55m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  54m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  54m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  53m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  53m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  52m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  52m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  51m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  51m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  51m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  50m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  50m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  49m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  48m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  48m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  48m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  47m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  47m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  46m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  46m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  45m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  44m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  44m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  43m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  43m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  42m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  41m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  41m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  41m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  40m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  40m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  39m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  39m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  38m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  38m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  37m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  37m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  36m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  36m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  35m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  35m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  34m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  29m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  34m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  33m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  33m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  32m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  31m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  31m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  31m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  60m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  59m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  34m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  28m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  28m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  27m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  27m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  26m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  25m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  25m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  24m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  24m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  23m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  22m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  22m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  21m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  21m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  20m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  20m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  20m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  19m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  19m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  18m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  17m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  17m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  16m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  16m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  16m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  15m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  15m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  14m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  14m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  13m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  12m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  12m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  12m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  11m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  11m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  10m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  10m                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  9m47s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  9m19s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  8m6s                kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  7m55s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  7m27s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  6m59s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  6m32s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  6m7s                kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  5m37s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  5m9s                kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  4m43s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  4m20s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  3m51s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  3m25s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  2m46s               kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  2m4s                kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  97s                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  68s                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  35s                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Warning  PolicyViolation  11s                 kyverno-scan  policy require-seccomp/ fail: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+  Normal   Pulling          94s (x26 over 25h)  kubelet       spec.containers{app}: Pulling image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f"
+  Normal   Created          93s (x26 over 25h)  kubelet       spec.containers{app}: Container created
+  Normal   Started          93s (x26 over 25h)  kubelet       spec.containers{app}: Container started
+  Normal   Pulled           93s                 kubelet       spec.containers{app}: Successfully pulled image "harbor-public:30003/ksp-test/signed@sha256:b7f3d86d6e84fc17718c48bcde1450807faa2d56704205c697b4bd5df7b9e29f" in 462ms (462ms including waiting). Image size: 2207471 bytes.

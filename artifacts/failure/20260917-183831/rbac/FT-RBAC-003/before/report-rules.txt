@@ -1,0 +1,10 @@
+
+===== kyverno-background-controller =====
+clusterpolicyreports.wgpolicyk8s.io                     []                                     []               [get list watch]
+policyreports.wgpolicyk8s.io                            []                                     []               [get list watch]
+
+===== kyverno-reports-controller =====
+clusterpolicyreports.wgpolicyk8s.io/status                       []                                     []               [create delete get list patch update watch deletecollection]
+clusterpolicyreports.wgpolicyk8s.io                              []                                     []               [create delete get list patch update watch deletecollection]
+policyreports.wgpolicyk8s.io/status                              []                                     []               [create delete get list patch update watch deletecollection]
+policyreports.wgpolicyk8s.io                                     []                                     []               [create delete get list patch update watch deletecollection]

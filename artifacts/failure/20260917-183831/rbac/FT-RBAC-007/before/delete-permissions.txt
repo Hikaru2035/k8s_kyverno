@@ -1,0 +1,8 @@
+globalcontextentries.kyverno.io/status                         []                                     []               [create delete get list patch update watch deletecollection]
+globalcontextentries.kyverno.io                                []                                     []               [create delete get list patch update watch deletecollection]
+validatingwebhookconfigurations.admissionregistration.k8s.io   []                                     []               [create delete get list update watch]
+globalnetworkpolicies.projectcalico.org                        []                                     []               [get list watch create update patch delete deletecollection]
+networkpolicies.projectcalico.org                              []                                     []               [get list watch create update patch delete deletecollection]
+                                                               [/api/*]                               []               [get]
+                                                               [/apis/*]                              []               [get]
+                                                               [/openapi/*]                           []               [get]

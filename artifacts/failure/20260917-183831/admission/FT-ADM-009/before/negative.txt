@@ -1,0 +1,2 @@
+Error from server: error when creating "/root/k8s_kyverno/k8s-security-framework/tests/e2e/production/pod/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag" denied the request: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+EXIT_CODE=1

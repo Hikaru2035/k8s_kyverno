@@ -1,0 +1,2 @@
+pod/ft-adm-invalid created (server dry run)
+EXIT_CODE=0

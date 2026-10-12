@@ -1,0 +1,9 @@
+samples=100
+errors=0
+error_rate=0.00%
+min_ms=497.00
+mean_ms=771.35
+p50_ms=744.50
+p95_ms=1077.00
+p99_ms=1086.13
+max_ms=1099.00

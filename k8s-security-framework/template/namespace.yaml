@@ -1,0 +1,17 @@
+# Kubernetes Baseline Template: Namespace
+#
+# Common: KSP-META-003 requires environment and profile labels.
+# Baseline: KSP-RES-005 generates namespace-resource-quota for this opted-in
+# Namespace when kyverno/ksp-resource-quota-sizing provides the sizing keys.
+# Replace ${...}; ENVIRONMENT is dev, staging, or production for the target cluster.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${NAMESPACE}
+  labels:
+    ksp.io/environment: ${ENVIRONMENT}
+    ksp.io/profile: baseline
+    # KSP-RES-005 uses a distinct environment label; keep both values equal.
+    policies.ksp.io/generate-resource-governance: "enabled"
+    policies.ksp.io/environment: ${ENVIRONMENT}
+    policies.ksp.io/quota-class: ${QUOTA_CLASS}

@@ -1,0 +1,7 @@
+# Scenario 05: missing profile
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-missing-profile
+  labels:
+    ksp.io/environment: dev

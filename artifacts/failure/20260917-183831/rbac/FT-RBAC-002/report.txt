@@ -1,0 +1,33 @@
+FT-RBAC-002
+Result: N/A – Controller responsibility differs from test assumption
+
+Scenario:
+Background controller lacks get/list/watch permission on workload resources.
+
+Failure Injection:
+Removed the kyverno:background-controller:view ClusterRoleBinding.
+
+Observed Result:
+The background-controller ServiceAccount successfully lost Pod read
+permissions (get pods = no). The controller itself remained healthy.
+
+However, background policy evaluation continued and a PolicyReport was
+successfully generated for the existing test Pod while the RBAC fault
+was active.
+
+Further verification showed that the dedicated reports-controller
+ServiceAccount retained get/list/watch permissions on Pods through its
+own view ClusterRoleBinding.
+
+Conclusion:
+In the deployed Kyverno architecture, removing workload read permission
+from the background-controller does not reproduce the expected failure
+of background policy reporting. The test assumption does not match the
+current controller responsibility separation.
+
+Recovery:
+Restored kyverno:background-controller:view and verified
+get/list/watch pods = yes.
+
+Result:
+N/A

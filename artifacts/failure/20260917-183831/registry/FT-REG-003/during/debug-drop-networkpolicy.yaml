@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ft-reg-003-debug-drop-harbor
+  namespace: kyverno
+spec:
+  podSelector:
+    matchLabels:
+      failure-test.ksp.io/ft-reg-003: "true"
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 171.244.199.186/32

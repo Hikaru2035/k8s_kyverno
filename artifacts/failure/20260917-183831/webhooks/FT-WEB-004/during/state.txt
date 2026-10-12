@@ -1,0 +1,39 @@
+=== Deployment ===
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                   SELECTOR
+kyverno-admission-controller   4/4     4            4           34d   kyverno      reg.kyverno.io/kyverno/kyverno:v1.19.1   app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+
+=== Admission Pods ===
+NAME                                            READY   STATUS    RESTARTS   AGE   IP              NODE            NOMINATED NODE   READINESS GATES
+kyverno-admission-controller-6f755d9865-2pq28   1/1     Running   0          27m   10.244.19.189   worker-node-2   <none>           <none>
+kyverno-admission-controller-6f755d9865-875sb   1/1     Running   0          27m   10.244.212.71   worker-node-1   <none>           <none>
+kyverno-admission-controller-6f755d9865-hknxs   1/1     Running   0          27m   10.244.19.191   worker-node-2   <none>           <none>
+kyverno-admission-controller-6f755d9865-wjf7t   1/1     Running   0          27m   10.244.212.75   worker-node-1   <none>           <none>
+
+=== Service ===
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE     SELECTOR
+kyverno-svc   ClusterIP   10.107.208.194   <none>        443/TCP   3h35m   app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+
+=== Service Port Mapping ===
+name=https port=443 targetPort=65534 protocol=TCP
+
+=== EndpointSlice ===
+NAME                ADDRESSTYPE   PORTS   ENDPOINTS                                               AGE
+kyverno-svc-2ggvq   IPv4          65534   10.244.212.75,10.244.19.189,10.244.212.71 + 1 more...   3h35m
+
+=== EndpointSlice Ports ===
+name=https port=65534 protocol=TCP
+
+=== Webhooks ===
+gpol.validate.kyverno.svc-ignore-finegrained-generate-resource-quota | failurePolicy=Ignore | service=kyverno-svc:443
+ivpol.validate.kyverno.svc-fail-finegrained-verify-signed-images | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-disallow-run-as-user-zero | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-require-app-label | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-require-image-digest | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-require-memory-request | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-require-namespace-environment-profile | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-require-owner-label | failurePolicy=Fail | service=kyverno-svc:443
+vpol.validate.kyverno.svc-fail-finegrained-require-seccomp | failurePolicy=Fail | service=kyverno-svc:443

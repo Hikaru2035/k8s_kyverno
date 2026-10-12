@@ -1,0 +1,8 @@
+64:        - --caSecretName=kyverno-svc.kyverno.svc.kyverno-tls-ca
+65:        - --tlsSecretName=kyverno-svc.kyverno.svc.kyverno-tls-pair
+66:        - --tlsKeyAlgorithm=RSA
+70:        - --webhookServerPort=9443
+78:        - --autoUpdateWebhooks=true
+189:        - mountPath: /var/run/secrets/kyverno/apicall
+192:        - mountPath: /etc/ssl/certs/ca-certificates.crt
+195:          subPath: ca-certificates.crt

@@ -1,0 +1,36 @@
+
+===== kyverno:background-controller =====
+{
+  "apiGroups": [
+    ""
+  ],
+  "resources": [
+    "configmaps",
+    "resourcequotas",
+    "limitranges"
+  ],
+  "verbs": [
+    "create",
+    "update",
+    "patch",
+    "delete"
+  ]
+}
+
+===== kyverno:background-controller:core =====
+{
+  "apiGroups": [
+    ""
+  ],
+  "resources": [
+    "configmaps",
+    "resourcequotas",
+    "limitranges"
+  ],
+  "verbs": [
+    "create",
+    "update",
+    "patch",
+    "delete"
+  ]
+}

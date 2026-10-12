@@ -1,0 +1,8 @@
+2026-10-01T09:24:57+07:00
+=== ClusterCleanupPolicy ===
+Warning: kyverno.io/v2 ClusterCleanupPolicy is deprecated and will be removed in a future release; migrate to DeletingPolicy (policies.kyverno.io), see https://kyverno.io/docs/guides/migration-to-cel/
+No resources found
+
+=== Namespaced CleanupPolicy ===
+Warning: kyverno.io/v2 CleanupPolicy is deprecated and will be removed in a future release; migrate to NamespacedDeletingPolicy (policies.kyverno.io), see https://kyverno.io/docs/guides/migration-to-cel/
+No resources found

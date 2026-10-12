@@ -1,0 +1,1 @@
+default              20m         Warning   PolicyViolation   imagevalidatingpolicy/verify-signed-images                         Pod ft-reg-001/signed-baseline: [evaluation] error; failed to evaluate policy: Get "https://harbor-public:30003/v2/": dial tcp: lookup harbor-public on 10.96.0.10:53: no such host

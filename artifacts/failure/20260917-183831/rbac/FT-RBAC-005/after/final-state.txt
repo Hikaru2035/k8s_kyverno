@@ -1,0 +1,7 @@
+2026-10-01T09:20:18+07:00
+=== Background controller ===
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+kyverno-background-controller   2/2     2            2           35d
+
+=== Final ResourceQuota permission ===
+yes

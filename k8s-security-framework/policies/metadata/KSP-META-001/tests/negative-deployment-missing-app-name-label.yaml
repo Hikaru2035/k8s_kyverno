@@ -6,11 +6,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: demo-api
+      app: demo-api
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: demo-api
+        app: demo-api
     spec:
       containers:
         - name: demo-api

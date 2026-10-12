@@ -1,0 +1,8 @@
+subject=CN = kyverno-svc
+issuer=CN = *.kyverno.svc
+serial=1000
+notBefore=Sep 30 00:00:00 2026 GMT
+notAfter=Sep 30 01:00:00 2026 GMT
+sha256 Fingerprint=D9:16:DA:64:45:C6:5E:EC:C1:A7:36:6D:19:04:83:CA:CE:95:80:EF:DE:90:6B:9C:EF:70:71:4E:2B:B7:9D:CC
+X509v3 Subject Alternative Name: 
+    DNS:kyverno-svc, DNS:kyverno-svc.kyverno, DNS:kyverno-svc.kyverno.svc

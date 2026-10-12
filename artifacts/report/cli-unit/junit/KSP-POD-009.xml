@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="0">
+ <testsuite name="restrict-added-capabilities" tests="13" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-positive-one-container">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-positive-one-container
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-positive-all-types">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-positive-all-types
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-positive-two-compliant">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-positive-two-compliant
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-boundary-no-add-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-boundary-no-add-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-negative-one-container">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-negative-one-container
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-negative-ephemeral">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-negative-ephemeral
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-negative-init">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-negative-init
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-negative-first">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-negative-first
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-negative-last">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-negative-last
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-009-boundary-ephemeral-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-009-boundary-ephemeral-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-009-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-009-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-009-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-009-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-009-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: restrict-added-capabilities
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-009-exception-tertiary
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

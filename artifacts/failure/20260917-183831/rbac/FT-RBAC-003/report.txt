@@ -1,0 +1,26 @@
+FT-RBAC-003
+Result: N/A – Permission not owned by target controller
+
+Scenario:
+Background controller lacks permission to update PolicyReport resources.
+
+Baseline Verification:
+The kyverno-background-controller ServiceAccount has only
+get/list/watch permissions on PolicyReport and ClusterPolicyReport
+resources. It does not have create/update/patch permissions.
+
+The kyverno-reports-controller ServiceAccount owns the report
+management permissions, including create/update/patch/delete on
+PolicyReport, ClusterPolicyReport, and their status subresources.
+
+Failure Injection:
+Not performed because the target permission is not granted to the
+background-controller in the baseline configuration.
+
+Conclusion:
+The test assumption does not match the RBAC responsibility model of
+the deployed Kyverno version. Policy report updates are handled by
+the reports-controller rather than the background-controller.
+
+Result:
+N/A

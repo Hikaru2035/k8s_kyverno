@@ -1,0 +1,21 @@
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+database = /root/k8s_kyverno/artifacts/failure/20260917-183831/webhooks/FT-WEB-008/before/ca-work/index.txt
+serial = /root/k8s_kyverno/artifacts/failure/20260917-183831/webhooks/FT-WEB-008/before/ca-work/serial
+new_certs_dir = /root/k8s_kyverno/artifacts/failure/20260917-183831/webhooks/FT-WEB-008/before/ca-work
+certificate = /root/k8s_kyverno/artifacts/failure/20260917-183831/webhooks/FT-WEB-008/before/ca.crt
+private_key = /root/k8s_kyverno/artifacts/failure/20260917-183831/webhooks/FT-WEB-008/before/ca.key
+default_md = sha256
+policy = policy_any
+x509_extensions = server_cert
+
+[ policy_any ]
+commonName = supplied
+
+[ server_cert ]
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature,keyEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = DNS:kyverno-svc,DNS:kyverno-svc.kyverno,DNS:kyverno-svc.kyverno.svc

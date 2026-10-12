@@ -1,0 +1,9 @@
+NAME                                            WEBHOOKS   AGE
+kyverno-cel-exception-validating-webhook-cfg    1          11d
+kyverno-cleanup-validating-webhook-cfg          1          11d
+kyverno-exception-validating-webhook-cfg        1          11d
+kyverno-global-context-validating-webhook-cfg   1          11d
+kyverno-policy-validating-webhook-cfg           1          11d
+kyverno-resource-validating-webhook-cfg         13         11d
+kyverno-ttl-validating-webhook-cfg              1          11d
+monitoring-kube-prometheus-admission            2          20d

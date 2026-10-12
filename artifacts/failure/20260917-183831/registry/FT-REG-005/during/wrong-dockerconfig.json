@@ -1,0 +1,9 @@
+{
+  "auths": {
+    "harbor-public:30003": {
+      "username": "ft-reg-006-invalid-user",
+      "password": "ft-reg-006-invalid-password",
+      "auth": "ZnQtcmVnLTAwNi1pbnZhbGlkLXVzZXI6ZnQtcmVnLTAwNi1pbnZhbGlkLXBhc3N3b3Jk"
+    }
+  }
+}

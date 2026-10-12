@@ -1,0 +1,250 @@
+===== CA/TLS CONFIGMAPS =====
+argocd               argocd-notifications-cm                                        1      25h
+argocd               argocd-tls-certs-cm                                            0      25h
+argocd               kube-root-ca.crt                                               1      25h
+calico-system        active-operator                                                1      30d
+calico-system        cni-config                                                     1      30d
+calico-system        goldmane                                                       1      30d
+calico-system        goldmane-ca-bundle                                             3      30d
+calico-system        kube-root-ca.crt                                               1      30d
+calico-system        tigera-ca-bundle                                               3      30d
+calico-system        whisker-ca-bundle                                              3      30d
+calico-system        whisker-nginx-config                                           1      30d
+default              kube-root-ca.crt                                               1      30d
+ft-admission         kube-root-ca.crt                                               1      7d15h
+harbor               kube-root-ca.crt                                               1      19d
+jenkins              harbor-ca                                                      1      2d16h
+jenkins              ksp-ca-bundle                                                  1      2d15h
+jenkins              kube-root-ca.crt                                               1      4d
+ksp-demo             kube-root-ca.crt                                               1      69m
+ksp-dev              kube-root-ca.crt                                               1      29d
+ksp-production       kube-root-ca.crt                                               1      29d
+ksp-staging          kube-root-ca.crt                                               1      29d
+kube-node-lease      kube-root-ca.crt                                               1      30d
+kube-public          kube-root-ca.crt                                               1      30d
+kube-system          extension-apiserver-authentication                             6      30d
+kube-system          kube-root-ca.crt                                               1      30d
+kyverno              harbor-ca                                                      1      11d
+kyverno              kube-root-ca.crt                                               1      29d
+kyverno              kyverno-custom-ca-bundle                                       1      10d
+local-path-storage   kube-root-ca.crt                                               1      19d
+local-path-storage   local-path-config                                              4      19d
+monitoring           kube-root-ca.crt                                               1      16d
+tigera-operator      kube-root-ca.crt                                               1      30d
+
+===== TLS SECRETS =====
+argocd            argocd-notifications-secret                                                           Opaque
+calico-system     calico-apiserver-certs                                                                Opaque
+calico-system     goldmane-key-pair                                                                     Opaque
+calico-system     node-certs                                                                            Opaque
+calico-system     typha-certs                                                                           Opaque
+calico-system     typha-certs-noncluster-host                                                           Opaque
+calico-system     whisker-backend-key-pair                                                              Opaque
+harbor            harbor-core                                                                           Opaque
+harbor            harbor-database                                                                       Opaque
+harbor            harbor-jobservice                                                                     Opaque
+harbor            harbor-nginx                                                                          Opaque
+harbor            harbor-registry                                                                       Opaque
+harbor            harbor-registry-htpasswd                                                              Opaque
+harbor            harbor-registryctl                                                                    Opaque
+harbor            sh.helm.release.v1.harbor.v1                                                          helm.sh/release.v1
+jenkins           harbor-pull                                                                           kubernetes.io/dockerconfigjson
+ksp-demo          harbor-registry-credentials                                                           kubernetes.io/dockerconfigjson
+kyverno           harbor-registry-credentials                                                           kubernetes.io/dockerconfigjson
+kyverno           kyverno-cleanup-controller.kyverno.svc.kyverno-tls-ca                                 kubernetes.io/tls
+kyverno           kyverno-cleanup-controller.kyverno.svc.kyverno-tls-pair                               kubernetes.io/tls
+kyverno           kyverno-svc.kyverno.svc.kyverno-tls-ca                                                kubernetes.io/tls
+kyverno           kyverno-svc.kyverno.svc.kyverno-tls-pair                                              kubernetes.io/tls
+kyverno           sh.helm.release.v1.kyverno.v1                                                         helm.sh/release.v1
+kyverno           sh.helm.release.v1.kyverno.v2                                                         helm.sh/release.v1
+kyverno           sh.helm.release.v1.kyverno.v3                                                         helm.sh/release.v1
+kyverno           sh.helm.release.v1.kyverno.v4                                                         helm.sh/release.v1
+kyverno           sh.helm.release.v1.kyverno.v5                                                         helm.sh/release.v1
+kyverno           sh.helm.release.v1.kyverno.v6                                                         helm.sh/release.v1
+kyverno           sh.helm.release.v1.kyverno.v7                                                         helm.sh/release.v1
+monitoring        alertmanager-monitoring-kube-prometheus-alertmanager-cluster-tls-config               Opaque
+monitoring        alertmanager-monitoring-kube-prometheus-alertmanager-tls-assets-0                     Opaque
+monitoring        prometheus-monitoring-kube-prometheus-prometheus-tls-assets-0                         Opaque
+tigera-operator   calico-apiserver-certs                                                                Opaque
+tigera-operator   node-certs                                                                            Opaque
+tigera-operator   sh.helm.release.v1.calico.v1                                                          helm.sh/release.v1
+tigera-operator   tigera-ca-private                                                                     Opaque
+tigera-operator   typha-certs                                                                           Opaque
+tigera-operator   typha-certs-noncluster-host                                                           Opaque
+
+===== CA REFERENCES IN WORKLOADS =====
+2050-          - name: DISABLE_KUBE_CONTROLLERS_CONFIG_API
+2051-            value: "false"
+2052-          - name: CA_CRT_PATH
+2053:            value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+2054-          image: quay.io/calico/kube-controllers:v3.32.1
+2055-          imagePullPolicy: IfNotPresent
+2056-          livenessProbe:
+--
+2089-          terminationMessagePolicy: File
+2090-          volumeMounts:
+2091-          - mountPath: /etc/pki/tls/certs
+2092:            name: tigera-ca-bundle
+2093-            readOnly: true
+2094-          - mountPath: /etc/pki/tls/cert.pem
+2095:            name: tigera-ca-bundle
+2096-            readOnly: true
+2097:            subPath: ca-bundle.crt
+2098-        dnsPolicy: ClusterFirst
+2099-        nodeSelector:
+2100-          kubernetes.io/os: linux
+--
+2115-        volumes:
+2116-        - configMap:
+2117-            defaultMode: 420
+2118:            name: tigera-ca-bundle
+2119:          name: tigera-ca-bundle
+2120-  status:
+2121-    availableReplicas: 1
+2122-    conditions:
+--
+2219-          - name: TYPHA_K8SNAMESPACE
+2220-            value: calico-system
+2221-          - name: TYPHA_CAFILE
+2222:            value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+2223-          - name: TYPHA_SERVERCERTFILE
+2224-            value: /typha-certs/tls.crt
+2225-          - name: TYPHA_SERVERKEYFILE
+--
+2275-          terminationMessagePolicy: File
+2276-          volumeMounts:
+2277-          - mountPath: /etc/pki/tls/certs
+2278:            name: tigera-ca-bundle
+2279-            readOnly: true
+2280-          - mountPath: /etc/pki/tls/cert.pem
+2281:            name: tigera-ca-bundle
+2282-            readOnly: true
+2283:            subPath: ca-bundle.crt
+2284-          - mountPath: /typha-certs
+2285-            name: typha-certs
+2286-            readOnly: true
+--
+2305-        volumes:
+2306-        - configMap:
+2307-            defaultMode: 420
+2308:            name: tigera-ca-bundle
+2309:          name: tigera-ca-bundle
+2310-        - name: typha-certs
+2311-          secret:
+2312-            defaultMode: 420
+--
+2388-          - name: SERVER_KEY_PATH
+2389-            value: /goldmane-key-pair/tls.key
+2390-          - name: CA_CERT_PATH
+2391:            value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+2392-          - name: PUSH_URL
+2393-            value: https://guardian.calico-system.svc.cluster.local:443/api/v1/flows/bulk
+2394-          - name: FILE_CONFIG_PATH
+--
+2435-            name: config
+2436-            readOnly: true
+2437-          - mountPath: /etc/pki/tls/certs
+2438:            name: goldmane-ca-bundle
+2439-            readOnly: true
+2440-          - mountPath: /goldmane-key-pair
+2441-            name: goldmane-key-pair
+--
+2463-          name: config
+2464-        - configMap:
+2465-            defaultMode: 420
+2466:            name: goldmane-ca-bundle
+2467:          name: goldmane-ca-bundle
+2468-        - name: goldmane-key-pair
+2469-          secret:
+2470-            defaultMode: 420
+--
+2600-            name: whisker-backend-key-pair
+2601-            readOnly: true
+2602-          - mountPath: /etc/pki/tls/certs
+2603:            name: whisker-ca-bundle
+2604-            readOnly: true
+2605-        dnsPolicy: ClusterFirst
+2606-        nodeSelector:
+--
+2629-            secretName: whisker-backend-key-pair
+2630-        - configMap:
+2631-            defaultMode: 420
+2632:            name: whisker-ca-bundle
+2633:          name: whisker-ca-bundle
+2634-  status:
+2635-    availableReplicas: 1
+2636-    conditions:
+--
+3101-            name: config
+3102-            subPath: nginx.conf
+3103-          - mountPath: /etc/nginx/cert
+3104:            name: certificate
+3105-        dnsPolicy: ClusterFirst
+3106-        restartPolicy: Always
+3107-        schedulerName: default-scheduler
+--
+3114-            defaultMode: 420
+3115-            name: harbor-nginx
+3116-          name: config
+3117:        - name: certificate
+3118-          secret:
+3119-            defaultMode: 420
+3120-            secretName: harbor-nginx
+--
+3943-          - mountPath: /var/run/secrets/kyverno/apicall
+3944-            name: apicall-token
+3945-            readOnly: true
+3946:          - mountPath: /etc/ssl/certs/ca-certificates.crt
+3947:            name: harbor-ca-bundle
+3948-            readOnly: true
+3949:            subPath: ca-certificates.crt
+3950-        dnsConfig:
+3951-          options:
+3952-          - name: ndots
+--
+4032-                path: token
+4033-        - configMap:
+4034-            defaultMode: 420
+4035:            name: kyverno-custom-ca-bundle
+4036:          name: harbor-ca-bundle
+4037-  status:
+4038-    availableReplicas: 4
+4039-    conditions:
+--
+5214-        containers:
+5215-        - args:
+5216-          - --port=8080
+5217:          - --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpointslices,horizontalpodautoscalers,ingresses,jobs,leases,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
+5218-          image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0
+5219-          imagePullPolicy: IfNotPresent
+5220-          livenessProbe:
+--
+7020-          - name: FELIX_TYPHAK8SSERVICENAME
+7021-            value: calico-typha
+7022-          - name: FELIX_TYPHACAFILE
+7023:            value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+7024-          - name: FELIX_TYPHACERTFILE
+7025-            value: /node-certs/tls.crt
+7026-          - name: FELIX_TYPHAKEYFILE
+--
+7108-          - mountPath: /var/run/nodeagent
+7109-            name: policysync
+7110-          - mountPath: /etc/pki/tls/certs
+7111:            name: tigera-ca-bundle
+7112-            readOnly: true
+7113-          - mountPath: /etc/pki/tls/cert.pem
+7114:            name: tigera-ca-bundle
+7115-            readOnly: true
+7116:            subPath: ca-bundle.crt
+7117-          - mountPath: /var/lib/calico
+7118-            name: var-lib-calico
+7119-          - mountPath: /var/run/calico
+--
+7277-          name: sys-fs
+7278-        - configMap:
+7279-            defaultMode: 420
+7280:            name: tigera-ca-bundle
+7281:          name: tigera-ca-bundle
+7282-        - hostPath:
+7283-            path: /var/lib/calico
+7284-            type: DirectoryOrCreate

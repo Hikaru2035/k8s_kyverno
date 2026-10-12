@@ -1,0 +1,60 @@
+===== ATTEMPT 1 =====
+exit_code=0
+duration_ms=196
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+
+===== ATTEMPT 2 =====
+exit_code=0
+duration_ms=208
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+
+===== ATTEMPT 3 =====
+exit_code=0
+duration_ms=183
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+
+===== ATTEMPT 4 =====
+exit_code=0
+duration_ms=202
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+
+===== ATTEMPT 5 =====
+exit_code=0
+duration_ms=205
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+
+===== ATTEMPT 6 =====
+exit_code=0
+duration_ms=181
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+
+===== ATTEMPT 7 =====
+exit_code=0
+duration_ms=185
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+
+===== ATTEMPT 8 =====
+exit_code=0
+duration_ms=195
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+
+===== ATTEMPT 9 =====
+exit_code=0
+duration_ms=232
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+
+===== ATTEMPT 10 =====
+exit_code=0
+duration_ms=258
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+pod/ft-web-001-test created
+

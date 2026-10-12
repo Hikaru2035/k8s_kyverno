@@ -1,0 +1,1 @@
+deployment.apps/kyverno-admission-controller restarted

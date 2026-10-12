@@ -1,0 +1,19 @@
+LAST SEEN   TYPE      REASON      OBJECT                                               MESSAGE
+23m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-nc6bt     Readiness probe failed: Get "https://10.244.212.69:9443/health/readiness": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+23m         Normal    Started     pod/kyverno-admission-controller-86f655d85-nc6bt     Container started
+23m         Normal    Pulled      pod/kyverno-admission-controller-86f655d85-nc6bt     Container image "reg.kyverno.io/kyverno/kyverno:v1.19.1" already present on machine and can be accessed by the pod
+23m         Normal    Created     pod/kyverno-admission-controller-86f655d85-nc6bt     Container created
+23m         Normal    Pulled      pod/kyverno-background-controller-69dc58d7b5-85xfq   Container image "reg.kyverno.io/kyverno/background-controller:v1.19.1" already present on machine and can be accessed by the pod
+23m         Normal    Pulled      pod/kyverno-cleanup-controller-d5c68786-cfc7t        Container image "reg.kyverno.io/kyverno/cleanup-controller:v1.19.1" already present on machine and can be accessed by the pod
+23m         Normal    Started     pod/kyverno-reports-controller-767f6648d7-9dgmj      Container started
+23m         Normal    Created     pod/kyverno-reports-controller-767f6648d7-9dgmj      Container created
+23m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-c9ktm     Readiness probe failed: Get "https://10.244.19.152:9443/health/readiness": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+23m         Normal    Created     pod/kyverno-background-controller-69dc58d7b5-85xfq   Container created
+23m         Normal    Started     pod/kyverno-background-controller-69dc58d7b5-85xfq   Container started
+23m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-gnw7x     Readiness probe failed: Get "https://10.244.212.96:9443/health/readiness": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+23m         Normal    Created     pod/kyverno-cleanup-controller-d5c68786-cfc7t        Container created
+23m         Normal    Started     pod/kyverno-cleanup-controller-d5c68786-cfc7t        Container started
+23m         Normal    Pulled      pod/kyverno-reports-controller-767f6648d7-9dgmj      Container image "reg.kyverno.io/kyverno/reports-controller:v1.19.1" already present on machine and can be accessed by the pod
+23m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-pzwt6     Readiness probe failed: Get "https://10.244.19.146:9443/health/readiness": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+23m         Warning   Unhealthy   pod/kyverno-admission-controller-86f655d85-nc6bt     Startup probe failed: Get "https://10.244.212.69:9443/health/liveness": dial tcp 10.244.212.69:9443: connect: connection refused
+23m         Warning   Unhealthy   pod/kyverno-cleanup-controller-d5c68786-cfc7t        Startup probe failed: Get "https://10.244.19.188:9443/health/liveness": dial tcp 10.244.19.188:9443: connect: connection refused

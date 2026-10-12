@@ -1,0 +1,985 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+    admissions.enforcer/disabled: "true"
+  creationTimestamp: "2026-09-17T12:56:42Z"
+  generation: 1
+  labels:
+    webhook.kyverno.io/managed-by: kyverno
+  name: kyverno-resource-validating-webhook-cfg
+  resourceVersion: "14562182"
+  uid: b90d037e-c6a0-45c5-9024-05c5573b8a35
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /gpol/generate-resource-quota
+      port: 443
+  failurePolicy: Ignore
+  matchConditions:
+  - expression: |-
+      object.metadata.?labels[
+        "policies.ksp.io/generate-resource-governance"
+      ].orValue("") == "enabled"
+    name: opted-in-namespace
+  - expression: |-
+      object.metadata.?labels[
+        "policies.ksp.io/environment"
+      ].orValue("") in [
+        "dev",
+        "staging",
+        "production"
+      ]
+    name: valid-environment
+  - expression: |-
+      object.metadata.?labels[
+        "policies.ksp.io/quota-class"
+      ].orValue("") in [
+        "small",
+        "medium",
+        "large"
+      ]
+    name: valid-quota-class
+  - expression: (true) && (!(object.metadata.name in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+    name: ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: gpol.validate.kyverno.svc-ignore-finegrained-generate-resource-quota
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CONNECT
+    - CREATE
+    - DELETE
+    - UPDATE
+    resources:
+    - namespaces
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /ivpol/validate/verify-signed-images
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+      && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'', ''kube-node-lease'',
+      ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+      || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+      ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+      || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+      == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+      && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' && object.kind
+      ==''Job'')) || ((true) && (!(request.namespace in [''default'', ''kube-system'',
+      ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: ivpol.validate.kyverno.svc-fail-finegrained-verify-signed-images
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 30
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/disallow-latest-tag
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+      && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'', ''kube-node-lease'',
+      ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+      || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+      ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+      || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+      == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+      && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' && object.kind
+      ==''Job'')) || ((true) && (!(request.namespace in [''default'', ''kube-system'',
+      ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/disallow-run-as-user-zero
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+      && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'', ''kube-node-lease'',
+      ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+      || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+      ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+      || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+      == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+      && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' && object.kind
+      ==''Job'')) || ((true) && (!(request.namespace in [''default'', ''kube-system'',
+      ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-disallow-run-as-user-zero
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/require-app-label
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+    name: ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-require-app-label
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/require-cpu-limit
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+      && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'', ''kube-node-lease'',
+      ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+      || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+      ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+      || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+      == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+      && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' && object.kind
+      ==''Job'')) || ((true) && (!(request.namespace in [''default'', ''kube-system'',
+      ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-require-cpu-limit
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/require-cpu-request
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+      && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'', ''kube-node-lease'',
+      ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+      || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+      ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+      || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+      == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+      && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' && object.kind
+      ==''Job'')) || ((true) && (!(request.namespace in [''default'', ''kube-system'',
+      ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/require-image-digest
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+      && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'', ''kube-node-lease'',
+      ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+      || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+      ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+      || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+      == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+      && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' && object.kind
+      ==''Job'')) || ((true) && (!(request.namespace in [''default'', ''kube-system'',
+      ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-require-image-digest
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/require-memory-limit
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+      && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'', ''kube-node-lease'',
+      ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+      || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+      ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+      || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+      == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+      && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' && object.kind
+      ==''Job'')) || ((true) && (!(request.namespace in [''default'', ''kube-system'',
+      ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-require-memory-limit
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/require-memory-request
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+      && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'', ''kube-node-lease'',
+      ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+      || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+      ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+      || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+      == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+      && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' && object.kind
+      ==''Job'')) || ((true) && (!(request.namespace in [''default'', ''kube-system'',
+      ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-require-memory-request
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/require-namespace-environment-profile
+      port: 443
+  failurePolicy: Fail
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-require-namespace-environment-profile
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - namespaces
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/require-owner-label
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+      'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+    name: ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-require-owner-label
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /vpol/require-seccomp
+      port: 443
+  failurePolicy: Fail
+  matchConditions:
+  - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+      && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'', ''kube-node-lease'',
+      ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+      || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+      ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+  - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+      || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+      == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+      && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' && object.kind
+      ==''Job'')) || ((true) && (!(request.namespace in [''default'', ''kube-system'',
+      ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+    name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+  matchPolicy: Equivalent
+  name: vpol.validate.kyverno.svc-fail-finegrained-require-seccomp
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kyverno
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - apps
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - cronjobs
+    scope: '*'
+  - apiGroups:
+    - batch
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - jobs
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10

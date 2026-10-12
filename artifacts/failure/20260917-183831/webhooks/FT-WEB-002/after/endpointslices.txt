@@ -1,0 +1,2 @@
+NAME                ADDRESSTYPE   PORTS   ENDPOINTS                                               AGE
+kyverno-svc-2ggvq   IPv4          9443    10.244.19.189,10.244.19.191,10.244.212.75 + 1 more...   3h10m

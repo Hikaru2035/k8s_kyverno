@@ -1,0 +1,124 @@
+===== HOST =====
+control-plane
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.5 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+Linux control-plane 5.15.0-153-generic #163-Ubuntu SMP Thu Aug 7 16:37:18 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+
+===== CONTAINERD =====
+containerd github.com/containerd/containerd/v2 2.2.1 
+* containerd.service - containerd container runtime
+     Loaded: loaded (/lib/systemd/system/containerd.service; enabled; vendor preset: enabled)
+     Active: active (running) since Mon 2026-08-24 16:26:20 +07; 1 month 1 day ago
+       Docs: https://containerd.io
+   Main PID: 154246 (containerd)
+      Tasks: 228
+     Memory: 156.2M
+        CPU: 15h 29min 41.607s
+     CGroup: /system.slice/containerd.service
+             |- 154246 /usr/bin/containerd
+             |- 201820 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 5440d8903ec3828cbf0c272fae96a0479a83f93b6e1e315f302542c33a1eb828 -address /run/containerd/containerd.sock
+             |- 201835 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 2dc568253a8dd5630885276d5cfc0f4aff510f1eed5e9018fbe397246e7b26b2 -address /run/containerd/containerd.sock
+             |- 201839 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id c43961735b9a6e11ee4c2fc0558c2b808df609ac1f8dafe93e7f598a5fd5d3e1 -address /run/containerd/containerd.sock
+             |- 201853 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 9cd788e0a505de5bb686e8a582d9276cad639df15e152e3c811c089182c89864 -address /run/containerd/containerd.sock
+             |- 202615 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 96c0603562b6abc15b6a8fb20d6ad454bd62ddfdb11caf7c0c52b69b612650fd -address /run/containerd/containerd.sock
+             |- 203374 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 548678791b8595ab1b2bd796c9691307de71bc4c7fd6470b508b92e4a8eed13e -address /run/containerd/containerd.sock
+             |- 203595 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 131ffd7604e5da16718b32bbc54fa1cd68858ce34b878927f20261f533e606d6 -address /run/containerd/containerd.sock
+             |- 204633 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 7ec79446d90ac22daeef936d4fd8eb64ccffbf5b7ae091349882a3b200b89fd5 -address /run/containerd/containerd.sock
+             |- 204708 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 63f5d51af4baa657c5e069c6875044d16fba8bb99d59f24c7e42aef1a93fc5d1 -address /run/containerd/containerd.sock
+             |- 204863 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id b4b8f4b532c3cea1a9f90ffd91089755687e038d99a1db3fa4dc3759dd2c1e4e -address /run/containerd/containerd.sock
+             |- 205046 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 5eb2425dd1286ab936ee6f703a08529a69ebdea33293d2007864993214aa2aef -address /run/containerd/containerd.sock
+             |- 206021 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id baf7e9ada5edfa9c3919151e468f1e923e1000e4acc38c37ced9f7f5e36cfb0d -address /run/containerd/containerd.sock
+             |- 758484 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id 6f69066a2e67ca4023f48c1bbd39210f46b9cd8358065e78d9ada803b54fee50 -address /run/containerd/containerd.sock
+             |-1755801 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id f5250b89d3b680b8bdb7275601f3a0595872d6f2d7b6e889b513c77a8b715e51 -address /run/containerd/containerd.sock
+             |-1775664 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id f4b6699c35ef228043215e8bcfdc86edc88b7385571b324fc17e3561c8cec843 -address /run/containerd/containerd.sock
+             `-1775666 /usr/bin/containerd-shim-runc-v2 -namespace k8s.io -id eb867b61103ae9f19c31a129ffe9a9879efcbf91701624cdf81e499e7cc5bdc7 -address /run/containerd/containerd.sock
+
+Sep 24 15:16:32 control-plane containerd[154246]: time="2026-09-24T15:16:32.560271271+07:00" level=info msg="container event discarded" container=8c925dd43935016284cfd871c3aaaa3602c72e9a9874d0845f0c32e57f0f319b type=CONTAINER_STOPPED_EVENT
+Sep 24 15:16:32 control-plane containerd[154246]: time="2026-09-24T15:16:32.834141835+07:00" level=info msg="container event discarded" container=d7677646d7654a454b58f54cf44411dc218e157e03a54e8b1c587e042531bfd0 type=CONTAINER_DELETED_EVENT
+Sep 24 15:16:34 control-plane containerd[154246]: time="2026-09-24T15:16:34.113902535+07:00" level=info msg="container event discarded" container=d69a83a3436ff3fbe4be17adf4e775b66438751130a6ba71fc6c061a3d226eb0 type=CONTAINER_DELETED_EVENT
+Sep 24 15:16:34 control-plane containerd[154246]: time="2026-09-24T15:16:34.232548206+07:00" level=info msg="container event discarded" container=336dadbb176ede25c600c5ceb5b2db0c0e606bcdb2e6b77045f3bbff971b4b6f type=CONTAINER_DELETED_EVENT
+Sep 24 15:16:34 control-plane containerd[154246]: time="2026-09-24T15:16:34.281924305+07:00" level=info msg="container event discarded" container=f8ef0fecc058e81b8434090cf5652a9bc989f807f1feb59e04587b07e2970af0 type=CONTAINER_CREATED_EVENT
+Sep 24 15:16:34 control-plane containerd[154246]: time="2026-09-24T15:16:34.303874869+07:00" level=info msg="container event discarded" container=d5cb0504df7a8901cce3848096ad3d51b4d3b80def3a17f31e7611e1cdbe4e60 type=CONTAINER_CREATED_EVENT
+Sep 24 15:16:34 control-plane containerd[154246]: time="2026-09-24T15:16:34.303955889+07:00" level=info msg="container event discarded" container=11f2a451b65afb84da127916cd373dd443f78f75bbae22efc2a65be1c0727e4e type=CONTAINER_CREATED_EVENT
+Sep 24 15:16:34 control-plane containerd[154246]: time="2026-09-24T15:16:34.549244109+07:00" level=info msg="container event discarded" container=d5cb0504df7a8901cce3848096ad3d51b4d3b80def3a17f31e7611e1cdbe4e60 type=CONTAINER_STARTED_EVENT
+Sep 24 15:16:34 control-plane containerd[154246]: time="2026-09-24T15:16:34.652616269+07:00" level=info msg="container event discarded" container=11f2a451b65afb84da127916cd373dd443f78f75bbae22efc2a65be1c0727e4e type=CONTAINER_STARTED_EVENT
+Sep 24 15:16:34 control-plane containerd[154246]: time="2026-09-24T15:16:34.734978496+07:00" level=info msg="container event discarded" container=f8ef0fecc058e81b8434090cf5652a9bc989f807f1feb59e04587b07e2970af0 type=CONTAINER_STARTED_EVENT
+
+===== CONTAINERD CONFIG =====
+10-[grpc]
+11-  address = '/run/containerd/containerd.sock'
+12-  tcp_address = ''
+13-  tcp_tls_ca = ''
+14:  tcp_tls_cert = ''
+15-  tcp_tls_key = ''
+16-  uid = 0
+17-  gid = 0
+18-  max_recv_message_size = 16777216
+--
+47-    stats_collect_period = 10
+48-    use_local_image_pull = false
+49-
+50-    [plugins.'io.containerd.cri.v1.images'.pinned_images]
+51:      sandbox = 'registry.k8s.io/pause:3.10.1'
+52-
+53:    [plugins.'io.containerd.cri.v1.images'.registry]
+54:      config_path = '/etc/containerd/certs.d:/etc/docker/certs.d'
+55-
+56-    [plugins.'io.containerd.cri.v1.images'.image_decryption]
+57-      key_model = 'node'
+58-
+--
+105-            IoUid = 0
+106-            NoNewKeyring = false
+107-            Root = ''
+108-            ShimCgroup = ''
+109:            SystemdCgroup = true
+110-
+111-    [plugins.'io.containerd.cri.v1.runtime'.cni]
+112-      bin_dir = ''
+113-      bin_dirs = ['/opt/cni/bin']
+--
+136-    stream_idle_timeout = '4h0m0s'
+137-    enable_tls_streaming = false
+138-
+139-    [plugins.'io.containerd.grpc.v1.cri'.x509_key_pair_streaming]
+140:      tls_cert_file = ''
+141-      tls_key_file = ''
+142-
+143-  [plugins.'io.containerd.image-verifier.v1.bindir']
+144-    bin_dir = '/opt/containerd/image-verifier/bin'
+--
+165-  [plugins.'io.containerd.nri.v1.nri']
+166-    disable = false
+167-    socket_path = '/var/run/nri/nri.sock'
+168-    plugin_path = '/opt/nri/plugins'
+169:    plugin_config_path = '/etc/nri/conf.d'
+170-    plugin_registration_timeout = '5s'
+171-    plugin_request_timeout = '2s'
+172-    disable_connections = false
+173-
+--
+241-    max_concurrent_downloads = 3
+242-    concurrent_layer_fetch_buffer = 0
+243-    max_concurrent_uploaded_layers = 3
+244-    check_platform_supported = false
+245:    config_path = ''
+246-    max_concurrent_unpacks = 1
+247-
+248-[cgroup]
+249-  path = ''
+
+===== CERTS.D =====
+
+===== SYSTEM TRUST HARBOR FILES =====
+/usr/local/share/ca-certificates/harbor-ca.crt

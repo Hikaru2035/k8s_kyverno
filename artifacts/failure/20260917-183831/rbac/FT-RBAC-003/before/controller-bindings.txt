@@ -1,0 +1,12 @@
+
+======================================
+SA=kyverno-background-controller
+======================================
+kyverno:background-controller	ClusterRole	kyverno:background-controller
+kyverno:background-controller:view	ClusterRole	view
+
+======================================
+SA=kyverno-reports-controller
+======================================
+kyverno:reports-controller	ClusterRole	kyverno:reports-controller
+kyverno:reports-controller:view	ClusterRole	view

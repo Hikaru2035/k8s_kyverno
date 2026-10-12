@@ -1,0 +1,2 @@
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                    SELECTOR
+coredns   2/2     2            2           36d   coredns      registry.k8s.io/coredns/coredns:v1.13.1   k8s-app=kube-dns

@@ -1,0 +1,2 @@
+kyverno:background-controller	ClusterRole	kyverno:background-controller
+kyverno:background-controller:view	ClusterRole	view

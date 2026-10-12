@@ -4,7 +4,7 @@ metadata:
   name: ksp-meta-001-negative-empty
   namespace: policy-test
   labels:
-    app.kubernetes.io/name: ""
+    app: ""
 spec:
   selector:
     matchLabels:

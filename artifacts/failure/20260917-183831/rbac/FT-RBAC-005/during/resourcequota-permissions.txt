@@ -1,0 +1,8 @@
+2026-10-01T09:11:16+07:00
+get     resourcequotas = yes
+list    resourcequotas = yes
+watch   resourcequotas = yes
+create  resourcequotas = no
+update  resourcequotas = no
+patch   resourcequotas = no
+delete  resourcequotas = no

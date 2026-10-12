@@ -1,0 +1,266 @@
+apiVersion: v1
+items:
+- apiVersion: policies.kyverno.io/v1
+  kind: ImageValidatingPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policies.kyverno.io/v1","kind":"ImageValidatingPolicy","metadata":{"annotations":{"policies.ksp.io/dev-mode":"Audit","policies.ksp.io/exception":"controlled","policies.ksp.io/prod-mode":"Enforce","policies.ksp.io/profiles":"baseline,standard,restricted","policies.ksp.io/rendered-from":"policies/image-security/KSP-IMG-004/KSP-IMG-004-verify-signed-images.yaml","policies.ksp.io/runtime-environment":"development","policies.ksp.io/staging-mode":"Audit","policies.kyverno.io/category":"KSP Image Security","policies.kyverno.io/description":"Verifies Cosign signatures for images in the project Harbor registry.","policies.kyverno.io/severity":"critical","policies.kyverno.io/subject":"Pod","policies.kyverno.io/title":"Verify Signed Images"},"labels":{"app.kubernetes.io/managed-by":"kyverno","policies.ksp.io/id":"ksp-img-004"},"name":"verify-signed-images"},"spec":{"attestors":[{"cosign":{"ctlog":{"insecureIgnoreTlog":true,"url":"https://rekor.sigstore.dev"},"key":{"data":"-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENCILe4A6XfYS7ywb6+2dYofOp/EF\nm2QD8eSTF3tewrleB6qxxTbrdicMpvUl+n26WcNFGKz5Lcw+c60AERhJPw==\n-----END PUBLIC KEY-----"}},"name":"cosign"}],"credentials":{"providers":["default"],"secrets":["harbor-registry-credentials"]},"evaluation":{"background":{"enabled":false}},"failurePolicy":"Fail","matchConditions":[{"expression":"(true) \u0026\u0026 (!(request.namespace in ['default', 'kube-system', 'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))","name":"ksp-runtime-profile-and-platform-scope"}],"matchConstraints":{"resourceRules":[{"apiGroups":[""],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["pods"]}]},"matchImageReferences":[{"glob":"harbor-public:30003/ksp-test/*"}],"validationActions":["Audit","Warn"],"validations":[{"expression":"(\n  images.containers\n  + images.?initContainers.orValue([])\n  + images.?ephemeralContainers.orValue([])\n).map(\n  image,\n  verifyImageSignatures(image, [attestors.cosign])\n).all(result, result \u003e 0)\n","message":"Image must be signed with the trusted Cosign key."}],"webhookConfiguration":{"timeoutSeconds":30}}}
+      policies.ksp.io/dev-mode: Audit
+      policies.ksp.io/exception: controlled
+      policies.ksp.io/prod-mode: Enforce
+      policies.ksp.io/profiles: baseline,standard,restricted
+      policies.ksp.io/rendered-from: policies/image-security/KSP-IMG-004/KSP-IMG-004-verify-signed-images.yaml
+      policies.ksp.io/runtime-environment: development
+      policies.ksp.io/staging-mode: Audit
+      policies.kyverno.io/category: KSP Image Security
+      policies.kyverno.io/description: Verifies Cosign signatures for images in the
+        project Harbor registry.
+      policies.kyverno.io/severity: critical
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Verify Signed Images
+    creationTimestamp: "2026-09-13T12:38:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+      policies.ksp.io/id: ksp-img-004
+    name: verify-signed-images
+    resourceVersion: "10558697"
+    uid: a158cffd-eb16-45a8-8b24-87ced69dc0ea
+  spec:
+    attestors:
+    - cosign:
+        ctlog:
+          insecureIgnoreTlog: true
+          url: https://rekor.sigstore.dev
+        key:
+          data: |-
+            -----BEGIN PUBLIC KEY-----
+            MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENCILe4A6XfYS7ywb6+2dYofOp/EF
+            m2QD8eSTF3tewrleB6qxxTbrdicMpvUl+n26WcNFGKz5Lcw+c60AERhJPw==
+            -----END PUBLIC KEY-----
+      name: cosign
+    credentials:
+      providers:
+      - default
+      secrets:
+      - harbor-registry-credentials
+    evaluation:
+      background:
+        enabled: false
+    failurePolicy: Fail
+    matchConditions:
+    - expression: (true) && (!(request.namespace in ['default', 'kube-system', 'kube-public',
+        'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+      name: ksp-runtime-profile-and-platform-scope
+    matchConstraints:
+      resourceRules:
+      - apiGroups:
+        - ""
+        apiVersions:
+        - v1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - pods
+    matchImageReferences:
+    - glob: harbor-public:30003/ksp-test/*
+    validationActions:
+    - Audit
+    - Warn
+    validationConfigurations:
+      mutateDigest: true
+      required: true
+      verifyDigest: true
+    validations:
+    - expression: |
+        (
+          images.containers
+          + images.?initContainers.orValue([])
+          + images.?ephemeralContainers.orValue([])
+        ).map(
+          image,
+          verifyImageSignatures(image, [attestors.cosign])
+        ).all(result, result > 0)
+      message: Image must be signed with the trusted Cosign key.
+    webhookConfiguration:
+      timeoutSeconds: 30
+  status:
+    autogen:
+      configs:
+        cronjobs:
+          spec:
+            attestors:
+            - cosign:
+                ctlog:
+                  insecureIgnoreTlog: true
+                  url: https://rekor.sigstore.dev
+                key:
+                  data: |-
+                    -----BEGIN PUBLIC KEY-----
+                    MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENCILe4A6XfYS7ywb6+2dYofOp/EF
+                    m2QD8eSTF3tewrleB6qxxTbrdicMpvUl+n26WcNFGKz5Lcw+c60AERhJPw==
+                    -----END PUBLIC KEY-----
+              name: cosign
+            credentials:
+              providers:
+              - default
+              secrets:
+              - harbor-registry-credentials
+            evaluation:
+              background:
+                enabled: false
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - cronjobs
+            matchImageReferences:
+            - glob: harbor-public:30003/ksp-test/*
+            validationActions:
+            - Audit
+            - Warn
+            validationConfigurations:
+              mutateDigest: true
+              required: true
+              verifyDigest: true
+            validations:
+            - expression: |
+                (
+                  images.containers
+                  + images.?initContainers.orValue([])
+                  + images.?ephemeralContainers.orValue([])
+                ).map(
+                  image,
+                  verifyImageSignatures(image, [attestors.cosign])
+                ).all(result, result > 0)
+              message: Image must be signed with the trusted Cosign key.
+            webhookConfiguration:
+              timeoutSeconds: 30
+          targets:
+          - group: batch
+            kind: CronJob
+            resource: cronjobs
+            version: v1
+        defaults:
+          spec:
+            attestors:
+            - cosign:
+                ctlog:
+                  insecureIgnoreTlog: true
+                  url: https://rekor.sigstore.dev
+                key:
+                  data: |-
+                    -----BEGIN PUBLIC KEY-----
+                    MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENCILe4A6XfYS7ywb6+2dYofOp/EF
+                    m2QD8eSTF3tewrleB6qxxTbrdicMpvUl+n26WcNFGKz5Lcw+c60AERhJPw==
+                    -----END PUBLIC KEY-----
+              name: cosign
+            credentials:
+              providers:
+              - default
+              secrets:
+              - harbor-registry-credentials
+            evaluation:
+              background:
+                enabled: false
+            failurePolicy: Fail
+            matchConditions:
+            - expression: (true) && (!(request.namespace in ['default', 'kube-system',
+                'kube-public', 'kube-node-lease', 'kyverno', 'calico-system', 'tigera-operator']))
+              name: ksp-runtime-profile-and-platform-scope
+            matchConstraints:
+              resourceRules:
+              - apiGroups:
+                - apps
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              - apiGroups:
+                - batch
+                apiVersions:
+                - v1
+                operations:
+                - CREATE
+                - UPDATE
+                resources:
+                - jobs
+            matchImageReferences:
+            - glob: harbor-public:30003/ksp-test/*
+            validationActions:
+            - Audit
+            - Warn
+            validationConfigurations:
+              mutateDigest: true
+              required: true
+              verifyDigest: true
+            validations:
+            - expression: |
+                (
+                  images.containers
+                  + images.?initContainers.orValue([])
+                  + images.?ephemeralContainers.orValue([])
+                ).map(
+                  image,
+                  verifyImageSignatures(image, [attestors.cosign])
+                ).all(result, result > 0)
+              message: Image must be signed with the trusted Cosign key.
+            webhookConfiguration:
+              timeoutSeconds: 30
+          targets:
+          - group: apps
+            kind: DaemonSet
+            resource: daemonsets
+            version: v1
+          - group: apps
+            kind: Deployment
+            resource: deployments
+            version: v1
+          - group: apps
+            kind: ReplicaSet
+            resource: replicasets
+            version: v1
+          - group: apps
+            kind: StatefulSet
+            resource: statefulsets
+            version: v1
+          - group: batch
+            kind: Job
+            resource: jobs
+            version: v1
+    conditionStatus:
+      conditions:
+      - lastTransitionTime: "2026-09-13T12:38:06Z"
+        message: Webhook configured.
+        reason: Succeeded
+        status: "True"
+        type: WebhookConfigured
+      - lastTransitionTime: "2026-09-13T12:38:05Z"
+        message: Policy is ready for reporting.
+        reason: Succeeded
+        status: "True"
+        type: RBACPermissionsGranted
+      message: ""
+      ready: true
+kind: List
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,3 @@
+pod/signed-reg-003-recovery created (server dry run)
+exit_code=0
+latency_ms=1179

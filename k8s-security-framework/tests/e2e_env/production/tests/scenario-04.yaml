@@ -1,0 +1,8 @@
+# Scenario 04: invalid environment
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-invalid-environment
+  labels:
+    ksp.io/environment: qa
+    ksp.io/profile: baseline

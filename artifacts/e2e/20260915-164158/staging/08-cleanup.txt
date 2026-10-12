@@ -1,0 +1,38 @@
+=== STAGING CLEANUP ===
+Time: 2026-09-16T09:14:28+07:00
+
+DELETE: k8s-security-framework/tests/e2e/staging/cronjob/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/staging/cronjob/valid.yaml
+cronjob.batch "e2e-stg-cronjob-valid" deleted from ksp-staging namespace
+
+DELETE: k8s-security-framework/tests/e2e/staging/job/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/staging/job/valid.yaml
+job.batch "e2e-stg-job-valid" deleted from ksp-staging namespace
+
+DELETE: k8s-security-framework/tests/e2e/staging/daemonset/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/staging/daemonset/valid.yaml
+daemonset.apps "e2e-stg-daemonset-valid" deleted from ksp-staging namespace
+
+DELETE: k8s-security-framework/tests/e2e/staging/statefulset/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/staging/statefulset/valid.yaml
+statefulset.apps "e2e-stg-statefulset-valid" deleted from ksp-staging namespace
+
+DELETE: k8s-security-framework/tests/e2e/staging/deployment/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/staging/deployment/valid.yaml
+deployment.apps "e2e-stg-deployment-valid" deleted from ksp-staging namespace
+
+DELETE: k8s-security-framework/tests/e2e/staging/pod/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/staging/pod/valid.yaml
+pod "e2e-stg-pod-valid" deleted from ksp-staging namespace
+
+DELETE: k8s-security-framework/tests/e2e/staging/namespace/invalid.yaml
+namespace "e2e-stg-ns-invalid" deleted
+
+DELETE: k8s-security-framework/tests/e2e/staging/namespace/valid.yaml
+namespace "e2e-stg-ns-valid" deleted

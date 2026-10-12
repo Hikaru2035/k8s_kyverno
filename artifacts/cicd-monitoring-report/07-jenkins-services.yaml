@@ -1,0 +1,83 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: jenkins
+      meta.helm.sh/release-namespace: jenkins
+    creationTimestamp: "2026-09-21T05:16:47Z"
+    labels:
+      app.kubernetes.io/component: jenkins-controller
+      app.kubernetes.io/instance: jenkins
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: jenkins
+      helm.sh/chart: jenkins-5.9.63
+      policies.ksp.io/owner: platform-team
+    name: jenkins
+    namespace: jenkins
+    resourceVersion: "23827000"
+    uid: 6a179bf2-7a56-4459-b908-e61f62686d98
+  spec:
+    clusterIP: 10.109.24.10
+    clusterIPs:
+    - 10.109.24.10
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      nodePort: 30080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app.kubernetes.io/component: jenkins-controller
+      app.kubernetes.io/instance: jenkins
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: jenkins
+      meta.helm.sh/release-namespace: jenkins
+    creationTimestamp: "2026-09-21T05:16:47Z"
+    labels:
+      app.kubernetes.io/component: jenkins-controller
+      app.kubernetes.io/instance: jenkins
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: jenkins
+      helm.sh/chart: jenkins-5.9.63
+      policies.ksp.io/owner: platform-team
+    name: jenkins-agent
+    namespace: jenkins
+    resourceVersion: "23826996"
+    uid: 06eb616c-40ea-431e-84ac-a5133df5d41f
+  spec:
+    clusterIP: 10.109.67.117
+    clusterIPs:
+    - 10.109.67.117
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: agent-listener
+      port: 50000
+      protocol: TCP
+      targetPort: 50000
+    selector:
+      app.kubernetes.io/component: jenkins-controller
+      app.kubernetes.io/instance: jenkins
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

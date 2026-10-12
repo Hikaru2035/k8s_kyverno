@@ -1,0 +1,15 @@
+Name:         ft-reg-003-drop-harbor
+Namespace:    kyverno
+Created on:   2026-10-01 11:13:11 +0700 +07
+Labels:       <none>
+Annotations:  <none>
+Spec:
+  PodSelector:     app.kubernetes.io/component=admission-controller
+  Not affecting ingress traffic
+  Allowing egress traffic:
+    To Port: <any> (traffic allowed to all ports)
+    To:
+      IPBlock:
+        CIDR: 0.0.0.0/0
+        Except: 171.244.199.186/32
+  Policy Types: Egress

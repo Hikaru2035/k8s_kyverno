@@ -1,0 +1,10 @@
+request=1 rc=0 latency_ms=797
+request=2 rc=0 latency_ms=224
+request=3 rc=0 latency_ms=163
+request=4 rc=0 latency_ms=173
+request=5 rc=0 latency_ms=180
+request=6 rc=0 latency_ms=177
+request=7 rc=0 latency_ms=168
+request=8 rc=0 latency_ms=167
+request=9 rc=0 latency_ms=180
+request=10 rc=0 latency_ms=220

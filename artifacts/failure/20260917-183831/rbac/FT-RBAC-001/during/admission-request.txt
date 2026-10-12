@@ -1,0 +1,6 @@
+error: failed to create configmap: admission webhook "validate.kyverno.svc-fail" denied the request: 
+
+resource ConfigMap/ft-webhook-test/ft-rbac-001-trigger was blocked due to the following policies 
+
+ft-rbac-001-api-read:
+  require-api-read: 'failed to check deny conditions: failed to substitute variables in condition key: failed to resolve length(pods) at path : failed to fetch data for APICall: failed to GET resource with raw url: /api/v1/namespaces/ft-webhook-test/pods: permission denied: unknown'

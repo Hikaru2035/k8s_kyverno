@@ -1,0 +1,21 @@
+2026-10-01T10:38:37+07:00
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+** server can't find harbor-public.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.kyverno.svc.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.svc.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.kyverno.svc.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.svc.cluster.local: NXDOMAIN
+
+** server can't find harbor-public.cluster.local: NXDOMAIN
+
+Name:	harbor-public.openstacklocal
+Address: 171.244.199.186
+
+
+command terminated with exit code 1

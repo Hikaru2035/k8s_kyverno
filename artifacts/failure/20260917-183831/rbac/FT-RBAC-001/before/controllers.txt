@@ -1,0 +1,5 @@
+NAME                            SERVICEACCOUNT                  READY   REPLICAS
+kyverno-admission-controller    kyverno-admission-controller    4       4
+kyverno-background-controller   kyverno-background-controller   2       2
+kyverno-cleanup-controller      kyverno-cleanup-controller      2       2
+kyverno-reports-controller      kyverno-reports-controller      2       2

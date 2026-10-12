@@ -1,0 +1,24 @@
+# Build arguments are supplied from versions.yaml; no CI tools on the controller.
+ARG AGENT_IMAGE
+ARG PYTHON_IMAGE
+FROM ${AGENT_IMAGE} AS remoting
+FROM ${PYTHON_IMAGE}
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends bash curl git ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=remoting /opt/java/openjdk /opt/java/openjdk
+COPY --from=remoting /usr/share/jenkins/agent.jar /usr/share/jenkins/agent.jar
+COPY --from=remoting /usr/local/bin/jenkins-agent /usr/local/bin/jenkins-agent
+ENV JAVA_HOME=/opt/java/openjdk
+ENV PATH=/opt/java/openjdk/bin:$PATH
+ARG PYYAML_VERSION
+RUN python3 -m pip install --no-cache-dir "PyYAML==${PYYAML_VERSION}"
+COPY versions.yaml /opt/ksp/versions.yaml
+COPY jenkins/scripts/common.sh jenkins/scripts/install-tools.sh /opt/ksp/jenkins/scripts/
+RUN bash /opt/ksp/jenkins/scripts/install-tools.sh \
+    && groupadd -g 1000 jenkins && useradd -m -u 1000 -g 1000 jenkins
+USER 1000:1000
+WORKDIR /home/jenkins/agent
+ENV XDG_CACHE_HOME=/home/jenkins/agent/.cache
+ENV TRIVY_CACHE_DIR=/home/jenkins/agent/.cache/trivy
+ENTRYPOINT ["/usr/local/bin/jenkins-agent"]

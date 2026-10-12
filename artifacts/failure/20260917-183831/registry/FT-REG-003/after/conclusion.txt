@@ -1,0 +1,42 @@
+FT-REG-003
+Result: PASS
+
+Scenario:
+Network traffic from the Kyverno admission controller to the Harbor
+registry is dropped rather than actively rejected.
+
+Baseline:
+Harbor DNS resolution, service endpoints, and registry connectivity
+were healthy.
+
+Failure Injection:
+Applied an egress NetworkPolicy to the Kyverno admission-controller
+Pods which excluded the Harbor registry address 171.244.199.186.
+
+Runtime Result:
+Kyverno attempted to access:
+
+https://harbor-public:30003/v2/
+
+but the TCP connection did not receive an immediate rejection.
+Image verification failed with:
+
+dial tcp 171.244.199.186:30003: i/o timeout
+
+The admission request latency increased to approximately 5.5 seconds,
+compared with the fast failure observed for the connection-refused
+scenario in FT-REG-002.
+
+A PolicyViolation event was generated for verify-signed-images and
+contained the registry i/o timeout error.
+
+Because the development ImageValidatingPolicy uses Audit and Warn,
+the request was admitted with a warning rather than denied.
+
+Recovery:
+The temporary NetworkPolicies were removed and registry connectivity
+was restored. The signed-image verification test was repeated without
+a registry timeout error.
+
+Result:
+PASS

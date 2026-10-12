@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: PLACEHOLDER
+  namespace: ft-load
+  labels:
+    app: ft-load
+    policies.ksp.io/owner: platform-team
+spec:
+  restartPolicy: Never
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+  - name: test
+    image: busybox@sha256:6d3fa4188a14cc09a6c76e064a94f7c177e8e4c4a52e7c9bb44e6bba13b5d9d1
+    command: ["sh", "-c", "true"]
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+    resources:
+      requests:
+        cpu: 10m
+        memory: 8Mi
+      limits:
+        cpu: 50m
+        memory: 32Mi

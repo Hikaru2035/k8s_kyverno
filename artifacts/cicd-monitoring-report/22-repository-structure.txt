@@ -1,0 +1,82 @@
+===== CURRENT COMMIT =====
+d909d69 ci: fix trivy scan
+
+===== JENKINSFILES =====
+-rw-r--r-- 1 root root 3566 Sep 23 16:34 Jenkinsfile.ci
+-rw-r--r-- 1 root root 2413 Sep 24 09:33 Jenkinsfile.delivery
+-rw-r--r-- 1 root root 2586 Sep 24 09:33 Jenkinsfile.policy-promote
+
+===== JENKINS SCRIPTS =====
+jenkins/Dockerfile.agent
+jenkins/README.md
+jenkins/implementation-plan.md
+jenkins/scripts/__pycache__/build-demo-image.cpython-310.pyc
+jenkins/scripts/__pycache__/delivery-reports.cpython-310.pyc
+jenkins/scripts/__pycache__/gitops_app.cpython-310.pyc
+jenkins/scripts/__pycache__/gitops_policy.cpython-310.pyc
+jenkins/scripts/__pycache__/gitops_publish.cpython-310.pyc
+jenkins/scripts/__pycache__/live-policies.cpython-310.pyc
+jenkins/scripts/__pycache__/manifests.cpython-310.pyc
+jenkins/scripts/__pycache__/policy_artifact.cpython-310.pyc
+jenkins/scripts/__pycache__/test-approved-policies.cpython-310.pyc
+jenkins/scripts/approved-policies.py
+jenkins/scripts/build-demo-image.py
+jenkins/scripts/check-policy.sh
+jenkins/scripts/cli-unit.sh
+jenkins/scripts/collect-results.sh
+jenkins/scripts/common.sh
+jenkins/scripts/delivery-evidence.sh
+jenkins/scripts/delivery-reports.py
+jenkins/scripts/delivery.sh
+jenkins/scripts/gitops_app.py
+jenkins/scripts/gitops_policy.py
+jenkins/scripts/gitops_publish.py
+jenkins/scripts/harbor-check.py
+jenkins/scripts/health-check.py
+jenkins/scripts/install-tools.sh
+jenkins/scripts/jenkins-helm.sh
+jenkins/scripts/kind-integration.sh
+jenkins/scripts/live-policies.py
+jenkins/scripts/manifests.py
+jenkins/scripts/package-approved-policies.sh
+jenkins/scripts/policy-promote.sh
+jenkins/scripts/policy_artifact.py
+jenkins/scripts/prepare-artifacts.py
+jenkins/scripts/rendered-policy-test.sh
+jenkins/scripts/test-approved-policies.py
+jenkins/scripts/validate-yaml.py
+jenkins/scripts/validate.sh
+jenkins/scripts/with-harbor.sh
+jenkins/tests/__pycache__/test_delivery.cpython-310.pyc
+jenkins/tests/__pycache__/test_gitops.cpython-310.pyc
+jenkins/tests/__pycache__/test_scripts.cpython-310.pyc
+jenkins/tests/test_delivery.py
+jenkins/tests/test_gitops.py
+jenkins/tests/test_scripts.py
+
+===== GITOPS TREE =====
+gitops/applications/demo-app/deployment.yaml
+gitops/applications/demo-app/kustomization.yaml
+gitops/applications/demo-app/namespace.yaml
+gitops/applications/demo-app/networkpolicy.yaml
+gitops/applications/demo-app/service.yaml
+gitops/argocd/demo-app-application.yaml
+gitops/argocd/policy-application.yaml
+gitops/policies/development/baseline/KSP-IMG-001-disallow-latest-tag.yaml
+gitops/policies/development/baseline/KSP-IMG-003-require-image-digest.yaml
+gitops/policies/development/baseline/KSP-IMG-004-verify-signed-images.yaml
+gitops/policies/development/baseline/KSP-META-001-require-app-label.yaml
+gitops/policies/development/baseline/KSP-META-002-require-owner-label.yaml
+gitops/policies/development/baseline/KSP-POD-010-require-seccomp.yaml
+gitops/policies/development/baseline/KSP-POD-013-disallow-run-as-user-zero.yaml
+gitops/policies/development/baseline/KSP-RES-001-require-cpu-request.yaml
+gitops/policies/development/baseline/KSP-RES-002-require-memory-request.yaml
+gitops/policies/development/baseline/KSP-RES-003-require-cpu-limit.yaml
+gitops/policies/development/baseline/KSP-RES-004-require-memory-limit.yaml
+gitops/policies/development/baseline/KSP-RES-005-generate-resource-quota.yaml
+gitops/policies/development/common/KSP-META-003-require-environment-label.yaml
+gitops/policies/development/kustomization.yaml
+gitops/policies/development/provenance.json
+
+===== DEMO APP IMAGE =====
+gitops/applications/demo-app/deployment.yaml:33:        image: harbor-public:30003/ksp-test/demo-app@sha256:0000000000000000000000000000000000000000000000000000000000000000

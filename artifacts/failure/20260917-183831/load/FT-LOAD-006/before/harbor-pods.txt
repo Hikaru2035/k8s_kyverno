@@ -1,0 +1,8 @@
+NAME                                 READY   STATUS    RESTARTS     AGE   IP               NODE            NOMINATED NODE   READINESS GATES
+harbor-core-78fdcd6459-jm6vx         1/1     Running   0            28h   10.244.212.70    worker-node-1   <none>           <none>
+harbor-database-0                    1/1     Running   0            8d    10.244.212.125   worker-node-1   <none>           <none>
+harbor-jobservice-684494d9bb-8vblt   1/1     Running   5 (8d ago)   8d    10.244.212.103   worker-node-1   <none>           <none>
+harbor-nginx-688cf77c5b-7f6lh        1/1     Running   0            8d    10.244.19.153    worker-node-2   <none>           <none>
+harbor-portal-677b5d5455-9c9r2       1/1     Running   0            8d    10.244.212.122   worker-node-1   <none>           <none>
+harbor-redis-0                       1/1     Running   0            8d    10.244.19.141    worker-node-2   <none>           <none>
+harbor-registry-8464c694b4-2x9kn     2/2     Running   0            8d    10.244.19.156    worker-node-2   <none>           <none>

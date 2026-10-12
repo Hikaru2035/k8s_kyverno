@@ -1,0 +1,58 @@
+===== JENKINS PODS =====
+NAME                           READY   STATUS      RESTARTS   AGE     IP              NODE            NOMINATED NODE   READINESS GATES
+harbor-ksp-tools-direct-test   0/1     Completed   0          18h     10.244.19.169   worker-node-2   <none>           <none>
+harbor-pull-test               0/1     Completed   0          2d16h   10.244.212.81   worker-node-1   <none>           <none>
+jenkins-0                      1/1     Running     0          47h     10.244.19.167   worker-node-2   <none>           <none>
+ksp-tools-debug                1/1     Running     0          2d      10.244.212.90   worker-node-1   <none>           <none>
+
+===== JENKINS DEPLOYMENTS =====
+
+===== JENKINS STATEFULSETS =====
+NAME      READY   AGE     CONTAINERS   IMAGES
+jenkins   1/1     3d22h   jenkins      docker.io/jenkins/jenkins:2.568.3-jdk21
+
+===== JENKINS SERVICES =====
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE     SELECTOR
+jenkins         NodePort    10.109.24.10    <none>        8080:30080/TCP   3d22h   app.kubernetes.io/component=jenkins-controller,app.kubernetes.io/instance=jenkins
+jenkins-agent   ClusterIP   10.109.67.117   <none>        50000/TCP        3d22h   app.kubernetes.io/component=jenkins-controller,app.kubernetes.io/instance=jenkins
+
+===== JENKINS PVC =====
+NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE     VOLUMEMODE
+jenkins   Bound    pvc-e7af282e-ce98-4033-9ba8-dc28fe8363fd   10Gi       RWO            local-path     <unset>                 3d22h   Filesystem
+
+===== JENKINS CONFIGMAPS =====
+NAME               DATA   AGE
+harbor-ca          1      2d16h
+jenkins            3      3d22h
+ksp-ca-bundle      1      2d15h
+kube-root-ca.crt   1      4d
+
+===== JENKINS SECRETS METADATA =====
+NAME                             TYPE
+harbor-pull                      kubernetes.io/dockerconfigjson
+jenkins-admin                    Opaque
+sh.helm.release.v1.jenkins.v10   helm.sh/release.v1
+sh.helm.release.v1.jenkins.v11   helm.sh/release.v1
+sh.helm.release.v1.jenkins.v12   helm.sh/release.v1
+sh.helm.release.v1.jenkins.v13   helm.sh/release.v1
+sh.helm.release.v1.jenkins.v4    helm.sh/release.v1
+sh.helm.release.v1.jenkins.v5    helm.sh/release.v1
+sh.helm.release.v1.jenkins.v6    helm.sh/release.v1
+sh.helm.release.v1.jenkins.v7    helm.sh/release.v1
+sh.helm.release.v1.jenkins.v8    helm.sh/release.v1
+sh.helm.release.v1.jenkins.v9    helm.sh/release.v1
+
+===== JENKINS SERVICE ACCOUNTS =====
+NAME            AGE
+default         4d
+jenkins         3d22h
+jenkins-agent   3d22h
+
+===== JENKINS RBAC =====
+NAME                                                     CREATED AT
+role.rbac.authorization.k8s.io/jenkins-schedule-agents   2026-09-21T05:16:47Z
+
+NAME                                                            ROLE                           AGE
+rolebinding.rbac.authorization.k8s.io/jenkins-schedule-agents   Role/jenkins-schedule-agents   3d22h
+
+===== JENKINS NETWORK POLICY =====

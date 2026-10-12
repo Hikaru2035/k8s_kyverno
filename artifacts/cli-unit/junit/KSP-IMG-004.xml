@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="7">
+ <testsuite name="verify-signed-images" tests="13" failures="7">
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-boundary-out-of-scope">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-boundary-out-of-scope
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-positive-out-of-scope-images">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-positive-out-of-scope-images
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-positive-out-of-scope">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-positive-out-of-scope
+   ]]></system-out>
+  </testcase>
+  <testcase classname="verify-signed-images" name="v1/Pod/policy-test/img-004-boundary-out-of-scope-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: verify-signed-images
+    Resource: v1/Pod/policy-test/img-004-boundary-out-of-scope-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-004-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-004-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-004-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: verify-signed-images
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-004-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-ephemeral-unsigned">
+   <failure message="Want fail, got error" />
+    Policy: verify-signed-images
+    Rule: evaluation
+    Resource: v1/Pod/policy-test/img-004-negative-ephemeral-unsigned
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-init-unsigned">
+   <failure message="Want fail, got error" />
+    Policy: verify-signed-images
+    Rule: evaluation
+    Resource: v1/Pod/policy-test/img-004-negative-init-unsigned
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-two-unsigned">
+   <failure message="Want fail, got error" />
+    Policy: verify-signed-images
+    Rule: evaluation
+    Resource: v1/Pod/policy-test/img-004-negative-two-unsigned
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-unsigned">
+   <failure message="Want fail, got error" />
+    Policy: verify-signed-images
+    Rule: evaluation
+    Resource: v1/Pod/policy-test/img-004-negative-unsigned
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-ephemeral-unsigned-additional-boundary-fail">
+   <failure message="Want fail, got error" />
+    Policy: verify-signed-images
+    Rule: evaluation
+    Resource: v1/Pod/policy-test/img-004-negative-ephemeral-unsigned-additional-boundary-fail
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-positive-trusted-signed">
+   <failure message="Want pass, got error" />
+    Policy: verify-signed-images
+    Rule: evaluation
+    Resource: v1/Pod/policy-test/img-004-positive-trusted-signed
+    Result: Fail  </testcase>
+  <testcase classname="evaluation" name="v1/Pod/policy-test/img-004-negative-wrong-key-signed">
+   <failure message="Want fail, got error" />
+    Policy: verify-signed-images
+    Rule: evaluation
+    Resource: v1/Pod/policy-test/img-004-negative-wrong-key-signed
+    Result: Fail  </testcase>
+ </testsuite>
+</testsuites>

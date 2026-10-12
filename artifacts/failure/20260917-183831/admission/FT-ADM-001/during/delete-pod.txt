@@ -1,0 +1,1 @@
+pod "kyverno-admission-controller-65d97f9d85-fzcdt" deleted from kyverno namespace

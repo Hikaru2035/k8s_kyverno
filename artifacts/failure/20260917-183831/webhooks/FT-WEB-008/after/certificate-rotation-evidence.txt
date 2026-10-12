@@ -1,0 +1,24 @@
+2026-10-01T08:28:18+07:00
+=== Injected Expired Certificate ===
+subject=CN = kyverno-svc
+issuer=CN = *.kyverno.svc
+serial=1000
+notBefore=Sep 30 00:00:00 2026 GMT
+notAfter=Sep 30 01:00:00 2026 GMT
+sha256 Fingerprint=D9:16:DA:64:45:C6:5E:EC:C1:A7:36:6D:19:04:83:CA:CE:95:80:EF:DE:90:6B:9C:EF:70:71:4E:2B:B7:9D:CC
+
+=== Expired Certificate Verification ===
+CN = kyverno-svc
+error 10 at 0 depth lookup: certificate has expired
+error /root/k8s_kyverno/artifacts/failure/20260917-183831/webhooks/FT-WEB-008/before/expired-tls.crt: verification failed
+
+=== Current Managed Certificate ===
+subject=CN = kyverno-svc
+issuer=CN = *.kyverno.svc
+serial=01
+notBefore=Oct  1 00:27:01 2026 GMT
+notAfter=Feb 28 01:27:01 2027 GMT
+sha256 Fingerprint=17:08:03:10:F0:EB:5A:48:E1:E3:E7:97:72:CE:F5:30:1F:64:E5:C9:E0:9C:48:EE:42:EF:21:F3:5E:E9:FF:67
+
+=== Kyverno Certificate Management ===
+managed-by=kyverno

@@ -1,0 +1,4 @@
+Warning: Policy verify-signed-images error: failed to evaluate policy: Get "https://harbor-public:30003/v2/": dial tcp 171.244.199.186:30003: i/o timeout
+pod/signed-reg-003 created (server dry run)
+exit_code=0
+latency_ms=5483

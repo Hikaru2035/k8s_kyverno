@@ -1,0 +1,53 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kyverno.io/v1","kind":"ClusterPolicy","metadata":{"annotations":{},"name":"ft-rbac-001-api-read"},"spec":{"background":false,"rules":[{"context":[{"apiCall":{"jmesPath":"items","urlPath":"/api/v1/namespaces/ft-webhook-test/pods"},"name":"pods"}],"match":{"any":[{"resources":{"kinds":["ConfigMap"],"names":["ft-rbac-001-trigger"],"namespaces":["ft-webhook-test"]}}]},"name":"require-api-read","validate":{"deny":{"conditions":{"all":[{"key":"{{ length(pods) }}","operator":"LessThan","value":0}]}},"message":"FT-RBAC-001 API read completed."}}],"validationFailureAction":"Enforce"}}
+  creationTimestamp: "2026-10-01T01:51:58Z"
+  generation: 1
+  name: ft-rbac-001-api-read
+  resourceVersion: "34828778"
+  uid: bbd49f17-9e91-4f5f-9c6a-0d782b35646d
+spec:
+  admission: true
+  background: false
+  emitWarning: false
+  rules:
+  - context:
+    - apiCall:
+        jmesPath: items
+        method: GET
+        urlPath: /api/v1/namespaces/ft-webhook-test/pods
+      name: pods
+    match:
+      any:
+      - resources:
+          kinds:
+          - ConfigMap
+          names:
+          - ft-rbac-001-trigger
+          namespaces:
+          - ft-webhook-test
+    name: require-api-read
+    skipBackgroundRequests: true
+    validate:
+      allowExistingViolations: true
+      deny:
+        conditions:
+          all:
+          - key: '{{ length(pods) }}'
+            operator: LessThan
+            value: 0
+      message: FT-RBAC-001 API read completed.
+  validationFailureAction: Enforce
+status:
+  autogen: {}
+  rulecount:
+    generate: 0
+    mutate: 0
+    validate: 0
+    verifyimages: 0
+  validatingadmissionpolicy:
+    generated: false
+    message: skip generating ValidatingAdmissionPolicy for non CEL rules.

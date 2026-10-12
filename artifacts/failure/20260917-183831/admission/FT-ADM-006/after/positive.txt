@@ -1,0 +1,2 @@
+Error from server: error when creating "/root/k8s_kyverno/k8s-security-framework/tests/e2e/production/pod/valid.yaml": admission webhook "ivpol.validate.kyverno.svc-fail-finegrained-verify-signed-images" denied the request: Policy verify-signed-images error: failed to evaluate policy: Get "https://harbor-public:30003/v2/": dial tcp 171.244.199.186:30003: connect: connection refused
+EXIT_CODE=1

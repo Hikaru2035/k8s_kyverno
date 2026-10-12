@@ -1,0 +1,5 @@
+
+Container: kyverno
+RestartCount: 1
+CurrentState: {"running":{"startedAt":"2026-10-01T07:13:45Z"}}
+LastState: {"terminated":{"containerID":"containerd://5c0d57125d989ea243d56f3e445ec59fad011991a31d664c0e995c34f20ee3ef","exitCode":0,"finishedAt":"2026-10-01T07:13:45Z","reason":"Completed","startedAt":"2026-10-01T04:36:12Z"}}

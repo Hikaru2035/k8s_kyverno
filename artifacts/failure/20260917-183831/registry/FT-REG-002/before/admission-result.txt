@@ -1,0 +1,2 @@
+pod/signed-reg-002 created (server dry run)
+exit_code=0
