@@ -24,15 +24,17 @@ node('ksp-tools') {
                     installationName: 'sonarqube-server',
                     credentialsId: 'sonarqube-token'
                 ) {
-                    sh """
-                        set -eu
-                        "${scannerHome}/bin/sonar-scanner" \
-                          -Dsonar.projectKey=k8s-security-framework \
-                          -Dsonar.projectName=k8s-security-framework \
-                          -Dsonar.sources=. \
-                          -Dsonar.sourceEncoding=UTF-8 \
-                          -Dsonar.exclusions=**/.git/**,**/.scannerwork/**,**/artifacts/**,**/node_modules/**,**/vendor/**,**/coverage/**,**/dist/**,**/build/**
-                    """
+                    withEnv(["SONAR_USER_HOME=${env.WORKSPACE}/.sonar"]) {
+                        sh """
+                            set -eu
+                            "${scannerHome}/bin/sonar-scanner" \
+                              -Dsonar.projectKey=k8s-security-framework \
+                              -Dsonar.projectName=k8s-security-framework \
+                              -Dsonar.sources=. \
+                              -Dsonar.sourceEncoding=UTF-8 \
+                              -Dsonar.exclusions=**/.git/**,**/.scannerwork/**,**/artifacts/**,**/node_modules/**,**/vendor/**,**/coverage/**,**/dist/**,**/build/**
+                        """
+                    }
                 }
             }
             stage('SonarQube Quality Gate') {
