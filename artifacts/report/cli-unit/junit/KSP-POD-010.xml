@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="15" failures="0">
+ <testsuite name="require-seccomp" tests="15" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-boundary-localhost">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-boundary-localhost
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-positive">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-positive
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-positive-pod-runtime-default">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-positive-pod-runtime-default
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-positive-two-container-seccomp">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-positive-two-container-seccomp
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-negative-ephemeral-unconfined">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-negative-ephemeral-unconfined
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-negative-init-unset">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-negative-init-unset
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-negative-unconfined-first">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-negative-unconfined-first
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-negative">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-boundary-ephemeral-unconfined-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-boundary-ephemeral-unconfined-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-negative-pod-default-regular-override">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-negative-pod-default-regular-override
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-negative-pod-default-init-override">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-negative-pod-default-init-override
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-010-negative-pod-default-ephemeral-override">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-010-negative-pod-default-ephemeral-override
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-010-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-010-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-010-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-010-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-010-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: require-seccomp
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-010-exception-tertiary
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

@@ -1,0 +1,242 @@
+apiVersion: v1
+items:
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: MutatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2026-08-26T04:38:55Z"
+    generation: 1
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-policy-mutating-webhook-cfg
+    resourceVersion: "16758"
+    uid: f92afef9-76e0-45a0-b988-e8595133779f
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-svc
+        namespace: kyverno
+        path: /policymutate
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: mutate-policy.kyverno.svc
+    namespaceSelector: {}
+    objectSelector: {}
+    reinvocationPolicy: IfNeeded
+    rules:
+    - apiGroups:
+      - kyverno.io
+      apiVersions:
+      - v1
+      - v2beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - clusterpolicies
+      - policies
+      scope: '*'
+    sideEffects: NoneOnDryRun
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: MutatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2026-08-26T04:38:55Z"
+    generation: 8
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-resource-mutating-webhook-cfg
+    resourceVersion: "8463982"
+    uid: 927105e7-0eae-4ed5-a371-6d03266a5a07
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-svc
+        namespace: kyverno
+        path: /ivpol/mutate/verify-signed-images
+        port: 443
+    failurePolicy: Fail
+    matchConditions:
+    - expression: '!((object.apiVersion == ''v1'' && object.kind ==''Pod'')) || ((true)
+        && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+        ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+      name: autogen-ksp-runtime-profile-and-platform-scope
+    - expression: '!((object.apiVersion == ''batch/v1'' && object.kind ==''CronJob''))
+        || ((true) && (!(request.namespace in [''default'', ''kube-system'', ''kube-public'',
+        ''kube-node-lease'', ''kyverno'', ''calico-system'', ''tigera-operator''])))'
+      name: autogen-cronjobs-ksp-runtime-profile-and-platform-scope
+    - expression: '!((object.apiVersion == ''apps/v1'' && object.kind ==''DaemonSet'')
+        || (object.apiVersion == ''apps/v1'' && object.kind ==''Deployment'') || (object.apiVersion
+        == ''apps/v1'' && object.kind ==''ReplicaSet'') || (object.apiVersion == ''apps/v1''
+        && object.kind ==''StatefulSet'') || (object.apiVersion == ''batch/v1'' &&
+        object.kind ==''Job'')) || ((true) && (!(request.namespace in [''default'',
+        ''kube-system'', ''kube-public'', ''kube-node-lease'', ''kyverno'', ''calico-system'',
+        ''tigera-operator''])))'
+      name: autogen-defaults-ksp-runtime-profile-and-platform-scope
+    matchPolicy: Equivalent
+    name: ivpol.mutate.kyverno.svc-fail-finegrained-verify-signed-images
+    namespaceSelector:
+      matchExpressions:
+      - key: kubernetes.io/metadata.name
+        operator: NotIn
+        values:
+        - kube-system
+      - key: kubernetes.io/metadata.name
+        operator: NotIn
+        values:
+        - kyverno
+    objectSelector: {}
+    reinvocationPolicy: Never
+    rules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - pods
+      scope: '*'
+    - apiGroups:
+      - apps
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - daemonsets
+      - deployments
+      - replicasets
+      - statefulsets
+      scope: '*'
+    - apiGroups:
+      - batch
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - cronjobs
+      scope: '*'
+    - apiGroups:
+      - batch
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - jobs
+      scope: '*'
+    sideEffects: NoneOnDryRun
+    timeoutSeconds: 30
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: MutatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2026-08-26T04:38:55Z"
+    generation: 1
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-verify-mutating-webhook-cfg
+    resourceVersion: "16761"
+    uid: 17d4d11b-fa4f-4f5c-8057-c78c9ea6aa87
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTJNRGd5TmpBek16ZzFOVm9YRFRJM01EZ3lOakEwTXpnMU5Wb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NVT1J6TGNaL25tNmVZamdIbTVyTzBCZ0JjUSttd0NQazd4Qm5CVEtDTkNUc3FqYmZkYi8xZWYwajcKNEZuZDZWTnZhRFAzYWE3L1ozQmVLUmttUExTMmlld2ZUNG9qYWtkZmcrOGsxdDFtbHo5TmRqOU5hbWNIbzM3ZApsTHJJcHhBb2RYaVkva204ZFpEYUJRS09wSDFaQVVIL1NPTTNHZ1BZSnFrdTNvYzJiVmtJNDJoWEU4VnNuSzgyClNzZ1QrZlpwNGNlTWczZW9LdFR2V0kxd0plWHEwTUhoTHhNM3BMcmY1Y0ttZzZPZmI4bXZIK0lRREZMTnNDYW8KVzk4RHJNMDVRQWZJL2huS2VTaHJlZEF6eWtmNW1iN0JxcjlLZ0tRMHpHZExhQ05URmwzSUw0WU4rM0dsV0NJLwowbTFnbXVPcSs1OG9nNzRIS2NGaVY4VXJ6Yk1DQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5HVGpNYmkzOWZYZzI0T1FjQ3BSc042UklXTk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFOcW1xQzJ3UXFIaWtBZFc5Rm9KY3hkeEUzZHJtUDkyZXpZQlhWaFlYeAoxZytTZHREOUh2aVUxUE4wbDhqVkRYbnFYV2xWZUtQMElvV3k2TFEzWWwwc0RyTHZ4Vi9SU1JJdnhlc1oxRXdGCnVUN21tNzhYaG10M3NlUktzYjhVR0c4ZHhRK1FTeE42R25UR2w4dWsvZ2RXRTFFUXBFNklFOGtRV0tIbzRsL1cKVjIzWTZsaHpMcXRMbldzalBUeVZtZlplNElKdWlMdVlpMi9sV3dUMnZxaDZvN0IyWkozT3BhY1gyYkwzMS9CbAovU2lBczZaZ1hkbUdIY1ZtWmZMSmwxWE9CKys3T3R0MytTWGhvWkZtbXNLbE9QTXQxMEZkSGgreEFWUzdGU0dxCkRweWRkTGF2ajNHdndvanNSK1p3c1JzT2RtM1NCbjJ0WjZ2VkptbVlXSjhCCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-svc
+        namespace: kyverno
+        path: /verifymutate
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: monitor-webhooks.kyverno.svc
+    namespaceSelector: {}
+    objectSelector:
+      matchLabels:
+        app.kubernetes.io/name: kyverno
+    reinvocationPolicy: IfNeeded
+    rules:
+    - apiGroups:
+      - coordination.k8s.io
+      apiVersions:
+      - v1
+      operations:
+      - UPDATE
+      resources:
+      - leases
+      scope: '*'
+    sideEffects: NoneOnDryRun
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: MutatingWebhookConfiguration
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitoring
+      meta.helm.sh/release-namespace: monitoring
+    creationTimestamp: "2026-09-08T10:19:49Z"
+    generation: 2
+    labels:
+      app: kube-prometheus-stack-admission
+      app.kubernetes.io/component: prometheus-operator-webhook
+      app.kubernetes.io/instance: monitoring
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
+      app.kubernetes.io/part-of: kube-prometheus-stack
+      app.kubernetes.io/version: 89.2.4
+      chart: kube-prometheus-stack-89.2.4
+      heritage: Helm
+      release: monitoring
+    name: monitoring-kube-prometheus-admission
+    resourceVersion: "4700893"
+    uid: 92ee0985-3952-4383-a76c-b65edb3980da
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    - v1beta1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJkRENDQVJ1Z0F3SUJBZ0lRYm4yRi83L3ZCVEhYa3VZbzZHY2ZuekFLQmdncWhrak9QUVFEQWpBUE1RMHcKQ3dZRFZRUUtFd1J1YVd3eE1DQVhEVEkyTURrd09ERXdNVFEwTlZvWUR6SXhNall3T0RFMU1UQXhORFExV2pBUApNUTB3Q3dZRFZRUUtFd1J1YVd3eE1Ga3dFd1lIS29aSXpqMENBUVlJS29aSXpqMERBUWNEUWdBRXQ0SnpsSFVQCjBCWWgwaWVUb0NpUU9QcDkrbU8wZmxCYkdMNnpEeUVPUXVjTVZzZHh0Y1grdFcwTCsxQ3FZdWVJdmtWVUNRaHoKdGsxc3FUVW1MMGpnRGFOWE1GVXdEZ1lEVlIwUEFRSC9CQVFEQWdJRU1CTUdBMVVkSlFRTU1Bb0dDQ3NHQVFVRgpCd01CTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5XcVRSekNuNGVWQTNzZ1dYYUxwZDkvCm95Tm9NQW9HQ0NxR1NNNDlCQU1DQTBjQU1FUUNJQmhOYmpHTmQ0eUo5U1ZadDBveW92NTVIcDltRjBqcUV3UDQKRE0zaEJzcFdBaUJIZEZmM0cvQnRMTFg1ZzF4TjlrS0xYejM1M3pLQW9SdER2WW02NjNqZmx3PT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+      service:
+        name: monitoring-kube-prometheus-operator
+        namespace: monitoring
+        path: /admission-prometheusrules/mutate
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: prometheusrulemutate.monitoring.coreos.com
+    namespaceSelector: {}
+    objectSelector: {}
+    reinvocationPolicy: Never
+    rules:
+    - apiGroups:
+      - monitoring.coreos.com
+      apiVersions:
+      - '*'
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - prometheusrules
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+kind: List
+metadata:
+  resourceVersion: ""

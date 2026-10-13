@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="15" failures="0">
+ <testsuite name="generate-resource-quota" tests="15" failures="0">
+  <testcase classname="generate-resource-quota" name="/namespace-resource-quota">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: /namespace-resource-quota
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="/namespace-resource-quota">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: /namespace-resource-quota
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="/namespace-resource-quota">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: /namespace-resource-quota
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="/namespace-resource-quota">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: /namespace-resource-quota
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="v1/Namespace/default/res-005-negative">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: v1/Namespace/default/res-005-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="v1/Namespace/default/res-005-opt-in-without-environment">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: v1/Namespace/default/res-005-opt-in-without-environment
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="v1/Namespace/default/res-005-opt-in-without-quota-class">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: v1/Namespace/default/res-005-opt-in-without-quota-class
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="v1/Namespace/default/ksp-res-005-unrelated-label">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: v1/Namespace/default/ksp-res-005-unrelated-label
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="v1/Namespace/default/res-005-invalid-environment-prod">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: v1/Namespace/default/res-005-invalid-environment-prod
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="v1/Namespace/default/res-005-invalid-environment-uppercase">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: v1/Namespace/default/res-005-invalid-environment-uppercase
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="v1/Namespace/default/res-005-invalid-quota-class-uppercase">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: v1/Namespace/default/res-005-invalid-quota-class-uppercase
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="v1/Namespace/default/res-005-empty-quota-class">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: v1/Namespace/default/res-005-empty-quota-class
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="/namespace-resource-quota">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: /namespace-resource-quota
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="v1/Namespace/default/ksp-res-005-exception">
+   <system-out><![CDATA[
+    Reason: Excluded
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: v1/Namespace/default/ksp-res-005-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="generate-resource-quota" name="/namespace-resource-quota">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: generate-resource-quota
+    Rule: generate-resource-quota
+    Resource: /namespace-resource-quota
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

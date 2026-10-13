@@ -1,0 +1,28 @@
+# Kubernetes Baseline Template: Job
+# Replace ${...} before applying; see README.md for image/signature requirements.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ${APP_NAME}
+  namespace: ${NAMESPACE}
+  labels:
+    app.kubernetes.io/name: ${APP_NAME}
+    policies.ksp.io/owner: ${OWNER}
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault # KSP-POD-010
+      # KSP-POD-013 permits omitted runAsUser; any explicit value must be > 0.
+      containers:
+        - name: ${CONTAINER_NAME}
+          image: "${IMAGE}@${IMAGE_DIGEST}"
+          resources:
+            requests:
+              cpu: "${CPU_REQUEST}"
+              memory: "${MEMORY_REQUEST}"
+            limits:
+              cpu: "${CPU_LIMIT}"
+              memory: "${MEMORY_LIMIT}"

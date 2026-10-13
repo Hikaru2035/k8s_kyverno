@@ -11,7 +11,6 @@ metadata:
     policies.kyverno.io/severity: critical
     policies.kyverno.io/subject: Pod
     policies.kyverno.io/description: Allows project Harbor plus Kubernetes and Kyverno bootstrap registries in the development source policy.
-    policies.ksp.io/parameter: Production rendering must replace the complete development allowlist from APPROVED_REGISTRIES; bootstrap registries are not production invariants.
     policies.ksp.io/profiles: standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit

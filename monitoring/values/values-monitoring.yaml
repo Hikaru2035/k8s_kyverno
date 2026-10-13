@@ -1,0 +1,17 @@
+grafana:
+  enabled: true
+
+prometheus:
+  enabled: true
+  prometheusSpec:
+    retention: 14d
+    retentionSize: "10GB"
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+
+alertmanager:
+  enabled: true
+
+prometheusOperator:
+  enabled: true

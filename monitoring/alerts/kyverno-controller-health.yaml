@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kyverno-controller-health
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: kyverno.controller-health
+      rules:
+        - alert: KyvernoMetricsTargetDown
+          expr: |
+            up{
+              namespace="kyverno",
+              service=~"kyverno-.*metrics"
+            } == 0
+          for: 2m
+          labels:
+            severity: critical
+            component: kyverno
+          annotations:
+            summary: "Kyverno metrics target is down"
+            description: "Prometheus cannot scrape Kyverno service {{ $labels.service }} at {{ $labels.instance }} for more than 2 minutes."

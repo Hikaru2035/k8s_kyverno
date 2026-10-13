@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="16" failures="0">
+ <testsuite name="approved-registry-allowlist" tests="16" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/img-002-boundary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/img-002-boundary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/img-002-positive">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/img-002-positive
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-002-positive-two-images">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-002-positive-two-images
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/img-002-boundary-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/img-002-boundary-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-002-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-002-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-002-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-002-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-img-002-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-img-002-exception-tertiary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-002-negative-ephemeral-image">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-002-negative-ephemeral-image
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-002-negative-init-image">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-002-negative-init-image
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-002-negative-image-first">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-002-negative-image-first
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-002-negative-image-last">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-002-negative-image-last
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/img-002-negative">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/img-002-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/ksp-img-002-negative-ephemeral-image-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/ksp-img-002-negative-ephemeral-image-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/img-002-boundary-harbor-prefix-bypass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/img-002-boundary-harbor-prefix-bypass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/img-002-boundary-kubernetes-prefix-bypass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/img-002-boundary-kubernetes-prefix-bypass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/img-002-boundary-kyverno-prefix-bypass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: approved-registry-allowlist
+    Rule: 
+    Resource: v1/Pod/policy-test/img-002-boundary-kyverno-prefix-bypass
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

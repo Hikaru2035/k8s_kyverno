@@ -11,7 +11,7 @@ metadata:
     policies.kyverno.io/severity: high
     policies.kyverno.io/subject: Pod
     policies.kyverno.io/description: Requires RuntimeDefault or Localhost seccomp at Pod or container level.
-    policies.ksp.io/profiles: restricted
+    policies.ksp.io/profiles: baseline,standard,restricted
     policies.ksp.io/dev-mode: Audit
     policies.ksp.io/staging-mode: Audit
     policies.ksp.io/prod-mode: Enforce
@@ -41,10 +41,8 @@ spec:
   variables:
   - name: allContainers
     expression: object.spec.containers + object.spec.?initContainers.orValue([]) + object.spec.?ephemeralContainers.orValue([])
-
   - name: allowedSeccompTypes
     expression: '["RuntimeDefault", "Localhost"]'
-
   - name: podSeccompType
     expression: object.spec.?securityContext.?seccompProfile.?type.orValue('')
 
@@ -57,6 +55,4 @@ spec:
         )
           in variables.allowedSeccompTypes
       )
-    message: >-
-      Use seccompProfile.type RuntimeDefault or Localhost; a container override
-      must be independently compliant.
+    message: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.

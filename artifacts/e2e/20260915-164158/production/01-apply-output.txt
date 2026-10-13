@@ -1,0 +1,140 @@
+
+==================================================
+RESOURCE TYPE: namespace
+FILE: k8s-security-framework/tests/e2e/production/namespace/invalid.yaml
+EXPECTED: DENY
+TIME: 2026-09-16T09:17:01+07:00
+==================================================
+Error from server: error when creating "k8s-security-framework/tests/e2e/production/namespace/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-namespace-environment-profile" denied the request: Policy require-namespace-environment-profile failed: Set ksp.io/environment to production for this production cluster.
+EXIT_CODE=1
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: namespace
+FILE: k8s-security-framework/tests/e2e/production/namespace/valid.yaml
+EXPECTED: ADMIT
+TIME: 2026-09-16T09:17:02+07:00
+==================================================
+namespace/e2e-prod-ns-valid created
+EXIT_CODE=0
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: pod
+FILE: k8s-security-framework/tests/e2e/production/pod/invalid.yaml
+EXPECTED: DENY
+TIME: 2026-09-16T09:17:02+07:00
+==================================================
+Error from server: error when creating "k8s-security-framework/tests/e2e/production/pod/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-cpu-request" denied the request: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+EXIT_CODE=1
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: pod
+FILE: k8s-security-framework/tests/e2e/production/pod/valid.yaml
+EXPECTED: ADMIT
+TIME: 2026-09-16T09:17:02+07:00
+==================================================
+pod/e2e-prod-pod-valid created
+EXIT_CODE=0
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: deployment
+FILE: k8s-security-framework/tests/e2e/production/deployment/invalid.yaml
+EXPECTED: DENY
+TIME: 2026-09-16T09:17:11+07:00
+==================================================
+Error from server: error when creating "k8s-security-framework/tests/e2e/production/deployment/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-disallow-latest-tag" denied the request: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+EXIT_CODE=1
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: deployment
+FILE: k8s-security-framework/tests/e2e/production/deployment/valid.yaml
+EXPECTED: ADMIT
+TIME: 2026-09-16T09:17:11+07:00
+==================================================
+deployment.apps/e2e-prod-deployment-valid created
+EXIT_CODE=0
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: statefulset
+FILE: k8s-security-framework/tests/e2e/production/statefulset/invalid.yaml
+EXPECTED: DENY
+TIME: 2026-09-16T09:17:14+07:00
+==================================================
+Error from server: error when creating "k8s-security-framework/tests/e2e/production/statefulset/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-image-digest" denied the request: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+EXIT_CODE=1
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: statefulset
+FILE: k8s-security-framework/tests/e2e/production/statefulset/valid.yaml
+EXPECTED: ADMIT
+TIME: 2026-09-16T09:17:14+07:00
+==================================================
+statefulset.apps/e2e-prod-statefulset-valid created
+EXIT_CODE=0
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: daemonset
+FILE: k8s-security-framework/tests/e2e/production/daemonset/invalid.yaml
+EXPECTED: DENY
+TIME: 2026-09-16T09:17:18+07:00
+==================================================
+Error from server: error when creating "k8s-security-framework/tests/e2e/production/daemonset/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-app-label" denied the request: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+EXIT_CODE=1
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: daemonset
+FILE: k8s-security-framework/tests/e2e/production/daemonset/valid.yaml
+EXPECTED: ADMIT
+TIME: 2026-09-16T09:17:19+07:00
+==================================================
+daemonset.apps/e2e-prod-daemonset-valid created
+EXIT_CODE=0
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: job
+FILE: k8s-security-framework/tests/e2e/production/job/invalid.yaml
+EXPECTED: DENY
+TIME: 2026-09-16T09:17:22+07:00
+==================================================
+Error from server: error when creating "k8s-security-framework/tests/e2e/production/job/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-memory-request" denied the request: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+EXIT_CODE=1
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: job
+FILE: k8s-security-framework/tests/e2e/production/job/valid.yaml
+EXPECTED: ADMIT
+TIME: 2026-09-16T09:17:22+07:00
+==================================================
+job.batch/e2e-prod-job-valid created
+EXIT_CODE=0
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: cronjob
+FILE: k8s-security-framework/tests/e2e/production/cronjob/invalid.yaml
+EXPECTED: DENY
+TIME: 2026-09-16T09:17:25+07:00
+==================================================
+Error from server: error when creating "k8s-security-framework/tests/e2e/production/cronjob/invalid.yaml": admission webhook "vpol.validate.kyverno.svc-fail-finegrained-require-seccomp" denied the request: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+EXIT_CODE=1
+E2E_RESULT=PASS
+
+==================================================
+RESOURCE TYPE: cronjob
+FILE: k8s-security-framework/tests/e2e/production/cronjob/valid.yaml
+EXPECTED: ADMIT
+TIME: 2026-09-16T09:17:25+07:00
+==================================================
+cronjob.batch/e2e-prod-cronjob-valid created
+EXIT_CODE=0
+E2E_RESULT=PASS

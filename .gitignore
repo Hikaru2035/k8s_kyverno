@@ -1,0 +1,3 @@
+# Cosign private keys
+image-security/cosign/**/*.key
+image-security/cosign/*.key

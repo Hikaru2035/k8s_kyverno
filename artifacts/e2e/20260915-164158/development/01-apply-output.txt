@@ -1,0 +1,166 @@
+==================================================
+RESOURCE TYPE: namespace
+FILE: k8s-security-framework/tests/e2e/development/namespace/invalid.yaml
+TIME: 2026-09-16T08:23:30+07:00
+==================================================
+Warning: Policy require-namespace-environment-profile failed: Set ksp.io/environment to dev for this development cluster.
+namespace/e2e-dev-ns-invalid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: namespace
+FILE: k8s-security-framework/tests/e2e/development/namespace/valid.yaml
+TIME: 2026-09-16T08:23:30+07:00
+==================================================
+Warning: Policy require-namespace-environment-profile failed: Set ksp.io/environment to dev for this development cluster.
+namespace/e2e-dev-ns-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: pod
+FILE: k8s-security-framework/tests/e2e/development/pod/invalid.yaml
+TIME: 2026-09-16T08:23:30+07:00
+==================================================
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+pod/e2e-dev-pod-invalid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: pod
+FILE: k8s-security-framework/tests/e2e/development/pod/valid.yaml
+TIME: 2026-09-16T08:23:31+07:00
+==================================================
+pod/e2e-dev-pod-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: deployment
+FILE: k8s-security-framework/tests/e2e/development/deployment/invalid.yaml
+TIME: 2026-09-16T08:23:35+07:00
+==================================================
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+deployment.apps/e2e-dev-deployment-invalid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: deployment
+FILE: k8s-security-framework/tests/e2e/development/deployment/valid.yaml
+TIME: 2026-09-16T08:23:35+07:00
+==================================================
+deployment.apps/e2e-dev-deployment-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: statefulset
+FILE: k8s-security-framework/tests/e2e/development/statefulset/invalid.yaml
+TIME: 2026-09-16T08:23:39+07:00
+==================================================
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+statefulset.apps/e2e-dev-statefulset-invalid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: statefulset
+FILE: k8s-security-framework/tests/e2e/development/statefulset/valid.yaml
+TIME: 2026-09-16T08:23:40+07:00
+==================================================
+statefulset.apps/e2e-dev-statefulset-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: daemonset
+FILE: k8s-security-framework/tests/e2e/development/daemonset/invalid.yaml
+TIME: 2026-09-16T08:23:45+07:00
+==================================================
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+daemonset.apps/e2e-dev-daemonset-invalid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: daemonset
+FILE: k8s-security-framework/tests/e2e/development/daemonset/valid.yaml
+TIME: 2026-09-16T08:23:45+07:00
+==================================================
+daemonset.apps/e2e-dev-daemonset-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: job
+FILE: k8s-security-framework/tests/e2e/development/job/invalid.yaml
+TIME: 2026-09-16T08:23:49+07:00
+==================================================
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+job.batch/e2e-dev-job-invalid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: job
+FILE: k8s-security-framework/tests/e2e/development/job/valid.yaml
+TIME: 2026-09-16T08:23:49+07:00
+==================================================
+job.batch/e2e-dev-job-valid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: cronjob
+FILE: k8s-security-framework/tests/e2e/development/cronjob/invalid.yaml
+TIME: 2026-09-16T08:23:53+07:00
+==================================================
+Warning: Policy require-cpu-request failed: Set resources.requests.cpu on every regular and init container.
+Warning: Policy require-memory-request failed: Set resources.requests.memory on every regular and init container.
+Warning: Policy require-memory-limit failed: Set resources.limits.memory on every regular and init container.
+Warning: Policy require-owner-label failed: Add metadata.labels.policies.ksp.io/owner with the accountable team slug.
+Warning: Policy require-seccomp failed: Use seccompProfile.type RuntimeDefault or Localhost; a container override must be independently compliant.
+Warning: Policy require-app-label failed: Add metadata.labels.app.kubernetes.io/name with a meaningful application name.
+Warning: Policy require-cpu-limit failed: Set resources.limits.cpu on every regular and init container.
+Warning: Policy require-image-digest failed: Reference every image as image@sha256:<64-hex-digest>.
+Warning: Policy disallow-latest-tag failed: Use an explicit version tag or sha256 digest; latest and untagged images are prohibited.
+cronjob.batch/e2e-dev-cronjob-invalid created
+EXIT_CODE=0
+
+==================================================
+RESOURCE TYPE: cronjob
+FILE: k8s-security-framework/tests/e2e/development/cronjob/valid.yaml
+TIME: 2026-09-16T08:23:53+07:00
+==================================================
+cronjob.batch/e2e-dev-cronjob-valid created
+EXIT_CODE=0
+

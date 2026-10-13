@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-update-valid-profile, labels: {ksp.io/environment: dev, ksp.io/profile: restricted}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-update-invalid-profile, labels: {ksp.io/environment: dev, ksp.io/profile: invalid}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: meta-003-update-missing-profile, labels: {ksp.io/environment: dev}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: kube-system}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: calico-system}

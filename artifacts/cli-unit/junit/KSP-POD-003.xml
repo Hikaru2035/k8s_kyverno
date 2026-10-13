@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="0">
+ <testsuite name="disallow-privilege-escalation" tests="13" failures="0">
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-boundary-init-additional-boundary-pass">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-boundary-init-additional-boundary-pass
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-positive-all-types">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-positive-all-types
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-positive-one-container">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-positive-one-container
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-positive-two-compliant">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-positive-two-compliant
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-negative-ephemeral">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-negative-ephemeral
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-negative-init">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-negative-init
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-negative-first">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-negative-first
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-negative-last">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-negative-last
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-negative">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-negative
+   ]]></system-out>
+  </testcase>
+  <testcase classname="" name="v1/Pod/policy-test/pod-003-boundary-ephemeral-additional-boundary-fail">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: 
+    Resource: v1/Pod/policy-test/pod-003-boundary-ephemeral-additional-boundary-fail
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-003-exception">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-003-exception
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-003-exception-secondary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-003-exception-secondary
+   ]]></system-out>
+  </testcase>
+  <testcase classname="exception" name="v1/Pod/policy-test/ksp-pod-003-exception-tertiary">
+   <system-out><![CDATA[
+    Reason: Ok
+    Policy: disallow-privilege-escalation
+    Rule: exception
+    Resource: v1/Pod/policy-test/ksp-pod-003-exception-tertiary
+   ]]></system-out>
+  </testcase>
+ </testsuite>
+</testsuites>

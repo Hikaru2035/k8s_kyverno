@@ -1,0 +1,37 @@
+=== PRODUCTION CLEANUP ===
+Time: 2026-09-16T09:21:20+07:00
+
+DELETE: k8s-security-framework/tests/e2e/production/cronjob/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/production/cronjob/valid.yaml
+cronjob.batch "e2e-prod-cronjob-valid" deleted from ksp-production namespace
+
+DELETE: k8s-security-framework/tests/e2e/production/job/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/production/job/valid.yaml
+job.batch "e2e-prod-job-valid" deleted from ksp-production namespace
+
+DELETE: k8s-security-framework/tests/e2e/production/daemonset/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/production/daemonset/valid.yaml
+daemonset.apps "e2e-prod-daemonset-valid" deleted from ksp-production namespace
+
+DELETE: k8s-security-framework/tests/e2e/production/statefulset/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/production/statefulset/valid.yaml
+statefulset.apps "e2e-prod-statefulset-valid" deleted from ksp-production namespace
+
+DELETE: k8s-security-framework/tests/e2e/production/deployment/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/production/deployment/valid.yaml
+deployment.apps "e2e-prod-deployment-valid" deleted from ksp-production namespace
+
+DELETE: k8s-security-framework/tests/e2e/production/pod/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/production/pod/valid.yaml
+pod "e2e-prod-pod-valid" deleted from ksp-production namespace
+
+DELETE: k8s-security-framework/tests/e2e/production/namespace/invalid.yaml
+
+DELETE: k8s-security-framework/tests/e2e/production/namespace/valid.yaml
+namespace "e2e-prod-ns-valid" deleted

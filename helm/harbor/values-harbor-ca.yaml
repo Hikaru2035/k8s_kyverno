@@ -1,0 +1,14 @@
+admissionController:
+  caCertificates:
+    data: null
+
+  extraVolumes:
+    - name: harbor-ca-bundle
+      configMap:
+        name: kyverno-custom-ca-bundle
+
+  extraVolumeMounts:
+    - name: harbor-ca-bundle
+      mountPath: /etc/ssl/certs/ca-certificates.crt
+      subPath: ca-certificates.crt
+      readOnly: true

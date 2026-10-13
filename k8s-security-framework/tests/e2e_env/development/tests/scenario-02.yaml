@@ -1,0 +1,8 @@
+# Scenario 02: valid Namespace labels
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: e2e-ksp-valid
+  labels:
+    ksp.io/environment: dev
+    ksp.io/profile: standard
