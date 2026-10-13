@@ -28,8 +28,8 @@ node('ksp-tools') {
                         sh """
                             set -eu
                             "${scannerHome}/bin/sonar-scanner" \
-                              -Dsonar.projectKey=k8s-security-framework \
-                              -Dsonar.projectName=k8s-security-framework \
+                              -Dsonar.projectKey=demo-app \
+                              -Dsonar.projectName=demo-app \
                               -Dsonar.sources=. \
                               -Dsonar.sourceEncoding=UTF-8 \
                               -Dsonar.exclusions=**/.git/**,**/.scannerwork/**,**/artifacts/**,**/node_modules/**,**/vendor/**,**/coverage/**,**/dist/**,**/build/**
