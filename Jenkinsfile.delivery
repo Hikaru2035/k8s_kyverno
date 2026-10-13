@@ -18,6 +18,37 @@ node('ksp-tools') {
                 sh 'python3 jenkins/scripts/prepare-artifacts.py delivery'
             }
             stage('Source Check') { delivery('source') }
+            stage('SonarQube Source') {
+                def scannerHome = tool 'sonar-scanner'
+                withSonarQubeEnv(
+                    installationName: 'sonarqube-server',
+                    credentialsId: 'sonarqube-token'
+                ) {
+                    sh """
+                        set -eu
+                        "${scannerHome}/bin/sonar-scanner" \
+                          -Dsonar.projectKey=k8s-security-framework \
+                          -Dsonar.projectName=k8s-security-framework \
+                          -Dsonar.sources=. \
+                          -Dsonar.sourceEncoding=UTF-8 \
+                          -Dsonar.exclusions=**/.git/**,**/.scannerwork/**,**/artifacts/**,**/node_modules/**,**/vendor/**,**/coverage/**,**/dist/**,**/build/**
+                    """
+                }
+            }
+            stage('SonarQube Quality Gate') {
+                timeout(time: 10, unit: 'MINUTES') {
+                    def qualityGate = waitForQualityGate(
+                        abortPipeline: false
+                    )
+                    echo "SonarQube Quality Gate: ${qualityGate.status}"
+
+                    if (qualityGate.status != 'OK') {
+                        error(
+                            "SonarQube Quality Gate failed: ${qualityGate.status}"
+                        )
+                    }
+                }
+            }
             stage('Security Scan') { delivery('security-scan') }
             stage('Build Image') { delivery('build') }
             stage('Image Vulnerability Scan') { delivery('image-scan') }
